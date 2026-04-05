@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HikesMap from "../components/HikesMap";
 import SearchBar from "../components/SearchBar";
-import CoverImage from "../components/CoverImage";
 import { getHikes } from "../data/loader";
 
 export default function Hikes() {
@@ -112,32 +111,24 @@ export default function Hikes() {
                         filteredHikes.map((hike) => (
                             <article
                                 key={hike.id}
-                                className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+                                className="rounded-2xl border border-slate-200 bg-white shadow-sm p-5"
                             >
-                                <CoverImage
-                                    src={hike.image}
-                                    alt={hike.name}
-                                    className="h-48 w-full object-cover"
-                                />
+                                <h3 className="text-xl font-bold text-slate-900">{hike.name}</h3>
+                                <p className="mt-2 text-slate-700">{hike.description}</p>
 
-                                <div className="p-5">
-                                    <h3 className="text-xl font-bold text-slate-900">{hike.name}</h3>
-                                    <p className="mt-2 text-slate-700">{hike.description}</p>
-
-                                    <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-slate-600">
-                                        <p><strong>Distance :</strong> {hike.distance} km</p>
-                                        <p><strong>Difficulté :</strong> {hike.difficulty}</p>
-                                        <p><strong>Durée :</strong> {hike.duration}</p>
-                                        <p><strong>Départ :</strong> {hike.startPoint}</p>
-                                    </div>
-
-                                    <Link
-                                        to={`/hikes/${hike.id}`}
-                                        className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-4 inline-block"
-                                    >
-                                        Voir le détail →
-                                    </Link>
+                                <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-slate-600">
+                                    <p><strong>Distance :</strong> {hike.distance} km</p>
+                                    <p><strong>Difficulté :</strong> {hike.difficulty}</p>
+                                    <p><strong>Durée :</strong> {hike.duration}</p>
+                                    <p><strong>Départ :</strong> {hike.startPoint}</p>
                                 </div>
+
+                                <Link
+                                    to={`/hikes/${hike.id}`}
+                                    className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-4 inline-block"
+                                >
+                                    Voir le détail →
+                                </Link>
                             </article>
                         ))
                     ) : (

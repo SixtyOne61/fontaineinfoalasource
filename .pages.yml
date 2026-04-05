@@ -59,5 +59,4 @@ content:
           - { name: lng, label: Longitude, type: number }
           - { name: startPoint, label: Point de départ, type: string }
           - { name: description, label: Description, type: rich-text }
-          - { name: image, label: Image, type: image, required: false }
           - { name: gpx, label: Fichier GPX, type: string, required: false }

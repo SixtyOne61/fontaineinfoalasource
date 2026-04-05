@@ -1,13 +1,19 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import CoverImage from "../components/CoverImage";
 import HikeTrackMap from "../components/HikeTrackMap";
+import ElevationChart from "../components/ElevationChart";
 import { getHikes } from "../data/loader";
+import { loadGpxTrackData } from "../utils/gpx";
 
 export default function HikeDetail() {
     const { id } = useParams();
     const [hike, setHike] = useState(null);
+    const [elevationData, setElevationData] = useState({
+        elevationProfile: [],
+        minElevation: null,
+        maxElevation: null,
+    });
 
     useEffect(() => {
         getHikes().then((data) => {
@@ -15,6 +21,25 @@ export default function HikeDetail() {
             setHike(found || null);
         });
     }, [id]);
+
+    useEffect(() => {
+        if (!hike?.gpx) {
+            setElevationData({
+                elevationProfile: [],
+                minElevation: null,
+                maxElevation: null,
+            });
+            return;
+        }
+
+        loadGpxTrackData(hike.gpx).then((data) => {
+            setElevationData({
+                elevationProfile: data.elevationProfile,
+                minElevation: data.minElevation,
+                maxElevation: data.maxElevation,
+            });
+        });
+    }, [hike]);
 
     if (!hike) {
         return (
@@ -39,15 +64,9 @@ export default function HikeDetail() {
 
     return (
         <Layout>
-            <article className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-                <div className="overflow-hidden rounded-2xl bg-white border border-slate-200 shadow-sm">
-                    <CoverImage
-                        src={hike.image}
-                        alt={hike.name}
-                        className="h-72 w-full object-cover"
-                    />
-
-                    <div className="p-8">
+            <div className="grid gap-8">
+                <article className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+                    <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-8">
                         <h1 className="text-3xl font-bold text-slate-900 mb-4">{hike.name}</h1>
                         <p className="text-slate-700 mb-6">{hike.description}</p>
 
@@ -108,10 +127,16 @@ export default function HikeDetail() {
                             </Link>
                         </div>
                     </div>
-                </div>
 
-                <HikeTrackMap hike={hike} />
-            </article>
+                    <HikeTrackMap hike={hike} />
+                </article>
+
+                <ElevationChart
+                    profile={elevationData.elevationProfile}
+                    minElevation={elevationData.minElevation}
+                    maxElevation={elevationData.maxElevation}
+                />
+            </div>
         </Layout>
     );
 }

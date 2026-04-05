@@ -8,7 +8,7 @@ import {
     useMap,
 } from "react-leaflet";
 import L from "leaflet";
-import { loadGpxTrack } from "../utils/gpx";
+import { loadGpxTrackData } from "../utils/gpx";
 
 function FitTrackBounds({ track, fallbackPosition }) {
     const map = useMap();
@@ -27,7 +27,6 @@ function FitTrackBounds({ track, fallbackPosition }) {
 
 export default function HikeTrackMap({ hike }) {
     const [track, setTrack] = useState([]);
-    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         let isMounted = true;
@@ -38,12 +37,10 @@ export default function HikeTrackMap({ hike }) {
                 return;
             }
 
-            setLoading(true);
-            const points = await loadGpxTrack(hike.gpx);
+            const data = await loadGpxTrackData(hike.gpx);
 
             if (isMounted) {
-                setTrack(points);
-                setLoading(false);
+                setTrack(data.track);
             }
         }
 
@@ -56,10 +53,7 @@ export default function HikeTrackMap({ hike }) {
 
     if (!hike) return null;
 
-    const fallbackPosition = [
-        hike?.lat ?? 45.7342,
-        hike?.lng ?? 4.8148
-    ];
+    const fallbackPosition = [hike?.lat ?? 45.7342, hike?.lng ?? 4.8148];
 
     return (
         <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-white">

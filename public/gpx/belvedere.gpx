@@ -6,6 +6,8 @@
       <trkpt lat="45.7342" lon="4.8148"></trkpt>
       <trkpt lat="45.7348" lon="4.8160"></trkpt>
       <trkpt lat="45.7355" lon="4.8175"></trkpt>
+      <trkpt lat="45.7360" lon="4.8180"></trkpt>
+        <ele>84.2</ele>
       <trkpt lat="45.7362" lon="4.8183"></trkpt>
     </trkseg>
   </trk>
