@@ -24,7 +24,7 @@ export default function EventDetail() {
                     <p className="text-slate-600 mb-4">
                         L’événement demandé n’existe pas ou n’est plus disponible.
                     </p>
-                    <Link to="/events" className="text-blue-600 hover:underline">
+                    <Link to="/events" className="text-[#1f5e54] hover:text-[#3f977b] hover:underline">
                         Retour à la liste des événements
                     </Link>
                 </div>
@@ -55,7 +55,7 @@ export default function EventDetail() {
                 </div>
 
                 <div className="mt-8">
-                    <Link to="/events" className="text-blue-600 hover:underline">
+                    <Link to="/events" className="text-[#1f5e54] hover:text-[#3f977b] hover:underline">
                         ← Retour aux événements
                     </Link>
                 </div>

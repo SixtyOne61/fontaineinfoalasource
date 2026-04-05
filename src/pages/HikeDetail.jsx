@@ -25,7 +25,7 @@ export default function HikeDetail() {
                     <p className="text-slate-600 mb-4">
                         La randonnée demandée n’existe pas ou n’est plus disponible.
                     </p>
-                    <Link to="/hikes" className="text-blue-600 hover:underline">
+                    <Link to="/hikes" className="text-[#1f5e54] hover:text-[#3f977b] hover:underline">
                         Retour à la liste des randonnées
                     </Link>
                 </div>
@@ -70,7 +70,7 @@ export default function HikeDetail() {
                             href={googleMapsUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="text-blue-600 hover:underline"
+                            className="text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                         >
                             Ouvrir dans Google Maps
                         </a>
@@ -78,14 +78,14 @@ export default function HikeDetail() {
                             href={osmUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="text-blue-600 hover:underline"
+                            className="text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                         >
                             Ouvrir dans OpenStreetMap
                         </a>
                     </div>
 
                     <div className="mt-8">
-                        <Link to="/hikes" className="text-blue-600 hover:underline">
+                        <Link to="/hikes" className="text-[#1f5e54] hover:text-[#3f977b] hover:underline">
                             ← Retour aux randonnées
                         </Link>
                     </div>

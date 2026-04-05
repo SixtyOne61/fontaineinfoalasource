@@ -18,6 +18,14 @@ function FitBounds({ hikes }) {
 export default function HikesMap({ hikes }) {
     const defaultCenter = [45.7342, 4.8148];
 
+    if (!hikes.length) {
+        return (
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm text-slate-600">
+                Aucune randonnée à afficher sur la carte.
+            </div>
+        );
+    }
+
     return (
         <div className="overflow-hidden rounded-2xl shadow-lg border border-slate-200">
             <MapContainer
@@ -53,7 +61,7 @@ export default function HikesMap({ hikes }) {
                                             href={googleMapsUrl}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="text-blue-600 hover:underline text-sm"
+                                            className="text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                                         >
                                             Ouvrir dans Google Maps
                                         </a>
@@ -61,7 +69,7 @@ export default function HikesMap({ hikes }) {
                                             href={osmUrl}
                                             target="_blank"
                                             rel="noreferrer"
-                                            className="text-blue-600 hover:underline text-sm"
+                                            className="text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                                         >
                                             Ouvrir dans OpenStreetMap
                                         </a>

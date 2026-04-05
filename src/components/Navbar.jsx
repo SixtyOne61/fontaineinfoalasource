@@ -1,19 +1,39 @@
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar() {
+    const [isOpen, setIsOpen] = useState(false);
+
     const linkClass = ({ isActive }) =>
         isActive
-            ? "text-white font-semibold border-b-2 border-white pb-1"
-            : "text-blue-100 hover:text-white transition";
+            ? "text-white font-semibold border-b-2 border-[#e1d1ae] pb-1"
+            : "text-[#d7e8e1] hover:text-white transition";
+
+    const mobileLinkClass = ({ isActive }) =>
+        isActive
+            ? "block rounded-xl bg-[#2d7467] px-3 py-2 text-white font-semibold"
+            : "block rounded-xl px-3 py-2 text-[#d7e8e1] hover:bg-[#2d7467] hover:text-white transition";
 
     return (
-        <header className="bg-blue-700 text-white shadow">
-            <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-                <Link to="/" className="text-xl font-bold">
-                    Fontaine Info
+        <header className="bg-[#1f5e54] text-white shadow-md">
+            <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+                <Link to="/" className="flex items-center gap-3 min-w-0">
+                    <img
+                        src="/logo-fontaine.png"
+                        alt="Logo Fontaine de Vaucluse"
+                        className="h-14 w-14 object-contain rounded-full bg-white/10 p-1"
+                    />
+                    <div className="min-w-0">
+                        <p className="text-lg md:text-xl font-bold leading-tight">
+                            Fontaine Info
+                        </p>
+                        <p className="text-sm text-[#d7e8e1] leading-tight">
+                            Fontaine-de-Vaucluse
+                        </p>
+                    </div>
                 </Link>
 
-                <nav className="flex items-center gap-6">
+                <nav className="hidden md:flex items-center gap-6">
                     <NavLink to="/" className={linkClass}>
                         Accueil
                     </NavLink>
@@ -27,7 +47,36 @@ export default function Navbar() {
                         Randonnées
                     </NavLink>
                 </nav>
+
+                <button
+                    type="button"
+                    className="md:hidden inline-flex items-center justify-center rounded-xl border border-[#a7cfc1] px-3 py-2 text-white"
+                    onClick={() => setIsOpen(!isOpen)}
+                    aria-label="Ouvrir le menu"
+                    aria-expanded={isOpen}
+                >
+                    <span className="text-sm font-medium">{isOpen ? "Fermer" : "Menu"}</span>
+                </button>
             </div>
+
+            {isOpen && (
+                <div className="md:hidden px-6 pb-4">
+                    <nav className="flex flex-col gap-2">
+                        <NavLink to="/" className={mobileLinkClass} onClick={() => setIsOpen(false)}>
+                            Accueil
+                        </NavLink>
+                        <NavLink to="/news" className={mobileLinkClass} onClick={() => setIsOpen(false)}>
+                            Actualités
+                        </NavLink>
+                        <NavLink to="/events" className={mobileLinkClass} onClick={() => setIsOpen(false)}>
+                            Événements
+                        </NavLink>
+                        <NavLink to="/hikes" className={mobileLinkClass} onClick={() => setIsOpen(false)}>
+                            Randonnées
+                        </NavLink>
+                    </nav>
+                </div>
+            )}
         </header>
     );
 }
