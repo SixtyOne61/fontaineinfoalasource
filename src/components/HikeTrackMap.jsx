@@ -14,7 +14,7 @@ function FitTrackBounds({ track, fallbackPosition }) {
     const map = useMap();
 
     useEffect(() => {
-        if (track.length > 0) {
+        if (track.length > 1) {
             const bounds = L.latLngBounds(track);
             map.fitBounds(bounds, { padding: [30, 30] });
         } else if (fallbackPosition) {
@@ -27,21 +27,39 @@ function FitTrackBounds({ track, fallbackPosition }) {
 
 export default function HikeTrackMap({ hike }) {
     const [track, setTrack] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (!hike?.gpx) {
-            setTrack([]);
-            return;
+        let isMounted = true;
+
+        async function loadTrack() {
+            if (!hike?.gpx) {
+                setTrack([]);
+                return;
+            }
+
+            setLoading(true);
+            const points = await loadGpxTrack(hike.gpx);
+
+            if (isMounted) {
+                setTrack(points);
+                setLoading(false);
+            }
         }
 
-        loadGpxTrack(hike.gpx).then(setTrack);
+        loadTrack();
+
+        return () => {
+            isMounted = false;
+        };
     }, [hike]);
 
-    const fallbackPosition = hike ? [hike.lat, hike.lng] : [45.7342, 4.8148];
+    if (!hike) return null;
 
-    if (!hike) {
-        return null;
-    }
+    const fallbackPosition = [
+        hike?.lat ?? 45.7342,
+        hike?.lng ?? 4.8148
+    ];
 
     return (
         <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-white">
@@ -58,13 +76,13 @@ export default function HikeTrackMap({ hike }) {
 
                 <FitTrackBounds track={track} fallbackPosition={fallbackPosition} />
 
-                {track.length > 0 && (
+                {track.length > 1 && (
                     <Polyline
                         positions={track}
                         pathOptions={{
                             color: "#1f5e54",
                             weight: 5,
-                            opacity: 0.85,
+                            opacity: 0.9,
                         }}
                     />
                 )}

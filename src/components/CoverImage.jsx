@@ -20,6 +20,7 @@ export default function CoverImage({
             alt={alt}
             className={className}
             loading="lazy"
+            decoding="async"
         />
     );
 }
