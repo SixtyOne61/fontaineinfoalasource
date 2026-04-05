@@ -6,8 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fontaine Info à la Source</title>
 
-  <!-- Netlify Identity Widget -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <script>
+    (function () {
+      const hash = window.location.hash || "";
+      const identityTokens = [
+        "invite_token=",
+        "recovery_token=",
+        "confirmation_token=",
+        "access_token=",
+      ];
+
+      const hasIdentityToken = identityTokens.some((token) =>
+              hash.includes(token)
+      );
+
+      if (hasIdentityToken && !window.location.pathname.startsWith("/admin")) {
+        window.location.replace("/admin/" + hash);
+      }
+    })();
+  </script>
 </head>
 
 <body>
@@ -15,13 +34,12 @@
 
 <script type="module" src="/src/main.jsx"></script>
 
-<!-- Redirection vers /admin/ après connexion -->
 <script>
   if (window.netlifyIdentity) {
     window.netlifyIdentity.on("init", (user) => {
       if (!user) {
         window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
+          window.location.href = "/admin/";
         });
       }
     });
