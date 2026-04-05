@@ -2,19 +2,14 @@
   "items": [
     {
       "id": 1,
-      "title": "Fête du village",
-      "date": "2026-04-10",
-      "excerpt": "Une journée festive pour tous les habitants.",
-      "content": "Grande fête avec animations, stands et concerts.",
-      "image": "/uploads/fete-village.jpg"
-    },
-    {
-      "id": 2,
-      "title": "Travaux sur la route principale",
-      "date": "2026-04-12",
-      "excerpt": "Circulation perturbée pendant 3 jours.",
-      "content": "Des travaux de réfection vont entraîner une fermeture partielle.",
-      "image": "/uploads/travaux-route.jpg"
+      "name": "Test",
+      "distance": 5,
+      "difficulty": "Facile",
+      "duration": "1h00",
+      "lat": 43.923332,
+      "lng": 5.129722,
+      "startPoint": "Test point de départ",
+      "description": "Super point de départ"
     }
   ]
 }
