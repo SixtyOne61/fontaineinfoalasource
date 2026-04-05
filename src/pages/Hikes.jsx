@@ -57,8 +57,8 @@ export default function Hikes() {
     return (
         <Layout>
             <section className="mb-8">
-                <h1 className="text-3xl font-bold text-[#163c35]">Randonnées</h1>
-                <p className="mt-2 text-slate-600 max-w-2xl">
+                <h1 className="text-2xl sm:text-3xl font-bold text-[#163c35]">Randonnées</h1>
+                <p className="mt-2 text-slate-600 max-w-2xl text-sm sm:text-base">
                     Consultez les parcours disponibles autour de la commune, visualisez leur
                     position sur la carte et affichez directement le tracé d’une randonnée.
                 </p>
@@ -70,54 +70,26 @@ export default function Hikes() {
                 placeholder="Rechercher une randonnée..."
             />
 
-            <div className="mb-6 flex flex-wrap gap-3">
-                <button
-                    type="button"
-                    onClick={() => setDifficulty("all")}
-                    className={`rounded-xl px-4 py-2 ${
-                        difficulty === "all"
-                            ? "bg-[#1f5e54] text-white"
-                            : "bg-white border border-[#a7cfc1] text-[#1f5e54]"
-                    }`}
-                >
-                    Toutes
-                </button>
+            <div className="mb-6 grid grid-cols-2 sm:flex sm:flex-wrap gap-3">
+                {["all", "Facile", "Moyen", "Difficile"].map((level) => {
+                    const isActive = difficulty === level;
+                    const label = level === "all" ? "Toutes" : level;
 
-                <button
-                    type="button"
-                    onClick={() => setDifficulty("Facile")}
-                    className={`rounded-xl px-4 py-2 ${
-                        difficulty === "Facile"
-                            ? "bg-[#1f5e54] text-white"
-                            : "bg-white border border-[#a7cfc1] text-[#1f5e54]"
-                    }`}
-                >
-                    Facile
-                </button>
-
-                <button
-                    type="button"
-                    onClick={() => setDifficulty("Moyen")}
-                    className={`rounded-xl px-4 py-2 ${
-                        difficulty === "Moyen"
-                            ? "bg-[#1f5e54] text-white"
-                            : "bg-white border border-[#a7cfc1] text-[#1f5e54]"
-                    }`}
-                >
-                    Moyen
-                </button>
-
-                <button
-                    type="button"
-                    onClick={() => setDifficulty("Difficile")}
-                    className={`rounded-xl px-4 py-2 ${
-                        difficulty === "Difficile"
-                            ? "bg-[#1f5e54] text-white"
-                            : "bg-white border border-[#a7cfc1] text-[#1f5e54]"
-                    }`}
-                >
-                    Difficile
-                </button>
+                    return (
+                        <button
+                            key={level}
+                            type="button"
+                            onClick={() => setDifficulty(level)}
+                            className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${
+                                isActive
+                                    ? "bg-[#1f5e54] text-white"
+                                    : "bg-white border border-[#a7cfc1] text-[#1f5e54]"
+                            }`}
+                        >
+                            {label}
+                        </button>
+                    );
+                })}
             </div>
 
             <section className="mb-8">
@@ -129,26 +101,31 @@ export default function Hikes() {
             </section>
 
             <section>
-                <h2 className="text-2xl font-semibold mb-4 text-[#163c35]">
+                <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-[#163c35]">
                     Liste des parcours
                 </h2>
 
-                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                    {filteredHikes.length > 0 ? (
-                        filteredHikes.map((hike) => {
+                {filteredHikes.length > 0 ? (
+                    <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
+                        {filteredHikes.map((hike) => {
                             const isSelected = selectedHike?.id === hike.id;
 
                             return (
                                 <article
                                     key={hike.id}
-                                    className={`rounded-2xl border bg-white shadow-sm p-5 transition ${
+                                    className={`rounded-2xl border bg-white shadow-sm p-4 sm:p-5 transition ${
                                         isSelected
                                             ? "border-[#3f977b] ring-2 ring-[#d7e8e1]"
                                             : "border-slate-200"
                                     }`}
                                 >
-                                    <h3 className="text-xl font-bold text-slate-900">{hike.name}</h3>
-                                    <p className="mt-2 text-slate-700">{hike.description}</p>
+                                    <h3 className="text-lg sm:text-xl font-bold text-slate-900">
+                                        {hike.name}
+                                    </h3>
+
+                                    <p className="mt-2 text-sm sm:text-base text-slate-700">
+                                        {hike.description}
+                                    </p>
 
                                     <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-slate-600">
                                         <p><strong>Distance :</strong> {hike.distance} km</p>
@@ -157,11 +134,11 @@ export default function Hikes() {
                                         <p><strong>Départ :</strong> {hike.startPoint}</p>
                                     </div>
 
-                                    <div className="mt-4 flex flex-wrap gap-3">
+                                    <div className="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-3">
                                         <button
                                             type="button"
                                             onClick={() => handleSelectHike(hike)}
-                                            className={`rounded-xl px-4 py-2 text-sm font-medium transition ${
+                                            className={`rounded-xl px-4 py-2.5 text-sm font-medium transition ${
                                                 isSelected
                                                     ? "bg-[#1f5e54] text-white"
                                                     : "bg-white border border-[#a7cfc1] text-[#1f5e54] hover:bg-[#d7e8e1]"
@@ -172,20 +149,20 @@ export default function Hikes() {
 
                                         <Link
                                             to={`/hikes/${hike.id}`}
-                                            className="text-[#1f5e54] hover:text-[#3f977b] hover:underline inline-flex items-center"
+                                            className="text-[#1f5e54] hover:text-[#3f977b] hover:underline inline-flex items-center text-sm sm:text-base"
                                         >
                                             Voir le détail →
                                         </Link>
                                     </div>
                                 </article>
                             );
-                        })
-                    ) : (
-                        <p className="text-slate-600">
-                            Aucune randonnée ne correspond à votre recherche.
-                        </p>
-                    )}
-                </div>
+                        })}
+                    </div>
+                ) : (
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm text-slate-600">
+                        Aucune randonnée ne correspond à votre recherche.
+                    </div>
+                )}
             </section>
         </Layout>
     );

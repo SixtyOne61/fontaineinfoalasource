@@ -18,8 +18,8 @@ export default function NewsDetail() {
     if (!article) {
         return (
             <Layout>
-                <div className="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm">
-                    <h1 className="text-2xl font-bold text-slate-900 mb-2">
+                <div className="rounded-2xl bg-white border border-slate-200 p-5 sm:p-8 shadow-sm">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
                         Actualité introuvable
                     </h1>
                     <p className="text-slate-600 mb-4">
@@ -39,15 +39,20 @@ export default function NewsDetail() {
                 <CoverImage
                     src={article.image}
                     alt={article.title}
-                    className="h-72 w-full object-cover"
+                    className="h-56 sm:h-72 w-full object-cover"
                 />
 
-                <div className="p-8">
+                <div className="p-5 sm:p-8">
                     <p className="text-sm text-slate-500 mb-2">{article.date}</p>
-                    <h1 className="text-3xl font-bold text-slate-900 mb-4">{article.title}</h1>
+
+                    <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+                        {article.title}
+                    </h1>
 
                     {article.excerpt && (
-                        <p className="text-lg text-slate-700 mb-6">{article.excerpt}</p>
+                        <p className="text-base sm:text-lg text-slate-700 mb-6">
+                            {article.excerpt}
+                        </p>
                     )}
 
                     <div className="prose max-w-none text-slate-700">

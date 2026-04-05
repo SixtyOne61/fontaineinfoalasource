@@ -44,11 +44,16 @@ export default function Events() {
 
     return (
         <Layout>
-            <h1 className="text-3xl font-bold mb-6 text-[#163c35]">Événements</h1>
+            <section className="mb-8">
+                <h1 className="text-2xl sm:text-3xl font-bold text-[#163c35]">Événements</h1>
+                <p className="mt-2 text-slate-600 max-w-2xl text-sm sm:text-base">
+                    Consultez le calendrier communal et les événements à venir.
+                </p>
+            </section>
 
-            <div className="mb-8">
+            <section className="mb-8">
                 <EventsCalendar events={events} />
-            </div>
+            </section>
 
             <SearchBar
                 value={search}
@@ -56,11 +61,11 @@ export default function Events() {
                 placeholder="Rechercher un événement..."
             />
 
-            <div className="mb-6 flex flex-wrap gap-3">
+            <div className="mb-6 grid grid-cols-2 sm:flex sm:flex-wrap gap-3">
                 <button
                     type="button"
                     onClick={() => setFilterType("upcoming")}
-                    className={`rounded-xl px-4 py-2 ${
+                    className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${
                         filterType === "upcoming"
                             ? "bg-[#1f5e54] text-white"
                             : "bg-white border border-[#a7cfc1] text-[#1f5e54]"
@@ -72,7 +77,7 @@ export default function Events() {
                 <button
                     type="button"
                     onClick={() => setFilterType("past")}
-                    className={`rounded-xl px-4 py-2 ${
+                    className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${
                         filterType === "past"
                             ? "bg-[#1f5e54] text-white"
                             : "bg-white border border-[#a7cfc1] text-[#1f5e54]"
@@ -84,7 +89,7 @@ export default function Events() {
                 <button
                     type="button"
                     onClick={() => setFilterType("all")}
-                    className={`rounded-xl px-4 py-2 ${
+                    className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${
                         filterType === "all"
                             ? "bg-[#1f5e54] text-white"
                             : "bg-white border border-[#a7cfc1] text-[#1f5e54]"
@@ -94,31 +99,35 @@ export default function Events() {
                 </button>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <section>
                 {filteredEvents.length > 0 ? (
-                    filteredEvents.map((event) => (
-                        <Card
-                            key={event.id}
-                            title={event.title}
-                            date={event.date}
-                            image={event.image}
-                        >
-                            <p className="text-slate-700">{event.location}</p>
-                            <p className="mt-2 text-sm text-slate-600 line-clamp-3">
-                                {event.content}
-                            </p>
-                            <Link
-                                to={`/events/${event.id}`}
-                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
+                    <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
+                        {filteredEvents.map((event) => (
+                            <Card
+                                key={event.id}
+                                title={event.title}
+                                date={event.date}
+                                image={event.image}
                             >
-                                Voir le détail →
-                            </Link>
-                        </Card>
-                    ))
+                                <p className="text-slate-700 text-sm sm:text-base">{event.location}</p>
+                                <p className="mt-2 text-sm text-slate-600 line-clamp-3">
+                                    {event.content}
+                                </p>
+                                <Link
+                                    to={`/events/${event.id}`}
+                                    className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
+                                >
+                                    Voir le détail →
+                                </Link>
+                            </Card>
+                        ))}
+                    </div>
                 ) : (
-                    <p className="text-slate-600">Aucun événement ne correspond à votre recherche.</p>
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm text-slate-600">
+                        Aucun événement ne correspond à votre recherche.
+                    </div>
                 )}
-            </div>
+            </section>
         </Layout>
     );
 }

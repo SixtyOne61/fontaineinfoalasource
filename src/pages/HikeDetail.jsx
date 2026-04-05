@@ -44,8 +44,8 @@ export default function HikeDetail() {
     if (!hike) {
         return (
             <Layout>
-                <div className="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm">
-                    <h1 className="text-2xl font-bold text-slate-900 mb-2">
+                <div className="rounded-2xl bg-white border border-slate-200 p-5 sm:p-8 shadow-sm">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
                         Randonnée introuvable
                     </h1>
                     <p className="text-slate-600 mb-4">
@@ -64,11 +64,16 @@ export default function HikeDetail() {
 
     return (
         <Layout>
-            <div className="grid gap-8">
-                <article className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-                    <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-8">
-                        <h1 className="text-3xl font-bold text-slate-900 mb-4">{hike.name}</h1>
-                        <p className="text-slate-700 mb-6">{hike.description}</p>
+            <div className="grid gap-6 sm:gap-8">
+                <article className="grid gap-6 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+                    <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-5 sm:p-8">
+                        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+                            {hike.name}
+                        </h1>
+
+                        <p className="text-slate-700 mb-6 text-sm sm:text-base">
+                            {hike.description}
+                        </p>
 
                         <div className="grid gap-4 sm:grid-cols-2 mb-8">
                             <div className="rounded-xl bg-slate-50 p-4 border border-slate-200">
@@ -92,7 +97,7 @@ export default function HikeDetail() {
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 text-sm sm:text-base">
                             <a
                                 href={googleMapsUrl}
                                 target="_blank"
@@ -101,6 +106,7 @@ export default function HikeDetail() {
                             >
                                 Ouvrir dans Google Maps
                             </a>
+
                             <a
                                 href={osmUrl}
                                 target="_blank"
@@ -109,6 +115,7 @@ export default function HikeDetail() {
                             >
                                 Ouvrir dans OpenStreetMap
                             </a>
+
                             {hike.gpx && (
                                 <a
                                     href={hike.gpx}

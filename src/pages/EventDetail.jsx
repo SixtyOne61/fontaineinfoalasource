@@ -18,8 +18,8 @@ export default function EventDetail() {
     if (!event) {
         return (
             <Layout>
-                <div className="rounded-2xl bg-white border border-slate-200 p-6 shadow-sm">
-                    <h1 className="text-2xl font-bold text-slate-900 mb-2">
+                <div className="rounded-2xl bg-white border border-slate-200 p-5 sm:p-8 shadow-sm">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
                         Événement introuvable
                     </h1>
                     <p className="text-slate-600 mb-4">
@@ -39,14 +39,17 @@ export default function EventDetail() {
                 <CoverImage
                     src={event.image}
                     alt={event.title}
-                    className="h-72 w-full object-cover"
+                    className="h-56 sm:h-72 w-full object-cover"
                 />
 
-                <div className="p-8">
+                <div className="p-5 sm:p-8">
                     <p className="text-sm text-slate-500 mb-2">{event.date}</p>
-                    <h1 className="text-3xl font-bold text-slate-900 mb-4">{event.title}</h1>
 
-                    <div className="grid gap-4 md:grid-cols-2 mb-6">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+                        {event.title}
+                    </h1>
+
+                    <div className="grid gap-4 sm:grid-cols-2 mb-6">
                         <div className="rounded-xl bg-slate-50 p-4 border border-slate-200">
                             <p className="text-sm text-slate-500">Lieu</p>
                             <p className="font-medium text-slate-900">{event.location}</p>

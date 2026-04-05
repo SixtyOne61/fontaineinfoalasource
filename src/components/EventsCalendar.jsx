@@ -75,16 +75,16 @@ export default function EventsCalendar({ events }) {
 
     return (
         <section className="rounded-3xl border border-[#d7e8e1] bg-white p-5 shadow-sm">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6">
-                <h2 className="text-2xl font-bold text-[#163c35] capitalize">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-[#163c35] capitalize">
                     {getMonthLabel(currentMonth)}
                 </h2>
 
-                <div className="flex gap-3">
+                <div className="grid grid-cols-2 gap-3 sm:flex">
                     <button
                         type="button"
                         onClick={goToPreviousMonth}
-                        className="rounded-xl border border-[#a7cfc1] bg-white px-4 py-2 text-[#1f5e54] hover:bg-[#d7e8e1] transition"
+                        className="rounded-xl border border-[#a7cfc1] bg-white px-4 py-2.5 text-[#1f5e54] hover:bg-[#d7e8e1] transition text-sm sm:text-base"
                     >
                         ← Précédent
                     </button>
@@ -92,7 +92,7 @@ export default function EventsCalendar({ events }) {
                     <button
                         type="button"
                         onClick={goToNextMonth}
-                        className="rounded-xl border border-[#a7cfc1] bg-white px-4 py-2 text-[#1f5e54] hover:bg-[#d7e8e1] transition"
+                        className="rounded-xl border border-[#a7cfc1] bg-white px-4 py-2.5 text-[#1f5e54] hover:bg-[#d7e8e1] transition text-sm sm:text-base"
                     >
                         Suivant →
                     </button>

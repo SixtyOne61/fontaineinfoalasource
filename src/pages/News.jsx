@@ -30,7 +30,12 @@ export default function News() {
 
     return (
         <Layout>
-            <h1 className="text-3xl font-bold mb-6 text-[#163c35]">Actualités</h1>
+            <section className="mb-8">
+                <h1 className="text-2xl sm:text-3xl font-bold text-[#163c35]">Actualités</h1>
+                <p className="mt-2 text-slate-600 max-w-2xl text-sm sm:text-base">
+                    Retrouvez toutes les informations récentes de la commune.
+                </p>
+            </section>
 
             <SearchBar
                 value={search}
@@ -38,28 +43,32 @@ export default function News() {
                 placeholder="Rechercher une actualité..."
             />
 
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <section>
                 {filteredNews.length > 0 ? (
-                    filteredNews.map((item) => (
-                        <Card
-                            key={item.id}
-                            title={item.title}
-                            date={item.date}
-                            image={item.image}
-                        >
-                            <p className="text-sm text-slate-700">{item.excerpt}</p>
-                            <Link
-                                to={`/news/${item.id}`}
-                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
+                    <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
+                        {filteredNews.map((item) => (
+                            <Card
+                                key={item.id}
+                                title={item.title}
+                                date={item.date}
+                                image={item.image}
                             >
-                                Lire plus →
-                            </Link>
-                        </Card>
-                    ))
+                                <p className="text-sm text-slate-700">{item.excerpt}</p>
+                                <Link
+                                    to={`/news/${item.id}`}
+                                    className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
+                                >
+                                    Lire plus →
+                                </Link>
+                            </Card>
+                        ))}
+                    </div>
                 ) : (
-                    <p className="text-slate-600">Aucune actualité ne correspond à votre recherche.</p>
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm text-slate-600">
+                        Aucune actualité ne correspond à votre recherche.
+                    </div>
                 )}
-            </div>
+            </section>
         </Layout>
     );
 }

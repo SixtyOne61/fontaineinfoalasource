@@ -87,7 +87,7 @@ export default function HikesInteractiveMap({
                 center={defaultCenter}
                 zoom={13}
                 scrollWheelZoom={true}
-                className="h-[520px] w-full"
+                className="h-[360px] sm:h-[420px] lg:h-[520px] w-full"
             >
                 <TileLayer
                     attribution='&copy; OpenStreetMap contributors'
@@ -123,7 +123,7 @@ export default function HikesInteractiveMap({
                             }}
                         >
                             <Popup>
-                                <div className="min-w-[220px]">
+                                <div className="min-w-[200px]">
                                     <h3 className="font-bold">{hike.name}</h3>
                                     <p>Distance : {hike.distance} km</p>
                                     <p>Difficulté : {hike.difficulty}</p>
