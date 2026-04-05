@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HikesMap from "../components/HikesMap";
 import SearchBar from "../components/SearchBar";
+import CoverImage from "../components/CoverImage";
 import { getHikes } from "../data/loader";
 
 export default function Hikes() {
@@ -36,7 +37,7 @@ export default function Hikes() {
     return (
         <Layout>
             <section className="mb-8">
-                <h1 className="text-3xl font-bold text-slate-900">Randonnées</h1>
+                <h1 className="text-3xl font-bold text-[#163c35]">Randonnées</h1>
                 <p className="mt-2 text-slate-600 max-w-2xl">
                     Consultez les parcours disponibles autour de la commune, visualisez leur
                     position sur la carte et cliquez sur un point pour afficher les détails.
@@ -104,31 +105,39 @@ export default function Hikes() {
             </section>
 
             <section>
-                <h2 className="text-2xl font-semibold mb-4">Liste des parcours</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-[#163c35]">Liste des parcours</h2>
 
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                     {filteredHikes.length > 0 ? (
                         filteredHikes.map((hike) => (
                             <article
                                 key={hike.id}
-                                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                                className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
                             >
-                                <h3 className="text-xl font-bold text-slate-900">{hike.name}</h3>
-                                <p className="mt-2 text-slate-700">{hike.description}</p>
+                                <CoverImage
+                                    src={hike.image}
+                                    alt={hike.name}
+                                    className="h-48 w-full object-cover"
+                                />
 
-                                <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-slate-600">
-                                    <p><strong>Distance :</strong> {hike.distance} km</p>
-                                    <p><strong>Difficulté :</strong> {hike.difficulty}</p>
-                                    <p><strong>Durée :</strong> {hike.duration}</p>
-                                    <p><strong>Départ :</strong> {hike.startPoint}</p>
+                                <div className="p-5">
+                                    <h3 className="text-xl font-bold text-slate-900">{hike.name}</h3>
+                                    <p className="mt-2 text-slate-700">{hike.description}</p>
+
+                                    <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-slate-600">
+                                        <p><strong>Distance :</strong> {hike.distance} km</p>
+                                        <p><strong>Difficulté :</strong> {hike.difficulty}</p>
+                                        <p><strong>Durée :</strong> {hike.duration}</p>
+                                        <p><strong>Départ :</strong> {hike.startPoint}</p>
+                                    </div>
+
+                                    <Link
+                                        to={`/hikes/${hike.id}`}
+                                        className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-4 inline-block"
+                                    >
+                                        Voir le détail →
+                                    </Link>
                                 </div>
-
-                                <Link
-                                    to={`/hikes/${hike.id}`}
-                                    className="text-[#1f5e54] mt-4 inline-block hover:underline"
-                                >
-                                    Voir le détail →
-                                </Link>
                             </article>
                         ))
                     ) : (

@@ -2,25 +2,19 @@
   "items": [
     {
       "id": 1,
-      "name": "Boucle du belvédère",
-      "distance": 6.8,
-      "difficulty": "Facile",
-      "duration": "2h15",
-      "lat": 45.7342,
-      "lng": 4.8148,
-      "description": "Balade familiale avec vue sur la vallée.",
-      "startPoint": "Parking du belvédère"
+      "title": "Fête du village",
+      "date": "2026-04-10",
+      "excerpt": "Une journée festive pour tous les habitants.",
+      "content": "Grande fête avec animations, stands et concerts.",
+      "image": "/uploads/fete-village.jpg"
     },
     {
       "id": 2,
-      "name": "Chemin des crêtes",
-      "distance": 11.4,
-      "difficulty": "Moyen",
-      "duration": "3h45",
-      "lat": 45.741,
-      "lng": 4.826,
-      "description": "Parcours vallonné avec plusieurs points de vue.",
-      "startPoint": "Place de l'église"
+      "title": "Travaux sur la route principale",
+      "date": "2026-04-12",
+      "excerpt": "Circulation perturbée pendant 3 jours.",
+      "content": "Des travaux de réfection vont entraîner une fermeture partielle.",
+      "image": "/uploads/travaux-route.jpg"
     }
   ]
 }

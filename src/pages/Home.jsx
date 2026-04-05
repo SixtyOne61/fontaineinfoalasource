@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Card from "../components/Card";
+import CoverImage from "../components/CoverImage";
 import { getNews, getEvents, getHikes } from "../data/loader";
 
 export default function Home() {
+    const [featuredNews, setFeaturedNews] = useState(null);
     const [news, setNews] = useState([]);
     const [events, setEvents] = useState([]);
     const [hikes, setHikes] = useState([]);
@@ -12,7 +14,8 @@ export default function Home() {
     useEffect(() => {
         getNews().then((data) => {
             const sorted = [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
-            setNews(sorted.slice(0, 3));
+            setFeaturedNews(sorted[0] || null);
+            setNews(sorted.slice(1, 4));
         });
 
         getEvents().then((data) => {
@@ -34,7 +37,7 @@ export default function Home() {
                 <div className="flex flex-col md:flex-row items-center gap-6">
                     <img
                         src="/logo-fontaine.png"
-                        alt="Logo Fontaine de Vaucluse"
+                        alt="Logo Fontaine-de-Vaucluse"
                         className="h-28 w-28 object-contain"
                     />
 
@@ -48,19 +51,68 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="mb-10">
+            {featuredNews && (
+                <section className="mb-12">
+                    <div className="flex items-center justify-between mb-4">
+                        <h2 className="text-2xl font-bold text-[#163c35]">À la une</h2>
+                        <Link
+                            to="/news"
+                            className="text-[#1f5e54] hover:text-[#3f977b] hover:underline font-medium"
+                        >
+                            Voir toutes les actualités
+                        </Link>
+                    </div>
+
+                    <article className="grid overflow-hidden rounded-3xl border border-[#d7e8e1] bg-white shadow-sm md:grid-cols-2">
+                        <CoverImage
+                            src={featuredNews.image}
+                            alt={featuredNews.title}
+                            className="h-72 w-full object-cover md:h-full"
+                        />
+
+                        <div className="p-8 flex flex-col justify-center">
+                            <p className="text-sm text-[#5b7d76] mb-2">{featuredNews.date}</p>
+                            <h3 className="text-3xl font-bold text-[#163c35] mb-4">
+                                {featuredNews.title}
+                            </h3>
+                            <p className="text-slate-700 mb-6">
+                                {featuredNews.excerpt || featuredNews.content}
+                            </p>
+                            <Link
+                                to={`/news/${featuredNews.id}`}
+                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline font-medium"
+                            >
+                                Lire l’actualité →
+                            </Link>
+                        </div>
+                    </article>
+                </section>
+            )}
+
+            <section className="mb-12">
                 <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold">Dernières actualités</h2>
-                    <Link to="/news" className="text-[#1f5e54] font-medium hover:underline">
+                    <h2 className="text-2xl font-bold text-[#163c35]">Dernières actualités</h2>
+                    <Link
+                        to="/news"
+                        className="text-[#1f5e54] hover:text-[#3f977b] hover:underline font-medium"
+                    >
                         Voir toutes les actualités
                     </Link>
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-3">
+                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                     {news.map((item) => (
-                        <Card key={item.id} title={item.title} date={item.date}>
+                        <Card
+                            key={item.id}
+                            title={item.title}
+                            date={item.date}
+                            image={item.image}
+                        >
                             <p className="text-sm text-slate-700">{item.excerpt}</p>
-                            <Link to={`/news/${item.id}`} className="text-[#1f5e54] mt-3 inline-block">
+                            <Link
+                                to={`/news/${item.id}`}
+                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
+                            >
                                 Lire plus →
                             </Link>
                         </Card>
@@ -68,21 +120,29 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="mb-10">
+            <section className="mb-12">
                 <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold">Prochains événements</h2>
-                    <Link to="/events" className="text-[#1f5e54] font-medium hover:underline">
+                    <h2 className="text-2xl font-bold text-[#163c35]">Prochains événements</h2>
+                    <Link
+                        to="/events"
+                        className="text-[#1f5e54] hover:text-[#3f977b] hover:underline font-medium"
+                    >
                         Voir tous les événements
                     </Link>
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-3">
+                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                     {events.map((event) => (
-                        <Card key={event.id} title={event.title} date={event.date}>
+                        <Card
+                            key={event.id}
+                            title={event.title}
+                            date={event.date}
+                            image={event.image}
+                        >
                             <p className="text-sm text-slate-700">{event.location}</p>
                             <Link
                                 to={`/events/${event.id}`}
-                                className="text-[#1f5e54] mt-3 inline-block hover:underline"
+                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
                             >
                                 Voir le détail →
                             </Link>
@@ -93,20 +153,27 @@ export default function Home() {
 
             <section>
                 <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-bold">Randonnées à découvrir</h2>
-                    <Link to="/hikes" className="text-[#1f5e54] font-medium hover:underline">
+                    <h2 className="text-2xl font-bold text-[#163c35]">Randonnées à découvrir</h2>
+                    <Link
+                        to="/hikes"
+                        className="text-[#1f5e54] hover:text-[#3f977b] hover:underline font-medium"
+                    >
                         Voir toutes les randonnées
                     </Link>
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-3">
+                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                     {hikes.map((hike) => (
-                        <Card key={hike.id} title={hike.name}>
+                        <Card
+                            key={hike.id}
+                            title={hike.name}
+                            image={hike.image}
+                        >
                             <p className="text-sm text-slate-700">Distance : {hike.distance} km</p>
                             <p className="text-sm text-slate-700">Difficulté : {hike.difficulty}</p>
                             <Link
                                 to={`/hikes/${hike.id}`}
-                                className="text-[#1f5e54] mt-3 inline-block hover:underline"
+                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
                             >
                                 Voir le détail →
                             </Link>

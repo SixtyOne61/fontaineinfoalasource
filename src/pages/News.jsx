@@ -30,7 +30,7 @@ export default function News() {
 
     return (
         <Layout>
-            <h1 className="text-3xl font-bold mb-6">Actualités</h1>
+            <h1 className="text-3xl font-bold mb-6 text-[#163c35]">Actualités</h1>
 
             <SearchBar
                 value={search}
@@ -38,14 +38,19 @@ export default function News() {
                 placeholder="Rechercher une actualité..."
             />
 
-            <div className="grid gap-4">
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {filteredNews.length > 0 ? (
                     filteredNews.map((item) => (
-                        <Card key={item.id} title={item.title} date={item.date}>
+                        <Card
+                            key={item.id}
+                            title={item.title}
+                            date={item.date}
+                            image={item.image}
+                        >
                             <p className="text-sm text-slate-700">{item.excerpt}</p>
                             <Link
                                 to={`/news/${item.id}`}
-                                className="text-[#1f5e54] mt-3 inline-block hover:underline"
+                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
                             >
                                 Lire plus →
                             </Link>

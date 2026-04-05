@@ -43,7 +43,7 @@ export default function Events() {
 
     return (
         <Layout>
-            <h1 className="text-3xl font-bold mb-6">Événements</h1>
+            <h1 className="text-3xl font-bold mb-6 text-[#163c35]">Événements</h1>
 
             <SearchBar
                 value={search}
@@ -89,15 +89,22 @@ export default function Events() {
                 </button>
             </div>
 
-            <div className="grid gap-4">
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {filteredEvents.length > 0 ? (
                     filteredEvents.map((event) => (
-                        <Card key={event.id} title={event.title} date={event.date}>
+                        <Card
+                            key={event.id}
+                            title={event.title}
+                            date={event.date}
+                            image={event.image}
+                        >
                             <p className="text-slate-700">{event.location}</p>
-                            <p className="mt-2 text-sm text-slate-600">{event.content}</p>
+                            <p className="mt-2 text-sm text-slate-600 line-clamp-3">
+                                {event.content}
+                            </p>
                             <Link
                                 to={`/events/${event.id}`}
-                                className="text-[#1f5e54] mt-3 inline-block hover:underline"
+                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
                             >
                                 Voir le détail →
                             </Link>
