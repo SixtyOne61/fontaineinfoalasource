@@ -43,7 +43,11 @@ export default function EventDetail() {
                 />
 
                 <div className="p-5 sm:p-8">
-                    <p className="text-sm text-slate-500 mb-2">{event.date}</p>
+                    <p className="text-sm text-slate-500 mb-2">
+                        {event.startDate === event.endDate || !event.endDate
+                            ? event.startDate || event.date
+                            : `Du ${event.startDate} au ${event.endDate}`}
+                    </p>
 
                     <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
                         {event.title}

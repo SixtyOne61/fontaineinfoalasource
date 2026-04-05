@@ -34,11 +34,12 @@ content:
         fields:
           - { name: id, label: ID, type: number }
           - { name: title, label: Titre, type: string }
-          - { name: date, label: Date, type: string }
+          - { name: startDate, label: Date de début, type: string }
+          - { name: endDate, label: Date de fin, type: string }
           - { name: location, label: Lieu, type: string }
           - { name: content, label: Description, type: rich-text }
           - { name: image, label: Image, type: image, required: false }
-
+          
   - name: hikes
     label: Randonnées
     path: public/content/hikes/hikes.json

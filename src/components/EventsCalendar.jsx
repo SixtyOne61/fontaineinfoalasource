@@ -37,6 +37,19 @@ function getCalendarDays(currentMonth) {
     return days;
 }
 
+function getDatesInRange(startDate, endDate) {
+    const dates = [];
+    const current = new Date(startDate);
+    const last = new Date(endDate);
+
+    while (current <= last) {
+        dates.push(formatDateKey(current));
+        current.setDate(current.getDate() + 1);
+    }
+
+    return dates;
+}
+
 export default function EventsCalendar({ events }) {
     const [currentMonth, setCurrentMonth] = useState(() => {
         const now = new Date();
@@ -47,11 +60,19 @@ export default function EventsCalendar({ events }) {
         const map = {};
 
         events.forEach((event) => {
-            const key = event.date;
-            if (!map[key]) {
-                map[key] = [];
-            }
-            map[key].push(event);
+            const start = event.startDate || event.date;
+            const end = event.endDate || event.startDate || event.date;
+
+            if (!start || !end) return;
+
+            const allDates = getDatesInRange(start, end);
+
+            allDates.forEach((dateKey) => {
+                if (!map[dateKey]) {
+                    map[dateKey] = [];
+                }
+                map[dateKey].push(event);
+            });
         });
 
         return map;
@@ -139,7 +160,7 @@ export default function EventsCalendar({ events }) {
                                     <div className="flex flex-col gap-1">
                                         {dayEvents.map((event) => (
                                             <Link
-                                                key={event.id}
+                                                key={`${event.id}-${key}`}
                                                 to={`/events/${event.id}`}
                                                 className="rounded-lg bg-[#d7e8e1] px-2 py-1 text-xs text-[#163c35] hover:bg-[#a7cfc1] transition line-clamp-2"
                                                 title={event.title}

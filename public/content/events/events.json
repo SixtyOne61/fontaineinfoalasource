@@ -2,19 +2,21 @@
   "items": [
     {
       "id": 1,
-      "title": "Fête du village",
-      "date": "2026-04-10",
-      "excerpt": "Une journée festive pour tous les habitants.",
-      "content": "Grande fête avec animations, stands et concerts.",
-      "image": "/uploads/fete-village.jpg"
+      "title": "Marché local",
+      "startDate": "2026-04-15",
+      "endDate": "2026-04-15",
+      "location": "Place centrale",
+      "content": "Marché hebdomadaire avec producteurs locaux.",
+      "image": "/uploads/marche-local.jpg"
     },
     {
       "id": 2,
-      "title": "Travaux sur la route principale",
-      "date": "2026-04-12",
-      "excerpt": "Circulation perturbée pendant 3 jours.",
-      "content": "Des travaux de réfection vont entraîner une fermeture partielle.",
-      "image": "/uploads/travaux-route.jpg"
+      "title": "Festival de printemps",
+      "startDate": "2026-04-20",
+      "endDate": "2026-04-23",
+      "location": "Centre du village",
+      "content": "Animations, concerts et stands pendant 4 jours.",
+      "image": "/uploads/festival-printemps.jpg"
     }
   ]
 }

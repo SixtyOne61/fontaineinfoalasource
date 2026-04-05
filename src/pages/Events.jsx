@@ -23,10 +23,11 @@ export default function Events() {
 
         return events
             .filter((event) => {
-                const eventDate = new Date(event.date);
+                const start = new Date(event.startDate || event.date);
+                const end = new Date(event.endDate || event.startDate || event.date);
 
-                if (filterType === "upcoming" && eventDate < today) return false;
-                if (filterType === "past" && eventDate >= today) return false;
+                if (filterType === "upcoming" && end < today) return false;
+                if (filterType === "past" && end >= today) return false;
 
                 return (
                     event.title?.toLowerCase().includes(term) ||
@@ -35,32 +36,53 @@ export default function Events() {
                 );
             })
             .sort((a, b) => {
+                const aStart = new Date(a.startDate || a.date);
+                const bStart = new Date(b.startDate || b.date);
+
                 if (filterType === "past") {
-                    return new Date(b.date) - new Date(a.date);
+                    return bStart - aStart;
                 }
-                return new Date(a.date) - new Date(b.date);
+                return aStart - bStart;
             });
     }, [events, search, filterType]);
+
+    function formatEventDate(event) {
+        const start = event.startDate || event.date;
+        const end = event.endDate || event.startDate || event.date;
+
+        if (!start) return "";
+
+        if (!end || start === end) {
+            return start;
+        }
+
+        return `Du ${start} au ${end}`;
+    }
 
     return (
         <Layout>
             <section className="mb-8">
-                <h1 className="text-2xl sm:text-3xl font-bold text-[#163c35]">Événements</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold text-[#163c35]">
+                    Événements
+                </h1>
                 <p className="mt-2 text-slate-600 max-w-2xl text-sm sm:text-base">
                     Consultez le calendrier communal et les événements à venir.
                 </p>
             </section>
 
+            {/* 📅 CALENDRIER */}
             <section className="mb-8">
                 <EventsCalendar events={events} />
             </section>
 
+            {/* 🔍 RECHERCHE */}
             <SearchBar
                 value={search}
                 onChange={setSearch}
                 placeholder="Rechercher un événement..."
             />
 
+            {/* 🎛️ FILTRES */}
             <div className="mb-6 grid grid-cols-2 sm:flex sm:flex-wrap gap-3">
                 <button
                     type="button"
@@ -99,6 +121,7 @@ export default function Events() {
                 </button>
             </div>
 
+            {/* 📋 LISTE */}
             <section>
                 {filteredEvents.length > 0 ? (
                     <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -106,13 +129,17 @@ export default function Events() {
                             <Card
                                 key={event.id}
                                 title={event.title}
-                                date={event.date}
+                                date={formatEventDate(event)}
                                 image={event.image}
                             >
-                                <p className="text-slate-700 text-sm sm:text-base">{event.location}</p>
+                                <p className="text-slate-700 text-sm sm:text-base">
+                                    {event.location}
+                                </p>
+
                                 <p className="mt-2 text-sm text-slate-600 line-clamp-3">
                                     {event.content}
                                 </p>
+
                                 <Link
                                     to={`/events/${event.id}`}
                                     className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
