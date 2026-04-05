@@ -1,3 +1,18 @@
-[
-  { "title": "Marché local", "date": "2026-04-12", "location": "Place centrale" }
-]
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "Marché local",
+      "date": "2026-04-15",
+      "location": "Place centrale",
+      "content": "Marché hebdomadaire avec producteurs locaux."
+    },
+    {
+      "id": 2,
+      "title": "Cinéma en plein air",
+      "date": "2026-04-20",
+      "location": "Parc municipal",
+      "content": "Projection gratuite en soirée."
+    }
+  ]
+}

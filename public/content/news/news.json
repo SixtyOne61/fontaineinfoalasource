@@ -1,4 +1,20 @@
-[
-  { "id": 1, "title": "Fête du village", "date": "2026-04-10", "content": "Grande fête avec animations" },
-  { "id": 2, "title": "Travaux route", "date": "2026-04-12", "content": "Route fermée pendant 3 jours" }
-]
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "Fête du village",
+      "date": "2026-04-10",
+      "excerpt": "Une journée festive pour tous les habitants.",
+      "content": "Grande fête avec animations, stands et concerts.",
+      "image": ""
+    },
+    {
+      "id": 2,
+      "title": "Travaux sur la route principale",
+      "date": "2026-04-12",
+      "excerpt": "Circulation perturbée pendant 3 jours.",
+      "content": "Des travaux de réfection vont entraîner une fermeture partielle.",
+      "image": ""
+    }
+  ]
+}

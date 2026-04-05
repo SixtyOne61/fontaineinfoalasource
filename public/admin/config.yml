@@ -1,0 +1,64 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: false
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+locale: "fr"
+
+collections:
+  - name: "site_content"
+    label: "Contenus du site"
+    files:
+      - label: "Actualités"
+        name: "news"
+        file: "public/content/news/news.json"
+        fields:
+          - label: "Actualités"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Titre", name: "title", widget: "string" }
+              - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+              - { label: "Résumé", name: "excerpt", widget: "text", required: false }
+              - { label: "Contenu", name: "content", widget: "markdown" }
+              - { label: "Image", name: "image", widget: "image", required: false }
+
+      - label: "Événements"
+        name: "events"
+        file: "public/content/events/events.json"
+        fields:
+          - label: "Événements"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Titre", name: "title", widget: "string" }
+              - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+              - { label: "Lieu", name: "location", widget: "string" }
+              - { label: "Description", name: "content", widget: "markdown" }
+
+      - label: "Randonnées"
+        name: "hikes"
+        file: "public/content/hikes/hikes.json"
+        fields:
+          - label: "Randonnées"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int" }
+              - { label: "Nom", name: "name", widget: "string" }
+              - { label: "Distance (km)", name: "distance", widget: "number", value_type: "float" }
+              - { label: "Difficulté", name: "difficulty", widget: "select", options: ["Facile", "Moyen", "Difficile"] }
+              - { label: "Durée", name: "duration", widget: "string" }
+              - { label: "Latitude", name: "lat", widget: "number", value_type: "float" }
+              - { label: "Longitude", name: "lng", widget: "number", value_type: "float" }
+              - { label: "Point de départ", name: "startPoint", widget: "string" }
+              - { label: "Description", name: "description", widget: "markdown" }
