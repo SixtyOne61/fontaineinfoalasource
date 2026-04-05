@@ -6,15 +6,14 @@
       "date": "2026-04-10",
       "excerpt": "Une journée festive pour tous les habitants.",
       "content": "Grande fête avec animations, stands et concerts.",
-      "image": ""
+      "image": "/uploads/Capture d'écran 2023-04-02 222213.png"
     },
     {
       "id": 2,
       "title": "Travaux sur la route principale",
       "date": "2026-04-12",
       "excerpt": "Circulation perturbée pendant 3 jours.",
-      "content": "Des travaux de réfection vont entraîner une fermeture partielle.",
-      "image": ""
+      "content": "Des travaux de réfection vont entraîner une fermeture partielle."
     }
   ]
 }
