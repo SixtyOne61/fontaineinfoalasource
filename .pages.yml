@@ -1,0 +1,60 @@
+media:
+  input: public/uploads
+  output: /uploads
+
+content:
+  - name: news
+    label: Actualités
+    type: file
+    path: public/content/news/news.json
+    format: json
+    fields:
+      - name: items
+        label: Actualités
+        type: object
+        list: true
+        fields:
+          - { name: id, label: ID, type: number }
+          - { name: title, label: Titre, type: string }
+          - { name: date, label: Date, type: string }
+          - { name: excerpt, label: Résumé, type: string, required: false }
+          - { name: content, label: Contenu, type: rich-text }
+          - { name: image, label: Image, type: image, required: false }
+
+  - name: events
+    label: Événements
+    type: file
+    path: public/content/events/events.json
+    format: json
+    fields:
+      - name: items
+        label: Événements
+        type: object
+        list: true
+        fields:
+          - { name: id, label: ID, type: number }
+          - { name: title, label: Titre, type: string }
+          - { name: date, label: Date, type: string }
+          - { name: location, label: Lieu, type: string }
+          - { name: content, label: Description, type: rich-text }
+
+  - name: hikes
+    label: Randonnées
+    type: file
+    path: public/content/hikes/hikes.json
+    format: json
+    fields:
+      - name: items
+        label: Randonnées
+        type: object
+        list: true
+        fields:
+          - { name: id, label: ID, type: number }
+          - { name: name, label: Nom, type: string }
+          - { name: distance, label: Distance, type: number }
+          - { name: difficulty, label: Difficulté, type: string }
+          - { name: duration, label: Durée, type: string }
+          - { name: lat, label: Latitude, type: number }
+          - { name: lng, label: Longitude, type: number }
+          - { name: startPoint, label: Point de départ, type: string }
+          - { name: description, label: Description, type: rich-text }

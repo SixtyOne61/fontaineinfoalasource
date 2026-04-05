@@ -5,45 +5,9 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fontaine Info à la Source</title>
-
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-  <script>
-    (function () {
-      const hash = window.location.hash || "";
-      const identityTokens = [
-        "invite_token=",
-        "recovery_token=",
-        "confirmation_token=",
-        "access_token=",
-      ];
-
-      const hasIdentityToken = identityTokens.some((token) =>
-              hash.includes(token)
-      );
-
-      if (hasIdentityToken && !window.location.pathname.startsWith("/admin")) {
-        window.location.replace("/admin/" + hash);
-      }
-    })();
-  </script>
 </head>
-
 <body>
 <div id="root"></div>
-
 <script type="module" src="/src/main.jsx"></script>
-
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", (user) => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          window.location.href = "/admin/";
-        });
-      }
-    });
-  }
-</script>
 </body>
 </html>
