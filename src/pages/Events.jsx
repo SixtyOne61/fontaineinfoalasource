@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Card from "../components/Card";
 import SearchBar from "../components/SearchBar";
+import EventsCalendar from "../components/EventsCalendar";
 import { getEvents } from "../data/loader";
 
 export default function Events() {
@@ -44,6 +45,10 @@ export default function Events() {
     return (
         <Layout>
             <h1 className="text-3xl font-bold mb-6 text-[#163c35]">Événements</h1>
+
+            <div className="mb-8">
+                <EventsCalendar events={events} />
+            </div>
 
             <SearchBar
                 value={search}
