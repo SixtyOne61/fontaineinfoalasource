@@ -2,14 +2,29 @@
   "items": [
     {
       "id": 1,
-      "name": "Test",
-      "distance": 5,
+      "name": "Boucle du belvédère",
+      "distance": 6.8,
       "difficulty": "Facile",
-      "duration": "1h00",
-      "lat": 43.923332,
-      "lng": 5.129722,
-      "startPoint": "Test point de départ",
-      "description": "Super point de départ"
+      "duration": "2h15",
+      "lat": 45.7342,
+      "lng": 4.8148,
+      "description": "Balade familiale avec vue sur la vallée.",
+      "startPoint": "Parking du belvédère",
+      "image": "/uploads/belvedere.jpg",
+      "gpx": "/gpx/belvedere.gpx"
+    },
+    {
+      "id": 2,
+      "name": "Chemin des crêtes",
+      "distance": 11.4,
+      "difficulty": "Moyen",
+      "duration": "3h45",
+      "lat": 45.741,
+      "lng": 4.826,
+      "description": "Parcours vallonné avec plusieurs points de vue.",
+      "startPoint": "Place de l'église",
+      "image": "/uploads/chemin-cretes.jpg",
+      "gpx": "/gpx/chemin-cretes.gpx"
     }
   ]
 }

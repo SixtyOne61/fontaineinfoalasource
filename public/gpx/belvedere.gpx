@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Exemple">
+  <trk>
+    <name>Boucle du belvédère</name>
+    <trkseg>
+      <trkpt lat="45.7342" lon="4.8148"></trkpt>
+      <trkpt lat="45.7348" lon="4.8160"></trkpt>
+      <trkpt lat="45.7355" lon="4.8175"></trkpt>
+      <trkpt lat="45.7362" lon="4.8183"></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

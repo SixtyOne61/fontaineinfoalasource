@@ -1,8 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import Layout from "../components/Layout";
 import CoverImage from "../components/CoverImage";
+import HikeTrackMap from "../components/HikeTrackMap";
 import { getHikes } from "../data/loader";
 
 export default function HikeDetail() {
@@ -90,6 +90,16 @@ export default function HikeDetail() {
                             >
                                 Ouvrir dans OpenStreetMap
                             </a>
+                            {hike.gpx && (
+                                <a
+                                    href={hike.gpx}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="text-[#1f5e54] hover:text-[#3f977b] hover:underline"
+                                >
+                                    Télécharger le fichier GPX
+                                </a>
+                            )}
                         </div>
 
                         <div className="mt-8">
@@ -100,28 +110,7 @@ export default function HikeDetail() {
                     </div>
                 </div>
 
-                <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-white">
-                    <MapContainer
-                        center={[hike.lat, hike.lng]}
-                        zoom={14}
-                        scrollWheelZoom={true}
-                        className="h-[500px] w-full"
-                    >
-                        <TileLayer
-                            attribution='&copy; OpenStreetMap contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-                        <Marker position={[hike.lat, hike.lng]}>
-                            <Popup>
-                                <div className="min-w-[200px]">
-                                    <h3 className="font-bold">{hike.name}</h3>
-                                    <p>Distance : {hike.distance} km</p>
-                                    <p>Difficulté : {hike.difficulty}</p>
-                                </div>
-                            </Popup>
-                        </Marker>
-                    </MapContainer>
-                </div>
+                <HikeTrackMap hike={hike} />
             </article>
         </Layout>
     );
