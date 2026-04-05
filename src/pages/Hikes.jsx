@@ -2,27 +2,28 @@ import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import HikesMap from "../components/HikesMap";
 import { getHikes } from "../data/loader";
-import FixLeafletIcon from "../components/FixLeafletIcon";
 
 export default function Hikes() {
     const [hikes, setHikes] = useState([]);
 
     useEffect(() => {
-        getHikes().then(setHikes);
+        getHikes().then((data) => {
+            const sorted = [...data].sort((a, b) => a.distance - b.distance);
+            setHikes(sorted);
+        });
     }, []);
 
     return (
         <Layout>
             <section className="mb-8">
                 <h1 className="text-3xl font-bold text-slate-900">Randonnées</h1>
-                <p className="mt-2 text-slate-600">
-                    Retrouvez les sentiers de la commune et cliquez sur les points de la carte
-                    pour voir les informations principales.
+                <p className="mt-2 text-slate-600 max-w-2xl">
+                    Consultez les parcours disponibles autour de la commune, visualisez leur
+                    position sur la carte et cliquez sur un point pour afficher les détails.
                 </p>
             </section>
 
             <section className="mb-8">
-                <FixLeafletIcon />
                 <HikesMap hikes={hikes} />
             </section>
 

@@ -1,9 +1,9 @@
 export default function Card({ title, date, children }) {
     return (
-        <div className="border rounded-xl p-4 shadow hover:shadow-lg transition">
-            <h2 className="text-xl font-bold">{title}</h2>
-            {date && <p className="text-gray-500">{date}</p>}
-            <div className="mt-2">{children}</div>
-        </div>
+        <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition">
+            <h2 className="text-xl font-bold text-slate-900">{title}</h2>
+            {date && <p className="text-sm text-slate-500 mt-1">{date}</p>}
+            <div className="mt-3">{children}</div>
+        </article>
     );
 }
