@@ -11,6 +11,7 @@ import Events from "./pages/Events";
 import EventDetail from "./pages/EventDetail";
 import Hikes from "./pages/Hikes";
 import HikeDetail from "./pages/HikeDetail";
+import Parking from "./pages/Parking";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 <Route path="/events/:id" element={<EventDetail />} />
                 <Route path="/hikes" element={<Hikes />} />
                 <Route path="/hikes/:id" element={<HikeDetail />} />
+                <Route path="/parking" element={<Parking />} />
             </Routes>
         </BrowserRouter>
     </React.StrictMode>

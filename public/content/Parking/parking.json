@@ -1,0 +1,30 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Parking Centre",
+      "lat": 43.9221,
+      "lng": 5.1278,
+      "address": "Place du centre",
+      "cars": true,
+      "motorcycles": true,
+      "campers": false,
+      "hourlyRate": "2€ / heure",
+      "dailyRate": "12€ / jour",
+      "notes": "Ouvert toute l'année"
+    },
+    {
+      "id": 2,
+      "name": "Parking Vallon",
+      "lat": 43.9234,
+      "lng": 5.1292,
+      "address": "Entrée du vallon",
+      "cars": true,
+      "motorcycles": true,
+      "campers": true,
+      "hourlyRate": "3€ / heure",
+      "dailyRate": "18€ / jour",
+      "notes": "Hauteur limitée à certaines zones"
+    }
+  ]
+}

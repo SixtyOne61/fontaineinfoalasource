@@ -46,6 +46,9 @@ export default function Navbar() {
                     <NavLink to="/hikes" className={linkClass}>
                         Randonnées
                     </NavLink>
+                    <NavLink to="/parking" className={linkClass}>
+                        Parkings
+                    </NavLink>
                 </nav>
 
                 <button
@@ -73,6 +76,9 @@ export default function Navbar() {
                         </NavLink>
                         <NavLink to="/hikes" className={mobileLinkClass} onClick={() => setIsOpen(false)}>
                             Randonnées
+                        </NavLink>
+                        <NavLink to="/parking" className={mobileLinkClass} onClick={() => setIsOpen(false)}>
+                            Parkings
                         </NavLink>
                     </nav>
                 </div>

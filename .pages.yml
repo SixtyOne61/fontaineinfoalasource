@@ -61,3 +61,26 @@ content:
           - { name: startPoint, label: Point de départ, type: string }
           - { name: description, label: Description, type: rich-text }
           - { name: gpx, label: Fichier GPX, type: string, required: false }
+
+  - name: parkings
+    label: Parkings
+    path: public/content/parkings/parkings.json
+    type: file
+    format: json
+    fields:
+      - name: items
+        label: Parkings
+        type: object
+        list: true
+        fields:
+          - { name: id, label: ID, type: number }
+          - { name: name, label: Nom, type: string }
+          - { name: lat, label: Latitude, type: number }
+          - { name: lng, label: Longitude, type: number }
+          - { name: address, label: Adresse, type: string }
+          - { name: cars, label: Voitures autorisées, type: boolean }
+          - { name: motorcycles, label: Motos autorisées, type: boolean }
+          - { name: campers, label: Camping-cars autorisés, type: boolean }
+          - { name: hourlyRate, label: Tarif horaire, type: string }
+          - { name: dailyRate, label: Tarif journée, type: string }
+          - { name: notes, label: Notes, type: string, required: false }

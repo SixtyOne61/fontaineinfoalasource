@@ -15,3 +15,10 @@ export async function getHikes() {
     const data = await res.json();
     return data.items || [];
 }
+
+
+export async function getParkings() {
+    const res = await fetch("/content/parkings/parkings.json");
+    const data = await res.json();
+    return data.items || [];
+}
