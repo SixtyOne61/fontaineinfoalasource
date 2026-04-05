@@ -3,12 +3,21 @@
   <trk>
     <name>Boucle du belvédère</name>
     <trkseg>
-      <trkpt lat="45.7342" lon="4.8148"></trkpt>
-      <trkpt lat="45.7348" lon="4.8160"></trkpt>
-      <trkpt lat="45.7355" lon="4.8175"></trkpt>
-      <trkpt lat="45.7360" lon="4.8180"></trkpt>
+      <trkpt lat="45.7342" lon="4.8148">
+        <ele>80.0</ele>
+      </trkpt>
+      <trkpt lat="45.7348" lon="4.8160">
+        <ele>81.5</ele>
+      </trkpt>
+      <trkpt lat="45.7355" lon="4.8175">
+        <ele>83.0</ele>
+      </trkpt>
+      <trkpt lat="45.7360" lon="4.8180">
         <ele>84.2</ele>
-      <trkpt lat="45.7362" lon="4.8183"></trkpt>
+      </trkpt>
+      <trkpt lat="45.7362" lon="4.8183">
+        <ele>82.2</ele>
+      </trkpt>
     </trkseg>
   </trk>
 </gpx>
