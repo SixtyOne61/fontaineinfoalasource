@@ -8,7 +8,9 @@ import Home from "./pages/Home";
 import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
 import Events from "./pages/Events";
+import EventDetail from "./pages/EventDetail";
 import Hikes from "./pages/Hikes";
+import HikeDetail from "./pages/HikeDetail";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
@@ -18,7 +20,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 <Route path="/news" element={<News />} />
                 <Route path="/news/:id" element={<NewsDetail />} />
                 <Route path="/events" element={<Events />} />
+                <Route path="/events/:id" element={<EventDetail />} />
                 <Route path="/hikes" element={<Hikes />} />
+                <Route path="/hikes/:id" element={<HikeDetail />} />
             </Routes>
         </BrowserRouter>
     </React.StrictMode>

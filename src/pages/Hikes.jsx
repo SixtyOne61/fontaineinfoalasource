@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import HikesMap from "../components/HikesMap";
 import { getHikes } from "../data/loader";
@@ -45,6 +46,13 @@ export default function Hikes() {
                                 <p><strong>Durée :</strong> {hike.duration}</p>
                                 <p><strong>Départ :</strong> {hike.startPoint}</p>
                             </div>
+
+                            <Link
+                                to={`/hikes/${hike.id}`}
+                                className="text-blue-600 mt-4 inline-block hover:underline"
+                            >
+                                Voir le détail →
+                            </Link>
                         </article>
                     ))}
                 </div>

@@ -70,6 +70,12 @@ export default function Home() {
                     {events.map((event) => (
                         <Card key={event.id} title={event.title} date={event.date}>
                             <p className="text-sm text-slate-700">{event.location}</p>
+                            <Link
+                                to={`/events/${event.id}`}
+                                className="text-blue-600 mt-3 inline-block hover:underline"
+                            >
+                                Voir le détail →
+                            </Link>
                         </Card>
                     ))}
                 </div>
@@ -88,6 +94,12 @@ export default function Home() {
                         <Card key={hike.id} title={hike.name}>
                             <p className="text-sm text-slate-700">Distance : {hike.distance} km</p>
                             <p className="text-sm text-slate-700">Difficulté : {hike.difficulty}</p>
+                            <Link
+                                to={`/hikes/${hike.id}`}
+                                className="text-blue-600 mt-3 inline-block hover:underline"
+                            >
+                                Voir le détail →
+                            </Link>
                         </Card>
                     ))}
                 </div>

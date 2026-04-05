@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Card from "../components/Card";
 import { getEvents } from "../data/loader";
@@ -36,6 +37,12 @@ export default function Events() {
                             <Card key={event.id} title={event.title} date={event.date}>
                                 <p className="text-slate-700">{event.location}</p>
                                 <p className="mt-2 text-sm text-slate-600">{event.content}</p>
+                                <Link
+                                    to={`/events/${event.id}`}
+                                    className="text-blue-600 mt-3 inline-block hover:underline"
+                                >
+                                    Voir le détail →
+                                </Link>
                             </Card>
                         ))
                     ) : (
@@ -51,6 +58,12 @@ export default function Events() {
                         pastEvents.map((event) => (
                             <Card key={event.id} title={event.title} date={event.date}>
                                 <p className="text-slate-700">{event.location}</p>
+                                <Link
+                                    to={`/events/${event.id}`}
+                                    className="text-blue-600 mt-3 inline-block hover:underline"
+                                >
+                                    Voir le détail →
+                                </Link>
                             </Card>
                         ))
                     ) : (
