@@ -5,8 +5,8 @@ media:
 content:
   - name: news
     label: Actualités
-    type: file
     path: public/content/news/news.json
+    type: file
     format: json
     fields:
       - name: items
@@ -23,8 +23,8 @@ content:
 
   - name: events
     label: Événements
-    type: file
     path: public/content/events/events.json
+    type: file
     format: json
     fields:
       - name: items
@@ -40,8 +40,8 @@ content:
 
   - name: hikes
     label: Randonnées
-    type: file
     path: public/content/hikes/hikes.json
+    type: file
     format: json
     fields:
       - name: items
