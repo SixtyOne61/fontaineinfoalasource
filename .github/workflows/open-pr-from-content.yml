@@ -1,0 +1,54 @@
+name: Open PR from content
+
+on:
+  push:
+    branches:
+      - content
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  open-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create PR if none exists
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const head = `${owner}:content`;
+            const base = "main";
+
+            const { data: existing } = await github.rest.pulls.list({
+              owner,
+              repo,
+              state: "open",
+              head,
+              base,
+            });
+
+            if (existing.length > 0) {
+              core.info(`PR already exists: #${existing[0].number}`);
+              return;
+            }
+
+            const { data: pr } = await github.rest.pulls.create({
+              owner,
+              repo,
+              head: "content",
+              base: "main",
+              title: "Validation du contenu",
+              body: [
+                "PR ouverte automatiquement après un push sur `content`.",
+                "",
+                "Vérifications attendues :",
+                "- relecture du contenu",
+                "- validation des médias",
+                "- approbation des code owners si nécessaire",
+              ].join("\\n"),
+            });
+
+            core.info(`PR created: #${pr.number}`);
