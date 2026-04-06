@@ -2,42 +2,42 @@
   "items": [
     {
       "id": 1,
-      "name": "Parking Centre",
-      "lat": 43.9221,
-      "lng": 5.1278,
-      "address": "Place du centre",
+      "name": "Parking des Vergnes",
+      "lat": 43.921763,
+      "lng": 5.128391,
+      "address": "Avenue Robert Garcin, 84800 Fontaine-de-Vaucluse",
       "cars": true,
       "motorcycles": true,
       "campers": false,
-      "hourlyRate": "2 € / heure",
-      "dailyRate": "12 € / jour",
-      "notes": "Accès direct au cœur de village. Ouvert toute l'année."
+      "hourlyRate": "Voir borne / EasyPark",
+      "dailyRate": "Tarification communale",
+      "notes": "Parking communal mentionné par la mairie. Position approximative placée sur l'avenue Robert Garcin faute de coordonnées publiques précises. Non accessible aux autocars selon la mairie."
     },
     {
       "id": 2,
-      "name": "Parking Vallon",
-      "lat": 43.9234,
-      "lng": 5.1292,
-      "address": "Entrée du vallon",
-      "cars": true,
-      "motorcycles": true,
-      "campers": true,
-      "hourlyRate": "3 € / heure",
-      "dailyRate": "18 € / jour",
-      "notes": "Adapté aux véhicules plus volumineux. Certaines zones sont limitées en hauteur."
-    },
-    {
-      "id": 3,
-      "name": "Parking Belvédère",
-      "lat": 43.9236,
-      "lng": 5.1287,
-      "address": "Accès belvédère",
+      "name": "Parking P3",
+      "lat": 43.923471,
+      "lng": 5.126021,
+      "address": "Chemin du Prieuré / 1 avenue François Pétrarque, 84800 Fontaine-de-Vaucluse",
       "cars": true,
       "motorcycles": true,
       "campers": false,
-      "hourlyRate": "2 € / heure",
-      "dailyRate": "10 € / jour",
-      "notes": "Pratique pour les départs de promenade et les points de vue."
+      "hourlyRate": "Voir borne / EasyPark",
+      "dailyRate": "Tarification communale",
+      "notes": "Parking signalé côté chemin du Prieuré. Position basée sur les références publiques Chemin du Prieuré et Parking P3."
+    },
+    {
+      "id": 3,
+      "name": "Aire Camping-Car Park",
+      "lat": 43.92022,
+      "lng": 5.12473,
+      "address": "552 route de Cavaillon, 84800 Fontaine-de-Vaucluse",
+      "cars": false,
+      "motorcycles": false,
+      "campers": true,
+      "hourlyRate": "Forfait CCP",
+      "dailyRate": "À partir d'environ 15 à 17 € / 24 h",
+      "notes": "Aire d'étape camping-cars gérée par Camping-Car Park. Coordonnées GPS publiées par l'exploitant."
     }
   ]
 }
