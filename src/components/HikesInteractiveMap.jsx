@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, Polyline, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import { loadGpxTrackData } from "../utils/gpx";
+import { hasValidCoordinates } from "../utils/security";
 
 function MapController({ selectedHike, track, hikes }) {
     const map = useMap();
@@ -36,6 +37,7 @@ function MapController({ selectedHike, track, hikes }) {
 
 export default function HikesInteractiveMap({ hikes, selectedHike, onMarkerClick }) {
     const [track, setTrack] = useState([]);
+    const mappableHikes = hikes.filter(hasValidCoordinates);
 
     useEffect(() => {
         let isMounted = true;
@@ -81,7 +83,7 @@ export default function HikesInteractiveMap({ hikes, selectedHike, onMarkerClick
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                <MapController selectedHike={selectedHike} track={track} hikes={hikes} />
+                <MapController selectedHike={selectedHike} track={track} hikes={mappableHikes} />
 
                 {track.length > 1 && (
                     <Polyline
@@ -90,7 +92,7 @@ export default function HikesInteractiveMap({ hikes, selectedHike, onMarkerClick
                     />
                 )}
 
-                {hikes.map((hike) => {
+                {mappableHikes.map((hike) => {
                     const isSelected = selectedHike?.id === hike.id;
 
                     return (

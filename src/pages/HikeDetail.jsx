@@ -5,6 +5,7 @@ import HikeTrackMap from "../components/HikeTrackMap";
 import ElevationChart from "../components/ElevationChart";
 import { getHikes } from "../data/loader";
 import { loadGpxTrackData } from "../utils/gpx";
+import { hasValidCoordinates } from "../utils/security";
 
 const EMPTY_ELEVATION_DATA = {
     elevationProfile: [],
@@ -69,8 +70,13 @@ export default function HikeDetail() {
         );
     }
 
-    const googleMapsUrl = `https://www.google.com/maps?q=${hike.lat},${hike.lng}`;
-    const osmUrl = `https://www.openstreetmap.org/?mlat=${hike.lat}&mlon=${hike.lng}#map=15/${hike.lat}/${hike.lng}`;
+    const hasCoordinates = hasValidCoordinates(hike);
+    const googleMapsUrl = hasCoordinates
+        ? `https://www.google.com/maps?q=${hike.lat},${hike.lng}`
+        : null;
+    const osmUrl = hasCoordinates
+        ? `https://www.openstreetmap.org/?mlat=${hike.lat}&mlon=${hike.lng}#map=15/${hike.lat}/${hike.lng}`
+        : null;
 
     return (
         <Layout>
@@ -108,23 +114,27 @@ export default function HikeDetail() {
                         </div>
 
                         <div className="flex flex-col gap-2 text-sm sm:text-base">
-                            <a
-                                href={googleMapsUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline"
-                            >
-                                Ouvrir dans Google Maps
-                            </a>
+                            {googleMapsUrl && (
+                                <a
+                                    href={googleMapsUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="text-[#1f5e54] hover:text-[#3f977b] hover:underline"
+                                >
+                                    Ouvrir dans Google Maps
+                                </a>
+                            )}
 
-                            <a
-                                href={osmUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline"
-                            >
-                                Ouvrir dans OpenStreetMap
-                            </a>
+                            {osmUrl && (
+                                <a
+                                    href={osmUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="text-[#1f5e54] hover:text-[#3f977b] hover:underline"
+                                >
+                                    Ouvrir dans OpenStreetMap
+                                </a>
+                            )}
 
                             {hike.gpx && (
                                 <a

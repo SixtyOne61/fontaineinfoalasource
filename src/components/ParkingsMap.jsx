@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
+import { hasValidCoordinates } from "../utils/security";
 
 function FitBounds({ parkings }) {
     const map = useMap();
@@ -27,6 +28,8 @@ function yesNo(value) {
 }
 
 export default function ParkingsMap({ parkings }) {
+    const mappableParkings = parkings.filter(hasValidCoordinates);
+
     return (
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
             <MapContainer
@@ -40,9 +43,9 @@ export default function ParkingsMap({ parkings }) {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                <FitBounds parkings={parkings} />
+                <FitBounds parkings={mappableParkings} />
 
-                {parkings.map((parking) => (
+                {mappableParkings.map((parking) => (
                     <Marker key={parking.id} position={[parking.lat, parking.lng]}>
                         <Popup>
                             <div className="min-w-[220px] text-sm">

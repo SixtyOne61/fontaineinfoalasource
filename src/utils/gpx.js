@@ -1,3 +1,5 @@
+import { sanitizePublicAssetPath } from "./security";
+
 function haversineDistance(lat1, lon1, lat2, lon2) {
     const toRad = (value) => (value * Math.PI) / 180;
     const R = 6371;
@@ -16,7 +18,12 @@ function haversineDistance(lat1, lon1, lat2, lon2) {
 }
 
 export async function loadGpxTrackData(gpxUrl) {
-    if (!gpxUrl) {
+    const safeGpxUrl = sanitizePublicAssetPath(gpxUrl, {
+        allowedPrefixes: ["/gpx/"],
+        allowedExtensions: [".gpx"],
+    });
+
+    if (!safeGpxUrl) {
         return {
             track: [],
             elevationProfile: [],
@@ -26,10 +33,10 @@ export async function loadGpxTrackData(gpxUrl) {
     }
 
     try {
-        const response = await fetch(gpxUrl);
+        const response = await fetch(safeGpxUrl, { credentials: "same-origin" });
 
         if (!response.ok) {
-            console.error("Impossible de charger le GPX :", gpxUrl, response.status);
+            console.error("Impossible de charger le GPX :", safeGpxUrl, response.status);
             return {
                 track: [],
                 elevationProfile: [],
@@ -39,6 +46,16 @@ export async function loadGpxTrackData(gpxUrl) {
         }
 
         const gpxText = await response.text();
+        if (gpxText.length > 2_000_000) {
+            console.error("Fichier GPX trop volumineux :", safeGpxUrl);
+            return {
+                track: [],
+                elevationProfile: [],
+                minElevation: null,
+                maxElevation: null,
+            };
+        }
+
         const parser = new DOMParser();
         const xml = parser.parseFromString(gpxText, "application/xml");
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, Polyline, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import { loadGpxTrackData } from "../utils/gpx";
+import { hasValidCoordinates } from "../utils/security";
 
 function FitTrackBounds({ track, fallbackPosition }) {
     const map = useMap();
@@ -46,7 +47,8 @@ export default function HikeTrackMap({ hike }) {
 
     if (!hike) return null;
 
-    const fallbackPosition = [hike.lat ?? 43.9221, hike.lng ?? 5.1278];
+    const hasCoordinates = hasValidCoordinates(hike);
+    const fallbackPosition = hasCoordinates ? [hike.lat, hike.lng] : [43.9221, 5.1278];
 
     return (
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -70,16 +72,18 @@ export default function HikeTrackMap({ hike }) {
                     />
                 )}
 
-                <Marker position={fallbackPosition}>
-                    <Popup>
-                        <div className="min-w-[200px]">
-                            <h3 className="font-bold">{hike.name}</h3>
-                            <p>Départ : {hike.startPoint}</p>
-                            <p>Distance : {hike.distance} km</p>
-                            <p>Difficulté : {hike.difficulty}</p>
-                        </div>
-                    </Popup>
-                </Marker>
+                {hasCoordinates && (
+                    <Marker position={fallbackPosition}>
+                        <Popup>
+                            <div className="min-w-[200px]">
+                                <h3 className="font-bold">{hike.name}</h3>
+                                <p>DÃ©part : {hike.startPoint}</p>
+                                <p>Distance : {hike.distance} km</p>
+                                <p>DifficultÃ© : {hike.difficulty}</p>
+                            </div>
+                        </Popup>
+                    </Marker>
+                )}
             </MapContainer>
         </div>
     );

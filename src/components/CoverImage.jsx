@@ -21,6 +21,7 @@ export default function CoverImage({
             className={className}
             loading="lazy"
             decoding="async"
+            referrerPolicy="no-referrer"
         />
     );
 }
