@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import Layout from "../components/Layout";
 import CoverImage from "../components/CoverImage";
+import Layout from "../components/Layout";
 import { getNews } from "../data/loader";
 
 export default function NewsDetail() {

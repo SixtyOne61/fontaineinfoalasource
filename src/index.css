@@ -24,15 +24,35 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
   font-family: "Manrope", "Segoe UI", sans-serif;
+  line-height: 1.5;
   background:
     radial-gradient(circle at top, rgba(216, 192, 143, 0.24), transparent 24rem),
+    radial-gradient(circle at 85% 15%, rgba(63, 151, 123, 0.08), transparent 18rem),
     linear-gradient(180deg, #f6f3ea 0%, #f2f6f1 45%, #eef4ef 100%);
   color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+  background-size: 3.5rem 3.5rem;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent 70%);
+  opacity: 0.35;
+  z-index: -1;
 }
 
 a {
@@ -43,6 +63,22 @@ a {
 img {
   display: block;
   max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(63, 151, 123, 0.45);
+  outline-offset: 3px;
+}
+
+button {
+  touch-action: manipulation;
 }
 
 h1,
@@ -62,10 +98,22 @@ h4 {
   backdrop-filter: blur(10px);
 }
 
+.surface-card,
+header,
+footer {
+  -webkit-backdrop-filter: blur(10px);
+}
+
 .section-kicker {
   color: var(--color-muted);
   font-size: 0.76rem;
   font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .section-kicker {
+    letter-spacing: 0.14em;
+  }
 }

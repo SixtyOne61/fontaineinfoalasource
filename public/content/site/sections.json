@@ -1,4 +1,5 @@
 {
+  "guide": true,
   "events": true,
   "news": true,
   "hikes": true,

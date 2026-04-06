@@ -1,5 +1,6 @@
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const SAFE_ID_RE = /^[a-zA-Z0-9_-]{1,64}$/;
+const SAFE_INTERNAL_PATH_RE = /^\/[A-Za-z0-9._~!$&'()*+,;=:@%/?#-]*$/;
 const MAX_TEXT_LENGTH = 5000;
 
 function clampText(value, maxLength = MAX_TEXT_LENGTH) {
@@ -56,6 +57,21 @@ export function sanitizeNumber(value, { min = -Infinity, max = Infinity } = {}) 
     }
 
     return parsed;
+}
+
+export function sanitizeInternalPath(value) {
+    if (typeof value !== "string") return null;
+
+    const normalized = value.trim();
+    if (!normalized.startsWith("/") || normalized.startsWith("//")) {
+        return null;
+    }
+
+    if (normalized.includes("..") || normalized.includes("\\") || /\s/.test(normalized)) {
+        return null;
+    }
+
+    return SAFE_INTERNAL_PATH_RE.test(normalized) ? normalized : null;
 }
 
 export function hasValidCoordinates(item) {

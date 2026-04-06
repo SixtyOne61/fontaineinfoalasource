@@ -1,0 +1,211 @@
+{
+  "hero": {
+    "eyebrow": "Guide pratique",
+    "title": "Fontaine-de-Vaucluse au quotidien",
+    "description": "Un point d'entrée simple pour orienter les visiteurs et les riverains: stationnement, mobilité piétonne, événements, randonnées et informations utiles.",
+    "primaryCta": {
+      "id": "guide",
+      "label": "Ouvrir le guide",
+      "to": "/guide"
+    },
+    "secondaryCta": {
+      "id": "parking",
+      "label": "Trouver un parking",
+      "to": "/parking"
+    }
+  },
+  "quickLinks": [
+    {
+      "id": "guide",
+      "title": "Guide pratique",
+      "description": "Retrouver les repères utiles pour organiser une visite fluide sur téléphone.",
+      "badge": "Essentiel",
+      "to": "/guide"
+    },
+    {
+      "id": "parking",
+      "title": "Parkings",
+      "description": "Comparer les parkings disponibles, les tarifs et les véhicules acceptés.",
+      "badge": "Accès",
+      "to": "/parking"
+    },
+    {
+      "id": "events",
+      "title": "Événements",
+      "description": "Consulter les rendez-vous du moment et les animations à venir.",
+      "badge": "Agenda",
+      "to": "/events"
+    },
+    {
+      "id": "hikes",
+      "title": "Randonnées",
+      "description": "Choisir un itinéraire selon la durée, la difficulté et le point de départ.",
+      "badge": "Nature",
+      "to": "/hikes"
+    },
+    {
+      "id": "news",
+      "title": "Infos pratiques",
+      "description": "Suivre les informations utiles pour la fréquentation, l'accueil et les déplacements.",
+      "badge": "Infos",
+      "to": "/news"
+    }
+  ],
+  "highlights": [
+    {
+      "id": "mobilite",
+      "title": "Se déplacer à pied",
+      "description": "Le coeur du village se découvre mieux à pied. Les cheminements courts réduisent les frictions de circulation.",
+      "value": "Piéton d'abord",
+      "tag": "Priorité"
+    },
+    {
+      "id": "stationnement",
+      "title": "Stationnement conseillé",
+      "description": "Les parkings en entrée de village permettent de limiter la congestion dans les rues étroites.",
+      "value": "Entrée de village",
+      "tag": "Accès"
+    },
+    {
+      "id": "nature",
+      "title": "Balades et points de vue",
+      "description": "Des parcours courts comme des circuits plus sportifs peuvent être mis en avant selon la saison.",
+      "value": "Pour tous",
+      "tag": "Randonnée"
+    }
+  ],
+  "guideSections": [
+    {
+      "id": "parking-guide",
+      "title": "Se garer sans stress",
+      "summary": "Privilégiez les parkings signalés dès l'entrée du village pour limiter les détours et rejoindre le centre plus sereinement.",
+      "items": [
+        {
+          "id": "park-1",
+          "title": "Choisir son parking avant d'entrer",
+          "description": "Consultez la carte et les tarifs avant d'avancer vers le centre ancien pour éviter les manoeuvres inutiles."
+        },
+        {
+          "id": "park-2",
+          "title": "Vérifier le type de véhicule accepté",
+          "description": "Les fiches parking indiquent si le stationnement convient aux voitures, motos, mini-vans ou camping-cars."
+        },
+        {
+          "id": "park-3",
+          "title": "Suivre les indications sur place",
+          "description": "En période d'affluence, respectez la signalétique temporaire et privilégiez les cheminements piétons recommandés."
+        }
+      ],
+      "links": [
+        {
+          "id": "parking-link",
+          "label": "Consulter la carte des parkings",
+          "to": "/parking"
+        }
+      ]
+    },
+    {
+      "id": "visitor-guide",
+      "title": "Préparer sa visite",
+      "summary": "Avant de partir, repérez où stationner, quoi faire sur place et quels parcours privilégier selon votre temps disponible.",
+      "items": [
+        {
+          "id": "visit-1",
+          "title": "Arriver par les accès conseillés",
+          "description": "Suivez les points d'entrée recommandés et les zones de stationnement indiquées pour fluidifier l'arrivée."
+        },
+        {
+          "id": "visit-2",
+          "title": "Garder l'essentiel sous la main",
+          "description": "En quelques écrans, vous retrouvez où vous garer, les événements du moment et les itinéraires à découvrir."
+        },
+        {
+          "id": "visit-3",
+          "title": "Anticiper les pics de fréquentation",
+          "description": "Consultez les actualités du jour avant votre départ pour repérer les moments de forte affluence ou les consignes temporaires."
+        }
+      ],
+      "links": [
+        {
+          "id": "news-link",
+          "label": "Lire les actualités",
+          "to": "/news"
+        },
+        {
+          "id": "events-link",
+          "label": "Voir les événements",
+          "to": "/events"
+        }
+      ]
+    },
+    {
+      "id": "hike-guide",
+      "title": "Randonnées et nature",
+      "summary": "Choisissez une balade selon votre niveau, votre durée disponible et le point de départ le plus pratique.",
+      "items": [
+        {
+          "id": "hike-1",
+          "title": "Commencer par les parcours adaptés",
+          "description": "Les itinéraires faciles conviennent bien aux familles, aux visites courtes et aux marcheurs occasionnels."
+        },
+        {
+          "id": "hike-2",
+          "title": "Repérer facilement le départ",
+          "description": "Chaque fiche indique le point de départ et les informations utiles pour rejoindre le bon accès sans hésitation."
+        },
+        {
+          "id": "hike-3",
+          "title": "Télécharger la trace quand elle existe",
+          "description": "Si un fichier GPX est disponible, il peut être téléchargé directement depuis la fiche randonnée."
+        }
+      ],
+      "links": [
+        {
+          "id": "hikes-link",
+          "label": "Voir les randonnées",
+          "to": "/hikes"
+        }
+      ]
+    },
+    {
+      "id": "local-info",
+      "title": "Infos utiles et contacts",
+      "summary": "Retrouvez ici les bons réflexes à garder en tête pour profiter du village dans de bonnes conditions.",
+      "items": [
+        {
+          "id": "info-1",
+          "title": "Privilégier les parcours piétons",
+          "description": "Depuis les parkings, rejoignez le coeur du village à pied pour éviter les tensions de circulation."
+        },
+        {
+          "id": "info-2",
+          "title": "Vérifier les informations du jour",
+          "description": "Les actualités communales permettent de repérer rapidement travaux, événements ou consignes temporaires."
+        },
+        {
+          "id": "info-3",
+          "title": "Préparer une visite plus fluide",
+          "description": "Avant de partir, consultez les parkings, l'agenda et les randonnées pour limiter les recherches sur place."
+        }
+      ],
+      "links": [
+        {
+          "id": "contact-link",
+          "label": "Retour à l'accueil",
+          "to": "/"
+        }
+      ]
+    }
+  ],
+  "contacts": [],
+  "visitorTips": [
+    "Commencez par consulter les parkings avant d'entrer dans le village.",
+    "Privilégiez les déplacements à pied entre le stationnement, le centre et la source.",
+    "Vérifiez les actualités du jour en cas de forte fréquentation ou d'événement.",
+    "Choisissez une randonnée adaptée à votre niveau et à votre temps disponible."
+  ],
+  "alerts": [
+    "En période de forte affluence, suivez en priorité la signalétique de stationnement mise en place à l'entrée du village.",
+    "Consultez les actualités avant votre départ pour repérer toute consigne temporaire liée à la circulation ou aux événements."
+  ]
+}

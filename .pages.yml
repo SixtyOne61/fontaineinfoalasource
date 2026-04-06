@@ -9,10 +9,103 @@ content:
     type: file
     format: json
     fields:
+      - { name: guide, label: Afficher la section Guide, type: boolean, default: true }
       - { name: events, label: Afficher la section Événements, type: boolean, default: true }
       - { name: news, label: Afficher la section Actualités, type: boolean, default: true }
       - { name: hikes, label: Afficher la section Randonnées, type: boolean, default: true }
       - { name: parkings, label: Afficher la section Parkings, type: boolean, default: true }
+
+  - name: siteContent
+    label: Contenus de structure
+    path: public/content/site/site.json
+    type: file
+    format: json
+    fields:
+      - name: hero
+        label: Hero
+        type: object
+        fields:
+          - { name: eyebrow, label: Sur-titre, type: string, required: false }
+          - { name: title, label: Titre, type: string }
+          - { name: description, label: Description, type: text }
+          - name: primaryCta
+            label: Bouton principal
+            type: object
+            required: false
+            fields:
+              - { name: id, label: ID, type: string, required: false }
+              - { name: label, label: Libellé, type: string }
+              - { name: to, label: Lien interne, type: string }
+          - name: secondaryCta
+            label: Bouton secondaire
+            type: object
+            required: false
+            fields:
+              - { name: id, label: ID, type: string, required: false }
+              - { name: label, label: Libellé, type: string }
+              - { name: to, label: Lien interne, type: string }
+      - name: quickLinks
+        label: Accès rapides
+        type: object
+        list: true
+        fields:
+          - { name: id, label: ID, type: string }
+          - { name: title, label: Titre, type: string }
+          - { name: description, label: Description, type: text }
+          - { name: badge, label: Badge, type: string, required: false }
+          - { name: to, label: Lien interne, type: string }
+      - name: highlights
+        label: Points clés
+        type: object
+        list: true
+        fields:
+          - { name: id, label: ID, type: string }
+          - { name: title, label: Titre, type: string }
+          - { name: value, label: Valeur mise en avant, type: string, required: false }
+          - { name: tag, label: Tag, type: string, required: false }
+          - { name: description, label: Description, type: text, required: false }
+      - name: guideSections
+        label: Sections du guide
+        type: object
+        list: true
+        fields:
+          - { name: id, label: ID, type: string }
+          - { name: title, label: Titre, type: string }
+          - { name: summary, label: Résumé, type: text, required: false }
+          - name: items
+            label: Cartes internes
+            type: object
+            list: true
+            required: false
+            fields:
+              - { name: id, label: ID, type: string, required: false }
+              - { name: title, label: Titre, type: string }
+              - { name: description, label: Description, type: text, required: false }
+          - name: links
+            label: Liens
+            type: object
+            list: true
+            required: false
+            fields:
+              - { name: id, label: ID, type: string, required: false }
+              - { name: label, label: Libellé, type: string }
+              - { name: to, label: Lien interne, type: string }
+      - name: contacts
+        label: Contacts
+        type: object
+        list: true
+        required: false
+        fields:
+          - { name: id, label: ID, type: string }
+          - { name: name, label: Nom, type: string }
+          - { name: role, label: Rôle, type: string, required: false }
+          - { name: description, label: Description, type: text, required: false }
+          - { name: phone, label: Téléphone, type: string, required: false }
+          - { name: email, label: Email, type: string, required: false }
+          - { name: address, label: Adresse, type: string, required: false }
+          - { name: hours, label: Horaires, type: string, required: false }
+      - { name: visitorTips, label: Conseils visiteurs, type: string, list: true, required: false }
+      - { name: alerts, label: Alertes, type: string, list: true, required: false }
 
   - name: news
     label: Actualités

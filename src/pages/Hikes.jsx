@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import Layout from "../components/Layout";
 import HikesInteractiveMap from "../components/HikesInteractiveMap";
+import Layout from "../components/Layout";
 import SearchBar from "../components/SearchBar";
 import { getHikes } from "../data/loader";
 

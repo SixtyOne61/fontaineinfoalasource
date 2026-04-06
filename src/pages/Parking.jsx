@@ -12,7 +12,7 @@ const vehicleTypes = [
 ];
 
 function getParkingRecommendation(parking) {
-    if (parking.campers) return "Recommandé véhicules volumineux";
+    if (parking.campers) return "Adapté aux véhicules volumineux";
     if (parking.cars && parking.motorcycles) return "Bon compromis";
     return "À vérifier";
 }
@@ -31,28 +31,6 @@ function VehicleBadge({ label }) {
         <span className="inline-flex items-center rounded-full bg-[#eef7f3] px-3 py-1 text-xs font-semibold text-[#1f5e54]">
             {label}
         </span>
-    );
-}
-
-function VehicleLegend() {
-    return (
-        <div className="surface-card mb-6 rounded-[1.5rem] border border-white/70 p-4 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-                Légende véhicules
-            </p>
-            <div className="flex flex-wrap gap-3">
-                <span className="inline-flex items-center rounded-full bg-[#eef7f3] px-3 py-1 text-xs font-semibold text-[#1f5e54]">
-                    Véhicule accepté
-                </span>
-                {vehicleTypes
-                    .filter((vehicle) => vehicle.key !== "all")
-                    .map((vehicle) => (
-                        <span key={vehicle.key} className="inline-flex items-center rounded-full bg-white px-3 py-1 text-xs font-medium text-slate-700 ring-1 ring-slate-200">
-                            {vehicle.label}
-                        </span>
-                    ))}
-            </div>
-        </div>
     );
 }
 
@@ -88,8 +66,6 @@ export default function Parking() {
                     </p>
                 </div>
             </section>
-
-            <VehicleLegend />
 
             <div className="surface-card mb-6 rounded-[1.5rem] border border-white/70 p-4 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
@@ -160,10 +136,7 @@ export default function Parking() {
                                         {vehicleTypes
                                             .filter((vehicle) => vehicle.key !== "all" && parking[vehicle.key])
                                             .map((vehicle) => (
-                                                <VehicleBadge
-                                                    key={vehicle.key}
-                                                    label={vehicle.label}
-                                                />
+                                                <VehicleBadge key={vehicle.key} label={vehicle.label} />
                                             ))}
                                     </div>
                                 </div>

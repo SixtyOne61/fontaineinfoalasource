@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import Layout from "../components/Layout";
 import Card from "../components/Card";
+import Layout from "../components/Layout";
 import SearchBar from "../components/SearchBar";
 import { getNews } from "../data/loader";
 
@@ -35,7 +35,7 @@ export default function News() {
                     <p className="section-kicker">Informations communales</p>
                     <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">Actualités</h1>
                     <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
-                        Retrouvez toutes les informations récentes de la commune et les messages pratiques utiles aux habitants comme aux visiteurs.
+                        Retrouvez les informations récentes de la commune et les messages pratiques utiles aux habitants comme aux visiteurs.
                     </p>
                 </div>
             </section>
@@ -58,7 +58,7 @@ export default function News() {
                                     to={`/news/${item.id}`}
                                     className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                                 >
-                                    Lire plus â†’
+                                    Lire la suite →
                                 </Link>
                             </Card>
                         ))}

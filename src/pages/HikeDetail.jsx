@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import Layout from "../components/Layout";
-import HikeTrackMap from "../components/HikeTrackMap";
 import ElevationChart from "../components/ElevationChart";
+import HikeTrackMap from "../components/HikeTrackMap";
+import Layout from "../components/Layout";
 import { getHikes } from "../data/loader";
 import { loadGpxTrackData } from "../utils/gpx";
 import { hasValidCoordinates } from "../utils/security";
