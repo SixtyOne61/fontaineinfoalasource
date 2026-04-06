@@ -20,7 +20,7 @@ function getEventStatus(event) {
     if (today >= start && today <= end) return "En cours";
     if (diffDays <= 0) return "Aujourd'hui";
     if (diffDays <= 6) return "Cette semaine";
-    return "À venir";
+    return "A venir";
 }
 
 export default function Events() {
@@ -70,18 +70,12 @@ export default function Events() {
 
     return (
         <Layout>
-            <section className="mb-8 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-                <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
+            <section className="mb-6">
+                <div className="surface-card rounded-[1.85rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">
                     <p className="section-kicker">Agenda communal</p>
-                    <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">Événements</h1>
+                    <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">Evenements</h1>
                     <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
-                        Consultez rapidement le calendrier communal et repérez ce qui se passe aujourd'hui, cette semaine ou plus tard.
-                    </p>
-                </div>
-                <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-                    <p className="section-kicker">Astuce</p>
-                    <p className="mt-2 text-lg font-semibold text-[#163c35]">
-                        Utilisez le filtre « À venir » pour les visiteurs du jour et la recherche pour un lieu précis.
+                        Consultez rapidement le calendrier communal et reperez ce qui se passe aujourd'hui, cette semaine ou plus tard.
                     </p>
                 </div>
             </section>
@@ -94,15 +88,15 @@ export default function Events() {
                 <SearchBar
                     value={search}
                     onChange={setSearch}
-                    placeholder="Rechercher un événement ou un lieu..."
+                    placeholder="Rechercher un evenement ou un lieu..."
                 />
 
                 <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
                     <button type="button" onClick={() => setFilterType("upcoming")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "upcoming" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
-                        À venir
+                        A venir
                     </button>
                     <button type="button" onClick={() => setFilterType("past")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "past" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
-                        Passés
+                        Passes
                     </button>
                     <button type="button" onClick={() => setFilterType("all")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "all" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
                         Tous
@@ -121,14 +115,14 @@ export default function Events() {
                                 <p className="text-sm font-medium text-slate-700 sm:text-base">{event.location}</p>
                                 <p className="mt-2 text-sm text-slate-600">{getEventSnippet(event.content)}</p>
                                 <Link to={`/events/${event.id}`} className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline">
-                                    Voir le détail →
+                                    Voir le detail {">"}
                                 </Link>
                             </Card>
                         ))}
                     </div>
                 ) : (
                     <div className="surface-card rounded-[1.75rem] border border-white/70 p-5 text-slate-600 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-                        Aucun événement ne correspond à votre recherche.
+                        Aucun evenement ne correspond a votre recherche.
                     </div>
                 )}
             </section>

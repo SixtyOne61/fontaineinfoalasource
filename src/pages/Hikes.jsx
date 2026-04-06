@@ -56,18 +56,12 @@ export default function Hikes() {
 
     return (
         <Layout>
-            <section className="mb-8 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+            <section className="mb-8">
                 <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
                     <p className="section-kicker">Nature et découverte</p>
                     <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">Randonnées</h1>
                     <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
                         Comparez les parcours disponibles autour de la commune, affichez leur tracé et filtrez rapidement selon la difficulté ou la durée.
-                    </p>
-                </div>
-                <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-                    <p className="section-kicker">Conseil</p>
-                    <p className="mt-2 text-lg font-semibold text-[#163c35]">
-                        Pour une sortie courte, commencez par les parcours faciles de moins de 3 h.
                     </p>
                 </div>
             </section>

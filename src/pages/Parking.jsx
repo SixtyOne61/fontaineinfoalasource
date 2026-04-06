@@ -79,28 +79,13 @@ export default function Parking() {
 
     return (
         <Layout>
-            <section className="mb-8 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+            <section className="mb-8">
                 <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
                     <p className="section-kicker">Accès visiteurs</p>
                     <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">Parkings</h1>
                     <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
                         Retrouvez rapidement les parkings utiles selon votre véhicule, avec une lecture directe des véhicules acceptés.
                     </p>
-                </div>
-
-                <div className="surface-card grid gap-3 rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:grid-cols-3 lg:grid-cols-1">
-                    <div>
-                        <p className="section-kicker">Lecture rapide</p>
-                        <p className="mt-2 text-lg font-semibold text-[#163c35]">Les pastilles affichent uniquement les véhicules autorisés.</p>
-                    </div>
-                    <div>
-                        <p className="section-kicker">Véhicules</p>
-                        <p className="mt-2 text-lg font-semibold text-[#163c35]">Moto, voiture, mini-van et camping-car sont distingués séparément.</p>
-                    </div>
-                    <div>
-                        <p className="section-kicker">Carte</p>
-                        <p className="mt-2 text-lg font-semibold text-[#163c35]">Le même code visuel est repris dans les popups.</p>
-                    </div>
                 </div>
             </section>
 

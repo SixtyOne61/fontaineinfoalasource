@@ -30,18 +30,12 @@ export default function News() {
 
     return (
         <Layout>
-            <section className="mb-8 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+            <section className="mb-8">
                 <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
                     <p className="section-kicker">Informations communales</p>
                     <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">Actualités</h1>
                     <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
                         Retrouvez toutes les informations récentes de la commune et les messages pratiques utiles aux habitants comme aux visiteurs.
-                    </p>
-                </div>
-                <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-                    <p className="section-kicker">À savoir</p>
-                    <p className="mt-2 text-lg font-semibold text-[#163c35]">
-                        Cette rubrique regroupe les informations de circulation, d'accueil et d'organisation locale.
                     </p>
                 </div>
             </section>
@@ -64,7 +58,7 @@ export default function News() {
                                     to={`/news/${item.id}`}
                                     className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                                 >
-                                    Lire plus →
+                                    Lire plus â†’
                                 </Link>
                             </Card>
                         ))}
