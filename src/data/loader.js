@@ -92,6 +92,7 @@ function sanitizeParkingItem(item) {
         lng: sanitizeNumber(item?.lng, { min: -180, max: 180 }),
         address: sanitizeText(item?.address, 220),
         cars: sanitizeBoolean(item?.cars),
+        minivans: sanitizeBoolean(item?.minivans),
         motorcycles: sanitizeBoolean(item?.motorcycles),
         campers: sanitizeBoolean(item?.campers),
         hourlyRate: sanitizeText(item?.hourlyRate, 60),

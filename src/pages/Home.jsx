@@ -11,6 +11,13 @@ const quickLinks = [
     { title: "Choisir une balade", description: "Comparer les randonnées faciles.", to: "/hikes" },
 ];
 
+const vehicleTypes = [
+    { key: "motorcycles", label: "Moto" },
+    { key: "cars", label: "Voiture" },
+    { key: "minivans", label: "Mini-van" },
+    { key: "campers", label: "Camping-car" },
+];
+
 function formatEventDate(event) {
     if (event.startDate === event.endDate || !event.endDate) {
         return event.startDate || event.date;
@@ -29,6 +36,20 @@ function getEventStatus(startDate, endDate) {
     if (diffDays <= 0) return "Aujourd'hui";
     if (diffDays <= 6) return "Cette semaine";
     return "À venir";
+}
+
+function VehicleBadge({ label, allowed }) {
+    return (
+        <span
+            className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                allowed
+                    ? "bg-[#eef7f3] text-[#1f5e54]"
+                    : "bg-slate-100 text-slate-500 line-through decoration-slate-400"
+            }`}
+        >
+            {label}
+        </span>
+    );
 }
 
 export default function Home() {
@@ -194,10 +215,19 @@ export default function Home() {
                                         {parking.dailyRate}
                                     </span>
                                 </div>
-                                <div className="mt-4 flex flex-wrap gap-2 text-sm">
-                                    {parking.cars && <span className="rounded-full bg-slate-100 px-3 py-1">Voitures</span>}
-                                    {parking.motorcycles && <span className="rounded-full bg-slate-100 px-3 py-1">Motos</span>}
-                                    {parking.campers && <span className="rounded-full bg-slate-100 px-3 py-1">Camping-cars</span>}
+                                <div className="mt-4">
+                                    <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                                        Véhicules
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {vehicleTypes.map((vehicle) => (
+                                            <VehicleBadge
+                                                key={vehicle.key}
+                                                label={vehicle.label}
+                                                allowed={parking[vehicle.key]}
+                                            />
+                                        ))}
+                                    </div>
                                 </div>
                             </article>
                         ))}

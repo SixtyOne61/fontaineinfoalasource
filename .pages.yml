@@ -79,6 +79,7 @@ content:
           - { name: lng, label: Longitude, type: number }
           - { name: address, label: Adresse, type: string }
           - { name: cars, label: Voitures autorisées, type: boolean }
+          - { name: minivans, label: Mini-vans autorisés, type: boolean }
           - { name: motorcycles, label: Motos autorisées, type: boolean }
           - { name: campers, label: Camping-cars autorisés, type: boolean }
           - { name: hourlyRate, label: Tarif horaire, type: string }

@@ -3,6 +3,13 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import { hasValidCoordinates } from "../utils/security";
 
+const vehicleTypes = [
+    { key: "motorcycles", label: "Moto" },
+    { key: "cars", label: "Voiture" },
+    { key: "minivans", label: "Mini-van" },
+    { key: "campers", label: "Camping-car" },
+];
+
 function FitBounds({ parkings }) {
     const map = useMap();
 
@@ -23,8 +30,18 @@ function FitBounds({ parkings }) {
     return null;
 }
 
-function yesNo(value) {
-    return value ? "Oui" : "Non";
+function VehiclePill({ label, allowed }) {
+    return (
+        <span
+            className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${
+                allowed
+                    ? "bg-[#eef7f3] text-[#1f5e54]"
+                    : "bg-slate-100 text-slate-500 line-through decoration-slate-400"
+            }`}
+        >
+            {label}
+        </span>
+    );
 }
 
 export default function ParkingsMap({ parkings }) {
@@ -48,13 +65,19 @@ export default function ParkingsMap({ parkings }) {
                 {mappableParkings.map((parking) => (
                     <Marker key={parking.id} position={[parking.lat, parking.lng]}>
                         <Popup>
-                            <div className="min-w-[220px] text-sm">
+                            <div className="min-w-[240px] text-sm">
                                 <h3 className="mb-2 text-base font-bold">{parking.name}</h3>
                                 <p><strong>Adresse :</strong> {parking.address}</p>
-                                <p><strong>Voitures :</strong> {yesNo(parking.cars)}</p>
-                                <p><strong>Motos :</strong> {yesNo(parking.motorcycles)}</p>
-                                <p><strong>Camping-cars :</strong> {yesNo(parking.campers)}</p>
-                                <p><strong>Tarif horaire :</strong> {parking.hourlyRate}</p>
+                                <div className="mt-3 flex flex-wrap gap-2">
+                                    {vehicleTypes.map((vehicle) => (
+                                        <VehiclePill
+                                            key={vehicle.key}
+                                            label={vehicle.label}
+                                            allowed={parking[vehicle.key]}
+                                        />
+                                    ))}
+                                </div>
+                                <p className="mt-3"><strong>Tarif horaire :</strong> {parking.hourlyRate}</p>
                                 <p><strong>Tarif journée :</strong> {parking.dailyRate}</p>
                                 {parking.notes && (
                                     <p className="mt-2 text-slate-600">{parking.notes}</p>

@@ -3,6 +3,14 @@ import Layout from "../components/Layout";
 import ParkingsMap from "../components/ParkingsMap";
 import { getParkings } from "../data/loader";
 
+const vehicleTypes = [
+    { key: "all", label: "Tous" },
+    { key: "motorcycles", label: "Moto" },
+    { key: "cars", label: "Voiture" },
+    { key: "minivans", label: "Mini-van" },
+    { key: "campers", label: "Camping-car" },
+];
+
 function getParkingRecommendation(parking) {
     if (parking.campers) return "Recommandé véhicules volumineux";
     if (parking.cars && parking.motorcycles) return "Bon compromis";
@@ -10,11 +18,47 @@ function getParkingRecommendation(parking) {
 }
 
 function getParkingScore(parking) {
-    return Number(parking.campers) * 3 + Number(parking.cars) * 2 + Number(parking.motorcycles);
+    return (
+        Number(parking.campers) * 4 +
+        Number(parking.minivans) * 3 +
+        Number(parking.cars) * 2 +
+        Number(parking.motorcycles)
+    );
+}
+
+function VehicleBadge({ label }) {
+    return (
+        <span className="inline-flex items-center rounded-full bg-[#eef7f3] px-3 py-1 text-xs font-semibold text-[#1f5e54]">
+            {label}
+        </span>
+    );
+}
+
+function VehicleLegend() {
+    return (
+        <div className="surface-card mb-6 rounded-[1.5rem] border border-white/70 p-4 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                Légende véhicules
+            </p>
+            <div className="flex flex-wrap gap-3">
+                <span className="inline-flex items-center rounded-full bg-[#eef7f3] px-3 py-1 text-xs font-semibold text-[#1f5e54]">
+                    Véhicule accepté
+                </span>
+                {vehicleTypes
+                    .filter((vehicle) => vehicle.key !== "all")
+                    .map((vehicle) => (
+                        <span key={vehicle.key} className="inline-flex items-center rounded-full bg-white px-3 py-1 text-xs font-medium text-slate-700 ring-1 ring-slate-200">
+                            {vehicle.label}
+                        </span>
+                    ))}
+            </div>
+        </div>
+    );
 }
 
 export default function Parking() {
     const [parkings, setParkings] = useState([]);
+    const [vehicleFilter, setVehicleFilter] = useState("all");
 
     useEffect(() => {
         getParkings().then(setParkings);
@@ -25,6 +69,14 @@ export default function Parking() {
         [parkings]
     );
 
+    const filteredParkings = useMemo(() => {
+        if (vehicleFilter === "all") {
+            return sortedParkings;
+        }
+
+        return sortedParkings.filter((parking) => parking[vehicleFilter]);
+    }, [sortedParkings, vehicleFilter]);
+
     return (
         <Layout>
             <section className="mb-8 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
@@ -32,36 +84,69 @@ export default function Parking() {
                     <p className="section-kicker">Accès visiteurs</p>
                     <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">Parkings</h1>
                     <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
-                        Retrouvez rapidement les parkings utiles selon votre véhicule, les tarifs et la localisation avant l'entrée dans le village.
+                        Retrouvez rapidement les parkings utiles selon votre véhicule, avec une lecture directe des véhicules acceptés.
                     </p>
                 </div>
 
                 <div className="surface-card grid gap-3 rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:grid-cols-3 lg:grid-cols-1">
                     <div>
-                        <p className="section-kicker">Conseil visiteur</p>
-                        <p className="mt-2 text-lg font-semibold text-[#163c35]">Privilégier les parkings signalés dès l'arrivée.</p>
+                        <p className="section-kicker">Lecture rapide</p>
+                        <p className="mt-2 text-lg font-semibold text-[#163c35]">Les pastilles affichent uniquement les véhicules autorisés.</p>
                     </div>
                     <div>
-                        <p className="section-kicker">Comparaison rapide</p>
-                        <p className="mt-2 text-lg font-semibold text-[#163c35]">Véhicules autorisés, tarifs et notes pratiques.</p>
+                        <p className="section-kicker">Véhicules</p>
+                        <p className="mt-2 text-lg font-semibold text-[#163c35]">Moto, voiture, mini-van et camping-car sont distingués séparément.</p>
                     </div>
                     <div>
                         <p className="section-kicker">Carte</p>
-                        <p className="mt-2 text-lg font-semibold text-[#163c35]">Repérage immédiat sur mobile.</p>
+                        <p className="mt-2 text-lg font-semibold text-[#163c35]">Le même code visuel est repris dans les popups.</p>
                     </div>
                 </div>
             </section>
 
+            <VehicleLegend />
+
+            <div className="surface-card mb-6 rounded-[1.5rem] border border-white/70 p-4 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                    Mon véhicule
+                </p>
+                <div className="flex flex-wrap gap-3">
+                    {vehicleTypes.map((vehicle) => {
+                        const isActive = vehicleFilter === vehicle.key;
+
+                        return (
+                            <button
+                                key={vehicle.key}
+                                type="button"
+                                onClick={() => setVehicleFilter(vehicle.key)}
+                                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                                    isActive
+                                        ? "bg-[#1f5e54] text-white"
+                                        : "border border-slate-300 bg-white text-slate-700 hover:border-[#a7cfc1] hover:text-[#1f5e54]"
+                                }`}
+                            >
+                                {vehicle.label}
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+
             <section className="mb-8">
-                <ParkingsMap parkings={sortedParkings} />
+                <ParkingsMap parkings={filteredParkings} />
             </section>
 
             <section>
-                <h2 className="mb-4 text-2xl text-[#163c35] sm:text-3xl">Liste des parkings</h2>
+                <div className="mb-4 flex items-center justify-between gap-4">
+                    <h2 className="text-2xl text-[#163c35] sm:text-3xl">Liste des parkings</h2>
+                    <p className="text-sm text-slate-500">
+                        {filteredParkings.length} résultat{filteredParkings.length > 1 ? "s" : ""}
+                    </p>
+                </div>
 
-                {sortedParkings.length > 0 ? (
+                {filteredParkings.length > 0 ? (
                     <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
-                        {sortedParkings.map((parking) => (
+                        {filteredParkings.map((parking) => (
                             <article
                                 key={parking.id}
                                 className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)]"
@@ -82,10 +167,20 @@ export default function Parking() {
                                     </div>
                                 </div>
 
-                                <div className="mt-4 flex flex-wrap gap-2 text-sm">
-                                    {parking.cars && <span className="rounded-full bg-slate-100 px-3 py-1">Voitures</span>}
-                                    {parking.motorcycles && <span className="rounded-full bg-slate-100 px-3 py-1">Motos</span>}
-                                    {parking.campers && <span className="rounded-full bg-slate-100 px-3 py-1">Camping-cars</span>}
+                                <div className="mt-4">
+                                    <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                                        Véhicules acceptés
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {vehicleTypes
+                                            .filter((vehicle) => vehicle.key !== "all" && parking[vehicle.key])
+                                            .map((vehicle) => (
+                                                <VehicleBadge
+                                                    key={vehicle.key}
+                                                    label={vehicle.label}
+                                                />
+                                            ))}
+                                    </div>
                                 </div>
 
                                 <div className="mt-4 grid gap-3 rounded-[1.35rem] bg-slate-50 p-4 text-sm text-slate-600">
@@ -98,7 +193,7 @@ export default function Parking() {
                     </div>
                 ) : (
                     <div className="surface-card rounded-[1.75rem] border border-white/70 p-5 text-slate-600 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-                        Aucun parking disponible pour le moment.
+                        Aucun parking ne correspond au véhicule sélectionné.
                     </div>
                 )}
             </section>
