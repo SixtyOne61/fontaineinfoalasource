@@ -1,15 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { getSectionVisibility } from "../data/loader";
+import { defaultSectionVisibility, sectionRoutes } from "../data/sections";
 
 const navItems = [
-    { to: "/parking", label: "Parkings", highlight: true },
-    { to: "/events", label: "Événements" },
-    { to: "/hikes", label: "Randonnées" },
-    { to: "/news", label: "Actualités" },
+    { key: "parkings", to: sectionRoutes.parkings, label: "Parkings", highlight: true },
+    { key: "events", to: sectionRoutes.events, label: "Événements" },
+    { key: "hikes", to: sectionRoutes.hikes, label: "Randonnées" },
+    { key: "news", to: sectionRoutes.news, label: "Actualités" },
 ];
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [sectionVisibility, setSectionVisibility] = useState(defaultSectionVisibility);
+
+    useEffect(() => {
+        getSectionVisibility().then(setSectionVisibility);
+    }, []);
+
+    const visibleNavItems = navItems.filter((item) => sectionVisibility[item.key]);
 
     const linkClass = ({ isActive }, highlight = false) => {
         if (isActive) {
@@ -58,7 +67,7 @@ export default function Navbar() {
                     <NavLink to="/" className={(state) => linkClass(state)}>
                         Accueil
                     </NavLink>
-                    {navItems.map((item) => (
+                    {visibleNavItems.map((item) => (
                         <NavLink
                             key={item.to}
                             to={item.to}
@@ -86,7 +95,7 @@ export default function Navbar() {
                         <NavLink to="/" className={(state) => mobileLinkClass(state)} onClick={() => setIsOpen(false)}>
                             Accueil
                         </NavLink>
-                        {navItems.map((item) => (
+                        {visibleNavItems.map((item) => (
                             <NavLink
                                 key={item.to}
                                 to={item.to}

@@ -24,6 +24,22 @@ async function fetchItems(path) {
     }
 }
 
+async function fetchContent(path, fallback) {
+    try {
+        const res = await fetch(path, { credentials: "same-origin" });
+
+        if (!res.ok) {
+            console.error(`Impossible de charger ${path}:`, res.status);
+            return fallback;
+        }
+
+        return await res.json();
+    } catch (error) {
+        console.error(`Erreur lors du chargement de ${path}:`, error);
+        return fallback;
+    }
+}
+
 function sanitizeNewsItem(item) {
     const id = sanitizeId(item?.id);
     if (!id) return null;
@@ -119,4 +135,21 @@ export async function getHikes() {
 export async function getParkings() {
     const items = await fetchItems("/content/parkings/parkings.json");
     return items.map(sanitizeParkingItem).filter(Boolean);
+}
+
+export async function getSectionVisibility() {
+    const defaults = {
+        events: true,
+        news: true,
+        hikes: true,
+        parkings: true,
+    };
+    const data = await fetchContent("/content/site/sections.json", defaults);
+
+    return {
+        events: data?.events !== false,
+        news: data?.news !== false,
+        hikes: data?.hikes !== false,
+        parkings: data?.parkings !== false,
+    };
 }

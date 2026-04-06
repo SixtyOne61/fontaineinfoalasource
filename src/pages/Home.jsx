@@ -3,12 +3,44 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import Card from "../components/Card";
 import CoverImage from "../components/CoverImage";
-import { getEvents, getHikes, getNews, getParkings } from "../data/loader";
+import { getEvents, getHikes, getNews, getParkings, getSectionVisibility } from "../data/loader";
+import { defaultSectionVisibility, sectionRoutes } from "../data/sections";
 
 const quickLinks = [
-    { title: "Se garer", description: "Repérer rapidement les parkings utiles.", to: "/parking" },
-    { title: "Que faire aujourd'hui", description: "Voir les animations proches.", to: "/events" },
-    { title: "Choisir une balade", description: "Comparer les randonnées faciles.", to: "/hikes" },
+    { key: "parkings", title: "Se garer", description: "Repérer rapidement les parkings utiles.", to: sectionRoutes.parkings },
+    { key: "events", title: "Que faire aujourd'hui", description: "Voir les animations proches.", to: sectionRoutes.events },
+    { key: "hikes", title: "Choisir une balade", description: "Comparer les randonnées faciles.", to: sectionRoutes.hikes },
+];
+
+const homeCards = [
+    {
+        key: "parkings",
+        to: sectionRoutes.parkings,
+        kicker: "Priorité accès",
+        title: "Trouver un parking",
+        description: "Comparez tarifs, accès véhicules et position sur la carte.",
+    },
+    {
+        key: "events",
+        to: sectionRoutes.events,
+        kicker: "Agenda",
+        title: "Voir les événements",
+        description: "Repérez ce qui se passe aujourd'hui et cette semaine.",
+    },
+    {
+        key: "hikes",
+        to: sectionRoutes.hikes,
+        kicker: "Nature",
+        title: "Choisir une balade",
+        description: "Sélectionnez un parcours selon la difficulté et la durée.",
+    },
+    {
+        key: "news",
+        to: sectionRoutes.news,
+        kicker: "Infos pratiques",
+        title: "Consulter les actus",
+        description: "Suivez les informations utiles liées à l'accueil et à la circulation.",
+    },
 ];
 
 const vehicleTypes = [
@@ -58,8 +90,11 @@ export default function Home() {
     const [events, setEvents] = useState([]);
     const [hikes, setHikes] = useState([]);
     const [parkings, setParkings] = useState([]);
+    const [sectionVisibility, setSectionVisibility] = useState(defaultSectionVisibility);
 
     useEffect(() => {
+        getSectionVisibility().then(setSectionVisibility);
+
         getNews().then((data) => {
             const sorted = [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
             setFeaturedNews(sorted[0] || null);
@@ -86,16 +121,32 @@ export default function Home() {
         });
     }, []);
 
+    const visibleQuickLinks = useMemo(
+        () => quickLinks.filter((link) => sectionVisibility[link.key]),
+        [sectionVisibility]
+    );
+
+    const visibleHomeCards = useMemo(
+        () => homeCards.filter((card) => sectionVisibility[card.key]),
+        [sectionVisibility]
+    );
+
     const practicalHighlights = useMemo(() => {
         const nextEvent = events[0];
         const easyHikeCount = hikes.filter((hike) => hike.difficulty === "Facile").length;
 
         return [
-            { label: "Parkings repérés", value: parkings.length > 0 ? `${parkings.length} options` : "À vérifier" },
-            { label: "Prochain événement", value: nextEvent ? nextEvent.title : "Aucun programmé" },
-            { label: "Balades faciles", value: easyHikeCount > 0 ? `${easyHikeCount} parcours` : "À enrichir" },
-        ];
-    }, [events, hikes, parkings]);
+            sectionVisibility.parkings
+                ? { label: "Parkings repérés", value: parkings.length > 0 ? `${parkings.length} options` : "À vérifier" }
+                : null,
+            sectionVisibility.events
+                ? { label: "Prochain événement", value: nextEvent ? nextEvent.title : "Aucun programmé" }
+                : null,
+            sectionVisibility.hikes
+                ? { label: "Balades faciles", value: easyHikeCount > 0 ? `${easyHikeCount} parcours` : "À enrichir" }
+                : null,
+        ].filter(Boolean);
+    }, [events, hikes, parkings, sectionVisibility]);
 
     return (
         <Layout>
@@ -121,60 +172,53 @@ export default function Home() {
                             </div>
                         </div>
 
-                        <div className="grid gap-3 sm:grid-cols-3">
-                            {quickLinks.map((link) => (
-                                <Link
-                                    key={link.to}
-                                    to={link.to}
-                                    className="rounded-[1.5rem] border border-white/15 bg-white/10 p-4 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:bg-white/16"
-                                >
-                                    <p className="text-lg font-semibold text-white">{link.title}</p>
-                                    <p className="mt-2 text-sm text-white/85">{link.description}</p>
-                                </Link>
-                            ))}
-                        </div>
+                        {visibleQuickLinks.length > 0 && (
+                            <div className="grid gap-3 sm:grid-cols-3">
+                                {visibleQuickLinks.map((link) => (
+                                    <Link
+                                        key={link.to}
+                                        to={link.to}
+                                        className="rounded-[1.5rem] border border-white/15 bg-white/10 p-4 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:bg-white/16"
+                                    >
+                                        <p className="text-lg font-semibold text-white">{link.title}</p>
+                                        <p className="mt-2 text-sm text-white/85">{link.description}</p>
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
-                    <div className="grid gap-3 rounded-[1.75rem] border border-white/15 bg-[#163c35]/40 p-4 backdrop-blur-md">
-                        <p className="section-kicker text-[#d7e8e1]">En un coup d'œil</p>
-                        {practicalHighlights.map((item) => (
-                            <div key={item.label} className="rounded-[1.35rem] border border-white/10 bg-white/5 px-4 py-3">
-                                <p className="text-sm text-[#d7e8e1]">{item.label}</p>
-                                <p className="mt-1 text-lg font-semibold text-white">{item.value}</p>
-                            </div>
-                        ))}
-                    </div>
+                    {practicalHighlights.length > 0 && (
+                        <div className="grid gap-3 rounded-[1.75rem] border border-white/15 bg-[#163c35]/40 p-4 backdrop-blur-md">
+                            <p className="section-kicker text-[#d7e8e1]">En un coup d'œil</p>
+                            {practicalHighlights.map((item) => (
+                                <div key={item.label} className="rounded-[1.35rem] border border-white/10 bg-white/5 px-4 py-3">
+                                    <p className="text-sm text-[#d7e8e1]">{item.label}</p>
+                                    <p className="mt-1 text-lg font-semibold text-white">{item.value}</p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </section>
 
-            <section className="mb-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                <Link to="/parking" className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(22,60,53,0.14)]">
-                    <p className="section-kicker">Priorité accès</p>
-                    <h2 className="mt-2 text-xl text-[#163c35]">Trouver un parking</h2>
-                    <p className="mt-2 text-sm text-slate-600">Comparez tarifs, accès véhicules et position sur la carte.</p>
-                </Link>
-                <Link to="/events" className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(22,60,53,0.14)]">
-                    <p className="section-kicker">Agenda</p>
-                    <h2 className="mt-2 text-xl text-[#163c35]">Voir les événements</h2>
-                    <p className="mt-2 text-sm text-slate-600">Repérez ce qui se passe aujourd'hui et cette semaine.</p>
-                </Link>
-                <Link to="/hikes" className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(22,60,53,0.14)]">
-                    <p className="section-kicker">Nature</p>
-                    <h2 className="mt-2 text-xl text-[#163c35]">Choisir une balade</h2>
-                    <p className="mt-2 text-sm text-slate-600">Sélectionnez un parcours selon la difficulté et la durée.</p>
-                </Link>
-                <Link to="/news" className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(22,60,53,0.14)]">
-                    <p className="section-kicker">Infos pratiques</p>
-                    <h2 className="mt-2 text-xl text-[#163c35]">Consulter les actus</h2>
-                    <p className="mt-2 text-sm text-slate-600">Suivez les informations utiles liées à l'accueil et à la circulation.</p>
-                </Link>
-            </section>
+            {visibleHomeCards.length > 0 && (
+                <section className="mb-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                    {visibleHomeCards.map((card) => (
+                        <Link key={card.to} to={card.to} className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(22,60,53,0.14)]">
+                            <p className="section-kicker">{card.kicker}</p>
+                            <h2 className="mt-2 text-xl text-[#163c35]">{card.title}</h2>
+                            <p className="mt-2 text-sm text-slate-600">{card.description}</p>
+                        </Link>
+                    ))}
+                </section>
+            )}
 
-            {featuredNews && (
+            {sectionVisibility.news && featuredNews && (
                 <section className="mb-10 sm:mb-12">
                     <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                         <h2 className="text-2xl text-[#163c35] sm:text-3xl">À la une</h2>
-                        <Link to="/news" className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base">
+                        <Link to={sectionRoutes.news} className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base">
                             Voir toutes les actualités
                         </Link>
                     </div>
@@ -195,11 +239,11 @@ export default function Home() {
                 </section>
             )}
 
-            {parkings.length > 0 && (
+            {sectionVisibility.parkings && parkings.length > 0 && (
                 <section className="mb-10 sm:mb-12">
                     <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                         <h2 className="text-2xl text-[#163c35] sm:text-3xl">Se garer facilement</h2>
-                        <Link to="/parking" className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base">
+                        <Link to={sectionRoutes.parkings} className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base">
                             Voir tous les parkings
                         </Link>
                     </div>
@@ -235,71 +279,77 @@ export default function Home() {
                 </section>
             )}
 
-            <section className="mb-10 sm:mb-12">
-                <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <h2 className="text-2xl text-[#163c35] sm:text-3xl">Prochains événements</h2>
-                    <Link to="/events" className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base">
-                        Voir tous les événements
-                    </Link>
-                </div>
-                <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
-                    {events.map((event) => (
-                        <Card key={event.id} title={event.title} date={formatEventDate(event)} image={event.image}>
-                            <div className="mb-3 inline-flex rounded-full bg-[#eef7f3] px-3 py-1 text-xs font-semibold text-[#1f5e54]">
-                                {getEventStatus(event.startDate || event.date, event.endDate)}
-                            </div>
-                            <p className="text-sm text-slate-700">{event.location}</p>
-                            <Link to={`/events/${event.id}`} className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline">
-                                Voir le détail →
-                            </Link>
-                        </Card>
-                    ))}
-                </div>
-            </section>
+            {sectionVisibility.events && (
+                <section className="mb-10 sm:mb-12">
+                    <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <h2 className="text-2xl text-[#163c35] sm:text-3xl">Prochains événements</h2>
+                        <Link to={sectionRoutes.events} className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base">
+                            Voir tous les événements
+                        </Link>
+                    </div>
+                    <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
+                        {events.map((event) => (
+                            <Card key={event.id} title={event.title} date={formatEventDate(event)} image={event.image}>
+                                <div className="mb-3 inline-flex rounded-full bg-[#eef7f3] px-3 py-1 text-xs font-semibold text-[#1f5e54]">
+                                    {getEventStatus(event.startDate || event.date, event.endDate)}
+                                </div>
+                                <p className="text-sm text-slate-700">{event.location}</p>
+                                <Link to={`/events/${event.id}`} className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline">
+                                    Voir le détail →
+                                </Link>
+                            </Card>
+                        ))}
+                    </div>
+                </section>
+            )}
 
-            <section className="mb-10 sm:mb-12">
-                <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <h2 className="text-2xl text-[#163c35] sm:text-3xl">Dernières actualités</h2>
-                    <Link to="/news" className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base">
-                        Voir toutes les actualités
-                    </Link>
-                </div>
-                <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
-                    {news.map((item) => (
-                        <Card key={item.id} title={item.title} date={item.date} image={item.image}>
-                            <p className="text-sm text-slate-700">{item.excerpt}</p>
-                            <Link to={`/news/${item.id}`} className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline">
-                                Lire plus →
-                            </Link>
-                        </Card>
-                    ))}
-                </div>
-            </section>
+            {sectionVisibility.news && (
+                <section className="mb-10 sm:mb-12">
+                    <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <h2 className="text-2xl text-[#163c35] sm:text-3xl">Dernières actualités</h2>
+                        <Link to={sectionRoutes.news} className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base">
+                            Voir toutes les actualités
+                        </Link>
+                    </div>
+                    <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
+                        {news.map((item) => (
+                            <Card key={item.id} title={item.title} date={item.date} image={item.image}>
+                                <p className="text-sm text-slate-700">{item.excerpt}</p>
+                                <Link to={`/news/${item.id}`} className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline">
+                                    Lire plus →
+                                </Link>
+                            </Card>
+                        ))}
+                    </div>
+                </section>
+            )}
 
-            <section>
-                <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <h2 className="text-2xl text-[#163c35] sm:text-3xl">Randonnées à découvrir</h2>
-                    <Link to="/hikes" className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base">
-                        Voir toutes les randonnées
-                    </Link>
-                </div>
-                <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
-                    {hikes.map((hike) => (
-                        <article key={hike.id} className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-                            <div className="mb-3 flex flex-wrap gap-2">
-                                <span className="rounded-full bg-[#eef7f3] px-3 py-1 text-xs font-semibold text-[#1f5e54]">{hike.difficulty}</span>
-                                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">{hike.duration}</span>
-                            </div>
-                            <h3 className="text-2xl text-slate-900">{hike.name}</h3>
-                            <p className="mt-2 text-sm text-slate-700">{hike.description}</p>
-                            <p className="mt-3 text-sm text-slate-600">Distance : {hike.distance} km</p>
-                            <Link to={`/hikes/${hike.id}`} className="mt-4 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline">
-                                Voir le détail →
-                            </Link>
-                        </article>
-                    ))}
-                </div>
-            </section>
+            {sectionVisibility.hikes && (
+                <section>
+                    <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <h2 className="text-2xl text-[#163c35] sm:text-3xl">Randonnées à découvrir</h2>
+                        <Link to={sectionRoutes.hikes} className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base">
+                            Voir toutes les randonnées
+                        </Link>
+                    </div>
+                    <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
+                        {hikes.map((hike) => (
+                            <article key={hike.id} className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
+                                <div className="mb-3 flex flex-wrap gap-2">
+                                    <span className="rounded-full bg-[#eef7f3] px-3 py-1 text-xs font-semibold text-[#1f5e54]">{hike.difficulty}</span>
+                                    <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">{hike.duration}</span>
+                                </div>
+                                <h3 className="text-2xl text-slate-900">{hike.name}</h3>
+                                <p className="mt-2 text-sm text-slate-700">{hike.description}</p>
+                                <p className="mt-3 text-sm text-slate-600">Distance : {hike.distance} km</p>
+                                <Link to={`/hikes/${hike.id}`} className="mt-4 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline">
+                                    Voir le détail →
+                                </Link>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+            )}
         </Layout>
     );
 }

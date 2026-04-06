@@ -3,6 +3,17 @@ media:
   output: /uploads
 
 content:
+  - name: homepageSections
+    label: Sections de l'accueil
+    path: public/content/site/sections.json
+    type: file
+    format: json
+    fields:
+      - { name: events, label: Afficher la section Événements, type: boolean, default: true }
+      - { name: news, label: Afficher la section Actualités, type: boolean, default: true }
+      - { name: hikes, label: Afficher la section Randonnées, type: boolean, default: true }
+      - { name: parkings, label: Afficher la section Parkings, type: boolean, default: true }
+
   - name: news
     label: Actualités
     path: public/content/news/news.json
