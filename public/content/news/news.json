@@ -2,19 +2,27 @@
   "items": [
     {
       "id": 1,
-      "title": "Accès au centre renforcé pendant les week-ends de printemps",
+      "title": "Dispositif d'accueil renforcé les week-ends de forte fréquentation",
       "date": "2026-04-12",
-      "excerpt": "Des agents d’accueil et une signalétique temporaire facilitent l’orientation des visiteurs.",
-      "content": "La commune renforce l’accueil des visiteurs pendant les pics de fréquentation. Une signalétique temporaire est mise en place sur les principaux axes et des agents orientent les flux vers les parkings disponibles.",
+      "excerpt": "La commune met en place une signalétique temporaire et des points d'information pour mieux orienter les visiteurs.",
+      "content": "Afin de fluidifier l'arrivée des visiteurs à Fontaine-de-Vaucluse, la commune renforce le dispositif d'accueil les week-ends de forte fréquentation. Une signalétique temporaire est déployée dès les principaux axes d'accès et des points d'information orientent les visiteurs vers les parkings disponibles, les cheminements piétons et les principaux sites à découvrir.",
       "image": "/uploads/fond-jaune-1-scaled.jpg"
     },
     {
       "id": 2,
-      "title": "Information stationnement pour les excursionnistes",
+      "title": "Rappel stationnement: privilégier les parkings signalés en entrée de village",
       "date": "2026-04-08",
-      "excerpt": "Les visiteurs sont invités à privilégier les parkings signalés en entrée de village.",
-      "content": "Afin de limiter la congestion dans le centre ancien, la commune rappelle que les parkings en entrée de village doivent être utilisés en priorité. Les itinéraires piétons permettent ensuite de rejoindre rapidement les principaux points d’intérêt.",
+      "excerpt": "Pour limiter la congestion dans le centre ancien, les visiteurs sont invités à se garer dès leur arrivée sur les parkings indiqués.",
+      "content": "La commune rappelle que le stationnement doit être privilégié sur les parkings signalés en entrée de village. Cette organisation permet de réduire la circulation dans le centre ancien, de sécuriser les déplacements piétons et de faciliter l'accès aux commerces, au site de la source et aux sentiers de découverte.",
       "image": "/uploads/images.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Cheminements piétons conseillés entre les parkings et le cœur de village",
+      "date": "2026-04-05",
+      "excerpt": "Des itinéraires piétons balisés permettent de rejoindre rapidement les principaux points d'intérêt.",
+      "content": "Depuis les parkings communaux, des cheminements piétons balisés permettent de rejoindre à pied les principaux points d'intérêt du village. La commune invite les visiteurs à suivre ces itinéraires pour limiter les conflits d'usage, sécuriser les traversées et améliorer le confort de visite en période d'affluence.",
+      "image": "/uploads/fond-jaune-1-scaled.jpg"
     }
   ]
 }

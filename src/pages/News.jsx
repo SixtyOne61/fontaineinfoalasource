@@ -30,18 +30,29 @@ export default function News() {
 
     return (
         <Layout>
-            <section className="mb-8">
-                <h1 className="text-2xl font-bold text-[#163c35] sm:text-3xl">Actualités</h1>
-                <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
-                    Retrouvez toutes les informations récentes de la commune.
-                </p>
+            <section className="mb-8 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+                <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
+                    <p className="section-kicker">Informations communales</p>
+                    <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">Actualités</h1>
+                    <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
+                        Retrouvez toutes les informations récentes de la commune et les messages pratiques utiles aux habitants comme aux visiteurs.
+                    </p>
+                </div>
+                <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
+                    <p className="section-kicker">À savoir</p>
+                    <p className="mt-2 text-lg font-semibold text-[#163c35]">
+                        Cette rubrique regroupe les informations de circulation, d'accueil et d'organisation locale.
+                    </p>
+                </div>
             </section>
 
-            <SearchBar
-                value={search}
-                onChange={setSearch}
-                placeholder="Rechercher une actualité..."
-            />
+            <div className="surface-card mb-6 rounded-[1.75rem] border border-white/70 p-4 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
+                <SearchBar
+                    value={search}
+                    onChange={setSearch}
+                    placeholder="Rechercher une actualité..."
+                />
+            </div>
 
             <section>
                 {filteredNews.length > 0 ? (
@@ -59,7 +70,7 @@ export default function News() {
                         ))}
                     </div>
                 ) : (
-                    <div className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-600 shadow-sm">
+                    <div className="surface-card rounded-[1.75rem] border border-white/70 p-5 text-slate-600 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
                         Aucune actualité ne correspond à votre recherche.
                     </div>
                 )}

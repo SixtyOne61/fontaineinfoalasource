@@ -71,16 +71,17 @@ export default function Events() {
     return (
         <Layout>
             <section className="mb-8 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-                <div>
-                    <h1 className="text-2xl font-bold text-[#163c35] sm:text-3xl">Événements</h1>
-                    <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
+                <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
+                    <p className="section-kicker">Agenda communal</p>
+                    <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">Événements</h1>
+                    <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
                         Consultez rapidement le calendrier communal et repérez ce qui se passe aujourd'hui, cette semaine ou plus tard.
                     </p>
                 </div>
-                <div className="rounded-3xl border border-[#d7e8e1] bg-white p-4 shadow-sm">
-                    <p className="text-sm text-[#5b7d76]">Astuce</p>
-                    <p className="mt-1 font-semibold text-[#163c35]">
-                        Utilisez le filtre "À venir" pour les visiteurs du jour et la recherche pour un lieu précis.
+                <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
+                    <p className="section-kicker">Astuce</p>
+                    <p className="mt-2 text-lg font-semibold text-[#163c35]">
+                        Utilisez le filtre « À venir » pour les visiteurs du jour et la recherche pour un lieu précis.
                     </p>
                 </div>
             </section>
@@ -89,22 +90,24 @@ export default function Events() {
                 <EventsCalendar events={events} />
             </section>
 
-            <SearchBar
-                value={search}
-                onChange={setSearch}
-                placeholder="Rechercher un événement ou un lieu..."
-            />
+            <div className="surface-card mb-6 rounded-[1.75rem] border border-white/70 p-4 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
+                <SearchBar
+                    value={search}
+                    onChange={setSearch}
+                    placeholder="Rechercher un événement ou un lieu..."
+                />
 
-            <div className="mb-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
-                <button type="button" onClick={() => setFilterType("upcoming")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "upcoming" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
-                    À venir
-                </button>
-                <button type="button" onClick={() => setFilterType("past")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "past" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
-                    Passés
-                </button>
-                <button type="button" onClick={() => setFilterType("all")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "all" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
-                    Tous
-                </button>
+                <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
+                    <button type="button" onClick={() => setFilterType("upcoming")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "upcoming" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
+                        À venir
+                    </button>
+                    <button type="button" onClick={() => setFilterType("past")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "past" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
+                        Passés
+                    </button>
+                    <button type="button" onClick={() => setFilterType("all")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "all" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
+                        Tous
+                    </button>
+                </div>
             </div>
 
             <section>
@@ -124,7 +127,7 @@ export default function Events() {
                         ))}
                     </div>
                 ) : (
-                    <div className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-600 shadow-sm">
+                    <div className="surface-card rounded-[1.75rem] border border-white/70 p-5 text-slate-600 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
                         Aucun événement ne correspond à votre recherche.
                     </div>
                 )}

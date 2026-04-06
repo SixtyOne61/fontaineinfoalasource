@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,9 +9,12 @@
   --color-primary-2: #3f977b;
   --color-secondary: #a7cfc1;
   --color-soft: #d7e8e1;
-  --color-accent: #e1d1ae;
-  --color-bg: #f6f8f5;
+  --color-accent: #d8c08f;
+  --color-accent-2: #efe3be;
+  --color-bg: #f4f1e8;
+  --color-paper: #fffdf8;
   --color-text: #163c35;
+  --color-muted: #5b7d76;
   --color-white: #ffffff;
 }
 
@@ -23,8 +28,10 @@ html {
 
 body {
   margin: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--color-bg);
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(216, 192, 143, 0.24), transparent 24rem),
+    linear-gradient(180deg, #f6f3ea 0%, #f2f6f1 45%, #eef4ef 100%);
   color: var(--color-text);
 }
 
@@ -36,4 +43,29 @@ a {
 img {
   display: block;
   max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Fraunces", Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: rgba(63, 151, 123, 0.24);
+}
+
+.surface-card {
+  background: rgba(255, 253, 248, 0.88);
+  backdrop-filter: blur(10px);
+}
+
+.section-kicker {
+  color: var(--color-muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }

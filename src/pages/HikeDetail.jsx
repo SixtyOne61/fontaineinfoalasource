@@ -55,10 +55,8 @@ export default function HikeDetail() {
     if (!hike) {
         return (
             <Layout>
-                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8">
-                    <h1 className="mb-2 text-2xl font-bold text-slate-900 sm:text-3xl">
-                        Randonnée introuvable
-                    </h1>
+                <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-8">
+                    <h1 className="mb-2 text-3xl text-slate-900">Randonnée introuvable</h1>
                     <p className="mb-4 text-slate-600">
                         La randonnée demandée n’existe pas ou n’est plus disponible.
                     </p>
@@ -82,8 +80,9 @@ export default function HikeDetail() {
         <Layout>
             <div className="grid gap-6 sm:gap-8">
                 <article className="grid gap-6 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8">
-                        <h1 className="mb-4 text-2xl font-bold text-slate-900 sm:text-3xl">
+                    <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-8">
+                        <p className="section-kicker mb-2">Parcours</p>
+                        <h1 className="mb-4 text-3xl text-slate-900 sm:text-4xl">
                             {hike.name}
                         </h1>
 
@@ -92,22 +91,22 @@ export default function HikeDetail() {
                         </p>
 
                         <div className="mb-8 grid gap-4 sm:grid-cols-2">
-                            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                            <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
                                 <p className="text-sm text-slate-500">Distance</p>
                                 <p className="font-medium text-slate-900">{hike.distance} km</p>
                             </div>
 
-                            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                            <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
                                 <p className="text-sm text-slate-500">Difficulté</p>
                                 <p className="font-medium text-slate-900">{hike.difficulty}</p>
                             </div>
 
-                            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                            <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
                                 <p className="text-sm text-slate-500">Durée</p>
                                 <p className="font-medium text-slate-900">{hike.duration}</p>
                             </div>
 
-                            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                            <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
                                 <p className="text-sm text-slate-500">Départ</p>
                                 <p className="font-medium text-slate-900">{hike.startPoint}</p>
                             </div>

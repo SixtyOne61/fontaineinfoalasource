@@ -11,7 +11,7 @@
       "campers": false,
       "hourlyRate": "2 € / heure",
       "dailyRate": "12 € / jour",
-      "notes": "Ouvert toute l'année"
+      "notes": "Accès direct au cœur de village. Ouvert toute l'année."
     },
     {
       "id": 2,
@@ -24,7 +24,20 @@
       "campers": true,
       "hourlyRate": "3 € / heure",
       "dailyRate": "18 € / jour",
-      "notes": "Certaines zones sont limitées en hauteur."
+      "notes": "Adapté aux véhicules plus volumineux. Certaines zones sont limitées en hauteur."
+    },
+    {
+      "id": 3,
+      "name": "Parking Belvédère",
+      "lat": 43.9236,
+      "lng": 5.1287,
+      "address": "Accès belvédère",
+      "cars": true,
+      "motorcycles": true,
+      "campers": false,
+      "hourlyRate": "2 € / heure",
+      "dailyRate": "10 € / jour",
+      "notes": "Pratique pour les départs de promenade et les points de vue."
     }
   ]
 }

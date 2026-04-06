@@ -8,9 +8,33 @@
       "duration": "2h15",
       "lat": 43.9236,
       "lng": 5.1287,
-      "description": "Parcours de découverte offrant plusieurs points de vue sur le village et les reliefs environnants.",
+      "description": "Parcours de découverte offrant plusieurs points de vue sur le village, la vallée et les reliefs environnants.",
       "startPoint": "Parking du belvédère",
       "gpx": "/gpx/belvedere.gpx"
+    },
+    {
+      "id": 2,
+      "name": "Promenade des rives de la Sorgue",
+      "distance": 3.2,
+      "difficulty": "Facile",
+      "duration": "1h00",
+      "lat": 43.9228,
+      "lng": 5.1282,
+      "description": "Itinéraire court et accessible pour une découverte tranquille des abords de la Sorgue et des paysages de fraîcheur.",
+      "startPoint": "Entrée du village",
+      "gpx": ""
+    },
+    {
+      "id": 3,
+      "name": "Circuit des hauteurs",
+      "distance": 8.9,
+      "difficulty": "Moyen",
+      "duration": "3h15",
+      "lat": 43.9247,
+      "lng": 5.1304,
+      "description": "Boucle plus soutenue pour les marcheurs souhaitant prendre de la hauteur et profiter de vues dégagées sur le site.",
+      "startPoint": "Parking Vallon",
+      "gpx": ""
     }
   ]
 }

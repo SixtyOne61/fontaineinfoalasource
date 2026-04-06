@@ -45,10 +45,11 @@ export default function HikeTrackMap({ hike }) {
         };
     }, [hike]);
 
-    if (!hike) return null;
+    if (!hike || !hasValidCoordinates(hike)) {
+        return null;
+    }
 
-    const hasCoordinates = hasValidCoordinates(hike);
-    const fallbackPosition = hasCoordinates ? [hike.lat, hike.lng] : [43.9221, 5.1278];
+    const fallbackPosition = [hike.lat, hike.lng];
 
     return (
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -72,18 +73,16 @@ export default function HikeTrackMap({ hike }) {
                     />
                 )}
 
-                {hasCoordinates && (
-                    <Marker position={fallbackPosition}>
-                        <Popup>
-                            <div className="min-w-[200px]">
-                                <h3 className="font-bold">{hike.name}</h3>
-                                <p>DÃ©part : {hike.startPoint}</p>
-                                <p>Distance : {hike.distance} km</p>
-                                <p>DifficultÃ© : {hike.difficulty}</p>
-                            </div>
-                        </Popup>
-                    </Marker>
-                )}
+                <Marker position={fallbackPosition}>
+                    <Popup>
+                        <div className="min-w-[200px]">
+                            <h3 className="font-bold">{hike.name}</h3>
+                            <p>Départ : {hike.startPoint}</p>
+                            <p>Distance : {hike.distance} km</p>
+                            <p>Difficulté : {hike.difficulty}</p>
+                        </div>
+                    </Popup>
+                </Marker>
             </MapContainer>
         </div>
     );

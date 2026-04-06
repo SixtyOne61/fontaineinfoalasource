@@ -2,11 +2,11 @@
   "items": [
     {
       "id": 1,
-      "title": "Marché des producteurs",
+      "title": "Marché des producteurs et artisans locaux",
       "startDate": "2026-04-15",
       "endDate": "2026-04-15",
       "location": "Place de la Colonne",
-      "content": "Marché de producteurs locaux avec produits du terroir, restauration légère et informations touristiques.",
+      "content": "Marché de producteurs locaux et d'artisans avec produits du terroir, petite restauration et stand d'information touristique.",
       "image": "/uploads/images.jpg"
     },
     {
@@ -15,7 +15,16 @@
       "startDate": "2026-04-18",
       "endDate": "2026-04-19",
       "location": "Centre du village et abords de la Sorgue",
-      "content": "Animations familiales, balades commentées et ateliers de découverte autour du patrimoine naturel et du village.",
+      "content": "Animations familiales, balades commentées et ateliers de découverte autour du patrimoine naturel, de la Sorgue et de l'histoire du village.",
+      "image": "/uploads/fond-jaune-1-scaled.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Visite commentée du village",
+      "startDate": "2026-04-21",
+      "endDate": "2026-04-21",
+      "location": "Départ devant l'office d'information",
+      "content": "Parcours pédestre commenté pour découvrir l'organisation du village, ses points de vue et ses repères patrimoniaux.",
       "image": "/uploads/fond-jaune-1-scaled.jpg"
     }
   ]
