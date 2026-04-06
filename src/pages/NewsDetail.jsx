@@ -44,7 +44,6 @@ export default function NewsDetail() {
 
                 <div className="p-5 sm:p-8">
                     <p className="mb-2 text-sm text-slate-500">{article.date}</p>
-
                     <h1 className="mb-4 text-2xl font-bold text-slate-900 sm:text-3xl">
                         {article.title}
                     </h1>
@@ -53,7 +52,7 @@ export default function NewsDetail() {
                         <p className="mb-6 text-base text-slate-700 sm:text-lg">{article.excerpt}</p>
                     )}
 
-                    <div className="prose max-w-none text-slate-700">
+                    <div className="space-y-4 text-slate-700">
                         <p>{article.content}</p>
                     </div>
 

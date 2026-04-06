@@ -6,6 +6,11 @@ import SearchBar from "../components/SearchBar";
 import EventsCalendar from "../components/EventsCalendar";
 import { getEvents } from "../data/loader";
 
+function getEventSnippet(content) {
+    if (!content) return "";
+    return content.length > 140 ? `${content.slice(0, 137)}...` : content;
+}
+
 export default function Events() {
     const [events, setEvents] = useState([]);
     const [search, setSearch] = useState("");
@@ -37,12 +42,7 @@ export default function Events() {
             .sort((a, b) => {
                 const aStart = new Date(a.startDate || a.date);
                 const bStart = new Date(b.startDate || b.date);
-
-                if (filterType === "past") {
-                    return bStart - aStart;
-                }
-
-                return aStart - bStart;
+                return filterType === "past" ? bStart - aStart : aStart - bStart;
             });
     }, [events, search, filterType]);
 
@@ -87,7 +87,6 @@ export default function Events() {
                 >
                     À venir
                 </button>
-
                 <button
                     type="button"
                     onClick={() => setFilterType("past")}
@@ -99,7 +98,6 @@ export default function Events() {
                 >
                     Passés
                 </button>
-
                 <button
                     type="button"
                     onClick={() => setFilterType("all")}
@@ -124,11 +122,9 @@ export default function Events() {
                                 image={event.image}
                             >
                                 <p className="text-sm text-slate-700 sm:text-base">{event.location}</p>
-
-                                <p className="mt-2 line-clamp-3 text-sm text-slate-600">
-                                    {event.content}
+                                <p className="mt-2 text-sm text-slate-600">
+                                    {getEventSnippet(event.content)}
                                 </p>
-
                                 <Link
                                     to={`/events/${event.id}`}
                                     className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline"

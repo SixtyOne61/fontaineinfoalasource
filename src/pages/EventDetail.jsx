@@ -65,7 +65,7 @@ export default function EventDetail() {
                         </div>
                     </div>
 
-                    <div className="prose max-w-none text-slate-700">
+                    <div className="space-y-4 text-slate-700">
                         <p>{event.content}</p>
                     </div>
 
