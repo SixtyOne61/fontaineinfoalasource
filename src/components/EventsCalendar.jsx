@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useLocale } from "../useLocale";
 
 function formatDateKey(date) {
     return date.toISOString().split("T")[0];
@@ -10,13 +11,6 @@ function isSameMonth(date, currentDate) {
         date.getMonth() === currentDate.getMonth() &&
         date.getFullYear() === currentDate.getFullYear()
     );
-}
-
-function getMonthLabel(date) {
-    return date.toLocaleDateString("fr-FR", {
-        month: "long",
-        year: "numeric",
-    });
 }
 
 function getCalendarDays(currentMonth) {
@@ -47,6 +41,7 @@ function getDatesInRange(startDate, endDate) {
 }
 
 export default function EventsCalendar({ events }) {
+    const { lang, locale } = useLocale();
     const [currentMonth, setCurrentMonth] = useState(() => {
         const now = new Date();
         return new Date(now.getFullYear(), now.getMonth(), 1);
@@ -74,13 +69,17 @@ export default function EventsCalendar({ events }) {
     }, [events]);
 
     const days = useMemo(() => getCalendarDays(currentMonth), [currentMonth]);
-    const weekDays = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+    const weekDays = lang === "en" ? ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] : ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+    const monthLabel = currentMonth.toLocaleDateString(locale, {
+        month: "long",
+        year: "numeric",
+    });
 
     return (
         <section className="rounded-3xl border border-[#d7e8e1] bg-white p-5 shadow-sm">
             <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <h2 className="text-xl font-bold capitalize text-[#163c35] sm:text-2xl">
-                    {getMonthLabel(currentMonth)}
+                    {monthLabel}
                 </h2>
 
                 <div className="grid grid-cols-2 gap-3 sm:flex">
@@ -93,7 +92,7 @@ export default function EventsCalendar({ events }) {
                         }
                         className="rounded-xl border border-[#a7cfc1] bg-white px-4 py-2.5 text-sm text-[#1f5e54] transition hover:bg-[#d7e8e1] sm:text-base"
                     >
-                        ← Précédent
+                        {lang === "en" ? "← Previous" : "← Précédent"}
                     </button>
 
                     <button
@@ -105,7 +104,7 @@ export default function EventsCalendar({ events }) {
                         }
                         className="rounded-xl border border-[#a7cfc1] bg-white px-4 py-2.5 text-sm text-[#1f5e54] transition hover:bg-[#d7e8e1] sm:text-base"
                     >
-                        Suivant →
+                        {lang === "en" ? "Next →" : "Suivant →"}
                     </button>
                 </div>
             </div>
@@ -153,9 +152,9 @@ export default function EventsCalendar({ events }) {
                                                 key={`${event.id}-${key}`}
                                                 to={`/events/${event.id}`}
                                                 className="line-clamp-2 rounded-lg bg-[#d7e8e1] px-2 py-1 text-xs text-[#163c35] transition hover:bg-[#a7cfc1]"
-                                                title={event.title}
+                                                title={event.titleEn || event.title}
                                             >
-                                                {event.title}
+                                                {event.titleEn && lang === "en" ? event.titleEn : event.title}
                                             </Link>
                                         ))}
                                     </div>

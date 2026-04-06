@@ -6,12 +6,15 @@ import "./index.css";
 
 import AppRoutes from "./AppRoutes";
 import FixLeafletIcon from "./components/FixLeafletIcon";
+import LocaleProvider from "./LocaleProvider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
-        <BrowserRouter>
-            <FixLeafletIcon />
-            <AppRoutes />
-        </BrowserRouter>
+        <LocaleProvider>
+            <BrowserRouter>
+                <FixLeafletIcon />
+                <AppRoutes />
+            </BrowserRouter>
+        </LocaleProvider>
     </React.StrictMode>
 );

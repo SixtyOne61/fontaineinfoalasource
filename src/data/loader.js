@@ -63,6 +63,13 @@ function sanitizeTextList(values, maxLength = 220) {
         .filter((value) => value.length > 0);
 }
 
+function sanitizeLocalizedTextFields(item, field, maxLength) {
+    return {
+        [field]: sanitizeText(item?.[field], maxLength),
+        [`${field}En`]: sanitizeText(item?.[`${field}En`], maxLength),
+    };
+}
+
 function sanitizeLinkItem(item) {
     const id = sanitizeId(item?.id) || slugifyText(sanitizeText(item?.label, 80));
     const to = sanitizeInternalPath(item?.to);
@@ -71,7 +78,7 @@ function sanitizeLinkItem(item) {
 
     return {
         id,
-        label: sanitizeText(item?.label, 80),
+        ...sanitizeLocalizedTextFields(item, "label", 80),
         to,
     };
 }
@@ -82,16 +89,16 @@ function sanitizeCmsContentItem(item) {
 
     return {
         id,
-        title: sanitizeText(item?.title, 120),
-        description: sanitizeText(item?.description, 320),
+        ...sanitizeLocalizedTextFields(item, "title", 120),
+        ...sanitizeLocalizedTextFields(item, "description", 320),
     };
 }
 
 function sanitizeHeroContent(hero) {
     return {
-        eyebrow: sanitizeText(hero?.eyebrow, 80),
-        title: sanitizeText(hero?.title, 160),
-        description: sanitizeText(hero?.description, 420),
+        ...sanitizeLocalizedTextFields(hero, "eyebrow", 80),
+        ...sanitizeLocalizedTextFields(hero, "title", 160),
+        ...sanitizeLocalizedTextFields(hero, "description", 420),
         primaryCta: sanitizeLinkItem(hero?.primaryCta),
         secondaryCta: sanitizeLinkItem(hero?.secondaryCta),
     };
@@ -106,7 +113,7 @@ function sanitizeQuickLink(item) {
     return {
         ...base,
         to,
-        badge: sanitizeText(item?.badge, 40),
+        ...sanitizeLocalizedTextFields(item, "badge", 40),
     };
 }
 
@@ -116,8 +123,8 @@ function sanitizeHighlight(item) {
 
     return {
         ...base,
-        value: sanitizeText(item?.value, 60),
-        tag: sanitizeText(item?.tag, 60),
+        ...sanitizeLocalizedTextFields(item, "value", 60),
+        ...sanitizeLocalizedTextFields(item, "tag", 60),
     };
 }
 
@@ -137,8 +144,8 @@ function sanitizeGuideSection(section) {
 
     return {
         id,
-        title: sanitizeText(section?.title, 120),
-        summary: sanitizeText(section?.summary, 360),
+        ...sanitizeLocalizedTextFields(section, "title", 120),
+        ...sanitizeLocalizedTextFields(section, "summary", 360),
         items,
         links,
     };
@@ -150,13 +157,13 @@ function sanitizeContact(item) {
 
     return {
         id,
-        name: sanitizeText(item?.name, 120),
-        role: sanitizeText(item?.role, 80),
-        description: sanitizeText(item?.description, 260),
+        ...sanitizeLocalizedTextFields(item, "name", 120),
+        ...sanitizeLocalizedTextFields(item, "role", 80),
+        ...sanitizeLocalizedTextFields(item, "description", 260),
         phone: sanitizeText(item?.phone, 40),
         email: sanitizeText(item?.email, 120),
-        address: sanitizeText(item?.address, 220),
-        hours: sanitizeText(item?.hours, 160),
+        ...sanitizeLocalizedTextFields(item, "address", 220),
+        ...sanitizeLocalizedTextFields(item, "hours", 160),
     };
 }
 
@@ -176,7 +183,9 @@ function sanitizeSiteContent(data) {
             ? data.contacts.map(sanitizeContact).filter(Boolean)
             : [],
         visitorTips: sanitizeTextList(data?.visitorTips, 220),
+        visitorTipsEn: sanitizeTextList(data?.visitorTipsEn, 220),
         alerts: sanitizeTextList(data?.alerts, 220),
+        alertsEn: sanitizeTextList(data?.alertsEn, 220),
     };
 }
 
@@ -186,10 +195,10 @@ function sanitizeNewsItem(item) {
 
     return {
         id,
-        title: sanitizeText(item?.title, 160),
+        ...sanitizeLocalizedTextFields(item, "title", 160),
         date: sanitizeDate(item?.date),
-        excerpt: sanitizeText(item?.excerpt, 280),
-        content: sanitizeText(item?.content, 5000),
+        ...sanitizeLocalizedTextFields(item, "excerpt", 280),
+        ...sanitizeLocalizedTextFields(item, "content", 5000),
         image: sanitizePublicAssetPath(item?.image, {
             allowedPrefixes: ["/uploads/"],
             allowedExtensions: [".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"],
@@ -203,12 +212,12 @@ function sanitizeEventItem(item) {
 
     return {
         id,
-        title: sanitizeText(item?.title, 160),
+        ...sanitizeLocalizedTextFields(item, "title", 160),
         startDate: sanitizeDate(item?.startDate),
         endDate: sanitizeDate(item?.endDate),
         date: sanitizeDate(item?.date),
-        location: sanitizeText(item?.location, 200),
-        content: sanitizeText(item?.content, 5000),
+        ...sanitizeLocalizedTextFields(item, "location", 200),
+        ...sanitizeLocalizedTextFields(item, "content", 5000),
         image: sanitizePublicAssetPath(item?.image, {
             allowedPrefixes: ["/uploads/"],
             allowedExtensions: [".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"],
@@ -222,14 +231,14 @@ function sanitizeHikeItem(item) {
 
     return {
         id,
-        name: sanitizeText(item?.name, 160),
+        ...sanitizeLocalizedTextFields(item, "name", 160),
         distance: sanitizeNumber(item?.distance, { min: 0, max: 250 }),
-        difficulty: sanitizeText(item?.difficulty, 40),
-        duration: sanitizeText(item?.duration, 40),
+        ...sanitizeLocalizedTextFields(item, "difficulty", 40),
+        ...sanitizeLocalizedTextFields(item, "duration", 40),
         lat: sanitizeNumber(item?.lat, { min: -90, max: 90 }),
         lng: sanitizeNumber(item?.lng, { min: -180, max: 180 }),
-        description: sanitizeText(item?.description, 1200),
-        startPoint: sanitizeText(item?.startPoint, 200),
+        ...sanitizeLocalizedTextFields(item, "description", 1200),
+        ...sanitizeLocalizedTextFields(item, "startPoint", 200),
         gpx: sanitizePublicAssetPath(item?.gpx, {
             allowedPrefixes: ["/gpx/"],
             allowedExtensions: [".gpx"],
@@ -243,17 +252,17 @@ function sanitizeParkingItem(item) {
 
     return {
         id,
-        name: sanitizeText(item?.name, 160),
+        ...sanitizeLocalizedTextFields(item, "name", 160),
         lat: sanitizeNumber(item?.lat, { min: -90, max: 90 }),
         lng: sanitizeNumber(item?.lng, { min: -180, max: 180 }),
-        address: sanitizeText(item?.address, 220),
+        ...sanitizeLocalizedTextFields(item, "address", 220),
         cars: sanitizeBoolean(item?.cars),
         minivans: sanitizeBoolean(item?.minivans),
         motorcycles: sanitizeBoolean(item?.motorcycles),
         campers: sanitizeBoolean(item?.campers),
-        hourlyRate: sanitizeText(item?.hourlyRate, 60),
-        dailyRate: sanitizeText(item?.dailyRate, 60),
-        notes: sanitizeText(item?.notes, 400),
+        ...sanitizeLocalizedTextFields(item, "hourlyRate", 60),
+        ...sanitizeLocalizedTextFields(item, "dailyRate", 60),
+        ...sanitizeLocalizedTextFields(item, "notes", 400),
     };
 }
 

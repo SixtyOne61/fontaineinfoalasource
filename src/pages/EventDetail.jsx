@@ -3,9 +3,12 @@ import { Link, useParams } from "react-router-dom";
 import CoverImage from "../components/CoverImage";
 import Layout from "../components/Layout";
 import { getEvents } from "../data/loader";
+import { getLocalizedField } from "../locale";
+import { useLocale } from "../useLocale";
 
 export default function EventDetail() {
     const { id } = useParams();
+    const { lang, t } = useLocale();
     const [event, setEvent] = useState(null);
 
     useEffect(() => {
@@ -19,12 +22,12 @@ export default function EventDetail() {
         return (
             <Layout>
                 <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-8">
-                    <h1 className="mb-2 text-3xl text-slate-900">Événement introuvable</h1>
+                    <h1 className="mb-2 text-3xl text-slate-900">{lang === "en" ? "Event not found" : "Événement introuvable"}</h1>
                     <p className="mb-4 text-slate-600">
-                        L’événement demandé n’existe pas ou n’est plus disponible.
+                        {lang === "en" ? "The requested event does not exist or is no longer available." : "L’événement demandé n’existe pas ou n’est plus disponible."}
                     </p>
                     <Link to="/events" className="text-[#1f5e54] hover:underline">
-                        Retour à la liste des événements
+                        {lang === "en" ? "Back to events list" : "Retour à la liste des événements"}
                     </Link>
                 </div>
             </Layout>
@@ -36,7 +39,7 @@ export default function EventDetail() {
             <article className="surface-card overflow-hidden rounded-[2rem] border border-white/70 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
                 <CoverImage
                     src={event.image}
-                    alt={event.title}
+                    alt={getLocalizedField(event, "title", lang)}
                     className="h-56 w-full object-cover sm:h-72"
                 />
 
@@ -44,32 +47,34 @@ export default function EventDetail() {
                     <p className="section-kicker mb-2">
                         {event.startDate === event.endDate || !event.endDate
                             ? event.startDate || event.date
-                            : `Du ${event.startDate} au ${event.endDate}`}
+                            : lang === "en"
+                                ? `From ${event.startDate} to ${event.endDate}`
+                                : `Du ${event.startDate} au ${event.endDate}`}
                     </p>
 
                     <h1 className="mb-4 text-3xl text-slate-900 sm:text-4xl">
-                        {event.title}
+                        {getLocalizedField(event, "title", lang)}
                     </h1>
 
                     <div className="mb-6 grid gap-4 sm:grid-cols-2">
                         <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                            <p className="text-sm text-slate-500">Lieu</p>
-                            <p className="font-medium text-slate-900">{event.location}</p>
+                            <p className="text-sm text-slate-500">{lang === "en" ? "Location" : "Lieu"}</p>
+                            <p className="font-medium text-slate-900">{getLocalizedField(event, "location", lang)}</p>
                         </div>
 
                         <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                            <p className="text-sm text-slate-500">Catégorie</p>
-                            <p className="font-medium text-slate-900">Événement communal</p>
+                            <p className="text-sm text-slate-500">{lang === "en" ? "Category" : "Catégorie"}</p>
+                            <p className="font-medium text-slate-900">{lang === "en" ? "Local event" : "Événement communal"}</p>
                         </div>
                     </div>
 
                     <div className="max-w-3xl space-y-4 text-slate-700">
-                        <p>{event.content}</p>
+                        <p>{getLocalizedField(event, "content", lang)}</p>
                     </div>
 
                     <div className="mt-8">
                         <Link to="/events" className="text-[#1f5e54] hover:underline">
-                            ← Retour aux événements
+                            {t("common.backToEvents")}
                         </Link>
                     </div>
                 </div>

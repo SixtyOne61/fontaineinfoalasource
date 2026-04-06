@@ -4,6 +4,8 @@ import ElevationChart from "../components/ElevationChart";
 import HikeTrackMap from "../components/HikeTrackMap";
 import Layout from "../components/Layout";
 import { getHikes } from "../data/loader";
+import { getLocalizedField } from "../locale";
+import { useLocale } from "../useLocale";
 import { loadGpxTrackData } from "../utils/gpx";
 import { hasValidCoordinates } from "../utils/security";
 
@@ -15,6 +17,7 @@ const EMPTY_ELEVATION_DATA = {
 
 export default function HikeDetail() {
     const { id } = useParams();
+    const { lang, t } = useLocale();
     const [hike, setHike] = useState(null);
     const [elevationData, setElevationData] = useState(EMPTY_ELEVATION_DATA);
 
@@ -56,12 +59,12 @@ export default function HikeDetail() {
         return (
             <Layout>
                 <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-8">
-                    <h1 className="mb-2 text-3xl text-slate-900">Randonnée introuvable</h1>
+                    <h1 className="mb-2 text-3xl text-slate-900">{lang === "en" ? "Hike not found" : "Randonnée introuvable"}</h1>
                     <p className="mb-4 text-slate-600">
-                        La randonnée demandée n’existe pas ou n’est plus disponible.
+                        {lang === "en" ? "The requested hike does not exist or is no longer available." : "La randonnée demandée n’existe pas ou n’est plus disponible."}
                     </p>
                     <Link to="/hikes" className="text-[#1f5e54] hover:underline">
-                        Retour à la liste des randonnées
+                        {lang === "en" ? "Back to hikes list" : "Retour à la liste des randonnées"}
                     </Link>
                 </div>
             </Layout>
@@ -81,34 +84,34 @@ export default function HikeDetail() {
             <div className="grid gap-6 sm:gap-8">
                 <article className="grid gap-6 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr]">
                     <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-8">
-                        <p className="section-kicker mb-2">Parcours</p>
+                        <p className="section-kicker mb-2">{lang === "en" ? "Route" : "Parcours"}</p>
                         <h1 className="mb-4 text-3xl text-slate-900 sm:text-4xl">
-                            {hike.name}
+                            {getLocalizedField(hike, "name", lang)}
                         </h1>
 
                         <p className="mb-6 text-sm text-slate-700 sm:text-base">
-                            {hike.description}
+                            {getLocalizedField(hike, "description", lang)}
                         </p>
 
                         <div className="mb-8 grid gap-4 sm:grid-cols-2">
                             <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                                <p className="text-sm text-slate-500">Distance</p>
+                                <p className="text-sm text-slate-500">{lang === "en" ? "Distance" : "Distance"}</p>
                                 <p className="font-medium text-slate-900">{hike.distance} km</p>
                             </div>
 
                             <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                                <p className="text-sm text-slate-500">Difficulté</p>
-                                <p className="font-medium text-slate-900">{hike.difficulty}</p>
+                                <p className="text-sm text-slate-500">{lang === "en" ? "Difficulty" : "Difficulté"}</p>
+                                <p className="font-medium text-slate-900">{getLocalizedField(hike, "difficulty", lang)}</p>
                             </div>
 
                             <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                                <p className="text-sm text-slate-500">Durée</p>
-                                <p className="font-medium text-slate-900">{hike.duration}</p>
+                                <p className="text-sm text-slate-500">{lang === "en" ? "Duration" : "Durée"}</p>
+                                <p className="font-medium text-slate-900">{getLocalizedField(hike, "duration", lang)}</p>
                             </div>
 
                             <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                                <p className="text-sm text-slate-500">Départ</p>
-                                <p className="font-medium text-slate-900">{hike.startPoint}</p>
+                                <p className="text-sm text-slate-500">{lang === "en" ? "Start" : "Départ"}</p>
+                                <p className="font-medium text-slate-900">{getLocalizedField(hike, "startPoint", lang)}</p>
                             </div>
                         </div>
 
@@ -120,7 +123,7 @@ export default function HikeDetail() {
                                     rel="noreferrer"
                                     className="text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                                 >
-                                    Ouvrir dans Google Maps
+                                    {lang === "en" ? "Open in Google Maps" : "Ouvrir dans Google Maps"}
                                 </a>
                             )}
 
@@ -131,7 +134,7 @@ export default function HikeDetail() {
                                     rel="noreferrer"
                                     className="text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                                 >
-                                    Ouvrir dans OpenStreetMap
+                                    {lang === "en" ? "Open in OpenStreetMap" : "Ouvrir dans OpenStreetMap"}
                                 </a>
                             )}
 
@@ -142,14 +145,14 @@ export default function HikeDetail() {
                                     rel="noreferrer"
                                     className="text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                                 >
-                                    Télécharger le fichier GPX
+                                    {lang === "en" ? "Download GPX file" : "Télécharger le fichier GPX"}
                                 </a>
                             )}
                         </div>
 
                         <div className="mt-8">
                             <Link to="/hikes" className="text-[#1f5e54] hover:underline">
-                                ← Retour aux randonnées
+                                {t("common.backToHikes")}
                             </Link>
                         </div>
                     </div>

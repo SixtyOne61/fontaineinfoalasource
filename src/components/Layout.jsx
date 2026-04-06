@@ -1,13 +1,16 @@
 import Navbar from "./Navbar";
+import { useLocale } from "../useLocale";
 
 export default function Layout({ children }) {
+    const { t } = useLocale();
+
     return (
         <div className="relative flex min-h-screen flex-col overflow-x-clip bg-transparent">
             <a
                 href="#main-content"
                 className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[2000] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[#163c35] focus:shadow-[0_12px_30px_rgba(22,60,53,0.2)]"
             >
-                Aller au contenu principal
+                {t("common.skipToContent")}
             </a>
 
             <div className="pointer-events-none fixed inset-0 -z-10 opacity-80" aria-hidden="true">

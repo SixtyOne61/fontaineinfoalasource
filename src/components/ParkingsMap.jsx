@@ -1,14 +1,24 @@
 import { useEffect } from "react";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import { getLocalizedField } from "../locale";
+import { useLocale } from "../useLocale";
 import { hasValidCoordinates } from "../utils/security";
 
-const vehicleTypes = [
-    { key: "motorcycles", label: "Moto" },
-    { key: "cars", label: "Voiture" },
-    { key: "minivans", label: "Mini-van" },
-    { key: "campers", label: "Camping-car" },
-];
+const vehicleTypes = {
+    fr: [
+        { key: "motorcycles", label: "Moto" },
+        { key: "cars", label: "Voiture" },
+        { key: "minivans", label: "Mini-van" },
+        { key: "campers", label: "Camping-car" },
+    ],
+    en: [
+        { key: "motorcycles", label: "Motorbike" },
+        { key: "cars", label: "Car" },
+        { key: "minivans", label: "Minivan" },
+        { key: "campers", label: "Motorhome" },
+    ],
+};
 
 function FitBounds({ parkings }) {
     const map = useMap();
@@ -45,6 +55,7 @@ function VehiclePill({ label, allowed }) {
 }
 
 export default function ParkingsMap({ parkings }) {
+    const { lang } = useLocale();
     const mappableParkings = parkings.filter(hasValidCoordinates);
 
     return (
@@ -66,10 +77,10 @@ export default function ParkingsMap({ parkings }) {
                     <Marker key={parking.id} position={[parking.lat, parking.lng]}>
                         <Popup>
                             <div className="min-w-[240px] text-sm">
-                                <h3 className="mb-2 text-base font-bold">{parking.name}</h3>
-                                <p><strong>Adresse :</strong> {parking.address}</p>
+                                <h3 className="mb-2 text-base font-bold">{getLocalizedField(parking, "name", lang)}</h3>
+                                <p><strong>{lang === "en" ? "Address:" : "Adresse :"}</strong> {getLocalizedField(parking, "address", lang)}</p>
                                 <div className="mt-3 flex flex-wrap gap-2">
-                                    {vehicleTypes.map((vehicle) => (
+                                    {vehicleTypes[lang].map((vehicle) => (
                                         <VehiclePill
                                             key={vehicle.key}
                                             label={vehicle.label}
@@ -77,10 +88,10 @@ export default function ParkingsMap({ parkings }) {
                                         />
                                     ))}
                                 </div>
-                                <p className="mt-3"><strong>Tarif horaire :</strong> {parking.hourlyRate}</p>
-                                <p><strong>Tarif journée :</strong> {parking.dailyRate}</p>
-                                {parking.notes && (
-                                    <p className="mt-2 text-slate-600">{parking.notes}</p>
+                                <p className="mt-3"><strong>{lang === "en" ? "Hourly rate:" : "Tarif horaire :"}</strong> {getLocalizedField(parking, "hourlyRate", lang)}</p>
+                                <p><strong>{lang === "en" ? "Daily rate:" : "Tarif journée :"}</strong> {getLocalizedField(parking, "dailyRate", lang)}</p>
+                                {getLocalizedField(parking, "notes", lang) && (
+                                    <p className="mt-2 text-slate-600">{getLocalizedField(parking, "notes", lang)}</p>
                                 )}
                             </div>
                         </Popup>

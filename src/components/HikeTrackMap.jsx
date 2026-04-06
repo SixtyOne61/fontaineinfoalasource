@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { MapContainer, Marker, Popup, Polyline, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
+import { MapContainer, Marker, Popup, Polyline, TileLayer, useMap } from "react-leaflet";
+import { getLocalizedField } from "../locale";
+import { useLocale } from "../useLocale";
 import { loadGpxTrackData } from "../utils/gpx";
 import { hasValidCoordinates } from "../utils/security";
 
@@ -20,6 +22,7 @@ function FitTrackBounds({ track, fallbackPosition }) {
 }
 
 export default function HikeTrackMap({ hike }) {
+    const { lang } = useLocale();
     const [track, setTrack] = useState([]);
 
     useEffect(() => {
@@ -76,10 +79,10 @@ export default function HikeTrackMap({ hike }) {
                 <Marker position={fallbackPosition}>
                     <Popup>
                         <div className="min-w-[200px]">
-                            <h3 className="font-bold">{hike.name}</h3>
-                            <p>Départ : {hike.startPoint}</p>
-                            <p>Distance : {hike.distance} km</p>
-                            <p>Difficulté : {hike.difficulty}</p>
+                            <h3 className="font-bold">{getLocalizedField(hike, "name", lang)}</h3>
+                            <p>{lang === "en" ? "Start:" : "Départ :"} {getLocalizedField(hike, "startPoint", lang)}</p>
+                            <p>{lang === "en" ? "Distance:" : "Distance :"} {hike.distance} km</p>
+                            <p>{lang === "en" ? "Difficulty:" : "Difficulté :"} {getLocalizedField(hike, "difficulty", lang)}</p>
                         </div>
                     </Popup>
                 </Marker>

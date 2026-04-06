@@ -2,20 +2,22 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { getSectionVisibility } from "../data/loader";
 import { defaultSectionVisibility, sectionRoutes } from "../data/sections";
-
-const navItems = [
-    { key: "guide", to: sectionRoutes.guide, label: "Guide" },
-    { key: "parkings", to: sectionRoutes.parkings, label: "Parkings", highlight: true },
-    { key: "events", to: sectionRoutes.events, label: "Événements" },
-    { key: "hikes", to: sectionRoutes.hikes, label: "Randonnées" },
-    { key: "news", to: sectionRoutes.news, label: "Actualités" },
-];
+import { useLocale } from "../useLocale";
 
 export default function Navbar() {
     const location = useLocation();
+    const { lang, setLang, t } = useLocale();
     const [isOpen, setIsOpen] = useState(false);
     const [sectionVisibility, setSectionVisibility] = useState(defaultSectionVisibility);
     const isOpenRef = useRef(isOpen);
+
+    const navItems = [
+        { key: "guide", to: sectionRoutes.guide, label: t("common.guide") },
+        { key: "parkings", to: sectionRoutes.parkings, label: t("common.parkings"), highlight: true },
+        { key: "events", to: sectionRoutes.events, label: t("common.events") },
+        { key: "hikes", to: sectionRoutes.hikes, label: t("common.hikes") },
+        { key: "news", to: sectionRoutes.news, label: t("common.news") },
+    ];
 
     useEffect(() => {
         getSectionVisibility().then(setSectionVisibility);
@@ -73,6 +75,28 @@ export default function Navbar() {
         return "block rounded-xl px-4 py-3 text-[#d7e8e1] transition hover:bg-[#2d7467] hover:text-white";
     };
 
+    const languageSwitcher = (
+        <div className="flex items-center gap-1 rounded-full border border-white/15 bg-white/10 p-1">
+            {["fr", "en"].map((nextLang) => {
+                const isActive = lang === nextLang;
+
+                return (
+                    <button
+                        key={nextLang}
+                        type="button"
+                        onClick={() => setLang(nextLang)}
+                        className={`rounded-full px-2.5 py-1 text-xs font-semibold transition ${
+                            isActive ? "bg-white text-[#163c35]" : "text-white/85 hover:bg-white/10"
+                        }`}
+                        aria-pressed={isActive}
+                    >
+                        {nextLang.toUpperCase()}
+                    </button>
+                );
+            })}
+        </div>
+    );
+
     return (
         <header className="sticky top-0 z-[1000] border-b border-white/10 bg-[#1f5e54]/95 text-white shadow-[0_14px_40px_rgba(22,60,53,0.18)] backdrop-blur-xl supports-[backdrop-filter]:bg-[#1f5e54]/90">
             <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
@@ -92,31 +116,37 @@ export default function Navbar() {
                     </div>
                 </Link>
 
-                <nav className="hidden items-center gap-2 md:flex">
-                    <NavLink to="/" end className={(state) => linkClass(state)}>
-                        Accueil
-                    </NavLink>
-                    {visibleNavItems.map((item) => (
-                        <NavLink
-                            key={item.to}
-                            to={item.to}
-                            className={(state) => linkClass(state, item.highlight)}
-                        >
-                            {item.label}
+                <div className="hidden items-center gap-3 md:flex">
+                    <nav className="flex items-center gap-2">
+                        <NavLink to="/" end className={(state) => linkClass(state)}>
+                            {t("common.home")}
                         </NavLink>
-                    ))}
-                </nav>
+                        {visibleNavItems.map((item) => (
+                            <NavLink
+                                key={item.to}
+                                to={item.to}
+                                className={(state) => linkClass(state, item.highlight)}
+                            >
+                                {item.label}
+                            </NavLink>
+                        ))}
+                    </nav>
+                    {languageSwitcher}
+                </div>
 
-                <button
-                    type="button"
-                    className="inline-flex shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-white transition hover:bg-white/[0.15] md:hidden"
-                    onClick={() => setIsOpen(!isOpen)}
-                    aria-label="Ouvrir le menu"
-                    aria-expanded={isOpen}
-                    aria-controls="mobile-navigation"
-                >
-                    <span className="text-sm font-medium">{isOpen ? "Fermer" : "Menu"}</span>
-                </button>
+                <div className="flex items-center gap-2 md:hidden">
+                    {languageSwitcher}
+                    <button
+                        type="button"
+                        className="inline-flex shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-white transition hover:bg-white/[0.15]"
+                        onClick={() => setIsOpen(!isOpen)}
+                        aria-label={t("common.menu")}
+                        aria-expanded={isOpen}
+                        aria-controls="mobile-navigation"
+                    >
+                        <span className="text-sm font-medium">{isOpen ? t("common.close") : t("common.menu")}</span>
+                    </button>
+                </div>
             </div>
 
             <div className="border-t border-white/10 bg-[#19493f] md:hidden">
@@ -131,7 +161,7 @@ export default function Navbar() {
                                     : "rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm font-medium text-[#d7e8e1] transition hover:bg-white/10"
                             }
                         >
-                            Accueil
+                            {t("common.home")}
                         </NavLink>
                         {visibleNavItems.map((item) => (
                             <NavLink
@@ -164,7 +194,7 @@ export default function Navbar() {
                             className={(state) => mobileLinkClass(state)}
                             onClick={() => setIsOpen(false)}
                         >
-                            Accueil
+                            {t("common.home")}
                         </NavLink>
                         {visibleNavItems.map((item) => (
                             <NavLink

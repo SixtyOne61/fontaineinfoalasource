@@ -1,16 +1,21 @@
 {
   "hero": {
     "eyebrow": "Guide pratique",
+    "eyebrowEn": "Practical guide",
     "title": "Fontaine-de-Vaucluse au quotidien",
+    "titleEn": "Fontaine-de-Vaucluse day by day",
     "description": "Un point d'entrée simple pour orienter les visiteurs et les riverains: stationnement, mobilité piétonne, événements, randonnées et informations utiles.",
+    "descriptionEn": "A simple entry point for visitors and residents: parking, walking routes, events, hikes and useful local information.",
     "primaryCta": {
       "id": "guide",
       "label": "Ouvrir le guide",
+      "labelEn": "Open the guide",
       "to": "/guide"
     },
     "secondaryCta": {
       "id": "parking",
       "label": "Trouver un parking",
+      "labelEn": "Find parking",
       "to": "/parking"
     }
   },
@@ -18,36 +23,51 @@
     {
       "id": "guide",
       "title": "Guide pratique",
+      "titleEn": "Practical guide",
       "description": "Retrouver les repères utiles pour organiser une visite fluide sur téléphone.",
+      "descriptionEn": "Find the key information you need to organise a smooth visit on mobile.",
       "badge": "Essentiel",
+      "badgeEn": "Essential",
       "to": "/guide"
     },
     {
       "id": "parking",
       "title": "Parkings",
+      "titleEn": "Parking",
       "description": "Comparer les parkings disponibles, les tarifs et les véhicules acceptés.",
+      "descriptionEn": "Compare available parking areas, prices and allowed vehicles.",
       "badge": "Accès",
+      "badgeEn": "Access",
       "to": "/parking"
     },
     {
       "id": "events",
       "title": "Événements",
+      "titleEn": "Events",
       "description": "Consulter les rendez-vous du moment et les animations à venir.",
+      "descriptionEn": "Check current happenings and upcoming activities.",
       "badge": "Agenda",
+      "badgeEn": "Agenda",
       "to": "/events"
     },
     {
       "id": "hikes",
       "title": "Randonnées",
+      "titleEn": "Hikes",
       "description": "Choisir un itinéraire selon la durée, la difficulté et le point de départ.",
+      "descriptionEn": "Choose a route by duration, difficulty and starting point.",
       "badge": "Nature",
+      "badgeEn": "Nature",
       "to": "/hikes"
     },
     {
       "id": "news",
       "title": "Infos pratiques",
+      "titleEn": "Practical info",
       "description": "Suivre les informations utiles pour la fréquentation, l'accueil et les déplacements.",
+      "descriptionEn": "Follow useful updates about visitor flows, reception and local access.",
       "badge": "Infos",
+      "badgeEn": "Info",
       "to": "/news"
     }
   ],
@@ -55,51 +75,72 @@
     {
       "id": "mobilite",
       "title": "Se déplacer à pied",
+      "titleEn": "Walk through the village",
       "description": "Le coeur du village se découvre mieux à pied. Les cheminements courts réduisent les frictions de circulation.",
+      "descriptionEn": "The village centre is best discovered on foot. Short walking routes reduce traffic pressure.",
       "value": "Piéton d'abord",
-      "tag": "Priorité"
+      "valueEn": "Walking first",
+      "tag": "Priorité",
+      "tagEn": "Priority"
     },
     {
       "id": "stationnement",
       "title": "Stationnement conseillé",
+      "titleEn": "Recommended parking",
       "description": "Les parkings en entrée de village permettent de limiter la congestion dans les rues étroites.",
+      "descriptionEn": "Parking areas at the entrance of the village help reduce congestion in narrow streets.",
       "value": "Entrée de village",
-      "tag": "Accès"
+      "valueEn": "Village entrance",
+      "tag": "Accès",
+      "tagEn": "Access"
     },
     {
       "id": "nature",
       "title": "Balades et points de vue",
+      "titleEn": "Walks and viewpoints",
       "description": "Des parcours courts comme des circuits plus sportifs peuvent être mis en avant selon la saison.",
+      "descriptionEn": "Short walks and more demanding routes can both be highlighted depending on the season.",
       "value": "Pour tous",
-      "tag": "Randonnée"
+      "valueEn": "For everyone",
+      "tag": "Randonnée",
+      "tagEn": "Hiking"
     }
   ],
   "guideSections": [
     {
       "id": "parking-guide",
       "title": "Se garer sans stress",
+      "titleEn": "Park without stress",
       "summary": "Privilégiez les parkings signalés dès l'entrée du village pour limiter les détours et rejoindre le centre plus sereinement.",
+      "summaryEn": "Use the signed parking areas at the village entrance to avoid unnecessary detours and reach the centre more easily.",
       "items": [
         {
           "id": "park-1",
           "title": "Choisir son parking avant d'entrer",
-          "description": "Consultez la carte et les tarifs avant d'avancer vers le centre ancien pour éviter les manoeuvres inutiles."
+          "titleEn": "Choose parking before entering",
+          "description": "Consultez la carte et les tarifs avant d'avancer vers le centre ancien pour éviter les manoeuvres inutiles.",
+          "descriptionEn": "Check the map and rates before moving toward the historic centre to avoid unnecessary manoeuvres."
         },
         {
           "id": "park-2",
           "title": "Vérifier le type de véhicule accepté",
-          "description": "Les fiches parking indiquent si le stationnement convient aux voitures, motos, mini-vans ou camping-cars."
+          "titleEn": "Check allowed vehicle types",
+          "description": "Les fiches parking indiquent si le stationnement convient aux voitures, motos, mini-vans ou camping-cars.",
+          "descriptionEn": "Parking cards show whether the area is suitable for cars, motorbikes, minivans or motorhomes."
         },
         {
           "id": "park-3",
           "title": "Suivre les indications sur place",
-          "description": "En période d'affluence, respectez la signalétique temporaire et privilégiez les cheminements piétons recommandés."
+          "titleEn": "Follow local directions",
+          "description": "En période d'affluence, respectez la signalétique temporaire et privilégiez les cheminements piétons recommandés.",
+          "descriptionEn": "During busy periods, follow temporary signage and use the recommended walking routes."
         }
       ],
       "links": [
         {
           "id": "parking-link",
           "label": "Consulter la carte des parkings",
+          "labelEn": "Open the parking map",
           "to": "/parking"
         }
       ]
@@ -107,33 +148,43 @@
     {
       "id": "visitor-guide",
       "title": "Préparer sa visite",
+      "titleEn": "Plan your visit",
       "summary": "Avant de partir, repérez où stationner, quoi faire sur place et quels parcours privilégier selon votre temps disponible.",
+      "summaryEn": "Before you leave, check where to park, what to do on site and which routes suit your available time.",
       "items": [
         {
           "id": "visit-1",
           "title": "Arriver par les accès conseillés",
-          "description": "Suivez les points d'entrée recommandés et les zones de stationnement indiquées pour fluidifier l'arrivée."
+          "titleEn": "Arrive through recommended access points",
+          "description": "Suivez les points d'entrée recommandés et les zones de stationnement indiquées pour fluidifier l'arrivée.",
+          "descriptionEn": "Follow the recommended entry points and signed parking areas to make arrival smoother."
         },
         {
           "id": "visit-2",
           "title": "Garder l'essentiel sous la main",
-          "description": "En quelques écrans, vous retrouvez où vous garer, les événements du moment et les itinéraires à découvrir."
+          "titleEn": "Keep essentials close at hand",
+          "description": "En quelques écrans, vous retrouvez où vous garer, les événements du moment et les itinéraires à découvrir.",
+          "descriptionEn": "In just a few screens, you can find where to park, current events and routes to explore."
         },
         {
           "id": "visit-3",
           "title": "Anticiper les pics de fréquentation",
-          "description": "Consultez les actualités du jour avant votre départ pour repérer les moments de forte affluence ou les consignes temporaires."
+          "titleEn": "Anticipate peak attendance",
+          "description": "Consultez les actualités du jour avant votre départ pour repérer les moments de forte affluence ou les consignes temporaires.",
+          "descriptionEn": "Check the latest updates before leaving to spot busy periods or temporary instructions."
         }
       ],
       "links": [
         {
           "id": "news-link",
           "label": "Lire les actualités",
+          "labelEn": "Read local updates",
           "to": "/news"
         },
         {
           "id": "events-link",
           "label": "Voir les événements",
+          "labelEn": "See events",
           "to": "/events"
         }
       ]
@@ -141,28 +192,37 @@
     {
       "id": "hike-guide",
       "title": "Randonnées et nature",
+      "titleEn": "Hikes and nature",
       "summary": "Choisissez une balade selon votre niveau, votre durée disponible et le point de départ le plus pratique.",
+      "summaryEn": "Choose a walk according to your level, available time and the most practical starting point.",
       "items": [
         {
           "id": "hike-1",
           "title": "Commencer par les parcours adaptés",
-          "description": "Les itinéraires faciles conviennent bien aux familles, aux visites courtes et aux marcheurs occasionnels."
+          "titleEn": "Start with suitable routes",
+          "description": "Les itinéraires faciles conviennent bien aux familles, aux visites courtes et aux marcheurs occasionnels.",
+          "descriptionEn": "Easy routes are well suited to families, short visits and occasional walkers."
         },
         {
           "id": "hike-2",
           "title": "Repérer facilement le départ",
-          "description": "Chaque fiche indique le point de départ et les informations utiles pour rejoindre le bon accès sans hésitation."
+          "titleEn": "Find the starting point easily",
+          "description": "Chaque fiche indique le point de départ et les informations utiles pour rejoindre le bon accès sans hésitation.",
+          "descriptionEn": "Each route page shows the starting point and useful access information to help you find the right place."
         },
         {
           "id": "hike-3",
           "title": "Télécharger la trace quand elle existe",
-          "description": "Si un fichier GPX est disponible, il peut être téléchargé directement depuis la fiche randonnée."
+          "titleEn": "Download the track when available",
+          "description": "Si un fichier GPX est disponible, il peut être téléchargé directement depuis la fiche randonnée.",
+          "descriptionEn": "If a GPX file is available, it can be downloaded directly from the hike page."
         }
       ],
       "links": [
         {
           "id": "hikes-link",
           "label": "Voir les randonnées",
+          "labelEn": "Browse hikes",
           "to": "/hikes"
         }
       ]
@@ -170,28 +230,37 @@
     {
       "id": "local-info",
       "title": "Infos utiles et contacts",
+      "titleEn": "Useful information and contacts",
       "summary": "Retrouvez ici les bons réflexes à garder en tête pour profiter du village dans de bonnes conditions.",
+      "summaryEn": "Here are the key reminders to help you enjoy the village in the best possible conditions.",
       "items": [
         {
           "id": "info-1",
           "title": "Privilégier les parcours piétons",
-          "description": "Depuis les parkings, rejoignez le coeur du village à pied pour éviter les tensions de circulation."
+          "titleEn": "Use walking routes",
+          "description": "Depuis les parkings, rejoignez le coeur du village à pied pour éviter les tensions de circulation.",
+          "descriptionEn": "From the parking areas, reach the village centre on foot to reduce traffic pressure."
         },
         {
           "id": "info-2",
           "title": "Vérifier les informations du jour",
-          "description": "Les actualités communales permettent de repérer rapidement travaux, événements ou consignes temporaires."
+          "titleEn": "Check the latest updates",
+          "description": "Les actualités communales permettent de repérer rapidement travaux, événements ou consignes temporaires.",
+          "descriptionEn": "Local updates help you quickly identify roadworks, events or temporary instructions."
         },
         {
           "id": "info-3",
           "title": "Préparer une visite plus fluide",
-          "description": "Avant de partir, consultez les parkings, l'agenda et les randonnées pour limiter les recherches sur place."
+          "titleEn": "Prepare a smoother visit",
+          "description": "Avant de partir, consultez les parkings, l'agenda et les randonnées pour limiter les recherches sur place.",
+          "descriptionEn": "Before you leave, check parking, the agenda and hikes to avoid last-minute searching on site."
         }
       ],
       "links": [
         {
           "id": "contact-link",
           "label": "Retour à l'accueil",
+          "labelEn": "Back to home",
           "to": "/"
         }
       ]
@@ -204,8 +273,18 @@
     "Vérifiez les actualités du jour en cas de forte fréquentation ou d'événement.",
     "Choisissez une randonnée adaptée à votre niveau et à votre temps disponible."
   ],
+  "visitorTipsEn": [
+    "Check parking options before entering the village.",
+    "Prefer walking between parking, the centre and the spring.",
+    "Check the latest updates if attendance is high or an event is taking place.",
+    "Choose a hike that matches your level and available time."
+  ],
   "alerts": [
     "En période de forte affluence, suivez en priorité la signalétique de stationnement mise en place à l'entrée du village.",
     "Consultez les actualités avant votre départ pour repérer toute consigne temporaire liée à la circulation ou aux événements."
+  ],
+  "alertsEn": [
+    "During busy periods, follow the parking signage set up at the entrance to the village.",
+    "Check the latest updates before leaving for any temporary traffic or event-related instructions."
   ]
 }

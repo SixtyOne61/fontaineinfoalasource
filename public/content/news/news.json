@@ -3,25 +3,34 @@
     {
       "id": 1,
       "title": "Dispositif d'accueil renforcé les week-ends de forte fréquentation",
+      "titleEn": "Enhanced visitor support during busy weekends",
       "date": "2026-04-12",
       "excerpt": "La commune met en place une signalétique temporaire et des points d'information pour mieux orienter les visiteurs.",
+      "excerptEn": "The municipality is setting up temporary signage and information points to guide visitors more effectively.",
       "content": "Afin de fluidifier l'arrivée des visiteurs à Fontaine-de-Vaucluse, la commune renforce le dispositif d'accueil les week-ends de forte fréquentation. Une signalétique temporaire est déployée dès les principaux axes d'accès et des points d'information orientent les visiteurs vers les parkings disponibles, les cheminements piétons et les principaux sites à découvrir.",
+      "contentEn": "To make visitor arrivals smoother in Fontaine-de-Vaucluse, the municipality is strengthening its reception arrangements during busy weekends. Temporary signage is deployed from the main access roads, and information points direct visitors to available parking, walking routes and the main places to discover.",
       "image": "/uploads/fond-jaune-1-scaled.jpg"
     },
     {
       "id": 2,
       "title": "Rappel stationnement: privilégier les parkings signalés en entrée de village",
+      "titleEn": "Parking reminder: use the signed parking areas at the village entrance",
       "date": "2026-04-08",
       "excerpt": "Pour limiter la congestion dans le centre ancien, les visiteurs sont invités à se garer dès leur arrivée sur les parkings indiqués.",
+      "excerptEn": "To reduce congestion in the historic centre, visitors are encouraged to park in the signed areas as soon as they arrive.",
       "content": "La commune rappelle que le stationnement doit être privilégié sur les parkings signalés en entrée de village. Cette organisation permet de réduire la circulation dans le centre ancien, de sécuriser les déplacements piétons et de faciliter l'accès aux commerces, au site de la source et aux sentiers de découverte.",
+      "contentEn": "The municipality reminds visitors that parking should mainly be used in the signed parking areas at the entrance to the village. This helps reduce traffic in the historic centre, improves pedestrian safety and makes it easier to reach shops, the spring site and walking trails.",
       "image": "/uploads/images.jpg"
     },
     {
       "id": 3,
       "title": "Cheminements piétons conseillés entre les parkings et le cœur de village",
+      "titleEn": "Recommended walking routes between parking areas and the village centre",
       "date": "2026-04-05",
       "excerpt": "Des itinéraires piétons balisés permettent de rejoindre rapidement les principaux points d'intérêt.",
+      "excerptEn": "Marked walking routes make it easier to reach the main points of interest quickly.",
       "content": "Depuis les parkings communaux, des cheminements piétons balisés permettent de rejoindre à pied les principaux points d'intérêt du village. La commune invite les visiteurs à suivre ces itinéraires pour limiter les conflits d'usage, sécuriser les traversées et améliorer le confort de visite en période d'affluence.",
+      "contentEn": "From the municipal parking areas, marked walking routes allow visitors to reach the village’s main points of interest on foot. The municipality encourages visitors to follow these routes to reduce conflicts of use, improve crossing safety and make visits more comfortable during busy periods.",
       "image": "/uploads/fond-jaune-1-scaled.jpg"
     }
   ]

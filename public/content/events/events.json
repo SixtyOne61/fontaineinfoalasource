@@ -3,28 +3,37 @@
     {
       "id": 1,
       "title": "Marché des producteurs et artisans locaux",
+      "titleEn": "Local producers and crafts market",
       "startDate": "2026-04-15",
       "endDate": "2026-04-15",
       "location": "Place de la Colonne",
+      "locationEn": "Place de la Colonne",
       "content": "Marché de producteurs locaux et d'artisans avec produits du terroir, petite restauration et stand d'information touristique.",
+      "contentEn": "Market featuring local producers and craftspeople, regional products, light refreshments and a tourist information stand.",
       "image": "/uploads/images.jpg"
     },
     {
       "id": 2,
       "title": "Week-end nature et patrimoine",
+      "titleEn": "Nature and heritage weekend",
       "startDate": "2026-04-18",
       "endDate": "2026-04-19",
       "location": "Centre du village et abords de la Sorgue",
+      "locationEn": "Village centre and Sorgue riverside",
       "content": "Animations familiales, balades commentées et ateliers de découverte autour du patrimoine naturel, de la Sorgue et de l'histoire du village.",
+      "contentEn": "Family activities, guided walks and discovery workshops about local natural heritage, the Sorgue and the history of the village.",
       "image": "/uploads/fond-jaune-1-scaled.jpg"
     },
     {
       "id": 3,
       "title": "Visite commentée du village",
+      "titleEn": "Guided village tour",
       "startDate": "2026-04-21",
       "endDate": "2026-04-21",
       "location": "Départ devant l'office d'information",
+      "locationEn": "Departure in front of the information office",
       "content": "Parcours pédestre commenté pour découvrir l'organisation du village, ses points de vue et ses repères patrimoniaux.",
+      "contentEn": "Guided walking tour to discover the village layout, viewpoints and heritage landmarks.",
       "image": "/uploads/fond-jaune-1-scaled.jpg"
     }
   ]

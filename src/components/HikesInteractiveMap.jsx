@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { MapContainer, Marker, Popup, Polyline, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
+import { MapContainer, Marker, Popup, Polyline, TileLayer, useMap } from "react-leaflet";
+import { getLocalizedField } from "../locale";
+import { useLocale } from "../useLocale";
 import { loadGpxTrackData } from "../utils/gpx";
 import { hasValidCoordinates } from "../utils/security";
 
@@ -36,6 +38,7 @@ function MapController({ selectedHike, track, hikes }) {
 }
 
 export default function HikesInteractiveMap({ hikes, selectedHike, onMarkerClick }) {
+    const { lang } = useLocale();
     const [track, setTrack] = useState([]);
     const mappableHikes = hikes.filter(hasValidCoordinates);
 
@@ -67,8 +70,12 @@ export default function HikesInteractiveMap({ hikes, selectedHike, onMarkerClick
             <div className="border-b border-slate-200 bg-[#f6f8f5] px-4 py-3">
                 <p className="text-sm text-slate-700">
                     {selectedHike
-                        ? `Randonnée sélectionnée : ${selectedHike.name}`
-                        : "Cliquez sur une randonnée dans la liste ou sur un point de la carte."}
+                        ? lang === "en"
+                            ? `Selected hike: ${getLocalizedField(selectedHike, "name", lang)}`
+                            : `Randonnée sélectionnée : ${getLocalizedField(selectedHike, "name", lang)}`
+                        : lang === "en"
+                            ? "Click a hike in the list or a marker on the map."
+                            : "Cliquez sur une randonnée dans la liste ou sur un point de la carte."}
                 </p>
             </div>
 
@@ -103,13 +110,13 @@ export default function HikesInteractiveMap({ hikes, selectedHike, onMarkerClick
                         >
                             <Popup>
                                 <div className="min-w-[200px]">
-                                    <h3 className="font-bold">{hike.name}</h3>
-                                    <p>Distance : {hike.distance} km</p>
-                                    <p>Difficulté : {hike.difficulty}</p>
-                                    <p>Départ : {hike.startPoint}</p>
+                                    <h3 className="font-bold">{getLocalizedField(hike, "name", lang)}</h3>
+                                    <p>{lang === "en" ? "Distance:" : "Distance :"} {hike.distance} km</p>
+                                    <p>{lang === "en" ? "Difficulty:" : "Difficulté :"} {getLocalizedField(hike, "difficulty", lang)}</p>
+                                    <p>{lang === "en" ? "Start:" : "Départ :"} {getLocalizedField(hike, "startPoint", lang)}</p>
                                     {isSelected && (
                                         <p className="mt-2 text-sm font-medium text-[#1f5e54]">
-                                            Trace affichée sur la carte
+                                            {lang === "en" ? "Track shown on the map" : "Trace affichée sur la carte"}
                                         </p>
                                     )}
                                 </div>

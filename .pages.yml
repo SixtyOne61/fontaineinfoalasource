@@ -25,16 +25,20 @@ content:
         label: Hero
         type: object
         fields:
-          - { name: eyebrow, label: Sur-titre, type: string, required: false }
-          - { name: title, label: Titre, type: string }
-          - { name: description, label: Description, type: text }
+          - { name: eyebrow, label: Sur-titre FR, type: string, required: false }
+          - { name: eyebrowEn, label: Sur-titre EN, type: string, required: false }
+          - { name: title, label: Titre FR, type: string }
+          - { name: titleEn, label: Titre EN, type: string, required: false }
+          - { name: description, label: Description FR, type: text }
+          - { name: descriptionEn, label: Description EN, type: text, required: false }
           - name: primaryCta
             label: Bouton principal
             type: object
             required: false
             fields:
               - { name: id, label: ID, type: string, required: false }
-              - { name: label, label: Libellé, type: string }
+              - { name: label, label: Libellé FR, type: string }
+              - { name: labelEn, label: Libellé EN, type: string, required: false }
               - { name: to, label: Lien interne, type: string }
           - name: secondaryCta
             label: Bouton secondaire
@@ -42,7 +46,8 @@ content:
             required: false
             fields:
               - { name: id, label: ID, type: string, required: false }
-              - { name: label, label: Libellé, type: string }
+              - { name: label, label: Libellé FR, type: string }
+              - { name: labelEn, label: Libellé EN, type: string, required: false }
               - { name: to, label: Lien interne, type: string }
       - name: quickLinks
         label: Accès rapides
@@ -50,9 +55,12 @@ content:
         list: true
         fields:
           - { name: id, label: ID, type: string }
-          - { name: title, label: Titre, type: string }
-          - { name: description, label: Description, type: text }
-          - { name: badge, label: Badge, type: string, required: false }
+          - { name: title, label: Titre FR, type: string }
+          - { name: titleEn, label: Titre EN, type: string, required: false }
+          - { name: description, label: Description FR, type: text }
+          - { name: descriptionEn, label: Description EN, type: text, required: false }
+          - { name: badge, label: Badge FR, type: string, required: false }
+          - { name: badgeEn, label: Badge EN, type: string, required: false }
           - { name: to, label: Lien interne, type: string }
       - name: highlights
         label: Points clés
@@ -60,18 +68,24 @@ content:
         list: true
         fields:
           - { name: id, label: ID, type: string }
-          - { name: title, label: Titre, type: string }
-          - { name: value, label: Valeur mise en avant, type: string, required: false }
-          - { name: tag, label: Tag, type: string, required: false }
-          - { name: description, label: Description, type: text, required: false }
+          - { name: title, label: Titre FR, type: string }
+          - { name: titleEn, label: Titre EN, type: string, required: false }
+          - { name: value, label: Valeur FR, type: string, required: false }
+          - { name: valueEn, label: Valeur EN, type: string, required: false }
+          - { name: tag, label: Tag FR, type: string, required: false }
+          - { name: tagEn, label: Tag EN, type: string, required: false }
+          - { name: description, label: Description FR, type: text, required: false }
+          - { name: descriptionEn, label: Description EN, type: text, required: false }
       - name: guideSections
         label: Sections du guide
         type: object
         list: true
         fields:
           - { name: id, label: ID, type: string }
-          - { name: title, label: Titre, type: string }
-          - { name: summary, label: Résumé, type: text, required: false }
+          - { name: title, label: Titre FR, type: string }
+          - { name: titleEn, label: Titre EN, type: string, required: false }
+          - { name: summary, label: Résumé FR, type: text, required: false }
+          - { name: summaryEn, label: Résumé EN, type: text, required: false }
           - name: items
             label: Cartes internes
             type: object
@@ -79,8 +93,10 @@ content:
             required: false
             fields:
               - { name: id, label: ID, type: string, required: false }
-              - { name: title, label: Titre, type: string }
-              - { name: description, label: Description, type: text, required: false }
+              - { name: title, label: Titre FR, type: string }
+              - { name: titleEn, label: Titre EN, type: string, required: false }
+              - { name: description, label: Description FR, type: text, required: false }
+              - { name: descriptionEn, label: Description EN, type: text, required: false }
           - name: links
             label: Liens
             type: object
@@ -88,7 +104,8 @@ content:
             required: false
             fields:
               - { name: id, label: ID, type: string, required: false }
-              - { name: label, label: Libellé, type: string }
+              - { name: label, label: Libellé FR, type: string }
+              - { name: labelEn, label: Libellé EN, type: string, required: false }
               - { name: to, label: Lien interne, type: string }
       - name: contacts
         label: Contacts
@@ -97,15 +114,22 @@ content:
         required: false
         fields:
           - { name: id, label: ID, type: string }
-          - { name: name, label: Nom, type: string }
-          - { name: role, label: Rôle, type: string, required: false }
-          - { name: description, label: Description, type: text, required: false }
+          - { name: name, label: Nom FR, type: string }
+          - { name: nameEn, label: Nom EN, type: string, required: false }
+          - { name: role, label: Rôle FR, type: string, required: false }
+          - { name: roleEn, label: Rôle EN, type: string, required: false }
+          - { name: description, label: Description FR, type: text, required: false }
+          - { name: descriptionEn, label: Description EN, type: text, required: false }
           - { name: phone, label: Téléphone, type: string, required: false }
           - { name: email, label: Email, type: string, required: false }
-          - { name: address, label: Adresse, type: string, required: false }
-          - { name: hours, label: Horaires, type: string, required: false }
-      - { name: visitorTips, label: Conseils visiteurs, type: string, list: true, required: false }
-      - { name: alerts, label: Alertes, type: string, list: true, required: false }
+          - { name: address, label: Adresse FR, type: string, required: false }
+          - { name: addressEn, label: Adresse EN, type: string, required: false }
+          - { name: hours, label: Horaires FR, type: string, required: false }
+          - { name: hoursEn, label: Horaires EN, type: string, required: false }
+      - { name: visitorTips, label: Conseils visiteurs FR, type: string, list: true, required: false }
+      - { name: visitorTipsEn, label: Conseils visiteurs EN, type: string, list: true, required: false }
+      - { name: alerts, label: Alertes FR, type: string, list: true, required: false }
+      - { name: alertsEn, label: Alertes EN, type: string, list: true, required: false }
 
   - name: news
     label: Actualités
@@ -119,10 +143,13 @@ content:
         list: true
         fields:
           - { name: id, label: ID, type: number }
-          - { name: title, label: Titre, type: string }
+          - { name: title, label: Titre FR, type: string }
+          - { name: titleEn, label: Titre EN, type: string, required: false }
           - { name: date, label: Date, type: string }
-          - { name: excerpt, label: Résumé, type: string, required: false }
-          - { name: content, label: Contenu, type: rich-text }
+          - { name: excerpt, label: Résumé FR, type: string, required: false }
+          - { name: excerptEn, label: Résumé EN, type: string, required: false }
+          - { name: content, label: Contenu FR, type: rich-text }
+          - { name: contentEn, label: Contenu EN, type: rich-text, required: false }
           - { name: image, label: Image, type: image, required: false }
 
   - name: events
@@ -137,11 +164,14 @@ content:
         list: true
         fields:
           - { name: id, label: ID, type: number }
-          - { name: title, label: Titre, type: string }
+          - { name: title, label: Titre FR, type: string }
+          - { name: titleEn, label: Titre EN, type: string, required: false }
           - { name: startDate, label: Date de début, type: string }
           - { name: endDate, label: Date de fin, type: string }
-          - { name: location, label: Lieu, type: string }
-          - { name: content, label: Description, type: rich-text }
+          - { name: location, label: Lieu FR, type: string }
+          - { name: locationEn, label: Lieu EN, type: string, required: false }
+          - { name: content, label: Description FR, type: rich-text }
+          - { name: contentEn, label: Description EN, type: rich-text, required: false }
           - { name: image, label: Image, type: image, required: false }
 
   - name: hikes
@@ -156,14 +186,19 @@ content:
         list: true
         fields:
           - { name: id, label: ID, type: number }
-          - { name: name, label: Nom, type: string }
+          - { name: name, label: Nom FR, type: string }
+          - { name: nameEn, label: Nom EN, type: string, required: false }
           - { name: distance, label: Distance, type: number }
-          - { name: difficulty, label: Difficulté, type: string }
-          - { name: duration, label: Durée, type: string }
+          - { name: difficulty, label: Difficulté FR, type: string }
+          - { name: difficultyEn, label: Difficulté EN, type: string, required: false }
+          - { name: duration, label: Durée FR, type: string }
+          - { name: durationEn, label: Durée EN, type: string, required: false }
           - { name: lat, label: Latitude, type: number }
           - { name: lng, label: Longitude, type: number }
-          - { name: startPoint, label: Point de départ, type: string }
-          - { name: description, label: Description, type: rich-text }
+          - { name: startPoint, label: Point de départ FR, type: string }
+          - { name: startPointEn, label: Point de départ EN, type: string, required: false }
+          - { name: description, label: Description FR, type: rich-text }
+          - { name: descriptionEn, label: Description EN, type: rich-text, required: false }
           - { name: gpx, label: Fichier GPX, type: string, required: false }
 
   - name: parkings
@@ -178,14 +213,19 @@ content:
         list: true
         fields:
           - { name: id, label: ID, type: number }
-          - { name: name, label: Nom, type: string }
+          - { name: name, label: Nom FR, type: string }
+          - { name: nameEn, label: Nom EN, type: string, required: false }
           - { name: lat, label: Latitude, type: number }
           - { name: lng, label: Longitude, type: number }
-          - { name: address, label: Adresse, type: string }
+          - { name: address, label: Adresse FR, type: string }
+          - { name: addressEn, label: Adresse EN, type: string, required: false }
           - { name: cars, label: Voitures autorisées, type: boolean }
           - { name: minivans, label: Mini-vans autorisés, type: boolean }
           - { name: motorcycles, label: Motos autorisées, type: boolean }
           - { name: campers, label: Camping-cars autorisés, type: boolean }
-          - { name: hourlyRate, label: Tarif horaire, type: string }
-          - { name: dailyRate, label: Tarif journée, type: string }
-          - { name: notes, label: Notes, type: string, required: false }
+          - { name: hourlyRate, label: Tarif horaire FR, type: string }
+          - { name: hourlyRateEn, label: Tarif horaire EN, type: string, required: false }
+          - { name: dailyRate, label: Tarif journée FR, type: string }
+          - { name: dailyRateEn, label: Tarif journée EN, type: string, required: false }
+          - { name: notes, label: Notes FR, type: string, required: false }
+          - { name: notesEn, label: Notes EN, type: string, required: false }

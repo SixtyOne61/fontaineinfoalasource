@@ -1,12 +1,16 @@
+import { useLocale } from "../useLocale";
+
 export default function SearchBar({
     value,
     onChange,
     placeholder = "Rechercher...",
 }) {
+    const { t } = useLocale();
+
     return (
         <div className="mb-6">
             <label className="sr-only" htmlFor="search">
-                Recherche
+                {t("common.search")}
             </label>
             <input
                 id="search"
