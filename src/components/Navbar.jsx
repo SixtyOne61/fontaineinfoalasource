@@ -1,18 +1,39 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
+const navItems = [
+    { to: "/parking", label: "Parkings", highlight: true },
+    { to: "/events", label: "Événements" },
+    { to: "/hikes", label: "Randonnées" },
+    { to: "/news", label: "Actualités" },
+];
+
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
-    const linkClass = ({ isActive }) =>
-        isActive
-            ? "border-b-2 border-[#e1d1ae] pb-1 font-semibold text-white"
-            : "text-[#d7e8e1] transition hover:text-white";
+    const linkClass = ({ isActive }, highlight = false) => {
+        if (isActive) {
+            return "rounded-full bg-white px-3 py-2 font-semibold text-[#163c35]";
+        }
 
-    const mobileLinkClass = ({ isActive }) =>
-        isActive
-            ? "block rounded-xl bg-[#2d7467] px-4 py-3 font-semibold text-white"
-            : "block rounded-xl px-4 py-3 text-[#d7e8e1] transition hover:bg-[#2d7467] hover:text-white";
+        if (highlight) {
+            return "rounded-full bg-[#e1d1ae] px-3 py-2 font-semibold text-[#163c35] transition hover:bg-[#f0e4c8]";
+        }
+
+        return "rounded-full px-3 py-2 text-[#d7e8e1] transition hover:bg-[#2d7467] hover:text-white";
+    };
+
+    const mobileLinkClass = ({ isActive }, highlight = false) => {
+        if (isActive) {
+            return "block rounded-xl bg-white px-4 py-3 font-semibold text-[#163c35]";
+        }
+
+        if (highlight) {
+            return "block rounded-xl bg-[#e1d1ae] px-4 py-3 font-semibold text-[#163c35]";
+        }
+
+        return "block rounded-xl px-4 py-3 text-[#d7e8e1] transition hover:bg-[#2d7467] hover:text-white";
+    };
 
     return (
         <header className="sticky top-0 z-[1000] bg-[#1f5e54] text-white shadow-md">
@@ -33,12 +54,19 @@ export default function Navbar() {
                     </div>
                 </Link>
 
-                <nav className="hidden items-center gap-6 md:flex">
-                    <NavLink to="/" className={linkClass}>Accueil</NavLink>
-                    <NavLink to="/news" className={linkClass}>Actualités</NavLink>
-                    <NavLink to="/events" className={linkClass}>Événements</NavLink>
-                    <NavLink to="/hikes" className={linkClass}>Randonnées</NavLink>
-                    <NavLink to="/parking" className={linkClass}>Parkings</NavLink>
+                <nav className="hidden items-center gap-2 md:flex">
+                    <NavLink to="/" className={(state) => linkClass(state)}>
+                        Accueil
+                    </NavLink>
+                    {navItems.map((item) => (
+                        <NavLink
+                            key={item.to}
+                            to={item.to}
+                            className={(state) => linkClass(state, item.highlight)}
+                        >
+                            {item.label}
+                        </NavLink>
+                    ))}
                 </nav>
 
                 <button
@@ -55,21 +83,19 @@ export default function Navbar() {
             {isOpen && (
                 <div className="px-4 pb-4 sm:px-6 md:hidden">
                     <nav className="flex flex-col gap-2">
-                        <NavLink to="/" className={mobileLinkClass} onClick={() => setIsOpen(false)}>
+                        <NavLink to="/" className={(state) => mobileLinkClass(state)} onClick={() => setIsOpen(false)}>
                             Accueil
                         </NavLink>
-                        <NavLink to="/news" className={mobileLinkClass} onClick={() => setIsOpen(false)}>
-                            Actualités
-                        </NavLink>
-                        <NavLink to="/events" className={mobileLinkClass} onClick={() => setIsOpen(false)}>
-                            Événements
-                        </NavLink>
-                        <NavLink to="/hikes" className={mobileLinkClass} onClick={() => setIsOpen(false)}>
-                            Randonnées
-                        </NavLink>
-                        <NavLink to="/parking" className={mobileLinkClass} onClick={() => setIsOpen(false)}>
-                            Parkings
-                        </NavLink>
+                        {navItems.map((item) => (
+                            <NavLink
+                                key={item.to}
+                                to={item.to}
+                                className={(state) => mobileLinkClass(state, item.highlight)}
+                                onClick={() => setIsOpen(false)}
+                            >
+                                {item.label}
+                            </NavLink>
+                        ))}
                     </nav>
                 </div>
             )}

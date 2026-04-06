@@ -11,6 +11,18 @@ function getEventSnippet(content) {
     return content.length > 140 ? `${content.slice(0, 137)}...` : content;
 }
 
+function getEventStatus(event) {
+    const today = new Date();
+    const start = new Date(event.startDate || event.date);
+    const end = new Date(event.endDate || event.startDate || event.date);
+    const diffDays = Math.floor((start - today) / (1000 * 60 * 60 * 24));
+
+    if (today >= start && today <= end) return "En cours";
+    if (diffDays <= 0) return "Aujourd'hui";
+    if (diffDays <= 6) return "Cette semaine";
+    return "À venir";
+}
+
 export default function Events() {
     const [events, setEvents] = useState([]);
     const [search, setSearch] = useState("");
@@ -58,11 +70,19 @@ export default function Events() {
 
     return (
         <Layout>
-            <section className="mb-8">
-                <h1 className="text-2xl font-bold text-[#163c35] sm:text-3xl">Événements</h1>
-                <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
-                    Consultez le calendrier communal et les événements à venir.
-                </p>
+            <section className="mb-8 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+                <div>
+                    <h1 className="text-2xl font-bold text-[#163c35] sm:text-3xl">Événements</h1>
+                    <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
+                        Consultez rapidement le calendrier communal et repérez ce qui se passe aujourd'hui, cette semaine ou plus tard.
+                    </p>
+                </div>
+                <div className="rounded-3xl border border-[#d7e8e1] bg-white p-4 shadow-sm">
+                    <p className="text-sm text-[#5b7d76]">Astuce</p>
+                    <p className="mt-1 font-semibold text-[#163c35]">
+                        Utilisez le filtre "À venir" pour les visiteurs du jour et la recherche pour un lieu précis.
+                    </p>
+                </div>
             </section>
 
             <section className="mb-8">
@@ -72,41 +92,17 @@ export default function Events() {
             <SearchBar
                 value={search}
                 onChange={setSearch}
-                placeholder="Rechercher un événement..."
+                placeholder="Rechercher un événement ou un lieu..."
             />
 
             <div className="mb-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
-                <button
-                    type="button"
-                    onClick={() => setFilterType("upcoming")}
-                    className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${
-                        filterType === "upcoming"
-                            ? "bg-[#1f5e54] text-white"
-                            : "border border-[#a7cfc1] bg-white text-[#1f5e54]"
-                    }`}
-                >
+                <button type="button" onClick={() => setFilterType("upcoming")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "upcoming" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
                     À venir
                 </button>
-                <button
-                    type="button"
-                    onClick={() => setFilterType("past")}
-                    className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${
-                        filterType === "past"
-                            ? "bg-[#1f5e54] text-white"
-                            : "border border-[#a7cfc1] bg-white text-[#1f5e54]"
-                    }`}
-                >
+                <button type="button" onClick={() => setFilterType("past")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "past" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
                     Passés
                 </button>
-                <button
-                    type="button"
-                    onClick={() => setFilterType("all")}
-                    className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${
-                        filterType === "all"
-                            ? "bg-[#1f5e54] text-white"
-                            : "border border-[#a7cfc1] bg-white text-[#1f5e54]"
-                    }`}
-                >
+                <button type="button" onClick={() => setFilterType("all")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "all" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
                     Tous
                 </button>
             </div>
@@ -115,20 +111,13 @@ export default function Events() {
                 {filteredEvents.length > 0 ? (
                     <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
                         {filteredEvents.map((event) => (
-                            <Card
-                                key={event.id}
-                                title={event.title}
-                                date={formatEventDate(event)}
-                                image={event.image}
-                            >
-                                <p className="text-sm text-slate-700 sm:text-base">{event.location}</p>
-                                <p className="mt-2 text-sm text-slate-600">
-                                    {getEventSnippet(event.content)}
-                                </p>
-                                <Link
-                                    to={`/events/${event.id}`}
-                                    className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline"
-                                >
+                            <Card key={event.id} title={event.title} date={formatEventDate(event)} image={event.image}>
+                                <div className="mb-3 inline-flex rounded-full bg-[#eef7f3] px-3 py-1 text-xs font-semibold text-[#1f5e54]">
+                                    {getEventStatus(event)}
+                                </div>
+                                <p className="text-sm font-medium text-slate-700 sm:text-base">{event.location}</p>
+                                <p className="mt-2 text-sm text-slate-600">{getEventSnippet(event.content)}</p>
+                                <Link to={`/events/${event.id}`} className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline">
                                     Voir le détail →
                                 </Link>
                             </Card>
