@@ -1,6 +1,6 @@
 {
   "events": true,
   "news": true,
-  "hikes": true,
+  "hikes": false,
   "parkings": true
 }
