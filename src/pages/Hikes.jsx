@@ -9,13 +9,13 @@ export default function Hikes() {
     const [hikes, setHikes] = useState([]);
     const [search, setSearch] = useState("");
     const [difficulty, setDifficulty] = useState("all");
-    const [selectedHike, setSelectedHike] = useState(null);
+    const [selectedHikeId, setSelectedHikeId] = useState(null);
 
     useEffect(() => {
         getHikes().then((data) => {
             const sorted = [...data].sort((a, b) => a.distance - b.distance);
             setHikes(sorted);
-            setSelectedHike(sorted[0] || null);
+            setSelectedHikeId(sorted[0]?.id ?? null);
         });
     }, []);
 
@@ -23,9 +23,7 @@ export default function Hikes() {
         const term = search.toLowerCase();
 
         return hikes.filter((hike) => {
-            const matchesDifficulty =
-                difficulty === "all" || hike.difficulty === difficulty;
-
+            const matchesDifficulty = difficulty === "all" || hike.difficulty === difficulty;
             const matchesSearch =
                 hike.name?.toLowerCase().includes(term) ||
                 hike.description?.toLowerCase().includes(term) ||
@@ -35,30 +33,19 @@ export default function Hikes() {
         });
     }, [hikes, search, difficulty]);
 
-    useEffect(() => {
+    const selectedHike = useMemo(() => {
         if (!filteredHikes.length) {
-            setSelectedHike(null);
-            return;
+            return null;
         }
 
-        const stillExists = filteredHikes.some(
-            (hike) => hike.id === selectedHike?.id
-        );
-
-        if (!stillExists) {
-            setSelectedHike(filteredHikes[0]);
-        }
-    }, [filteredHikes, selectedHike]);
-
-    const handleSelectHike = (hike) => {
-        setSelectedHike(hike);
-    };
+        return filteredHikes.find((hike) => hike.id === selectedHikeId) || filteredHikes[0];
+    }, [filteredHikes, selectedHikeId]);
 
     return (
         <Layout>
             <section className="mb-8">
-                <h1 className="text-2xl sm:text-3xl font-bold text-[#163c35]">Randonnées</h1>
-                <p className="mt-2 text-slate-600 max-w-2xl text-sm sm:text-base">
+                <h1 className="text-2xl font-bold text-[#163c35] sm:text-3xl">Randonnées</h1>
+                <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
                     Consultez les parcours disponibles autour de la commune, visualisez leur
                     position sur la carte et affichez directement le tracé d’une randonnée.
                 </p>
@@ -70,7 +57,7 @@ export default function Hikes() {
                 placeholder="Rechercher une randonnée..."
             />
 
-            <div className="mb-6 grid grid-cols-2 sm:flex sm:flex-wrap gap-3">
+            <div className="mb-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
                 {["all", "Facile", "Moyen", "Difficile"].map((level) => {
                     const isActive = difficulty === level;
                     const label = level === "all" ? "Toutes" : level;
@@ -83,7 +70,7 @@ export default function Hikes() {
                             className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${
                                 isActive
                                     ? "bg-[#1f5e54] text-white"
-                                    : "bg-white border border-[#a7cfc1] text-[#1f5e54]"
+                                    : "border border-[#a7cfc1] bg-white text-[#1f5e54]"
                             }`}
                         >
                             {label}
@@ -96,12 +83,12 @@ export default function Hikes() {
                 <HikesInteractiveMap
                     hikes={filteredHikes}
                     selectedHike={selectedHike}
-                    onMarkerClick={handleSelectHike}
+                    onMarkerClick={(hike) => setSelectedHikeId(hike.id)}
                 />
             </section>
 
             <section>
-                <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-[#163c35]">
+                <h2 className="mb-4 text-xl font-semibold text-[#163c35] sm:text-2xl">
                     Liste des parcours
                 </h2>
 
@@ -113,17 +100,17 @@ export default function Hikes() {
                             return (
                                 <article
                                     key={hike.id}
-                                    className={`rounded-2xl border bg-white shadow-sm p-4 sm:p-5 transition ${
+                                    className={`rounded-2xl border bg-white p-4 shadow-sm transition sm:p-5 ${
                                         isSelected
                                             ? "border-[#3f977b] ring-2 ring-[#d7e8e1]"
                                             : "border-slate-200"
                                     }`}
                                 >
-                                    <h3 className="text-lg sm:text-xl font-bold text-slate-900">
+                                    <h3 className="text-lg font-bold text-slate-900 sm:text-xl">
                                         {hike.name}
                                     </h3>
 
-                                    <p className="mt-2 text-sm sm:text-base text-slate-700">
+                                    <p className="mt-2 text-sm text-slate-700 sm:text-base">
                                         {hike.description}
                                     </p>
 
@@ -134,14 +121,14 @@ export default function Hikes() {
                                         <p><strong>Départ :</strong> {hike.startPoint}</p>
                                     </div>
 
-                                    <div className="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-3">
+                                    <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                                         <button
                                             type="button"
-                                            onClick={() => handleSelectHike(hike)}
+                                            onClick={() => setSelectedHikeId(hike.id)}
                                             className={`rounded-xl px-4 py-2.5 text-sm font-medium transition ${
                                                 isSelected
                                                     ? "bg-[#1f5e54] text-white"
-                                                    : "bg-white border border-[#a7cfc1] text-[#1f5e54] hover:bg-[#d7e8e1]"
+                                                    : "border border-[#a7cfc1] bg-white text-[#1f5e54] hover:bg-[#d7e8e1]"
                                             }`}
                                         >
                                             {isSelected ? "Trace affichée" : "Voir sur la carte"}
@@ -149,7 +136,7 @@ export default function Hikes() {
 
                                         <Link
                                             to={`/hikes/${hike.id}`}
-                                            className="text-[#1f5e54] hover:text-[#3f977b] hover:underline inline-flex items-center text-sm sm:text-base"
+                                            className="inline-flex items-center text-sm text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base"
                                         >
                                             Voir le détail →
                                         </Link>
@@ -159,7 +146,7 @@ export default function Hikes() {
                         })}
                     </div>
                 ) : (
-                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm text-slate-600">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-600 shadow-sm">
                         Aucune randonnée ne correspond à votre recherche.
                     </div>
                 )}

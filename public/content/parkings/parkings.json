@@ -9,8 +9,8 @@
       "cars": true,
       "motorcycles": true,
       "campers": false,
-      "hourlyRate": "2€ / heure",
-      "dailyRate": "12€ / jour",
+      "hourlyRate": "2 € / heure",
+      "dailyRate": "12 € / jour",
       "notes": "Ouvert toute l'année"
     },
     {
@@ -22,9 +22,9 @@
       "cars": true,
       "motorcycles": true,
       "campers": true,
-      "hourlyRate": "3€ / heure",
-      "dailyRate": "18€ / jour",
-      "notes": "Hauteur limitée à certaines zones"
+      "hourlyRate": "3 € / heure",
+      "dailyRate": "18 € / jour",
+      "notes": "Certaines zones sont limitées en hauteur."
     }
   ]
 }

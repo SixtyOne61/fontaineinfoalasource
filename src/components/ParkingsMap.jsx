@@ -1,5 +1,5 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import { useEffect } from "react";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 
 function FitBounds({ parkings }) {
@@ -10,8 +10,8 @@ function FitBounds({ parkings }) {
 
         const bounds = L.latLngBounds(
             parkings
-                .filter((p) => Number.isFinite(p.lat) && Number.isFinite(p.lng))
-                .map((p) => [p.lat, p.lng])
+                .filter((parking) => Number.isFinite(parking.lat) && Number.isFinite(parking.lng))
+                .map((parking) => [parking.lat, parking.lng])
         );
 
         if (bounds.isValid()) {
@@ -27,18 +27,16 @@ function yesNo(value) {
 }
 
 export default function ParkingsMap({ parkings }) {
-    const defaultCenter = [43.9221, 5.1278];
-
     return (
-        <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-white">
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
             <MapContainer
-                center={defaultCenter}
+                center={[43.9221, 5.1278]}
                 zoom={14}
-                scrollWheelZoom={true}
-                className="h-[360px] sm:h-[420px] lg:h-[520px] w-full"
+                scrollWheelZoom
+                className="h-[360px] w-full sm:h-[420px] lg:h-[520px]"
             >
                 <TileLayer
-                    attribution='&copy; OpenStreetMap contributors'
+                    attribution="&copy; OpenStreetMap contributors"
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
@@ -48,7 +46,7 @@ export default function ParkingsMap({ parkings }) {
                     <Marker key={parking.id} position={[parking.lat, parking.lng]}>
                         <Popup>
                             <div className="min-w-[220px] text-sm">
-                                <h3 className="font-bold text-base mb-2">{parking.name}</h3>
+                                <h3 className="mb-2 text-base font-bold">{parking.name}</h3>
                                 <p><strong>Adresse :</strong> {parking.address}</p>
                                 <p><strong>Voitures :</strong> {yesNo(parking.cars)}</p>
                                 <p><strong>Motos :</strong> {yesNo(parking.motorcycles)}</p>

@@ -1,5 +1,5 @@
-import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import CoverImage from "../components/CoverImage";
 import { getNews } from "../data/loader";
@@ -18,11 +18,11 @@ export default function NewsDetail() {
     if (!article) {
         return (
             <Layout>
-                <div className="rounded-2xl bg-white border border-slate-200 p-5 sm:p-8 shadow-sm">
-                    <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8">
+                    <h1 className="mb-2 text-2xl font-bold text-slate-900 sm:text-3xl">
                         Actualité introuvable
                     </h1>
-                    <p className="text-slate-600 mb-4">
+                    <p className="mb-4 text-slate-600">
                         L’actualité demandée n’existe pas ou n’est plus disponible.
                     </p>
                     <Link to="/news" className="text-[#1f5e54] hover:underline">
@@ -35,24 +35,22 @@ export default function NewsDetail() {
 
     return (
         <Layout>
-            <article className="overflow-hidden rounded-2xl bg-white border border-slate-200 shadow-sm">
+            <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                 <CoverImage
                     src={article.image}
                     alt={article.title}
-                    className="h-56 sm:h-72 w-full object-cover"
+                    className="h-56 w-full object-cover sm:h-72"
                 />
 
                 <div className="p-5 sm:p-8">
-                    <p className="text-sm text-slate-500 mb-2">{article.date}</p>
+                    <p className="mb-2 text-sm text-slate-500">{article.date}</p>
 
-                    <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+                    <h1 className="mb-4 text-2xl font-bold text-slate-900 sm:text-3xl">
                         {article.title}
                     </h1>
 
                     {article.excerpt && (
-                        <p className="text-base sm:text-lg text-slate-700 mb-6">
-                            {article.excerpt}
-                        </p>
+                        <p className="mb-6 text-base text-slate-700 sm:text-lg">{article.excerpt}</p>
                     )}
 
                     <div className="prose max-w-none text-slate-700">

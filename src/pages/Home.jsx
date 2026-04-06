@@ -5,6 +5,14 @@ import Card from "../components/Card";
 import CoverImage from "../components/CoverImage";
 import { getNews, getEvents, getHikes } from "../data/loader";
 
+function formatEventDate(event) {
+    if (event.startDate === event.endDate || !event.endDate) {
+        return event.startDate || event.date;
+    }
+
+    return `Du ${event.startDate} au ${event.endDate}`;
+}
+
 export default function Home() {
     const [featuredNews, setFeaturedNews] = useState(null);
     const [news, setNews] = useState([]);
@@ -21,8 +29,11 @@ export default function Home() {
         getEvents().then((data) => {
             const today = new Date();
             const upcoming = data
-                .filter((event) => new Date(event.date) >= today)
-                .sort((a, b) => new Date(a.date) - new Date(b.date));
+                .filter((event) => new Date(event.endDate || event.startDate || event.date) >= today)
+                .sort(
+                    (a, b) =>
+                        new Date(a.startDate || a.date) - new Date(b.startDate || b.date)
+                );
             setEvents(upcoming.slice(0, 3));
         });
 
@@ -33,21 +44,21 @@ export default function Home() {
 
     return (
         <Layout>
-            <section className="rounded-3xl bg-gradient-to-r from-[#1f5e54] to-[#3f977b] text-white p-5 sm:p-8 md:p-12 shadow-lg mb-8 sm:mb-10">
-                <div className="flex flex-col md:flex-row items-start md:items-center gap-5 sm:gap-6">
+            <section className="mb-8 rounded-3xl bg-gradient-to-r from-[#1f5e54] to-[#3f977b] p-5 text-white shadow-lg sm:mb-10 sm:p-8 md:p-12">
+                <div className="flex flex-col items-start gap-5 sm:gap-6 md:flex-row md:items-center">
                     <img
                         src="/logo-fontaine.png"
                         alt="Logo Fontaine-de-Vaucluse"
-                        className="h-20 w-20 sm:h-28 sm:w-28 object-contain"
+                        className="h-20 w-20 object-contain sm:h-28 sm:w-28"
                     />
 
                     <div>
-                        <h1 className="text-2xl sm:text-4xl font-bold mb-3 sm:mb-4">
+                        <h1 className="mb-3 text-2xl font-bold sm:mb-4 sm:text-4xl">
                             Fontaine Info à la Source
                         </h1>
-                        <p className="text-base sm:text-lg md:text-xl max-w-2xl text-[#eef7f3]">
-                            Retrouvez les actualités, les événements à venir et les itinéraires de randonnée
-                            de la commune sur une seule plateforme.
+                        <p className="max-w-2xl text-base text-[#eef7f3] sm:text-lg md:text-xl">
+                            Retrouvez les actualités, les événements à venir et les itinéraires de
+                            randonnée de la commune sur une seule plateforme.
                         </p>
                     </div>
                 </div>
@@ -55,11 +66,11 @@ export default function Home() {
 
             {featuredNews && (
                 <section className="mb-10 sm:mb-12">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-                        <h2 className="text-xl sm:text-2xl font-bold text-[#163c35]">À la une</h2>
+                    <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <h2 className="text-xl font-bold text-[#163c35] sm:text-2xl">À la une</h2>
                         <Link
                             to="/news"
-                            className="text-[#1f5e54] hover:text-[#3f977b] hover:underline font-medium text-sm sm:text-base"
+                            className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base"
                         >
                             Voir toutes les actualités
                         </Link>
@@ -69,20 +80,20 @@ export default function Home() {
                         <CoverImage
                             src={featuredNews.image}
                             alt={featuredNews.title}
-                            className="h-56 sm:h-72 w-full object-cover md:h-full"
+                            className="h-56 w-full object-cover sm:h-72 md:h-full"
                         />
 
-                        <div className="p-5 sm:p-8 flex flex-col justify-center">
-                            <p className="text-sm text-[#5b7d76] mb-2">{featuredNews.date}</p>
-                            <h3 className="text-2xl sm:text-3xl font-bold text-[#163c35] mb-4">
+                        <div className="flex flex-col justify-center p-5 sm:p-8">
+                            <p className="mb-2 text-sm text-[#5b7d76]">{featuredNews.date}</p>
+                            <h3 className="mb-4 text-2xl font-bold text-[#163c35] sm:text-3xl">
                                 {featuredNews.title}
                             </h3>
-                            <p className="text-slate-700 mb-6 text-sm sm:text-base">
+                            <p className="mb-6 text-sm text-slate-700 sm:text-base">
                                 {featuredNews.excerpt || featuredNews.content}
                             </p>
                             <Link
                                 to={`/news/${featuredNews.id}`}
-                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline font-medium"
+                                className="font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                             >
                                 Lire l’actualité →
                             </Link>
@@ -92,11 +103,13 @@ export default function Home() {
             )}
 
             <section className="mb-10 sm:mb-12">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-                    <h2 className="text-xl sm:text-2xl font-bold text-[#163c35]">Dernières actualités</h2>
+                <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <h2 className="text-xl font-bold text-[#163c35] sm:text-2xl">
+                        Dernières actualités
+                    </h2>
                     <Link
                         to="/news"
-                        className="text-[#1f5e54] hover:text-[#3f977b] hover:underline font-medium text-sm sm:text-base"
+                        className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base"
                     >
                         Voir toutes les actualités
                     </Link>
@@ -108,7 +121,7 @@ export default function Home() {
                             <p className="text-sm text-slate-700">{item.excerpt}</p>
                             <Link
                                 to={`/news/${item.id}`}
-                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
+                                className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                             >
                                 Lire plus →
                             </Link>
@@ -118,11 +131,13 @@ export default function Home() {
             </section>
 
             <section className="mb-10 sm:mb-12">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-                    <h2 className="text-xl sm:text-2xl font-bold text-[#163c35]">Prochains événements</h2>
+                <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <h2 className="text-xl font-bold text-[#163c35] sm:text-2xl">
+                        Prochains événements
+                    </h2>
                     <Link
                         to="/events"
-                        className="text-[#1f5e54] hover:text-[#3f977b] hover:underline font-medium text-sm sm:text-base"
+                        className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base"
                     >
                         Voir tous les événements
                     </Link>
@@ -130,11 +145,16 @@ export default function Home() {
 
                 <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
                     {events.map((event) => (
-                        <Card key={event.id} title={event.title} date={event.date} image={event.image}>
+                        <Card
+                            key={event.id}
+                            title={event.title}
+                            date={formatEventDate(event)}
+                            image={event.image}
+                        >
                             <p className="text-sm text-slate-700">{event.location}</p>
                             <Link
                                 to={`/events/${event.id}`}
-                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
+                                className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                             >
                                 Voir le détail →
                             </Link>
@@ -144,11 +164,13 @@ export default function Home() {
             </section>
 
             <section>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-                    <h2 className="text-xl sm:text-2xl font-bold text-[#163c35]">Randonnées à découvrir</h2>
+                <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <h2 className="text-xl font-bold text-[#163c35] sm:text-2xl">
+                        Randonnées à découvrir
+                    </h2>
                     <Link
                         to="/hikes"
-                        className="text-[#1f5e54] hover:text-[#3f977b] hover:underline font-medium text-sm sm:text-base"
+                        className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base"
                     >
                         Voir toutes les randonnées
                     </Link>
@@ -158,14 +180,14 @@ export default function Home() {
                     {hikes.map((hike) => (
                         <article
                             key={hike.id}
-                            className="rounded-2xl border border-slate-200 bg-white shadow-sm p-5"
+                            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
                         >
                             <h3 className="text-xl font-bold text-slate-900">{hike.name}</h3>
                             <p className="mt-2 text-sm text-slate-700">Distance : {hike.distance} km</p>
                             <p className="text-sm text-slate-700">Difficulté : {hike.difficulty}</p>
                             <Link
                                 to={`/hikes/${hike.id}`}
-                                className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
+                                className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                             >
                                 Voir le détail →
                             </Link>

@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.1" creator="Exemple">
+<gpx version="1.1" creator="Fontaine Info à la Source">
   <trk>
     <name>Boucle du belvédère</name>
     <trkseg>
-      <trkpt lat="45.7342" lon="4.8148">
-        <ele>80.0</ele>
+      <trkpt lat="43.9236" lon="5.1287">
+        <ele>95.0</ele>
       </trkpt>
-      <trkpt lat="45.7348" lon="4.8160">
-        <ele>81.5</ele>
+      <trkpt lat="43.9241" lon="5.1294">
+        <ele>102.0</ele>
       </trkpt>
-      <trkpt lat="45.7355" lon="4.8175">
-        <ele>83.0</ele>
+      <trkpt lat="43.9248" lon="5.1301">
+        <ele>110.5</ele>
       </trkpt>
-      <trkpt lat="45.7360" lon="4.8180">
-        <ele>84.2</ele>
+      <trkpt lat="43.9251" lon="5.1290">
+        <ele>108.0</ele>
       </trkpt>
-      <trkpt lat="45.7362" lon="4.8183">
-        <ele>82.2</ele>
+      <trkpt lat="43.9243" lon="5.1281">
+        <ele>99.0</ele>
+      </trkpt>
+      <trkpt lat="43.9236" lon="5.1287">
+        <ele>95.0</ele>
       </trkpt>
     </trkseg>
   </trk>

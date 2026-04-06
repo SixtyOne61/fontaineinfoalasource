@@ -17,9 +17,10 @@ export default function Parking() {
     return (
         <Layout>
             <section className="mb-8">
-                <h1 className="text-2xl sm:text-3xl font-bold text-[#163c35]">Parkings</h1>
-                <p className="mt-2 text-slate-600 max-w-2xl text-sm sm:text-base">
-                    Retrouvez les parkings disponibles de la commune avec leurs accès et leurs tarifs.
+                <h1 className="text-2xl font-bold text-[#163c35] sm:text-3xl">Parkings</h1>
+                <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
+                    Retrouvez les parkings disponibles de la commune avec leurs accès et leurs
+                    tarifs.
                 </p>
             </section>
 
@@ -28,7 +29,7 @@ export default function Parking() {
             </section>
 
             <section>
-                <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-[#163c35]">
+                <h2 className="mb-4 text-xl font-semibold text-[#163c35] sm:text-2xl">
                     Liste des parkings
                 </h2>
 
@@ -37,13 +38,13 @@ export default function Parking() {
                         {parkings.map((parking) => (
                             <article
                                 key={parking.id}
-                                className="rounded-2xl border border-slate-200 bg-white shadow-sm p-4 sm:p-5"
+                                className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
                             >
-                                <h3 className="text-lg sm:text-xl font-bold text-slate-900">
+                                <h3 className="text-lg font-bold text-slate-900 sm:text-xl">
                                     {parking.name}
                                 </h3>
 
-                                <p className="mt-2 text-sm sm:text-base text-slate-700">
+                                <p className="mt-2 text-sm text-slate-700 sm:text-base">
                                     {parking.address}
                                 </p>
 
@@ -62,7 +63,7 @@ export default function Parking() {
                         ))}
                     </div>
                 ) : (
-                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm text-slate-600">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-600 shadow-sm">
                         Aucun parking disponible pour le moment.
                     </div>
                 )}

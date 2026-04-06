@@ -1,19 +1,21 @@
-import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import HikeTrackMap from "../components/HikeTrackMap";
 import ElevationChart from "../components/ElevationChart";
 import { getHikes } from "../data/loader";
 import { loadGpxTrackData } from "../utils/gpx";
 
+const EMPTY_ELEVATION_DATA = {
+    elevationProfile: [],
+    minElevation: null,
+    maxElevation: null,
+};
+
 export default function HikeDetail() {
     const { id } = useParams();
     const [hike, setHike] = useState(null);
-    const [elevationData, setElevationData] = useState({
-        elevationProfile: [],
-        minElevation: null,
-        maxElevation: null,
-    });
+    const [elevationData, setElevationData] = useState(EMPTY_ELEVATION_DATA);
 
     useEffect(() => {
         getHikes().then((data) => {
@@ -23,32 +25,40 @@ export default function HikeDetail() {
     }, [id]);
 
     useEffect(() => {
-        if (!hike?.gpx) {
-            setElevationData({
-                elevationProfile: [],
-                minElevation: null,
-                maxElevation: null,
-            });
-            return;
+        let isMounted = true;
+
+        async function syncElevationData() {
+            if (!hike?.gpx) {
+                setElevationData(EMPTY_ELEVATION_DATA);
+                return;
+            }
+
+            const data = await loadGpxTrackData(hike.gpx);
+
+            if (isMounted) {
+                setElevationData({
+                    elevationProfile: data.elevationProfile,
+                    minElevation: data.minElevation,
+                    maxElevation: data.maxElevation,
+                });
+            }
         }
 
-        loadGpxTrackData(hike.gpx).then((data) => {
-            setElevationData({
-                elevationProfile: data.elevationProfile,
-                minElevation: data.minElevation,
-                maxElevation: data.maxElevation,
-            });
-        });
+        syncElevationData();
+
+        return () => {
+            isMounted = false;
+        };
     }, [hike]);
 
     if (!hike) {
         return (
             <Layout>
-                <div className="rounded-2xl bg-white border border-slate-200 p-5 sm:p-8 shadow-sm">
-                    <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8">
+                    <h1 className="mb-2 text-2xl font-bold text-slate-900 sm:text-3xl">
                         Randonnée introuvable
                     </h1>
-                    <p className="text-slate-600 mb-4">
+                    <p className="mb-4 text-slate-600">
                         La randonnée demandée n’existe pas ou n’est plus disponible.
                     </p>
                     <Link to="/hikes" className="text-[#1f5e54] hover:underline">
@@ -66,32 +76,32 @@ export default function HikeDetail() {
         <Layout>
             <div className="grid gap-6 sm:gap-8">
                 <article className="grid gap-6 sm:gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-                    <div className="rounded-2xl bg-white border border-slate-200 shadow-sm p-5 sm:p-8">
-                        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8">
+                        <h1 className="mb-4 text-2xl font-bold text-slate-900 sm:text-3xl">
                             {hike.name}
                         </h1>
 
-                        <p className="text-slate-700 mb-6 text-sm sm:text-base">
+                        <p className="mb-6 text-sm text-slate-700 sm:text-base">
                             {hike.description}
                         </p>
 
-                        <div className="grid gap-4 sm:grid-cols-2 mb-8">
-                            <div className="rounded-xl bg-slate-50 p-4 border border-slate-200">
+                        <div className="mb-8 grid gap-4 sm:grid-cols-2">
+                            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                                 <p className="text-sm text-slate-500">Distance</p>
                                 <p className="font-medium text-slate-900">{hike.distance} km</p>
                             </div>
 
-                            <div className="rounded-xl bg-slate-50 p-4 border border-slate-200">
+                            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                                 <p className="text-sm text-slate-500">Difficulté</p>
                                 <p className="font-medium text-slate-900">{hike.difficulty}</p>
                             </div>
 
-                            <div className="rounded-xl bg-slate-50 p-4 border border-slate-200">
+                            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                                 <p className="text-sm text-slate-500">Durée</p>
                                 <p className="font-medium text-slate-900">{hike.duration}</p>
                             </div>
 
-                            <div className="rounded-xl bg-slate-50 p-4 border border-slate-200">
+                            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                                 <p className="text-sm text-slate-500">Départ</p>
                                 <p className="font-medium text-slate-900">{hike.startPoint}</p>
                             </div>

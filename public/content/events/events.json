@@ -2,21 +2,21 @@
   "items": [
     {
       "id": 1,
-      "title": "Marché local",
+      "title": "Marché des producteurs",
       "startDate": "2026-04-15",
       "endDate": "2026-04-15",
-      "location": "Place centrale",
-      "content": "Marché hebdomadaire avec producteurs locaux.",
-      "image": "/uploads/marche-local.jpg"
+      "location": "Place de la Colonne",
+      "content": "Marché de producteurs locaux avec produits du terroir, restauration légère et informations touristiques.",
+      "image": "/uploads/images.jpg"
     },
     {
       "id": 2,
-      "title": "Festival de printemps",
-      "startDate": "2026-04-20",
-      "endDate": "2026-04-23",
-      "location": "Centre du village",
-      "content": "Animations, concerts et stands pendant 4 jours.",
-      "image": "/uploads/festival-printemps.jpg"
+      "title": "Week-end nature et patrimoine",
+      "startDate": "2026-04-18",
+      "endDate": "2026-04-19",
+      "location": "Centre du village et abords de la Sorgue",
+      "content": "Animations familiales, balades commentées et ateliers de découverte autour du patrimoine naturel et du village.",
+      "image": "/uploads/fond-jaune-1-scaled.jpg"
     }
   ]
 }

@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-    MapContainer,
-    TileLayer,
-    Marker,
-    Popup,
-    Polyline,
-    useMap,
-} from "react-leaflet";
+import { MapContainer, Marker, Popup, Polyline, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import { loadGpxTrackData } from "../utils/gpx";
 
@@ -53,18 +46,18 @@ export default function HikeTrackMap({ hike }) {
 
     if (!hike) return null;
 
-    const fallbackPosition = [hike?.lat ?? 45.7342, hike?.lng ?? 4.8148];
+    const fallbackPosition = [hike.lat ?? 43.9221, hike.lng ?? 5.1278];
 
     return (
-        <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-white">
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
             <MapContainer
                 center={fallbackPosition}
                 zoom={14}
-                scrollWheelZoom={true}
+                scrollWheelZoom
                 className="h-[500px] w-full"
             >
                 <TileLayer
-                    attribution='&copy; OpenStreetMap contributors'
+                    attribution="&copy; OpenStreetMap contributors"
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
@@ -73,11 +66,7 @@ export default function HikeTrackMap({ hike }) {
                 {track.length > 1 && (
                     <Polyline
                         positions={track}
-                        pathOptions={{
-                            color: "#1f5e54",
-                            weight: 5,
-                            opacity: 0.9,
-                        }}
+                        pathOptions={{ color: "#1f5e54", weight: 5, opacity: 0.9 }}
                     />
                 )}
 

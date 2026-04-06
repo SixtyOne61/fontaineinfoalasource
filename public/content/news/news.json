@@ -2,18 +2,18 @@
   "items": [
     {
       "id": 1,
-      "title": "Fête du village",
-      "date": "2026-04-10",
-      "excerpt": "Une journée festive pour tous les habitants.",
-      "content": "Grande fête avec animations, stands et concerts.",
+      "title": "Accès au centre renforcé pendant les week-ends de printemps",
+      "date": "2026-04-12",
+      "excerpt": "Des agents d’accueil et une signalétique temporaire facilitent l’orientation des visiteurs.",
+      "content": "La commune renforce l’accueil des visiteurs pendant les pics de fréquentation. Une signalétique temporaire est mise en place sur les principaux axes et des agents orientent les flux vers les parkings disponibles.",
       "image": "/uploads/fond-jaune-1-scaled.jpg"
     },
     {
       "id": 2,
-      "title": "Travaux sur la route principale",
-      "date": "2026-04-12",
-      "excerpt": "Circulation perturbée pendant 3 jours.",
-      "content": "Des travaux de réfection vont entraîner une fermeture partielle.",
+      "title": "Information stationnement pour les excursionnistes",
+      "date": "2026-04-08",
+      "excerpt": "Les visiteurs sont invités à privilégier les parkings signalés en entrée de village.",
+      "content": "Afin de limiter la congestion dans le centre ancien, la commune rappelle que les parkings en entrée de village doivent être utilisés en priorité. Les itinéraires piétons permettent ensuite de rejoindre rapidement les principaux points d’intérêt.",
       "image": "/uploads/images.jpg"
     }
   ]

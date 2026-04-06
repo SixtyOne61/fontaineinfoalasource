@@ -31,8 +31,8 @@ export default function News() {
     return (
         <Layout>
             <section className="mb-8">
-                <h1 className="text-2xl sm:text-3xl font-bold text-[#163c35]">Actualités</h1>
-                <p className="mt-2 text-slate-600 max-w-2xl text-sm sm:text-base">
+                <h1 className="text-2xl font-bold text-[#163c35] sm:text-3xl">Actualités</h1>
+                <p className="mt-2 max-w-2xl text-sm text-slate-600 sm:text-base">
                     Retrouvez toutes les informations récentes de la commune.
                 </p>
             </section>
@@ -47,16 +47,11 @@ export default function News() {
                 {filteredNews.length > 0 ? (
                     <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
                         {filteredNews.map((item) => (
-                            <Card
-                                key={item.id}
-                                title={item.title}
-                                date={item.date}
-                                image={item.image}
-                            >
+                            <Card key={item.id} title={item.title} date={item.date} image={item.image}>
                                 <p className="text-sm text-slate-700">{item.excerpt}</p>
                                 <Link
                                     to={`/news/${item.id}`}
-                                    className="text-[#1f5e54] hover:text-[#3f977b] hover:underline mt-3 inline-block"
+                                    className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                                 >
                                     Lire plus →
                                 </Link>
@@ -64,7 +59,7 @@ export default function News() {
                         ))}
                     </div>
                 ) : (
-                    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm text-slate-600">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-600 shadow-sm">
                         Aucune actualité ne correspond à votre recherche.
                     </div>
                 )}

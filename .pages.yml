@@ -39,7 +39,7 @@ content:
           - { name: location, label: Lieu, type: string }
           - { name: content, label: Description, type: rich-text }
           - { name: image, label: Image, type: image, required: false }
-          
+
   - name: hikes
     label: Randonnées
     path: public/content/hikes/hikes.json

@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-    MapContainer,
-    TileLayer,
-    Marker,
-    Popup,
-    Polyline,
-    useMap,
-} from "react-leaflet";
+import { MapContainer, Marker, Popup, Polyline, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import { loadGpxTrackData } from "../utils/gpx";
 
@@ -41,11 +34,7 @@ function MapController({ selectedHike, track, hikes }) {
     return null;
 }
 
-export default function HikesInteractiveMap({
-                                                hikes,
-                                                selectedHike,
-                                                onMarkerClick,
-                                            }) {
+export default function HikesInteractiveMap({ hikes, selectedHike, onMarkerClick }) {
     const [track, setTrack] = useState([]);
 
     useEffect(() => {
@@ -71,11 +60,9 @@ export default function HikesInteractiveMap({
         };
     }, [selectedHike]);
 
-    const defaultCenter = [45.7342, 4.8148];
-
     return (
-        <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-white">
-            <div className="px-4 py-3 border-b border-slate-200 bg-[#f6f8f5]">
+        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div className="border-b border-slate-200 bg-[#f6f8f5] px-4 py-3">
                 <p className="text-sm text-slate-700">
                     {selectedHike
                         ? `Randonnée sélectionnée : ${selectedHike.name}`
@@ -84,30 +71,22 @@ export default function HikesInteractiveMap({
             </div>
 
             <MapContainer
-                center={defaultCenter}
+                center={[43.9221, 5.1278]}
                 zoom={13}
-                scrollWheelZoom={true}
-                className="h-[360px] sm:h-[420px] lg:h-[520px] w-full"
+                scrollWheelZoom
+                className="h-[360px] w-full sm:h-[420px] lg:h-[520px]"
             >
                 <TileLayer
-                    attribution='&copy; OpenStreetMap contributors'
+                    attribution="&copy; OpenStreetMap contributors"
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                <MapController
-                    selectedHike={selectedHike}
-                    track={track}
-                    hikes={hikes}
-                />
+                <MapController selectedHike={selectedHike} track={track} hikes={hikes} />
 
                 {track.length > 1 && (
                     <Polyline
                         positions={track}
-                        pathOptions={{
-                            color: "#1f5e54",
-                            weight: 5,
-                            opacity: 0.9,
-                        }}
+                        pathOptions={{ color: "#1f5e54", weight: 5, opacity: 0.9 }}
                     />
                 )}
 
@@ -118,9 +97,7 @@ export default function HikesInteractiveMap({
                         <Marker
                             key={hike.id}
                             position={[hike.lat, hike.lng]}
-                            eventHandlers={{
-                                click: () => onMarkerClick(hike),
-                            }}
+                            eventHandlers={{ click: () => onMarkerClick(hike) }}
                         >
                             <Popup>
                                 <div className="min-w-[200px]">
@@ -129,7 +106,7 @@ export default function HikesInteractiveMap({
                                     <p>Difficulté : {hike.difficulty}</p>
                                     <p>Départ : {hike.startPoint}</p>
                                     {isSelected && (
-                                        <p className="mt-2 text-sm text-[#1f5e54] font-medium">
+                                        <p className="mt-2 text-sm font-medium text-[#1f5e54]">
                                             Trace affichée sur la carte
                                         </p>
                                     )}

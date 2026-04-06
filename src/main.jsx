@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import "./index.css";
 
+import FixLeafletIcon from "./components/FixLeafletIcon";
 import Home from "./pages/Home";
 import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
@@ -16,6 +17,7 @@ import Parking from "./pages/Parking";
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
         <BrowserRouter>
+            <FixLeafletIcon />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/news" element={<News />} />

@@ -1,5 +1,5 @@
-import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import CoverImage from "../components/CoverImage";
 import { getEvents } from "../data/loader";
@@ -18,11 +18,11 @@ export default function EventDetail() {
     if (!event) {
         return (
             <Layout>
-                <div className="rounded-2xl bg-white border border-slate-200 p-5 sm:p-8 shadow-sm">
-                    <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+                <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8">
+                    <h1 className="mb-2 text-2xl font-bold text-slate-900 sm:text-3xl">
                         Événement introuvable
                     </h1>
-                    <p className="text-slate-600 mb-4">
+                    <p className="mb-4 text-slate-600">
                         L’événement demandé n’existe pas ou n’est plus disponible.
                     </p>
                     <Link to="/events" className="text-[#1f5e54] hover:underline">
@@ -35,31 +35,31 @@ export default function EventDetail() {
 
     return (
         <Layout>
-            <article className="overflow-hidden rounded-2xl bg-white border border-slate-200 shadow-sm">
+            <article className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                 <CoverImage
                     src={event.image}
                     alt={event.title}
-                    className="h-56 sm:h-72 w-full object-cover"
+                    className="h-56 w-full object-cover sm:h-72"
                 />
 
                 <div className="p-5 sm:p-8">
-                    <p className="text-sm text-slate-500 mb-2">
+                    <p className="mb-2 text-sm text-slate-500">
                         {event.startDate === event.endDate || !event.endDate
                             ? event.startDate || event.date
                             : `Du ${event.startDate} au ${event.endDate}`}
                     </p>
 
-                    <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+                    <h1 className="mb-4 text-2xl font-bold text-slate-900 sm:text-3xl">
                         {event.title}
                     </h1>
 
-                    <div className="grid gap-4 sm:grid-cols-2 mb-6">
-                        <div className="rounded-xl bg-slate-50 p-4 border border-slate-200">
+                    <div className="mb-6 grid gap-4 sm:grid-cols-2">
+                        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                             <p className="text-sm text-slate-500">Lieu</p>
                             <p className="font-medium text-slate-900">{event.location}</p>
                         </div>
 
-                        <div className="rounded-xl bg-slate-50 p-4 border border-slate-200">
+                        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
                             <p className="text-sm text-slate-500">Catégorie</p>
                             <p className="font-medium text-slate-900">Événement communal</p>
                         </div>

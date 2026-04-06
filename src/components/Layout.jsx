@@ -2,14 +2,14 @@ import Navbar from "./Navbar";
 
 export default function Layout({ children }) {
     return (
-        <div className="min-h-screen bg-[#f6f8f5] flex flex-col">
+        <div className="flex min-h-screen flex-col bg-[#f6f8f5]">
             <Navbar />
 
-            <main className="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+            <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8">
                 {children}
             </main>
 
-            <footer className="bg-[#163c35] text-[#d7e8e1] text-center py-4 sm:py-5 mt-auto text-sm sm:text-base px-4">
+            <footer className="mt-auto bg-[#163c35] px-4 py-4 text-center text-sm text-[#d7e8e1] sm:py-5 sm:text-base">
                 © {new Date().getFullYear()} Fontaine Info à la Source
             </footer>
         </div>
