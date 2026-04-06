@@ -1,0 +1,15 @@
+# CODEOWNERS template
+# Remplacez les handles ci-dessous dès que les comptes GitHub mairie existent.
+#
+# Exemples valides :
+# /public/gpx/ @mairie-fontaine/admins
+# /public/uploads/ @alice @bob
+#
+# Tant que ces lignes restent commentées, GitHub n'imposera pas de review
+# de code owners sur ces dossiers.
+
+# Owners mairie pour les fichiers GPX
+# /public/gpx/ @handle-mairie-1 @handle-mairie-2
+
+# Owners mairie pour les uploads médias
+# /public/uploads/ @handle-mairie-1 @handle-mairie-2
