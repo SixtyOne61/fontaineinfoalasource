@@ -3,12 +3,10 @@
     {
       "id": 1,
       "name": "Boucle du belvédère",
-      "nameEn": "Belvedere loop",
       "distance": 6.8,
       "difficulty": "Facile",
       "difficultyEn": "Easy",
       "duration": "2h15",
-      "durationEn": "2h15",
       "lat": 43.9236,
       "lng": 5.1287,
       "description": "Parcours de découverte offrant plusieurs points de vue sur le village, la vallée et les reliefs environnants.",
@@ -20,12 +18,10 @@
     {
       "id": 2,
       "name": "Promenade des rives de la Sorgue",
-      "nameEn": "Sorgue riverside walk",
       "distance": 3.2,
       "difficulty": "Facile",
       "difficultyEn": "Easy",
       "duration": "1h00",
-      "durationEn": "1h00",
       "lat": 43.9228,
       "lng": 5.1282,
       "description": "Itinéraire court et accessible pour une découverte tranquille des abords de la Sorgue et des paysages de fraîcheur.",
@@ -37,12 +33,10 @@
     {
       "id": 3,
       "name": "Circuit des hauteurs",
-      "nameEn": "Upper viewpoints route",
       "distance": 8.9,
       "difficulty": "Moyen",
       "difficultyEn": "Moderate",
       "duration": "3h15",
-      "durationEn": "3h15",
       "lat": 43.9247,
       "lng": 5.1304,
       "description": "Boucle plus soutenue pour les marcheurs souhaitant prendre de la hauteur et profiter de vues dégagées sur le site.",
@@ -53,3 +47,4 @@
     }
   ]
 }
+

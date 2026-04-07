@@ -216,7 +216,7 @@ function sanitizeEventItem(item) {
         startDate: sanitizeDate(item?.startDate),
         endDate: sanitizeDate(item?.endDate),
         date: sanitizeDate(item?.date),
-        ...sanitizeLocalizedTextFields(item, "location", 200),
+        location: sanitizeText(item?.location, 200),
         ...sanitizeLocalizedTextFields(item, "content", 5000),
         image: sanitizePublicAssetPath(item?.image, {
             allowedPrefixes: ["/uploads/"],
@@ -231,10 +231,10 @@ function sanitizeHikeItem(item) {
 
     return {
         id,
-        ...sanitizeLocalizedTextFields(item, "name", 160),
+        name: sanitizeText(item?.name, 160),
         distance: sanitizeNumber(item?.distance, { min: 0, max: 250 }),
         ...sanitizeLocalizedTextFields(item, "difficulty", 40),
-        ...sanitizeLocalizedTextFields(item, "duration", 40),
+        duration: sanitizeText(item?.duration, 40),
         lat: sanitizeNumber(item?.lat, { min: -90, max: 90 }),
         lng: sanitizeNumber(item?.lng, { min: -180, max: 180 }),
         ...sanitizeLocalizedTextFields(item, "description", 1200),
@@ -252,16 +252,16 @@ function sanitizeParkingItem(item) {
 
     return {
         id,
-        ...sanitizeLocalizedTextFields(item, "name", 160),
+        name: sanitizeText(item?.name, 160),
         lat: sanitizeNumber(item?.lat, { min: -90, max: 90 }),
         lng: sanitizeNumber(item?.lng, { min: -180, max: 180 }),
-        ...sanitizeLocalizedTextFields(item, "address", 220),
+        address: sanitizeText(item?.address, 220),
         cars: sanitizeBoolean(item?.cars),
         minivans: sanitizeBoolean(item?.minivans),
         motorcycles: sanitizeBoolean(item?.motorcycles),
         campers: sanitizeBoolean(item?.campers),
-        ...sanitizeLocalizedTextFields(item, "hourlyRate", 60),
-        ...sanitizeLocalizedTextFields(item, "dailyRate", 60),
+        hourlyRate: sanitizeText(item?.hourlyRate, 60),
+        dailyRate: sanitizeText(item?.dailyRate, 60),
         ...sanitizeLocalizedTextFields(item, "notes", 400),
     };
 }
