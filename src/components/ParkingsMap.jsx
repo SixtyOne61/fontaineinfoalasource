@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import L from "leaflet";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import { getLocalizedField } from "../locale";
+import ParkingAddressActions from "./ParkingAddressActions";
 import { useLocale } from "../useLocale";
 import { hasValidCoordinates } from "../utils/security";
 
@@ -78,7 +79,12 @@ export default function ParkingsMap({ parkings }) {
                         <Popup>
                             <div className="min-w-[240px] text-sm">
                                 <h3 className="mb-2 text-base font-bold">{getLocalizedField(parking, "name", lang)}</h3>
-                                <p><strong>{lang === "en" ? "Address:" : "Adresse :"}</strong> {getLocalizedField(parking, "address", lang)}</p>
+                                <div>
+                                    <strong>{lang === "en" ? "Address:" : "Adresse :"}</strong>
+                                    <div className="mt-1">
+                                        <ParkingAddressActions parking={parking} lang={lang} compact />
+                                    </div>
+                                </div>
                                 <div className="mt-3 flex flex-wrap gap-2">
                                     {vehicleTypes[lang].map((vehicle) => (
                                         <VehiclePill

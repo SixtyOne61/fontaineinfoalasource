@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import Layout from "../components/Layout";
+import ParkingAddressActions from "../components/ParkingAddressActions";
 import ParkingsMap from "../components/ParkingsMap";
 import { getParkings } from "../data/loader";
 import { getLocalizedField } from "../locale";
@@ -132,9 +133,9 @@ export default function Parking() {
                                             {getParkingRecommendation(parking)}
                                         </div>
                                         <h3 className="text-2xl text-slate-900">{getLocalizedField(parking, "name", lang)}</h3>
-                                        <p className="mt-2 text-sm text-slate-700 sm:text-base">
-                                            {getLocalizedField(parking, "address", lang)}
-                                        </p>
+                                        <div className="mt-2 text-slate-700">
+                                            <ParkingAddressActions parking={parking} lang={lang} />
+                                        </div>
                                     </div>
                                     <div className="rounded-[1.2rem] bg-[#163c35] px-3 py-2 text-right text-white">
                                         <p className="text-xs uppercase tracking-[0.12em] text-white/75">{lang === "en" ? "Day" : "Jour"}</p>
