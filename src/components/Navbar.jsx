@@ -108,7 +108,7 @@ export default function Navbar() {
                     />
                     <div className="min-w-0">
                         <p className="truncate text-base font-bold leading-tight sm:text-xl">
-                            Fontaine Info
+                            Info à la source
                         </p>
                         <p className="truncate text-xs leading-tight text-[#d7e8e1] sm:text-sm">
                             Fontaine-de-Vaucluse
