@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import { getEvents } from "../data/loader";
 import { getLocalizedField } from "../locale";
 import { useLocale } from "../useLocale";
+import { getEventEndDate, getEventStartDate, getRecurrenceLabel } from "../utils/events";
 
 export default function EventDetail() {
     const { id } = useParams();
@@ -45,11 +46,11 @@ export default function EventDetail() {
 
                 <div className="p-6 sm:p-8">
                     <p className="section-kicker mb-2">
-                        {event.startDate === event.endDate || !event.endDate
-                            ? event.startDate || event.date
+                        {getEventStartDate(event) === getEventEndDate(event) || !getEventEndDate(event)
+                            ? getEventStartDate(event)
                             : lang === "en"
-                                ? `From ${event.startDate} to ${event.endDate}`
-                                : `Du ${event.startDate} au ${event.endDate}`}
+                                ? `From ${getEventStartDate(event)} to ${getEventEndDate(event)}`
+                                : `Du ${getEventStartDate(event)} au ${getEventEndDate(event)}`}
                     </p>
 
                     <h1 className="mb-4 text-3xl text-slate-900 sm:text-4xl">
@@ -67,6 +68,13 @@ export default function EventDetail() {
                             <p className="font-medium text-slate-900">{lang === "en" ? "Local event" : "Événement communal"}</p>
                         </div>
                     </div>
+
+                    {event.recurrence && (
+                        <div className="mb-6 rounded-[1.35rem] border border-[#d7e8e1] bg-[#f5fbf8] p-4">
+                            <p className="text-sm text-slate-500">{lang === "en" ? "Recurrence" : "Récurrence"}</p>
+                            <p className="font-medium text-slate-900">{getRecurrenceLabel(event, lang)}</p>
+                        </div>
+                    )}
 
                     <div className="max-w-3xl space-y-4 text-slate-700">
                         <p>{getLocalizedField(event, "content", lang)}</p>

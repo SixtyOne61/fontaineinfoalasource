@@ -32,7 +32,23 @@
       "content": "Parcours pédestre commenté pour découvrir l'organisation du village, ses points de vue et ses repères patrimoniaux.",
       "contentEn": "Guided walking tour to discover the village layout, viewpoints and heritage landmarks.",
       "image": "/uploads/fond-jaune-1-scaled.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Marché hebdomadaire",
+      "titleEn": "Weekly market",
+      "startDate": "2026-04-22",
+      "endDate": "2026-04-22",
+      "location": "Place de la Colonne",
+      "content": "Rendez-vous hebdomadaire avec producteurs, artisans et stands d'information.",
+      "contentEn": "Weekly gathering with local producers, craftspeople and information stands.",
+      "image": "/uploads/images.jpg",
+      "recurrence": {
+        "frequency": "weekly",
+        "interval": 1,
+        "until": "2026-10-28",
+        "weekdays": ["wednesday"]
+      }
     }
   ]
 }
-

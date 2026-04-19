@@ -1,4 +1,5 @@
 import Navbar from "./Navbar";
+import InstallPrompt from "./InstallPrompt";
 import { useLocale } from "../useLocale";
 
 export default function Layout({ children }) {
@@ -21,6 +22,7 @@ export default function Layout({ children }) {
             </div>
 
             <Navbar />
+            <InstallPrompt />
 
             <main
                 id="main-content"
