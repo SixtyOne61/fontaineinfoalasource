@@ -181,25 +181,27 @@ content:
                 type: select
                 required: false
                 options:
-                  - { label: Tous les jours, value: daily }
-                  - { label: Chaque semaine, value: weekly }
-                  - { label: Chaque mois, value: monthly }
-                  - { label: Du lundi au vendredi, value: weekdays }
+                  values:
+                    - { label: Tous les jours, value: daily }
+                    - { label: Chaque semaine, value: weekly }
+                    - { label: Chaque mois, value: monthly }
+                    - { label: Du lundi au vendredi, value: weekdays }
               - { name: interval, label: Tous les X cycles (laisser 1 si chaque fois), type: number, required: false, default: 1 }
               - { name: until, label: Date de fin de répétition (AAAA-MM-JJ), type: string, required: false }
               - name: weekdays
                 label: Jours concernés
                 type: select
-                list: true
                 required: false
                 options:
-                  - { label: Lundi, value: monday }
-                  - { label: Mardi, value: tuesday }
-                  - { label: Mercredi, value: wednesday }
-                  - { label: Jeudi, value: thursday }
-                  - { label: Vendredi, value: friday }
-                  - { label: Samedi, value: saturday }
-                  - { label: Dimanche, value: sunday }
+                  multiple: true
+                  values:
+                    - { label: Lundi, value: monday }
+                    - { label: Mardi, value: tuesday }
+                    - { label: Mercredi, value: wednesday }
+                    - { label: Jeudi, value: thursday }
+                    - { label: Vendredi, value: friday }
+                    - { label: Samedi, value: saturday }
+                    - { label: Dimanche, value: sunday }
 
   - name: hikes
     label: Randonnées
