@@ -7,6 +7,7 @@ import SearchBar from "../components/SearchBar";
 import { getEvents } from "../data/loader";
 import { getLocalizedField } from "../locale";
 import { useLocale } from "../useLocale";
+import { compareEventsByStartDate, getEventEndDate, getEventStartDate, getRecurrenceLabel, parseLocalDate } from "../utils/events";
 
 function getEventSnippet(content) {
     if (!content) return "";
@@ -27,23 +28,32 @@ export default function Events() {
 
     function getEventStatus(event) {
         const today = new Date();
-        const start = new Date(event.startDate || event.date);
-        const end = new Date(event.endDate || event.startDate || event.date);
+        today.setHours(0, 0, 0, 0);
+        const start = parseLocalDate(getEventStartDate(event));
+        const end = parseLocalDate(getEventEndDate(event));
+
+        if (!start || !end) {
+            return t("common.upcoming");
+        }
+
         const diffDays = Math.floor((start - today) / (1000 * 60 * 60 * 24));
 
         if (today >= start && today <= end) return t("common.inProgress");
-        if (diffDays <= 0) return t("common.today");
-        if (diffDays <= 6) return t("common.thisWeek");
+        if (diffDays === 0) return t("common.today");
+        if (diffDays > 0 && diffDays <= 6) return t("common.thisWeek");
         return t("common.upcoming");
     }
 
     const filteredEvents = useMemo(() => {
         const today = new Date();
+        today.setHours(0, 0, 0, 0);
         const term = search.toLowerCase();
 
         return events
             .filter((event) => {
-                const end = new Date(event.endDate || event.startDate || event.date);
+                const end = parseLocalDate(getEventEndDate(event));
+
+                if (!end) return false;
 
                 if (filterType === "upcoming" && end < today) return false;
                 if (filterType === "past" && end >= today) return false;
@@ -54,16 +64,12 @@ export default function Events() {
                     getLocalizedField(event, "content", lang).toLowerCase().includes(term)
                 );
             })
-            .sort((a, b) => {
-                const aStart = new Date(a.startDate || a.date);
-                const bStart = new Date(b.startDate || b.date);
-                return filterType === "past" ? bStart - aStart : aStart - bStart;
-            });
+            .sort((a, b) => (filterType === "past" ? compareEventsByStartDate(b, a) : compareEventsByStartDate(a, b)));
     }, [events, filterType, lang, search]);
 
     function formatEventDate(event) {
-        const start = event.startDate || event.date;
-        const end = event.endDate || event.startDate || event.date;
+        const start = getEventStartDate(event);
+        const end = getEventEndDate(event);
 
         if (!start) return "";
         if (!end || start === end) return start;
@@ -118,6 +124,11 @@ export default function Events() {
                                     {getEventStatus(event)}
                                 </div>
                                 <p className="text-sm font-medium text-slate-700 sm:text-base">{getLocalizedField(event, "location", lang)}</p>
+                                {event.recurrence && (
+                                    <p className="mt-2 text-xs font-medium uppercase tracking-[0.08em] text-[#5b7d76]">
+                                        {getRecurrenceLabel(event, lang)}
+                                    </p>
+                                )}
                                 <p className="mt-2 text-sm text-slate-600">{getEventSnippet(getLocalizedField(event, "content", lang))}</p>
                                 <Link to={`/events/${event.id}`} className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline">
                                     {t("common.viewDetails")}

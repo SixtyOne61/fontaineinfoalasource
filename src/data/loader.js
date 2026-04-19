@@ -7,6 +7,7 @@ import {
     sanitizePublicAssetPath,
     sanitizeText,
 } from "../utils/security";
+import { expandRecurringEvents } from "../utils/events";
 
 async function fetchItems(path) {
     try {
@@ -210,6 +211,25 @@ function sanitizeEventItem(item) {
     const id = sanitizeId(item?.id);
     if (!id) return null;
 
+    const recurrenceFrequency = sanitizeText(item?.recurrence?.frequency, 24).toLowerCase();
+    const allowedFrequencies = ["daily", "weekly", "monthly", "weekdays"];
+    const recurrenceWeekdays = Array.isArray(item?.recurrence?.weekdays)
+        ? item.recurrence.weekdays
+              .map((value) => sanitizeText(value, 16).toLowerCase())
+              .filter((value) =>
+                  ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"].includes(value)
+              )
+        : [];
+    const recurrence = allowedFrequencies.includes(recurrenceFrequency)
+        ? {
+              frequency: recurrenceFrequency,
+              interval: sanitizeNumber(item?.recurrence?.interval, { min: 1, max: 31 }) || 1,
+              until: sanitizeDate(item?.recurrence?.until),
+              endDate: sanitizeDate(item?.recurrence?.endDate),
+              weekdays: recurrenceWeekdays,
+          }
+        : null;
+
     return {
         id,
         ...sanitizeLocalizedTextFields(item, "title", 160),
@@ -218,6 +238,7 @@ function sanitizeEventItem(item) {
         date: sanitizeDate(item?.date),
         location: sanitizeText(item?.location, 200),
         ...sanitizeLocalizedTextFields(item, "content", 5000),
+        recurrence,
         image: sanitizePublicAssetPath(item?.image, {
             allowedPrefixes: ["/uploads/"],
             allowedExtensions: [".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"],
@@ -273,7 +294,7 @@ export async function getNews() {
 
 export async function getEvents() {
     const items = await fetchItems("/content/events/events.json");
-    return items.map(sanitizeEventItem).filter(Boolean);
+    return expandRecurringEvents(items.map(sanitizeEventItem).filter(Boolean));
 }
 
 export async function getHikes() {

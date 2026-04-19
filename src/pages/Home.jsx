@@ -14,6 +14,7 @@ import {
 import { defaultSectionVisibility, sectionRoutes } from "../data/sections";
 import { getLocalizedField } from "../locale";
 import { useLocale } from "../useLocale";
+import { compareEventsByStartDate, getEventEndDate, getEventStartDate, getRecurrenceLabel, parseLocalDate } from "../utils/events";
 
 const quickLinks = [
     { key: "guide", titleFr: "Guide pratique", titleEn: "Practical guide", descriptionFr: "Voir les repères utiles avant d'arriver.", descriptionEn: "Check key information before arriving.", to: sectionRoutes.guide },
@@ -44,21 +45,6 @@ const vehicleTypes = {
         { key: "campers", label: "Motorhome" },
     ],
 };
-
-function parseLocalDate(value) {
-    if (typeof value !== "string" || !value) {
-        return null;
-    }
-
-    const [year, month, day] = value.split("-").map((part) => Number(part));
-
-    if (!year || !month || !day) {
-        return null;
-    }
-
-    const date = new Date(year, month - 1, day);
-    return Number.isNaN(date.getTime()) ? null : date;
-}
 
 function VehicleBadge({ label, allowed }) {
     return (
@@ -99,8 +85,8 @@ export default function Home() {
     }
 
     function formatEventDate(event) {
-        const start = event.startDate || event.date;
-        const end = event.endDate || event.startDate || event.date;
+        const start = getEventStartDate(event);
+        const end = getEventEndDate(event);
 
         if (!start) return "";
         if (!end || start === end) return formatDate(start);
@@ -143,9 +129,13 @@ export default function Home() {
 
         getEvents().then((data) => {
             const today = new Date();
+            today.setHours(0, 0, 0, 0);
             const upcoming = data
-                .filter((event) => new Date(event.endDate || event.startDate || event.date) >= today)
-                .sort((a, b) => new Date(a.startDate || a.date) - new Date(b.startDate || b.date));
+                .filter((event) => {
+                    const end = parseLocalDate(getEventEndDate(event));
+                    return end && end >= today;
+                })
+                .sort(compareEventsByStartDate);
 
             setEvents(upcoming.slice(0, 3));
         });
@@ -432,9 +422,14 @@ export default function Home() {
                         {events.map((event) => (
                             <Card key={event.id} title={getLocalizedField(event, "title", lang)} date={formatEventDate(event)} image={event.image}>
                                 <div className="mb-3 inline-flex rounded-full bg-[#eef7f3] px-3 py-1 text-xs font-semibold text-[#1f5e54]">
-                                    {getEventStatus(event.startDate || event.date, event.endDate)}
+                                    {getEventStatus(getEventStartDate(event), getEventEndDate(event))}
                                 </div>
                                 <p className="text-sm text-slate-700">{getLocalizedField(event, "location", lang)}</p>
+                                {event.recurrence && (
+                                    <p className="mt-2 text-xs font-medium uppercase tracking-[0.08em] text-[#5b7d76]">
+                                        {getRecurrenceLabel(event, lang)}
+                                    </p>
+                                )}
                                 <Link
                                     to={`/events/${event.id}`}
                                     className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline"

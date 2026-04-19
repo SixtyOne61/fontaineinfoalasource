@@ -1,10 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLocale } from "../useLocale";
-
-function formatDateKey(date) {
-    return date.toISOString().split("T")[0];
-}
+import { formatDateKey, getDatesInRange, getRecurrenceLabel } from "../utils/events";
 
 function isSameMonth(date, currentDate) {
     return (
@@ -25,19 +22,6 @@ function getCalendarDays(currentMonth) {
         day.setDate(calendarStart.getDate() + index);
         return day;
     });
-}
-
-function getDatesInRange(startDate, endDate) {
-    const dates = [];
-    const current = new Date(startDate);
-    const last = new Date(endDate);
-
-    while (current <= last) {
-        dates.push(formatDateKey(current));
-        current.setDate(current.getDate() + 1);
-    }
-
-    return dates;
 }
 
 export default function EventsCalendar({ events }) {
@@ -152,7 +136,13 @@ export default function EventsCalendar({ events }) {
                                                 key={`${event.id}-${key}`}
                                                 to={`/events/${event.id}`}
                                                 className="line-clamp-2 rounded-lg bg-[#d7e8e1] px-2 py-1 text-xs text-[#163c35] transition hover:bg-[#a7cfc1]"
-                                                title={event.titleEn || event.title}
+                                                title={
+                                                    event.recurrence
+                                                        ? `${event.titleEn && lang === "en" ? event.titleEn : event.title} • ${getRecurrenceLabel(event, lang)}`
+                                                        : event.titleEn && lang === "en"
+                                                            ? event.titleEn
+                                                            : event.title
+                                                }
                                             >
                                                 {event.titleEn && lang === "en" ? event.titleEn : event.title}
                                             </Link>
