@@ -4,8 +4,6 @@
     "eyebrowEn": "Practical guide",
     "title": "Fontaine-de-Vaucluse au quotidien",
     "titleEn": "Fontaine-de-Vaucluse day by day",
-    "description": "Un point d'entrée simple pour orienter les visiteurs et les riverains: stationnement, mobilité piétonne, événements, randonnées et informations utiles.",
-    "descriptionEn": "A simple entry point for visitors and residents: parking, walking routes, events, hikes and useful local information.",
     "primaryCta": {
       "id": "guide",
       "label": "Ouvrir le guide",
@@ -76,34 +74,34 @@
       "id": "mobilite",
       "title": "Se déplacer à pied",
       "titleEn": "Walk through the village",
-      "description": "Le coeur du village se découvre mieux à pied. Les cheminements courts réduisent les frictions de circulation.",
-      "descriptionEn": "The village centre is best discovered on foot. Short walking routes reduce traffic pressure.",
       "value": "Piéton d'abord",
       "valueEn": "Walking first",
       "tag": "Priorité",
-      "tagEn": "Priority"
+      "tagEn": "Priority",
+      "description": "Le coeur du village se découvre mieux à pied. Les cheminements courts réduisent les frictions de circulation.",
+      "descriptionEn": "The village centre is best discovered on foot. Short walking routes reduce traffic pressure."
     },
     {
       "id": "stationnement",
       "title": "Stationnement conseillé",
       "titleEn": "Recommended parking",
-      "description": "Les parkings en entrée de village permettent de limiter la congestion dans les rues étroites.",
-      "descriptionEn": "Parking areas at the entrance of the village help reduce congestion in narrow streets.",
       "value": "Entrée de village",
       "valueEn": "Village entrance",
       "tag": "Accès",
-      "tagEn": "Access"
+      "tagEn": "Access",
+      "description": "Les parkings en entrée de village permettent de limiter la congestion dans les rues étroites.",
+      "descriptionEn": "Parking areas at the entrance of the village help reduce congestion in narrow streets."
     },
     {
       "id": "nature",
       "title": "Balades et points de vue",
       "titleEn": "Walks and viewpoints",
-      "description": "Des parcours courts comme des circuits plus sportifs peuvent être mis en avant selon la saison.",
-      "descriptionEn": "Short walks and more demanding routes can both be highlighted depending on the season.",
       "value": "Pour tous",
       "valueEn": "For everyone",
       "tag": "Randonnée",
-      "tagEn": "Hiking"
+      "tagEn": "Hiking",
+      "description": "Des parcours courts comme des circuits plus sportifs peuvent être mis en avant selon la saison.",
+      "descriptionEn": "Short walks and more demanding routes can both be highlighted depending on the season."
     }
   ],
   "guideSections": [
@@ -266,7 +264,6 @@
       ]
     }
   ],
-  "contacts": [],
   "visitorTips": [
     "Commencez par consulter les parkings avant d'entrer dans le village.",
     "Privilégiez les déplacements à pied entre le stationnement, le centre et la source.",
