@@ -9,14 +9,12 @@ const EMPTY_CONTENT = {
     hero: {
         eyebrow: "Guide pratique",
         eyebrowEn: "Practical guide",
-        title: "Préparer une visite fluide à Fontaine-de-Vaucluse",
-        titleEn: "Plan a smooth visit to Fontaine-de-Vaucluse",
-        description:
-            "Les informations utiles pour orienter touristes et riverains sur téléphone, sans surcharge visuelle.",
-        descriptionEn:
-            "Useful information for visitors and residents on mobile, without visual overload.",
+        title: "Préparer une visite agréable à Fontaine-de-Vaucluse",
+        titleEn: "Plan an enjoyable visit to Fontaine-de-Vaucluse",
+        description: "Retrouvez ici les repères utiles pour arriver plus sereinement et profiter du village sans vous compliquer la journée.",
+        descriptionEn: "Find the key information you need to arrive more easily and enjoy the village without overthinking your day.",
         primaryCta: null,
-        secondaryCta: null,
+        secondaryCta: null
     },
     quickLinks: [],
     highlights: [],
@@ -25,7 +23,7 @@ const EMPTY_CONTENT = {
     visitorTips: [],
     visitorTipsEn: [],
     alerts: [],
-    alertsEn: [],
+    alertsEn: []
 };
 
 function GuideLink({ item, primary = false, lang }) {
@@ -125,7 +123,7 @@ export default function Guide() {
             {visibleQuickLinks.length > 0 && (
                 <section className="mb-8">
                     <div className="surface-card rounded-[1.75rem] border border-white/70 p-4 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-5">
-                        <p className="section-kicker">{lang === "en" ? "Useful links" : "Accès utiles"}</p>
+                        <p className="section-kicker">{lang === "en" ? "Useful shortcuts" : "Accès utiles"}</p>
                         <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                             {visibleQuickLinks.map((item) => (
                                 <Link
@@ -152,7 +150,7 @@ export default function Guide() {
                         >
                             <div className="grid gap-5 lg:grid-cols-[1fr_0.85fr]">
                                 <div>
-                                    <p className="section-kicker">{lang === "en" ? "On-site guide" : "Guide terrain"}</p>
+                                    <p className="section-kicker">{lang === "en" ? "Helpful guide" : "Guide pratique"}</p>
                                     <h2 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
                                         {getLocalizedField(section, "title", lang)}
                                     </h2>
@@ -195,57 +193,22 @@ export default function Guide() {
                 </section>
             )}
 
-            {(visitorTips.length > 0 || content.contacts.length > 0) && (
-                <section className="mt-8 grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
-                    {visitorTips.length > 0 && (
-                        <article className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">
-                            <p className="section-kicker">{lang === "en" ? "Visitor tips" : "Conseils visiteurs"}</p>
-                            <h2 className="mt-2 text-2xl text-[#163c35]">{lang === "en" ? "Before you go" : "Avant de partir"}</h2>
-                            <div className="mt-4 grid gap-3">
-                                {visitorTips.map((tip) => (
-                                    <div
-                                        key={tip}
-                                        className="rounded-[1.25rem] border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700"
-                                    >
-                                        {tip}
-                                    </div>
-                                ))}
-                            </div>
-                        </article>
-                    )}
-
-                    {content.contacts.length > 0 && (
-                        <article className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">
-                            <p className="section-kicker">{lang === "en" ? "Contacts" : "Contacts"}</p>
-                            <h2 className="mt-2 text-2xl text-[#163c35]">{lang === "en" ? "Useful information" : "Informations utiles"}</h2>
-                            <div className="mt-4 grid gap-3">
-                                {content.contacts.map((contact) => (
-                                    <div
-                                        key={contact.id}
-                                        className="rounded-[1.35rem] border border-slate-200 bg-slate-50 px-4 py-4"
-                                    >
-                                        <h3 className="text-lg text-[#163c35]">{getLocalizedField(contact, "name", lang)}</h3>
-                                        {getLocalizedField(contact, "role", lang) && (
-                                            <p className="mt-1 text-sm font-medium text-[#1f5e54]">
-                                                {getLocalizedField(contact, "role", lang)}
-                                            </p>
-                                        )}
-                                        {getLocalizedField(contact, "description", lang) && (
-                                            <p className="mt-2 text-sm text-slate-600">
-                                                {getLocalizedField(contact, "description", lang)}
-                                            </p>
-                                        )}
-                                        <div className="mt-3 grid gap-1 text-sm text-slate-600">
-                                            {contact.phone && <p>{lang === "en" ? "Phone" : "Tél."} {contact.phone}</p>}
-                                            {contact.email && <p>{contact.email}</p>}
-                                            {getLocalizedField(contact, "address", lang) && <p>{getLocalizedField(contact, "address", lang)}</p>}
-                                            {getLocalizedField(contact, "hours", lang) && <p>{getLocalizedField(contact, "hours", lang)}</p>}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </article>
-                    )}
+            {visitorTips.length > 0 && (
+                <section className="mt-8">
+                    <article className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">
+                        <p className="section-kicker">{lang === "en" ? "Visitor tips" : "Quelques conseils"}</p>
+                        <h2 className="mt-2 text-2xl text-[#163c35]">{lang === "en" ? "Before you set off" : "Avant de partir"}</h2>
+                        <div className="mt-4 grid gap-3">
+                            {visitorTips.map((tip) => (
+                                <div
+                                    key={tip}
+                                    className="rounded-[1.25rem] border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700"
+                                >
+                                    {tip}
+                                </div>
+                            ))}
+                        </div>
+                    </article>
                 </section>
             )}
         </Layout>

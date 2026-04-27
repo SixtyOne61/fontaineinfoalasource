@@ -25,10 +25,10 @@ export default function EventDetail() {
                 <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-8">
                     <h1 className="mb-2 text-3xl text-slate-900">{lang === "en" ? "Event not found" : "Événement introuvable"}</h1>
                     <p className="mb-4 text-slate-600">
-                        {lang === "en" ? "The requested event does not exist or is no longer available." : "L’événement demandé n’existe pas ou n’est plus disponible."}
+                        {lang === "en" ? "This event is no longer available." : "Cet événement n'est plus disponible."}
                     </p>
                     <Link to="/events" className="text-[#1f5e54] hover:underline">
-                        {lang === "en" ? "Back to events list" : "Retour à la liste des événements"}
+                        {lang === "en" ? "Back to events" : "Retour aux événements"}
                     </Link>
                 </div>
             </Layout>
@@ -59,19 +59,19 @@ export default function EventDetail() {
 
                     <div className="mb-6 grid gap-4 sm:grid-cols-2">
                         <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                            <p className="text-sm text-slate-500">{lang === "en" ? "Location" : "Lieu"}</p>
+                            <p className="text-sm text-slate-500">{lang === "en" ? "Where" : "Lieu"}</p>
                             <p className="font-medium text-slate-900">{getLocalizedField(event, "location", lang)}</p>
                         </div>
 
                         <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                            <p className="text-sm text-slate-500">{lang === "en" ? "Category" : "Catégorie"}</p>
-                            <p className="font-medium text-slate-900">{lang === "en" ? "Local event" : "Événement communal"}</p>
+                            <p className="text-sm text-slate-500">{lang === "en" ? "Type" : "Type"}</p>
+                            <p className="font-medium text-slate-900">{lang === "en" ? "Local event" : "Événement local"}</p>
                         </div>
                     </div>
 
                     {event.recurrence && (
                         <div className="mb-6 rounded-[1.35rem] border border-[#d7e8e1] bg-[#f5fbf8] p-4">
-                            <p className="text-sm text-slate-500">{lang === "en" ? "Recurrence" : "Récurrence"}</p>
+                            <p className="text-sm text-slate-500">{lang === "en" ? "Frequency" : "Fréquence"}</p>
                             <p className="font-medium text-slate-900">{getRecurrenceLabel(event, lang)}</p>
                         </div>
                     )}

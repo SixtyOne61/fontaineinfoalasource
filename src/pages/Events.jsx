@@ -81,12 +81,12 @@ export default function Events() {
         <Layout>
             <section className="mb-6">
                 <div className="surface-card rounded-[1.85rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">
-                    <p className="section-kicker">{lang === "en" ? "Local agenda" : "Agenda communal"}</p>
+                    <p className="section-kicker">{lang === "en" ? "Local agenda" : "Sorties et rendez-vous"}</p>
                     <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">{lang === "en" ? "Events" : "Événements"}</h1>
                     <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
                         {lang === "en"
-                            ? "Quickly browse the local calendar and see what is happening today, this week or later."
-                            : "Consultez rapidement le calendrier communal et repérez ce qui se passe aujourd'hui, cette semaine ou plus tard."}
+                            ? "Browse the local agenda and quickly spot what is happening now, this week or later."
+                            : "Parcourez l'agenda local et repérez facilement ce qui se passe en ce moment, cette semaine ou plus tard."}
                     </p>
                 </div>
             </section>
@@ -99,12 +99,12 @@ export default function Events() {
                 <SearchBar
                     value={search}
                     onChange={setSearch}
-                    placeholder={lang === "en" ? "Search an event or a place..." : "Rechercher un événement ou un lieu..."}
+                    placeholder={lang === "en" ? "Search for an event or place..." : "Rechercher un événement ou un lieu..."}
                 />
 
                 <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
                     <button type="button" onClick={() => setFilterType("upcoming")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "upcoming" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
-                        {lang === "en" ? "Upcoming" : "À venir"}
+                        {lang === "en" ? "Coming up" : "À venir"}
                     </button>
                     <button type="button" onClick={() => setFilterType("past")} className={`rounded-xl px-4 py-2.5 text-sm sm:text-base ${filterType === "past" ? "bg-[#1f5e54] text-white" : "border border-[#a7cfc1] bg-white text-[#1f5e54]"}`}>
                         {lang === "en" ? "Past" : "Passés"}

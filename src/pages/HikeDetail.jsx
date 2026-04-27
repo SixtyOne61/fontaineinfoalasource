@@ -12,7 +12,7 @@ import { hasValidCoordinates } from "../utils/security";
 const EMPTY_ELEVATION_DATA = {
     elevationProfile: [],
     minElevation: null,
-    maxElevation: null,
+    maxElevation: null
 };
 
 export default function HikeDetail() {
@@ -43,7 +43,7 @@ export default function HikeDetail() {
                 setElevationData({
                     elevationProfile: data.elevationProfile,
                     minElevation: data.minElevation,
-                    maxElevation: data.maxElevation,
+                    maxElevation: data.maxElevation
                 });
             }
         }
@@ -59,12 +59,12 @@ export default function HikeDetail() {
         return (
             <Layout>
                 <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-8">
-                    <h1 className="mb-2 text-3xl text-slate-900">{lang === "en" ? "Hike not found" : "Randonnée introuvable"}</h1>
+                    <h1 className="mb-2 text-3xl text-slate-900">{lang === "en" ? "Walk not found" : "Balade introuvable"}</h1>
                     <p className="mb-4 text-slate-600">
-                        {lang === "en" ? "The requested hike does not exist or is no longer available." : "La randonnée demandée n’existe pas ou n’est plus disponible."}
+                        {lang === "en" ? "This route is no longer available." : "Ce parcours n'est plus disponible."}
                     </p>
                     <Link to="/hikes" className="text-[#1f5e54] hover:underline">
-                        {lang === "en" ? "Back to hikes list" : "Retour à la liste des randonnées"}
+                        {lang === "en" ? "Back to walks" : "Retour aux balades"}
                     </Link>
                 </div>
             </Layout>
@@ -110,7 +110,7 @@ export default function HikeDetail() {
                             </div>
 
                             <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                                <p className="text-sm text-slate-500">{lang === "en" ? "Start" : "Départ"}</p>
+                                <p className="text-sm text-slate-500">{lang === "en" ? "Start point" : "Départ"}</p>
                                 <p className="font-medium text-slate-900">{getLocalizedField(hike, "startPoint", lang)}</p>
                             </div>
                         </div>

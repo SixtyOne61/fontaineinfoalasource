@@ -10,10 +10,10 @@
       "minivans": true,
       "motorcycles": true,
       "campers": false,
-      "hourlyRate": "30 min offertes, puis tarification communale sur borne / EasyPark",
-      "dailyRate": "Tarif communal variable selon saison, à vérifier sur place",
-      "notes": "Parking communal à l'entrée du village sur l'avenue Robert Garcin. La mairie indique qu'il n'est plus accessible aux autocars. Coordonnées conservées à titre indicatif sur l'emprise du parking.",
-      "notesEn": "Municipal parking area at the village entrance on Avenue Robert Garcin. The town hall states that coaches are no longer allowed there. Coordinates are indicative and place the marker on the parking area."
+      "hourlyRate": "30 min offertes, puis paiement sur borne ou via EasyPark",
+      "dailyRate": "Tarif communal selon la saison, à consulter sur place",
+      "notes": "Un parking pratique dès l'entrée du village, idéal pour se garer rapidement avant de poursuivre la visite à pied. Les autocars n'y sont plus autorisés. Le point sur la carte reste indicatif.",
+      "notesEn": "A convenient car park right at the village entrance, ideal if you want to park quickly and continue your visit on foot. Coaches are no longer allowed here. The map marker is approximate."
     },
     {
       "id": 2,
@@ -25,10 +25,10 @@
       "minivans": true,
       "motorcycles": true,
       "campers": false,
-      "hourlyRate": "30 min offertes, puis tarification communale sur borne / EasyPark",
-      "dailyRate": "Tarif communal variable selon saison, à vérifier sur place",
-      "notes": "Ensemble de parkings payants P1 et P2 côté La Combe. Le groupe P1, P2, P3 est explicitement mentionné par la commune dans sa grille tarifaire. Position estimée d'après l'adresse publique La Combe, Entrée F.",
-      "notesEn": "Paid parking group P1 and P2 on the La Combe side. The municipality explicitly lists P1, P2 and P3 in its parking price schedule. Position is estimated from the public address La Combe, Entrée F."
+      "hourlyRate": "30 min offertes, puis paiement sur borne ou via EasyPark",
+      "dailyRate": "Tarif communal selon la saison, à consulter sur place",
+      "notes": "Une bonne option pour laisser la voiture avant de rejoindre le centre du village. Les parkings P1 et P2 font partie des principales zones de stationnement indiquées par la commune. Le point affiché est approximatif.",
+      "notesEn": "A good option if you want to leave your car before heading into the village centre. P1 and P2 are among the main parking areas listed by the municipality. The marker shown is approximate."
     },
     {
       "id": 3,
@@ -40,10 +40,10 @@
       "minivans": true,
       "motorcycles": true,
       "campers": false,
-      "hourlyRate": "30 min offertes, puis tarification communale sur borne / EasyPark",
-      "dailyRate": "Tarif communal variable selon saison, à vérifier sur place",
-      "notes": "Parking payant du groupe P1-P2-P3, utilisé aussi comme accès vers les emplacements deux-roues gratuits du chemin du Prieuré. Coordonnées reprises de la référence publique du chemin du Prieuré / avenue François Pétrarque.",
-      "notesEn": "Paid parking area in the P1-P2-P3 group, also used as the access point to the free two-wheel parking on Chemin du Prieuré. Coordinates come from the public reference for Chemin du Prieuré / Avenue François Pétrarque."
+      "hourlyRate": "30 min offertes, puis paiement sur borne ou via EasyPark",
+      "dailyRate": "Tarif communal selon la saison, à consulter sur place",
+      "notes": "Ce parking permet de se rapprocher du village tout en gardant un accès simple. C'est aussi le point de passage vers les stationnements deux-roues gratuits du chemin du Prieuré.",
+      "notesEn": "This parking area lets you get closer to the village while keeping access simple. It is also the access point to the free two-wheel parking on Chemin du Prieuré."
     },
     {
       "id": 4,
@@ -57,8 +57,8 @@
       "campers": false,
       "hourlyRate": "Gratuit",
       "dailyRate": "Gratuit",
-      "notes": "La mairie mentionne des stationnements gratuits pour les motos et scooters sur le chemin du Prieuré, contre la mairie et plus haut par la voie en sens unique accessible via le parking P3. Position indicative sur l'accès du chemin du Prieuré.",
-      "notesEn": "The town hall lists free parking for motorcycles and scooters on Chemin du Prieuré, near the town hall and further uphill via the one-way access from parking P3. Marker is indicative and points to the Chemin du Prieuré access."
+      "notes": "Un stationnement gratuit pensé pour les motos et scooters, pratique pour accéder au village sans chercher longtemps. Les emplacements sont signalés le long du chemin du Prieuré. Le point sur la carte reste indicatif.",
+      "notesEn": "Free parking for motorcycles and scooters, handy if you want easy access to the village without searching for long. Spaces are signposted along Chemin du Prieuré. The map marker is approximate."
     },
     {
       "id": 5,
@@ -70,10 +70,10 @@
       "minivans": true,
       "motorcycles": false,
       "campers": true,
-      "hourlyRate": "Forfait 5 h parking + services : 6,00 €",
-      "dailyRate": "24 h : 15,62 € + taxe de séjour (tarif affiché en avril 2026)",
-      "notes": "Aire d'étape gérée par Camping-Car Park, à environ 500 m du centre du village. L'exploitant annonce 21 emplacements, un site sécurisé et des services camping-car. Coordonnées GPS publiées par l'exploitant.",
-      "notesEn": "Stopover area run by Camping-Car Park, about 500 m from the village centre. The operator lists 21 pitches, a secured site and motorhome services. GPS coordinates are published by the operator."
+      "hourlyRate": "Forfait 5 h avec services : 6,00 €",
+      "dailyRate": "24 h : 15,62 € + taxe de séjour",
+      "notes": "Une aire dédiée aux camping-cars, à environ 500 m du centre, pour profiter du village plus sereinement. Elle propose 21 emplacements et les services utiles pour une halte confortable.",
+      "notesEn": "A dedicated motorhome area about 500 m from the centre, making it easier to enjoy the village at your own pace. It offers 21 pitches and useful services for a comfortable stop."
     }
   ]
 }

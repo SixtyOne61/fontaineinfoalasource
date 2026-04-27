@@ -35,12 +35,12 @@ export default function News() {
         <Layout>
             <section className="mb-8">
                 <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-                    <p className="section-kicker">{lang === "en" ? "Local information" : "Informations communales"}</p>
-                    <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">{lang === "en" ? "News" : "Actualités"}</h1>
+                    <p className="section-kicker">{lang === "en" ? "Local updates" : "Infos du moment"}</p>
+                    <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">{lang === "en" ? "Useful updates" : "Infos utiles"}</h1>
                     <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
                         {lang === "en"
-                            ? "Find the latest local information and practical updates for both residents and visitors."
-                            : "Retrouvez les informations récentes de la commune et les messages pratiques utiles aux habitants comme aux visiteurs."}
+                            ? "Find recent local updates and practical information for both visitors and residents."
+                            : "Retrouvez les infos récentes de la commune et les messages pratiques utiles aux visiteurs comme aux habitants."}
                     </p>
                 </div>
             </section>
@@ -49,7 +49,7 @@ export default function News() {
                 <SearchBar
                     value={search}
                     onChange={setSearch}
-                    placeholder={lang === "en" ? "Search news..." : "Rechercher une actualité..."}
+                    placeholder={lang === "en" ? "Search an update..." : "Rechercher une info..."}
                 />
             </div>
 
@@ -70,7 +70,7 @@ export default function News() {
                     </div>
                 ) : (
                     <div className="surface-card rounded-[1.75rem] border border-white/70 p-5 text-slate-600 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-                        {lang === "en" ? "No news item matches your search." : "Aucune actualité ne correspond à votre recherche."}
+                        {lang === "en" ? "No update matches your search." : "Aucune info ne correspond à votre recherche."}
                     </div>
                 )}
             </section>

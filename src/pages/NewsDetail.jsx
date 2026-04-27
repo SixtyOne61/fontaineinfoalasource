@@ -22,12 +22,12 @@ export default function NewsDetail() {
         return (
             <Layout>
                 <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-8">
-                    <h1 className="mb-2 text-3xl text-slate-900">{lang === "en" ? "News item not found" : "Actualité introuvable"}</h1>
+                    <h1 className="mb-2 text-3xl text-slate-900">{lang === "en" ? "Update not found" : "Info introuvable"}</h1>
                     <p className="mb-4 text-slate-600">
-                        {lang === "en" ? "The requested news item does not exist or is no longer available." : "L’actualité demandée n’existe pas ou n’est plus disponible."}
+                        {lang === "en" ? "This update is no longer available." : "Cette information n'est plus disponible."}
                     </p>
                     <Link to="/news" className="text-[#1f5e54] hover:underline">
-                        {lang === "en" ? "Back to news list" : "Retour à la liste des actualités"}
+                        {lang === "en" ? "Back to updates" : "Retour aux infos"}
                     </Link>
                 </div>
             </Layout>

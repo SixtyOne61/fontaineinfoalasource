@@ -10,12 +10,12 @@ import { useLocale } from "../useLocale";
 const durationFilters = {
     fr: [
         { key: "all", label: "Toutes" },
-        { key: "short", label: "Moins de 3 h" },
+        { key: "short", label: "Moins de 3 h" }
     ],
     en: [
         { key: "all", label: "All" },
-        { key: "short", label: "Under 3 h" },
-    ],
+        { key: "short", label: "Under 3 h" }
+    ]
 };
 
 function matchesDuration(hike, durationFilter) {
@@ -68,11 +68,11 @@ export default function Hikes() {
             <section className="mb-8">
                 <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
                     <p className="section-kicker">{lang === "en" ? "Nature and discovery" : "Nature et découverte"}</p>
-                    <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">{lang === "en" ? "Hikes" : "Randonnées"}</h1>
+                    <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">{lang === "en" ? "Walks" : "Balades et randonnées"}</h1>
                     <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
                         {lang === "en"
-                            ? "Compare local routes, display their track and filter quickly by difficulty or duration."
-                            : "Comparez les parcours disponibles autour de la commune, affichez leur tracé et filtrez rapidement selon la difficulté ou la durée."}
+                            ? "Compare nearby routes, display their track and choose an outing that suits your pace."
+                            : "Comparez les parcours autour du village, affichez leur tracé et choisissez une sortie adaptée à votre rythme."}
                     </p>
                 </div>
             </section>
@@ -81,7 +81,7 @@ export default function Hikes() {
                 <SearchBar
                     value={search}
                     onChange={setSearch}
-                    placeholder={lang === "en" ? "Search a hike or starting point..." : "Rechercher une randonnée ou un point de départ..."}
+                    placeholder={lang === "en" ? "Search a walk or a starting point..." : "Rechercher une balade ou un point de départ..."}
                 />
 
                 <div className="mb-3 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
@@ -89,7 +89,7 @@ export default function Hikes() {
                         { fr: "Toutes", en: "All", value: "all" },
                         { fr: "Facile", en: "Easy", value: lang === "en" ? "Easy" : "Facile" },
                         { fr: "Moyen", en: "Moderate", value: lang === "en" ? "Moderate" : "Moyen" },
-                        { fr: "Difficile", en: "Hard", value: lang === "en" ? "Hard" : "Difficile" },
+                        { fr: "Difficile", en: "Hard", value: lang === "en" ? "Hard" : "Difficile" }
                     ].map((level) => {
                         const isActive = difficulty === level.value;
 
@@ -141,7 +141,7 @@ export default function Hikes() {
             </section>
 
             <section>
-                <h2 className="mb-4 text-2xl text-[#163c35] sm:text-3xl">{lang === "en" ? "Route list" : "Liste des parcours"}</h2>
+                <h2 className="mb-4 text-2xl text-[#163c35] sm:text-3xl">{lang === "en" ? "Suggested routes" : "Parcours à explorer"}</h2>
 
                 {filteredHikes.length > 0 ? (
                     <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -176,16 +176,16 @@ export default function Hikes() {
                                     </p>
 
                                     <div className="mt-4 rounded-[1.35rem] bg-slate-50 p-4 text-sm text-slate-600">
-                                        <p><strong>{lang === "en" ? "Start:" : "Point de départ :"}</strong> {getLocalizedField(hike, "startPoint", lang)}</p>
+                                        <p><strong>{lang === "en" ? "Start point:" : "Départ :"}</strong> {getLocalizedField(hike, "startPoint", lang)}</p>
                                         <p className="mt-2">
-                                            <strong>{lang === "en" ? "Ideal for:" : "Idéal pour :"}</strong>{" "}
+                                            <strong>{lang === "en" ? "Perfect for:" : "Idéal pour :"}</strong>{" "}
                                             {lang === "en"
                                                 ? getLocalizedField(hike, "difficulty", lang) === "Easy"
-                                                    ? "a short or family outing"
-                                                    : "walkers who are already comfortable on the trail"
+                                                    ? "a short walk or a family outing"
+                                                    : "walkers already comfortable on marked trails"
                                                 : getLocalizedField(hike, "difficulty", lang) === "Facile"
                                                     ? "une sortie découverte ou familiale"
-                                                    : "des marcheurs déjà à l'aise"}
+                                                    : "des marcheurs déjà à l'aise sur les sentiers"}
                                         </p>
                                     </div>
 
@@ -200,8 +200,8 @@ export default function Hikes() {
                                             }`}
                                         >
                                             {lang === "en"
-                                                ? isSelected ? "Track displayed" : "Show on map"
-                                                : isSelected ? "Trace affichée" : "Voir sur la carte"}
+                                                ? isSelected ? "Route shown on map" : "Show on map"
+                                                : isSelected ? "Parcours affiché sur la carte" : "Voir sur la carte"}
                                         </button>
 
                                         <Link
@@ -217,7 +217,7 @@ export default function Hikes() {
                     </div>
                 ) : (
                     <div className="surface-card rounded-[1.75rem] border border-white/70 p-5 text-slate-600 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-                        {lang === "en" ? "No hike matches your search." : "Aucune randonnée ne correspond à votre recherche."}
+                        {lang === "en" ? "No walk matches your search." : "Aucune balade ne correspond à votre recherche."}
                     </div>
                 )}
             </section>

@@ -12,15 +12,15 @@ const vehicleTypes = {
         { key: "motorcycles", label: "Moto" },
         { key: "cars", label: "Voiture" },
         { key: "minivans", label: "Mini-van" },
-        { key: "campers", label: "Camping-car" },
+        { key: "campers", label: "Camping-car" }
     ],
     en: [
         { key: "all", label: "All" },
         { key: "motorcycles", label: "Motorbike" },
         { key: "cars", label: "Car" },
         { key: "minivans", label: "Minivan" },
-        { key: "campers", label: "Motorhome" },
-    ],
+        { key: "campers", label: "Motorhome" }
+    ]
 };
 
 function VehicleBadge({ label }) {
@@ -41,9 +41,9 @@ export default function Parking() {
     }, []);
 
     function getParkingRecommendation(parking) {
-        if (parking.campers) return lang === "en" ? "Suitable for larger vehicles" : "Adapté aux véhicules volumineux";
-        if (parking.cars && parking.motorcycles) return lang === "en" ? "Good all-round option" : "Bon compromis";
-        return lang === "en" ? "Check details" : "À vérifier";
+        if (parking.campers) return lang === "en" ? "Ideal for larger vehicles" : "Idéal pour les grands véhicules";
+        if (parking.cars && parking.motorcycles) return lang === "en" ? "Easy everyday option" : "Une option simple et pratique";
+        return lang === "en" ? "Worth a look" : "À regarder";
     }
 
     function getParkingScore(parking) {
@@ -72,19 +72,19 @@ export default function Parking() {
         <Layout>
             <section className="mb-8">
                 <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-                    <p className="section-kicker">{lang === "en" ? "Visitor access" : "Accès visiteurs"}</p>
-                    <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">{lang === "en" ? "Parking" : "Parkings"}</h1>
+                    <p className="section-kicker">{lang === "en" ? "Visitor access" : "Bien arriver"}</p>
+                    <h1 className="mt-2 text-3xl text-[#163c35] sm:text-4xl">{lang === "en" ? "Parking" : "Trouver un parking"}</h1>
                     <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
                         {lang === "en"
-                            ? "Quickly find suitable parking based on your vehicle, with clear details on allowed vehicles."
-                            : "Retrouvez rapidement les parkings utiles selon votre véhicule, avec une lecture directe des véhicules acceptés."}
+                            ? "Choose parking more easily according to your vehicle and the way you want to explore the village."
+                            : "Choisissez plus facilement où vous garer selon votre véhicule et votre manière de visiter le village."}
                     </p>
                 </div>
             </section>
 
             <div className="surface-card mb-6 rounded-[1.5rem] border border-white/70 p-4 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-                    {lang === "en" ? "My vehicle" : "Mon véhicule"}
+                    {lang === "en" ? "My vehicle" : "Je me déplace en"}
                 </p>
                 <div className="flex flex-wrap gap-3">
                     {vehicleTypes[lang].map((vehicle) => {
@@ -114,7 +114,7 @@ export default function Parking() {
 
             <section>
                 <div className="mb-4 flex items-center justify-between gap-4">
-                    <h2 className="text-2xl text-[#163c35] sm:text-3xl">{lang === "en" ? "Parking list" : "Liste des parkings"}</h2>
+                    <h2 className="text-2xl text-[#163c35] sm:text-3xl">{lang === "en" ? "Parking options" : "Les options disponibles"}</h2>
                     <p className="text-sm text-slate-500">
                         {filteredParkings.length} {lang === "en" ? `result${filteredParkings.length > 1 ? "s" : ""}` : `résultat${filteredParkings.length > 1 ? "s" : ""}`}
                     </p>
@@ -138,14 +138,14 @@ export default function Parking() {
                                         </div>
                                     </div>
                                     <div className="rounded-[1.2rem] bg-[#163c35] px-3 py-2 text-right text-white">
-                                        <p className="text-xs uppercase tracking-[0.12em] text-white/75">{lang === "en" ? "Day" : "Jour"}</p>
+                                        <p className="text-xs uppercase tracking-[0.12em] text-white/75">{lang === "en" ? "Day" : "Journée"}</p>
                                         <p className="text-sm font-semibold">{getLocalizedField(parking, "dailyRate", lang)}</p>
                                     </div>
                                 </div>
 
                                 <div className="mt-4">
                                     <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-                                        {lang === "en" ? "Allowed vehicles" : "Véhicules acceptés"}
+                                        {lang === "en" ? "Suitable for" : "Convient pour"}
                                     </p>
                                     <div className="flex flex-wrap gap-2">
                                         {vehicleTypes[lang]
@@ -157,16 +157,16 @@ export default function Parking() {
                                 </div>
 
                                 <div className="mt-4 grid gap-3 rounded-[1.35rem] bg-slate-50 p-4 text-sm text-slate-600">
-                                    <p><strong>{lang === "en" ? "Hourly rate:" : "Tarif horaire :"}</strong> {getLocalizedField(parking, "hourlyRate", lang)}</p>
-                                    <p><strong>{lang === "en" ? "Daily rate:" : "Tarif journée :"}</strong> {getLocalizedField(parking, "dailyRate", lang)}</p>
-                                    {getLocalizedField(parking, "notes", lang) && <p><strong>{lang === "en" ? "Note:" : "Note :"}</strong> {getLocalizedField(parking, "notes", lang)}</p>}
+                                    <p><strong>{lang === "en" ? "Rate:" : "Tarif court séjour :"}</strong> {getLocalizedField(parking, "hourlyRate", lang)}</p>
+                                    <p><strong>{lang === "en" ? "Day rate:" : "Tarif journée :"}</strong> {getLocalizedField(parking, "dailyRate", lang)}</p>
+                                    {getLocalizedField(parking, "notes", lang) && <p><strong>{lang === "en" ? "Good to know:" : "Bon à savoir :"}</strong> {getLocalizedField(parking, "notes", lang)}</p>}
                                 </div>
                             </article>
                         ))}
                     </div>
                 ) : (
                     <div className="surface-card rounded-[1.75rem] border border-white/70 p-5 text-slate-600 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-                        {lang === "en" ? "No parking area matches the selected vehicle." : "Aucun parking ne correspond au véhicule sélectionné."}
+                        {lang === "en" ? "No parking area matches this vehicle yet." : "Aucun parking ne correspond pour l'instant à ce véhicule."}
                     </div>
                 )}
             </section>
