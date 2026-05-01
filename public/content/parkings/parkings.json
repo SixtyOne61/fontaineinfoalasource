@@ -70,8 +70,8 @@
       "minivans": true,
       "motorcycles": false,
       "campers": true,
-      "hourlyRate": "Forfait 5 h avec services : 6,00 €",
-      "dailyRate": "24 h : 15,62 € + taxe de séjour",
+      "hourlyRate": "Forfait 5 h avec services : 6,00 EUR",
+      "dailyRate": "24 h : 15,62 EUR + taxe de séjour",
       "notes": "Une aire dédiée aux camping-cars, à environ 500 m du centre, pour profiter du village plus sereinement. Elle propose 21 emplacements et les services utiles pour une halte confortable.",
       "notesEn": "A dedicated motorhome area about 500 m from the centre, making it easier to enjoy the village at your own pace. It offers 21 pitches and useful services for a comfortable stop."
     }

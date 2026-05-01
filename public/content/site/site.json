@@ -25,7 +25,7 @@
       "title": "Guide pratique",
       "titleEn": "Practical guide",
       "description": "Les bons repères pour arriver plus sereinement et profiter du village sans perdre de temps.",
-      "descriptionEn": "Helpful tips to arrive with ease and enjoy the village without wasting time.",
+      "descriptionEn": "Key guidance to arrive with ease and enjoy the village without wasting time.",
       "badge": "À savoir",
       "badgeEn": "Good to know",
       "to": "/guide"
@@ -35,7 +35,7 @@
       "title": "Parkings",
       "titleEn": "Parking",
       "description": "Repérez rapidement où vous garer selon votre véhicule et votre façon de visiter.",
-      "descriptionEn": "Quickly find where to park depending on your vehicle and your visit style.",
+      "descriptionEn": "Quickly find where to park depending on your vehicle and the way you plan to visit.",
       "badge": "Accès",
       "badgeEn": "Access",
       "to": "/parking"
@@ -45,7 +45,7 @@
       "title": "Événements",
       "titleEn": "Events",
       "description": "Retrouvez les rendez-vous du moment et les animations à ne pas manquer.",
-      "descriptionEn": "See what's on now and the local events you may not want to miss.",
+      "descriptionEn": "See what is on now and the local events you may not want to miss.",
       "badge": "Sorties",
       "badgeEn": "Outings",
       "to": "/events"
@@ -55,7 +55,7 @@
       "title": "Balades",
       "titleEn": "Walks",
       "description": "Choisissez un parcours adapté à votre envie, votre temps et votre niveau.",
-      "descriptionEn": "Choose a route that matches your mood, available time and level.",
+      "descriptionEn": "Choose a route that matches your mood, your available time and your level.",
       "badge": "Nature",
       "badgeEn": "Nature",
       "to": "/hikes"
@@ -64,8 +64,8 @@
       "id": "photos",
       "title": "Fontaine en photo",
       "titleEn": "Fontaine in photos",
-      "description": "Retrouvez des groupes de photos accompagnés d'un texte pour montrer le village autrement.",
-      "descriptionEn": "Browse themed photo groups paired with a short text to discover the village differently.",
+      "description": "Retrouvez des séries de photos accompagnées d'un court texte pour découvrir le village autrement.",
+      "descriptionEn": "Browse themed photo sets with short texts to discover the village from another angle.",
       "badge": "Galerie",
       "badgeEn": "Gallery",
       "to": "/photos"
@@ -91,7 +91,7 @@
       "tag": "Conseil",
       "tagEn": "Tip",
       "description": "Une fois garé, quelques minutes à pied suffisent souvent pour rejoindre les lieux les plus appréciés.",
-      "descriptionEn": "Once parked, just a short walk is often enough to reach the village's most popular spots."
+      "descriptionEn": "Once parked, a short walk is often all you need to reach the village's most popular spots."
     },
     {
       "id": "stationnement",
@@ -127,7 +127,7 @@
         {
           "id": "park-1",
           "title": "Repérer son parking à l'avance",
-          "titleEn": "Pick your parking in advance",
+          "titleEn": "Choose your parking in advance",
           "description": "Un rapide coup d'oeil à la carte permet d'arriver plus sereinement et d'éviter les demi-tours.",
           "descriptionEn": "A quick look at the map helps you arrive more calmly and avoid unnecessary turns."
         },
@@ -141,9 +141,9 @@
         {
           "id": "park-3",
           "title": "Suivre les indications sur place",
-          "titleEn": "Follow local signage",
-          "description": "En période d'affluence, la signalétique sur place vous aidera à trouver l'accès le plus simple.",
-          "descriptionEn": "During busy periods, local signage helps you find the easiest access."
+          "titleEn": "Follow local signs",
+          "description": "En période d'affluence, la signalétique sur place vous aide à trouver l'accès le plus simple.",
+          "descriptionEn": "During busy periods, on-site signage helps you find the easiest access."
         }
       ],
       "links": [
@@ -157,8 +157,8 @@
     },
     {
       "id": "visitor-guide",
-      "title": "Préparer une jolie visite",
-      "titleEn": "Plan a lovely visit",
+      "title": "Préparer une belle visite",
+      "titleEn": "Plan a pleasant visit",
       "summary": "En quelques minutes, vous pouvez repérer où vous garer, quoi faire sur place et comment profiter au mieux du village.",
       "summaryEn": "In just a few minutes, you can see where to park, what to do and how to enjoy the village at its best.",
       "items": [
@@ -166,7 +166,7 @@
           "id": "visit-1",
           "title": "Arriver par les accès conseillés",
           "titleEn": "Use the recommended access roads",
-          "description": "Les accès signalés permettent généralement une arrivée plus fluide, surtout les jours les plus fréquentés.",
+          "description": "Les accès signalés permettent généralement une arrivée plus fluide, surtout les jours de forte fréquentation.",
           "descriptionEn": "Recommended access roads usually make arrival easier, especially on busy days."
         },
         {
@@ -174,7 +174,7 @@
           "title": "Garder l'essentiel sous la main",
           "titleEn": "Keep the essentials close",
           "description": "Parkings, agenda, balades et infos utiles sont regroupés ici pour vous simplifier la visite.",
-          "descriptionEn": "Parking, events, walks and useful updates are grouped here to make your visit easier."
+          "descriptionEn": "Parking, events, walks and practical updates are grouped here to make your visit easier."
         },
         {
           "id": "visit-3",
@@ -247,7 +247,7 @@
         {
           "id": "info-1",
           "title": "Privilégier la marche une fois garé",
-          "titleEn": "Walk once you're parked",
+          "titleEn": "Walk once you are parked",
           "description": "Depuis les parkings, le centre du village se rejoint facilement à pied.",
           "descriptionEn": "From the parking areas, the village centre is easy to reach on foot."
         },
@@ -277,7 +277,7 @@
     }
   ],
   "visitorTips": [
-    "Regardez les parkings avant d'entrer dans le village, cela simplifie souvent l'arrivée.",
+    "Regardez les parkings avant d'entrer dans le village : cela simplifie souvent l'arrivée.",
     "Une fois garé, le plus agréable est souvent de poursuivre la visite à pied.",
     "Consultez les infos du jour en cas d'événement ou de forte fréquentation.",
     "Choisissez une balade adaptée à votre temps et à votre envie du moment."
@@ -293,7 +293,7 @@
     "Avant de partir, un rapide coup d'oeil aux infos utiles peut vous éviter quelques surprises sur place."
   ],
   "alertsEn": [
-    "On the busiest days, follow the parking signage set up at the village entrance.",
+    "On the busiest days, follow the parking signs set up at the village entrance first.",
     "Before you leave, a quick check of local updates can help you avoid surprises on arrival."
   ]
 }

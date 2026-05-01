@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import AsyncStateCard from "../components/AsyncStateCard";
 import CoverImage from "../components/CoverImage";
 import Layout from "../components/Layout";
 import { getNews } from "../data/loader";
@@ -10,27 +11,68 @@ export default function NewsDetail() {
     const { id } = useParams();
     const { lang, t } = useLocale();
     const [article, setArticle] = useState(null);
+    const [status, setStatus] = useState("loading");
 
     useEffect(() => {
-        getNews().then((data) => {
-            const found = data.find((item) => String(item.id) === String(id));
-            setArticle(found || null);
-        });
+        let isMounted = true;
+
+        async function syncArticle() {
+            try {
+                setStatus("loading");
+                const data = await getNews();
+                const found = data.find((item) => String(item.id) === String(id));
+
+                if (!isMounted) return;
+
+                setArticle(found || null);
+                setStatus(found ? "ready" : "notFound");
+            } catch (error) {
+                console.error("Unable to load news detail:", error);
+
+                if (isMounted) {
+                    setArticle(null);
+                    setStatus("error");
+                }
+            }
+        }
+
+        syncArticle();
+
+        return () => {
+            isMounted = false;
+        };
     }, [id]);
 
-    if (!article) {
+    if (status === "loading") {
         return (
-            <Layout>
-                <div className="surface-card rounded-[1.85rem] border border-white/70 p-6 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-8">
-                    <h1 className="mb-2 text-3xl text-slate-900">{lang === "en" ? "Update not found" : "Info introuvable"}</h1>
-                    <p className="mb-4 text-slate-600">
-                        {lang === "en" ? "This update is no longer available." : "Cette information n'est plus disponible."}
-                    </p>
-                    <Link to="/news" className="text-[#1f5e54] hover:underline">
-                        {lang === "en" ? "Back to updates" : "Retour aux infos"}
-                    </Link>
-                </div>
-            </Layout>
+            <AsyncStateCard
+                title={lang === "en" ? "Loading update" : "Chargement de l info"}
+                description={lang === "en" ? "The update is being prepared." : "Le contenu de l info est en cours de chargement."}
+                linkTo="/news"
+                linkLabel={lang === "en" ? "Back to updates" : "Retour aux infos"}
+            />
+        );
+    }
+
+    if (status === "error") {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Unable to load update" : "Chargement impossible"}
+                description={lang === "en" ? "The update cannot be displayed right now." : "Cette information ne peut pas etre affichee pour le moment."}
+                linkTo="/news"
+                linkLabel={lang === "en" ? "Back to updates" : "Retour aux infos"}
+            />
+        );
+    }
+
+    if (status === "notFound" || !article) {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Update not found" : "Info introuvable"}
+                description={lang === "en" ? "This update is no longer available." : "Cette information n est plus disponible."}
+                linkTo="/news"
+                linkLabel={lang === "en" ? "Back to updates" : "Retour aux infos"}
+            />
         );
     }
 

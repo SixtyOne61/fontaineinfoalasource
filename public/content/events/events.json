@@ -7,8 +7,8 @@
       "startDate": "2026-04-15",
       "endDate": "2026-04-15",
       "location": "Place de la Colonne",
-      "content": "Marché de producteurs locaux et d'artisans avec produits du terroir, petite restauration et stand d'information touristique.",
-      "contentEn": "Market featuring local producers and craftspeople, regional products, light refreshments and a tourist information stand.",
+      "content": "Retrouvez producteurs locaux, artisans, produits du terroir, petite restauration et un stand d'information touristique au coeur du village.",
+      "contentEn": "Meet local producers and craftspeople, enjoy regional products, grab light refreshments and stop by the tourist information stand in the village centre.",
       "image": "/uploads/images.jpg"
     },
     {
@@ -30,7 +30,7 @@
       "endDate": "2026-04-21",
       "location": "Départ devant l'office d'information",
       "content": "Parcours pédestre commenté pour découvrir l'organisation du village, ses points de vue et ses repères patrimoniaux.",
-      "contentEn": "Guided walking tour to discover the village layout, viewpoints and heritage landmarks.",
+      "contentEn": "A guided walking tour to discover the village layout, its viewpoints and its heritage landmarks.",
       "image": "/uploads/fond-jaune-1-scaled.jpg"
     },
     {
@@ -40,14 +40,16 @@
       "startDate": "2026-04-22",
       "endDate": "2026-04-22",
       "location": "Place de la Colonne",
-      "content": "Rendez-vous hebdomadaire avec producteurs, artisans et stands d'information.",
-      "contentEn": "Weekly gathering with local producers, craftspeople and information stands.",
+      "content": "Le rendez-vous hebdomadaire pour retrouver producteurs, artisans et quelques informations utiles pour votre visite.",
+      "contentEn": "The weekly gathering for local producers, craftspeople and a few practical tips for your visit.",
       "image": "/uploads/images.jpg",
       "recurrence": {
         "frequency": "weekly",
         "interval": 1,
         "until": "2026-10-28",
-        "weekdays": ["wednesday"]
+        "weekdays": [
+          "wednesday"
+        ]
       }
     }
   ]
