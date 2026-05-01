@@ -8,6 +8,7 @@ import {
     getHikes,
     getNews,
     getParkings,
+    getPhotoGroups,
     getSectionVisibility,
     getSiteContent
 } from "../data/loader";
@@ -17,18 +18,20 @@ import { useLocale } from "../useLocale";
 import { compareEventsByStartDate, getEventEndDate, getEventStartDate, getRecurrenceLabel, parseLocalDate } from "../utils/events";
 
 const quickLinks = [
-    { key: "guide", titleFr: "Guide pratique", titleEn: "Practical guide", descriptionFr: "Les repères utiles avant d'arriver.", descriptionEn: "Helpful information before you arrive.", to: sectionRoutes.guide },
-    { key: "parkings", titleFr: "Se garer", titleEn: "Parking", descriptionFr: "Trouver un parking adapté à votre véhicule.", descriptionEn: "Find parking that suits your vehicle.", to: sectionRoutes.parkings },
+    { key: "guide", titleFr: "Guide pratique", titleEn: "Practical guide", descriptionFr: "Les reperes utiles avant d'arriver.", descriptionEn: "Helpful information before you arrive.", to: sectionRoutes.guide },
+    { key: "parkings", titleFr: "Se garer", titleEn: "Parking", descriptionFr: "Trouver un parking adapte a votre vehicule.", descriptionEn: "Find parking that suits your vehicle.", to: sectionRoutes.parkings },
     { key: "events", titleFr: "Que faire aujourd'hui", titleEn: "What to do today", descriptionFr: "Voir les sorties et animations du moment.", descriptionEn: "See what is happening today.", to: sectionRoutes.events },
-    { key: "hikes", titleFr: "Choisir une balade", titleEn: "Choose a walk", descriptionFr: "Repérer un parcours selon votre temps.", descriptionEn: "Pick a route based on your time.", to: sectionRoutes.hikes }
+    { key: "hikes", titleFr: "Choisir une balade", titleEn: "Choose a walk", descriptionFr: "Reperer un parcours selon votre temps.", descriptionEn: "Pick a route based on your time.", to: sectionRoutes.hikes },
+    { key: "photos", titleFr: "Fontaine en photo", titleEn: "Fontaine in photos", descriptionFr: "Parcourir des groupes de photos et leurs textes associes.", descriptionEn: "Browse themed photo groups with their related text.", to: sectionRoutes.photos }
 ];
 
 const homeCards = [
-    { key: "guide", to: sectionRoutes.guide, kickerFr: "À savoir", kickerEn: "Good to know", titleFr: "Préparer ma visite", titleEn: "Plan my visit", descriptionFr: "Retrouvez les infos essentielles pour arriver plus sereinement.", descriptionEn: "Find the key information you need for a smoother arrival." },
-    { key: "parkings", to: sectionRoutes.parkings, kickerFr: "Accès", kickerEn: "Access", titleFr: "Voir les parkings", titleEn: "See parking", descriptionFr: "Comparez les accès, les tarifs et les véhicules acceptés avant d'entrer dans le village.", descriptionEn: "Compare access, rates and allowed vehicles before entering the village." },
-    { key: "events", to: sectionRoutes.events, kickerFr: "Sorties", kickerEn: "Outings", titleFr: "Découvrir l'agenda", titleEn: "See events", descriptionFr: "Repérez en un coup d'oeil les rendez-vous du jour et de la semaine.", descriptionEn: "Quickly spot what's happening today and this week." },
-    { key: "hikes", to: sectionRoutes.hikes, kickerFr: "Nature", kickerEn: "Nature", titleFr: "Explorer les balades", titleEn: "Browse walks", descriptionFr: "Choisissez un parcours selon la difficulté, la durée et le point de départ.", descriptionEn: "Choose a route by difficulty, duration and starting point." },
-    { key: "news", to: sectionRoutes.news, kickerFr: "Infos utiles", kickerEn: "Useful updates", titleFr: "Voir les infos du moment", titleEn: "Read updates", descriptionFr: "Gardez un oeil sur les messages utiles pour préparer votre venue.", descriptionEn: "Keep an eye on practical local updates before you come." }
+    { key: "guide", to: sectionRoutes.guide, kickerFr: "A savoir", kickerEn: "Good to know", titleFr: "Preparer ma visite", titleEn: "Plan my visit", descriptionFr: "Retrouvez les infos essentielles pour arriver plus sereinement.", descriptionEn: "Find the key information you need for a smoother arrival." },
+    { key: "parkings", to: sectionRoutes.parkings, kickerFr: "Acces", kickerEn: "Access", titleFr: "Voir les parkings", titleEn: "See parking", descriptionFr: "Comparez les acces, les tarifs et les vehicules acceptes avant d'entrer dans le village.", descriptionEn: "Compare access, rates and allowed vehicles before entering the village." },
+    { key: "events", to: sectionRoutes.events, kickerFr: "Sorties", kickerEn: "Outings", titleFr: "Decouvrir l'agenda", titleEn: "See events", descriptionFr: "Reperez en un coup d'oeil les rendez-vous du jour et de la semaine.", descriptionEn: "Quickly spot what's happening today and this week." },
+    { key: "hikes", to: sectionRoutes.hikes, kickerFr: "Nature", kickerEn: "Nature", titleFr: "Explorer les balades", titleEn: "Browse walks", descriptionFr: "Choisissez un parcours selon la difficulte, la duree et le point de depart.", descriptionEn: "Choose a route by difficulty, duration and starting point." },
+    { key: "photos", to: sectionRoutes.photos, kickerFr: "Galerie", kickerEn: "Gallery", titleFr: "Voir Fontaine en photo", titleEn: "See Fontaine in photos", descriptionFr: "Decouvrez des groupes de photos mis en contexte par un texte associe.", descriptionEn: "Discover themed photo groups introduced by a related text." },
+    { key: "news", to: sectionRoutes.news, kickerFr: "Infos utiles", kickerEn: "Useful updates", titleFr: "Voir les infos du moment", titleEn: "Read updates", descriptionFr: "Gardez un oeil sur les messages utiles pour preparer votre venue.", descriptionEn: "Keep an eye on practical local updates before you come." }
 ];
 
 const vehicleTypes = {
@@ -67,6 +70,7 @@ export default function Home() {
     const [events, setEvents] = useState([]);
     const [hikes, setHikes] = useState([]);
     const [parkings, setParkings] = useState([]);
+    const [photoGroups, setPhotoGroups] = useState([]);
     const [sectionVisibility, setSectionVisibility] = useState(defaultSectionVisibility);
     const [siteContent, setSiteContent] = useState(null);
 
@@ -147,13 +151,20 @@ export default function Home() {
         getParkings().then((data) => {
             setParkings(data.slice(0, 2));
         });
+
+        getPhotoGroups().then((data) => {
+            setPhotoGroups(data.slice(0, 2));
+        });
     }, []);
 
     const visibleQuickLinks = useMemo(
         () =>
             (
                 siteContent?.quickLinks?.length
-                    ? siteContent.quickLinks.map((link) => ({ ...link, key: link.id }))
+                    ? siteContent.quickLinks.map((link) => ({
+                          ...link,
+                          key: link.to === sectionRoutes.parkings ? "parkings" : link.to === sectionRoutes.photos ? "photos" : link.id
+                      }))
                     : quickLinks
             ).filter((link) => sectionVisibility[link.key]),
         [sectionVisibility, siteContent]
@@ -164,9 +175,9 @@ export default function Home() {
             (
                 siteContent?.quickLinks?.length
                     ? siteContent.quickLinks.map((link) => ({
-                          key: link.id,
+                          key: link.to === sectionRoutes.parkings ? "parkings" : link.to === sectionRoutes.photos ? "photos" : link.id,
                           to: link.to,
-                          kicker: getLocalizedField(link, "badge", lang) || (lang === "en" ? "Quick access" : "Accès rapide"),
+                          kicker: getLocalizedField(link, "badge", lang) || (lang === "en" ? "Quick access" : "Acces rapide"),
                           title: getLocalizedField(link, "title", lang),
                           description: getLocalizedField(link, "description", lang)
                       }))
@@ -190,35 +201,42 @@ export default function Home() {
         })),
         sectionVisibility.parkings
             ? {
-                  label: lang === "en" ? "Parking options" : "Parkings repérés",
-                  value: parkings.length > 0 ? `${parkings.length} ${lang === "en" ? "options" : "options"}` : lang === "en" ? "To review" : "À vérifier",
+                  label: lang === "en" ? "Parking options" : "Parkings reperes",
+                  value: parkings.length > 0 ? `${parkings.length} ${lang === "en" ? "options" : "options"}` : lang === "en" ? "To review" : "A verifier",
                   meta: lang === "en" ? "Helpful before entering the village centre" : "Utile avant d'entrer dans le coeur du village"
               }
             : null,
         sectionVisibility.events
             ? {
                   label: lang === "en" ? "Next event" : "Prochain rendez-vous",
-                  value: nextEvent ? getLocalizedField(nextEvent, "title", lang) : lang === "en" ? "Nothing planned yet" : "Rien de prévu pour l'instant",
-                  meta: nextEvent ? formatEventDate(nextEvent) : lang === "en" ? "Take a look at the agenda" : "Un coup d'oeil à l'agenda"
+                  value: nextEvent ? getLocalizedField(nextEvent, "title", lang) : lang === "en" ? "Nothing planned yet" : "Rien de prevu pour l'instant",
+                  meta: nextEvent ? formatEventDate(nextEvent) : lang === "en" ? "Take a look at the agenda" : "Un coup d'oeil a l'agenda"
               }
             : null,
         sectionVisibility.hikes
             ? {
                   label: lang === "en" ? "Easy walks" : "Balades faciles",
-                  value: easyHikeCount > 0 ? `${easyHikeCount} ${lang === "en" ? "routes" : "parcours"}` : lang === "en" ? "To enrich" : "À enrichir",
-                  meta: lang === "en" ? "Perfect for a short visit or a family outing" : "Idéal pour une visite courte ou une sortie en famille"
+                  value: easyHikeCount > 0 ? `${easyHikeCount} ${lang === "en" ? "routes" : "parcours"}` : lang === "en" ? "To enrich" : "A enrichir",
+                  meta: lang === "en" ? "Perfect for a short visit or a family outing" : "Ideal pour une visite courte ou une sortie en famille"
+              }
+            : null,
+        sectionVisibility.photos
+            ? {
+                  label: lang === "en" ? "Photo groups" : "Groupes photo",
+                  value: photoGroups.length > 0 ? `${photoGroups.length} ${lang === "en" ? "themes" : "themes"}` : lang === "en" ? "To add" : "A ajouter",
+                  meta: lang === "en" ? "Visual highlights to explore at a glance" : "Des ambiances visuelles a parcourir en un coup d'oeil"
               }
             : null
     ]
         .filter(Boolean)
         .slice(0, 4);
 
-    const heroTitle = getLocalizedField(siteContent?.hero, "title", lang) || "Fontaine Info à la Source";
+    const heroTitle = getLocalizedField(siteContent?.hero, "title", lang) || "Fontaine Info a la Source";
     const heroDescription =
         getLocalizedField(siteContent?.hero, "description", lang) ||
         (lang === "en"
-            ? "Useful information to enjoy Fontaine-de-Vaucluse more easily: parking, events, walks and local updates."
-            : "Les infos utiles pour profiter plus facilement de Fontaine-de-Vaucluse : stationnement, événements, balades et conseils pratiques.");
+            ? "Useful information to enjoy Fontaine-de-Vaucluse more easily: parking, events, walks, photo galleries and local updates."
+            : "Les infos utiles pour profiter plus facilement de Fontaine-de-Vaucluse : stationnement, evenements, balades, photos et conseils pratiques.");
     const heroEyebrow =
         getLocalizedField(siteContent?.hero, "eyebrow", lang) ||
         (lang === "en" ? "Visitors and residents guide" : "Guide pratique visiteurs et habitants");
@@ -324,10 +342,53 @@ export default function Home() {
                 </section>
             )}
 
+            {sectionVisibility.photos && photoGroups.length > 0 && (
+                <section className="mb-10 sm:mb-12">
+                    <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <h2 className="text-2xl text-[#163c35] sm:text-3xl">
+                            {lang === "en" ? "Fontaine in photos" : "Fontaine en photo"}
+                        </h2>
+                        <Link
+                            to={sectionRoutes.photos}
+                            className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base"
+                        >
+                            {lang === "en" ? "See the full gallery" : "Voir toute la galerie"}
+                        </Link>
+                    </div>
+                    <div className="grid gap-5 lg:grid-cols-2">
+                        {photoGroups.map((group) => (
+                            <article
+                                key={group.id}
+                                className="surface-card overflow-hidden rounded-[1.85rem] border border-white/70 shadow-[0_18px_60px_rgba(22,60,53,0.08)]"
+                            >
+                                <div className="grid gap-1 sm:grid-cols-2">
+                                    {group.photos.slice(0, 4).map((photo) => (
+                                        <CoverImage
+                                            key={photo.id}
+                                            src={photo.image}
+                                            alt={getLocalizedField(photo, "alt", lang) || getLocalizedField(group, "title", lang)}
+                                            className="h-40 w-full object-cover sm:h-48"
+                                            fallbackText={lang === "en" ? "Image unavailable" : "Image indisponible"}
+                                        />
+                                    ))}
+                                </div>
+                                <div className="p-5 sm:p-6">
+                                    <p className="section-kicker">{lang === "en" ? "Photo group" : "Groupe photo"}</p>
+                                    <h3 className="mt-2 text-2xl text-[#163c35]">{getLocalizedField(group, "title", lang)}</h3>
+                                    <p className="mt-3 text-sm text-slate-600">
+                                        {getLocalizedField(group, "description", lang)}
+                                    </p>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </section>
+            )}
+
             {sectionVisibility.news && featuredNews && (
                 <section className="mb-10 sm:mb-12">
                     <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <h2 className="text-2xl text-[#163c35] sm:text-3xl">{lang === "en" ? "Top update" : "À la une"}</h2>
+                        <h2 className="text-2xl text-[#163c35] sm:text-3xl">{lang === "en" ? "Top update" : "A la une"}</h2>
                         <Link
                             to={sectionRoutes.news}
                             className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base"
@@ -343,7 +404,7 @@ export default function Home() {
                         />
                         <div className="flex flex-col justify-center p-6 sm:p-8">
                             <div className="section-kicker mb-3 inline-flex w-fit rounded-full bg-[#eef7f3] px-3 py-1 text-[#1f5e54]">
-                                {lang === "en" ? "Good to know" : "Bon à savoir"}
+                                {lang === "en" ? "Good to know" : "Bon a savoir"}
                             </div>
                             <p className="mb-2 text-sm text-[#5b7d76]">{formatDate(featuredNews.date)}</p>
                             <h3 className="mb-4 text-3xl text-[#163c35]">{getLocalizedField(featuredNews, "title", lang)}</h3>
@@ -354,7 +415,7 @@ export default function Home() {
                                 to={`/news/${featuredNews.id}`}
                                 className="font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                             >
-                                {lang === "en" ? "Read the update →" : "Lire l'info →"}
+                                {lang === "en" ? "Read the update ->" : "Lire l'info ->"}
                             </Link>
                         </div>
                     </article>
@@ -410,12 +471,12 @@ export default function Home() {
             {sectionVisibility.events && (
                 <section className="mb-10 sm:mb-12">
                     <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <h2 className="text-2xl text-[#163c35] sm:text-3xl">{lang === "en" ? "Coming up soon" : "À venir bientôt"}</h2>
+                        <h2 className="text-2xl text-[#163c35] sm:text-3xl">{lang === "en" ? "Coming up soon" : "A venir bientot"}</h2>
                         <Link
                             to={sectionRoutes.events}
                             className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base"
                         >
-                            {lang === "en" ? "See all events" : "Voir tous les événements"}
+                            {lang === "en" ? "See all events" : "Voir tous les evenements"}
                         </Link>
                     </div>
                     <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -445,7 +506,7 @@ export default function Home() {
             {sectionVisibility.news && (
                 <section className="mb-10 sm:mb-12">
                     <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <h2 className="text-2xl text-[#163c35] sm:text-3xl">{lang === "en" ? "Latest updates" : "Les dernières infos"}</h2>
+                        <h2 className="text-2xl text-[#163c35] sm:text-3xl">{lang === "en" ? "Latest updates" : "Les dernieres infos"}</h2>
                         <Link
                             to={sectionRoutes.news}
                             className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base"
@@ -472,7 +533,7 @@ export default function Home() {
             {sectionVisibility.hikes && (
                 <section>
                     <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <h2 className="text-2xl text-[#163c35] sm:text-3xl">{lang === "en" ? "Walks to discover" : "Balades à découvrir"}</h2>
+                        <h2 className="text-2xl text-[#163c35] sm:text-3xl">{lang === "en" ? "Walks to discover" : "Balades a decouvrir"}</h2>
                         <Link
                             to={sectionRoutes.hikes}
                             className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base"

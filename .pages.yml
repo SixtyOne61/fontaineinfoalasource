@@ -14,6 +14,7 @@ content:
       - { name: news, label: Afficher la section Actualités, type: boolean, default: true }
       - { name: hikes, label: Afficher la section Randonnées, type: boolean, default: true }
       - { name: parkings, label: Afficher la section Parkings, type: boolean, default: true }
+      - { name: photos, label: Afficher la section Fontaine en photo, type: boolean, default: true }
 
   - name: siteContent
     label: Contenus de structure
@@ -252,3 +253,31 @@ content:
           - { name: dailyRate, label: Tarif journée FR, type: string }
           - { name: notes, label: Notes FR, type: string, required: false }
           - { name: notesEn, label: Notes EN, type: string, required: false }
+
+  - name: photos
+    label: Fontaine en photo
+    path: public/content/photos/photos.json
+    type: file
+    format: json
+    fields:
+      - name: items
+        label: Groupes photo
+        type: object
+        list: true
+        fields:
+          - { name: id, label: ID, type: string }
+          - { name: title, label: Titre FR, type: string }
+          - { name: titleEn, label: Titre EN, type: string, required: false }
+          - { name: description, label: Texte FR, type: text, required: false }
+          - { name: descriptionEn, label: Texte EN, type: text, required: false }
+          - name: photos
+            label: Photos
+            type: object
+            list: true
+            fields:
+              - { name: id, label: ID photo, type: string, required: false }
+              - { name: image, label: Image, type: image }
+              - { name: alt, label: Texte alternatif FR, type: string, required: false }
+              - { name: altEn, label: Texte alternatif EN, type: string, required: false }
+              - { name: caption, label: Légende FR, type: string, required: false }
+              - { name: captionEn, label: Légende EN, type: string, required: false }

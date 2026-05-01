@@ -61,6 +61,16 @@
       "to": "/hikes"
     },
     {
+      "id": "photos",
+      "title": "Fontaine en photo",
+      "titleEn": "Fontaine in photos",
+      "description": "Retrouvez des groupes de photos accompagnés d'un texte pour montrer le village autrement.",
+      "descriptionEn": "Browse themed photo groups paired with a short text to discover the village differently.",
+      "badge": "Galerie",
+      "badgeEn": "Gallery",
+      "to": "/photos"
+    },
+    {
       "id": "news",
       "title": "Infos utiles",
       "titleEn": "Useful updates",

@@ -287,6 +287,41 @@ function sanitizeParkingItem(item) {
     };
 }
 
+function sanitizePhotoItem(item) {
+    const id = sanitizeId(item?.id) || slugifyText(sanitizeText(item?.caption, 80)) || slugifyText(sanitizeText(item?.alt, 80));
+    const image = sanitizePublicAssetPath(item?.image, {
+        allowedPrefixes: ["/uploads/"],
+        allowedExtensions: [".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"],
+    });
+
+    if (!id || !image) return null;
+
+    return {
+        id,
+        image,
+        ...sanitizeLocalizedTextFields(item, "alt", 160),
+        ...sanitizeLocalizedTextFields(item, "caption", 220),
+    };
+}
+
+function sanitizePhotoGroup(item) {
+    const id = sanitizeId(item?.id) || slugifyText(sanitizeText(item?.title, 120));
+    if (!id) return null;
+
+    const photos = Array.isArray(item?.photos)
+        ? item.photos.map(sanitizePhotoItem).filter(Boolean)
+        : [];
+
+    if (photos.length === 0) return null;
+
+    return {
+        id,
+        ...sanitizeLocalizedTextFields(item, "title", 120),
+        ...sanitizeLocalizedTextFields(item, "description", 500),
+        photos,
+    };
+}
+
 export async function getNews() {
     const items = await fetchItems("/content/news/news.json");
     return items.map(sanitizeNewsItem).filter(Boolean);
@@ -307,6 +342,11 @@ export async function getParkings() {
     return items.map(sanitizeParkingItem).filter(Boolean);
 }
 
+export async function getPhotoGroups() {
+    const items = await fetchItems("/content/photos/photos.json");
+    return items.map(sanitizePhotoGroup).filter(Boolean);
+}
+
 export async function getSectionVisibility() {
     const defaults = {
         guide: true,
@@ -314,6 +354,7 @@ export async function getSectionVisibility() {
         news: true,
         hikes: true,
         parkings: true,
+        photos: true,
     };
     const data = await fetchContent("/content/site/sections.json", defaults);
 
@@ -323,6 +364,7 @@ export async function getSectionVisibility() {
         news: data?.news !== false,
         hikes: data?.hikes !== false,
         parkings: data?.parkings !== false,
+        photos: data?.photos !== false,
     };
 }
 

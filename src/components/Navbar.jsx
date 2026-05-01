@@ -16,6 +16,7 @@ export default function Navbar() {
         { key: "parkings", to: sectionRoutes.parkings, label: t("common.parkings"), highlight: true },
         { key: "events", to: sectionRoutes.events, label: t("common.events") },
         { key: "hikes", to: sectionRoutes.hikes, label: t("common.hikes") },
+        { key: "photos", to: sectionRoutes.photos, label: t("common.photos") },
         { key: "news", to: sectionRoutes.news, label: t("common.news") }
     ];
 

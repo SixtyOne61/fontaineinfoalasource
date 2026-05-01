@@ -3,5 +3,6 @@
   "events": true,
   "news": true,
   "hikes": true,
-  "parkings": true
+  "parkings": true,
+  "photos": true
 }

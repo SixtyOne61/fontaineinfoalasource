@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
 import Parking from "./pages/Parking";
+import Photos from "./pages/Photos";
 
 export default function AppRoutes() {
     const [sectionVisibility, setSectionVisibility] = useState(null);
@@ -56,6 +57,10 @@ export default function AppRoutes() {
             <Route
                 path="/parking"
                 element={sectionVisibility.parkings ? <Parking /> : <Navigate to="/" replace />}
+            />
+            <Route
+                path="/photos"
+                element={sectionVisibility.photos ? <Photos /> : <Navigate to="/" replace />}
             />
             <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

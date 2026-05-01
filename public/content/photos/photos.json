@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "id": "village-ambiance",
+      "title": "Ambiances du village",
+      "titleEn": "Village atmosphere",
+      "description": "Quelques vues pour montrer l'atmosphère de Fontaine-de-Vaucluse entre pierre, eau et lumières de la journée.",
+      "descriptionEn": "A few views to capture the atmosphere of Fontaine-de-Vaucluse through stone, water and changing daylight.",
+      "photos": [
+        {
+          "id": "village-1",
+          "image": "/uploads/images.jpg",
+          "alt": "Vue du village",
+          "altEn": "Village view",
+          "caption": "Une vue d'ensemble pour planter le décor.",
+          "captionEn": "A broad view to set the scene."
+        },
+        {
+          "id": "village-2",
+          "image": "/uploads/fond-jaune-1-scaled.jpg",
+          "alt": "Façades et lumière",
+          "altEn": "Facades and light",
+          "caption": "Les contrastes de couleurs donnent tout de suite le ton.",
+          "captionEn": "The colour contrasts immediately set the tone."
+        }
+      ]
+    },
+    {
+      "id": "moments-a-decouvrir",
+      "title": "Moments à découvrir",
+      "titleEn": "Moments to discover",
+      "description": "Ce groupe peut servir à raconter un lieu, un moment ou un point de vue avec plusieurs photos et un texte associé.",
+      "descriptionEn": "This group can be used to present a place, a moment or a point of view with several photos and an accompanying text.",
+      "photos": [
+        {
+          "id": "moment-1",
+          "image": "/uploads/Capture d'écran 2023-04-02 222213.png",
+          "alt": "Exemple de photo",
+          "altEn": "Example photo",
+          "caption": "Exemple de légende pour illustrer un groupe photo.",
+          "captionEn": "Example caption for a photo group."
+        }
+      ]
+    }
+  ]
+}
