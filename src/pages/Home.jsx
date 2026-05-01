@@ -57,16 +57,78 @@ const fallbackQuickLinks = [
 
 const sectionPriority = ["guide", "parkings", "events", "hikes", "news", "photos"];
 
-function ActionCard({ to, eyebrow, title, description }) {
+const journeyDefinitions = {
+    visitToday: {
+        labelFr: "Je visite aujourd'hui",
+        labelEn: "I am visiting today",
+        descriptionFr: "Voir rapidement ou se garer, quoi faire maintenant et les infos du jour.",
+        descriptionEn: "Quickly see where to park, what to do now and today's useful updates.",
+        keys: ["parkings", "events", "news"]
+    },
+    prepareVisit: {
+        labelFr: "Je prepare ma venue",
+        labelEn: "I am planning my visit",
+        descriptionFr: "Preparer l'arrivee, reperer les parcours et garder les bons conseils sous la main.",
+        descriptionEn: "Plan your arrival, spot the best routes and keep the right tips close at hand.",
+        keys: ["guide", "parkings", "hikes"]
+    },
+    resident: {
+        labelFr: "Je suis habitant",
+        labelEn: "I am a resident",
+        descriptionFr: "Retrouver les infos utiles, les rendez-vous locaux et les reperes pratiques du moment.",
+        descriptionEn: "Find useful updates, local events and practical guidance for the moment.",
+        keys: ["news", "events", "guide"]
+    }
+};
+
+function ActionCard({ to, eyebrow, title, description, badge }) {
     return (
         <Link
             to={to}
             className="surface-card rounded-[1.6rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_70px_rgba(22,60,53,0.14)]"
         >
-            <p className="section-kicker">{eyebrow}</p>
+            <div className="flex items-start justify-between gap-3">
+                <p className="section-kicker">{eyebrow}</p>
+                {badge ? (
+                    <span className="rounded-full bg-[#eef7f3] px-2.5 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-[#1f5e54]">
+                        {badge}
+                    </span>
+                ) : null}
+            </div>
             <h2 className="mt-2 text-xl text-[#163c35] sm:text-2xl">{title}</h2>
             <p className="mt-2 text-sm text-slate-600 sm:text-base">{description}</p>
         </Link>
+    );
+}
+
+function JourneyCard({ title, description, highlight, links, lang }) {
+    return (
+        <article className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">
+            <p className="section-kicker">{lang === "en" ? "Entry journey" : "Parcours d'entree"}</p>
+            <h2 className="mt-2 text-2xl text-[#163c35] sm:text-[1.9rem]">{title}</h2>
+            <p className="mt-3 text-sm text-slate-700 sm:text-base">{description}</p>
+
+            {highlight ? (
+                <div className="mt-4 rounded-[1.35rem] bg-[#f5f1e5] px-4 py-3 text-[#5e5030]">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6c22]">{highlight.tag}</p>
+                    <p className="mt-1 text-base font-semibold text-[#163c35]">{highlight.value}</p>
+                    <p className="mt-1 text-sm">{highlight.description}</p>
+                </div>
+            ) : null}
+
+            <div className="mt-5 grid gap-3">
+                {links.map((link) => (
+                    <ActionCard
+                        key={`${title}-${link.to}`}
+                        to={link.to}
+                        eyebrow={link.eyebrow}
+                        title={link.title}
+                        description={link.description}
+                        badge={link.badge}
+                    />
+                ))}
+            </div>
+        </article>
     );
 }
 
@@ -302,15 +364,32 @@ export default function Home() {
                 to: link.to,
                 eyebrow: lang === "en" ? `Step ${index + 1}` : `Etape ${index + 1}`,
                 title: getLocalizedField(link, "title", lang) || link.title,
-                description: getLocalizedField(link, "description", lang) || link.description
+                description: getLocalizedField(link, "description", lang) || link.description,
+                badge: getLocalizedField(link, "badge", lang)
             }));
     }, [lang, sectionVisibility, siteContent]);
+
+    const quickActionsByKey = useMemo(
+        () => new Map(quickActions.map((action) => [action.key, action])),
+        [quickActions]
+    );
 
     const nextEvent = events[0] || null;
     const featuredHike = hikes[0] || null;
     const easyHikes = hikes.filter((hike) => getLocalizedField(hike, "difficulty", "fr") === "Facile").length;
     const visitorTips = getLocalizedList(siteContent, "visitorTips", lang).slice(0, 3);
     const alerts = getLocalizedList(siteContent, "alerts", lang).slice(0, 2);
+    const highlights = useMemo(
+        () =>
+            (siteContent?.highlights || []).slice(0, 3).map((item) => ({
+                id: item.id,
+                title: getLocalizedField(item, "title", lang),
+                value: getLocalizedField(item, "value", lang),
+                tag: getLocalizedField(item, "tag", lang),
+                description: getLocalizedField(item, "description", lang)
+            })),
+        [lang, siteContent]
+    );
 
     const heroTitle = getLocalizedField(siteContent?.hero, "title", lang) || "Fontaine Info a la Source";
     const heroDescription =
@@ -321,6 +400,8 @@ export default function Home() {
     const heroEyebrow =
         getLocalizedField(siteContent?.hero, "eyebrow", lang) ||
         (lang === "en" ? "Visitor guide" : "Guide visiteur");
+    const heroPrimaryCta = siteContent?.hero?.primaryCta;
+    const heroSecondaryCta = siteContent?.hero?.secondaryCta;
     const keyInfoCards = buildKeyInfoCards({
         lang,
         sectionVisibility,
@@ -330,6 +411,44 @@ export default function Home() {
         featuredNews
     });
     const hasVisitorInfo = alerts.length > 0 || visitorTips.length > 0;
+    const journeyCards = useMemo(() => {
+        const firstHighlight = highlights[0] || null;
+        const secondHighlight = highlights[1] || firstHighlight;
+        const thirdHighlight = highlights[2] || secondHighlight || firstHighlight;
+
+        return [
+            {
+                id: "visitToday",
+                title: lang === "en" ? journeyDefinitions.visitToday.labelEn : journeyDefinitions.visitToday.labelFr,
+                description:
+                    lang === "en"
+                        ? journeyDefinitions.visitToday.descriptionEn
+                        : journeyDefinitions.visitToday.descriptionFr,
+                highlight: secondHighlight,
+                links: journeyDefinitions.visitToday.keys.map((key) => quickActionsByKey.get(key)).filter(Boolean)
+            },
+            {
+                id: "prepareVisit",
+                title: lang === "en" ? journeyDefinitions.prepareVisit.labelEn : journeyDefinitions.prepareVisit.labelFr,
+                description:
+                    lang === "en"
+                        ? journeyDefinitions.prepareVisit.descriptionEn
+                        : journeyDefinitions.prepareVisit.descriptionFr,
+                highlight: firstHighlight,
+                links: journeyDefinitions.prepareVisit.keys.map((key) => quickActionsByKey.get(key)).filter(Boolean)
+            },
+            {
+                id: "resident",
+                title: lang === "en" ? journeyDefinitions.resident.labelEn : journeyDefinitions.resident.labelFr,
+                description:
+                    lang === "en"
+                        ? journeyDefinitions.resident.descriptionEn
+                        : journeyDefinitions.resident.descriptionFr,
+                highlight: thirdHighlight,
+                links: journeyDefinitions.resident.keys.map((key) => quickActionsByKey.get(key)).filter(Boolean)
+            }
+        ].filter((journey) => journey.links.length > 0);
+    }, [highlights, lang, quickActionsByKey]);
 
     return (
         <Layout>
@@ -343,15 +462,23 @@ export default function Home() {
                         <p className="mt-4 max-w-2xl text-base text-[#eef7f3] sm:text-lg">{heroDescription}</p>
 
                         <div className="mt-6 flex flex-wrap gap-3">
-                            {sectionVisibility.parkings ? (
+                            {heroPrimaryCta ? (
                                 <Link
-                                    to={sectionRoutes.parkings}
+                                    to={heroPrimaryCta.to}
                                     className="rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-[#163c35] transition hover:bg-[#f6f3ea]"
                                 >
-                                    {lang === "en" ? "See parking" : "Voir les parkings"}
+                                    {getLocalizedField(heroPrimaryCta, "label", lang)}
                                 </Link>
                             ) : null}
-                            {sectionVisibility.guide ? (
+                            {heroSecondaryCta ? (
+                                <Link
+                                    to={heroSecondaryCta.to}
+                                    className="rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/[0.16]"
+                                >
+                                    {getLocalizedField(heroSecondaryCta, "label", lang)}
+                                </Link>
+                            ) : null}
+                            {!heroPrimaryCta && sectionVisibility.guide ? (
                                 <Link
                                     to={sectionRoutes.guide}
                                     className="rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/[0.16]"
@@ -359,12 +486,12 @@ export default function Home() {
                                     {lang === "en" ? "Plan my visit" : "Preparer ma visite"}
                                 </Link>
                             ) : null}
-                            {sectionVisibility.events ? (
+                            {!heroSecondaryCta && sectionVisibility.parkings ? (
                                 <Link
-                                    to={sectionRoutes.events}
+                                    to={sectionRoutes.parkings}
                                     className="rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/[0.16]"
                                 >
-                                    {lang === "en" ? "What to do today" : "Que faire aujourd'hui"}
+                                    {lang === "en" ? "See parking" : "Voir les parkings"}
                                 </Link>
                             ) : null}
                         </div>
@@ -416,30 +543,57 @@ export default function Home() {
                 </div>
             </section>
 
-            {quickActions.length > 0 ? (
+            {journeyCards.length > 0 ? (
                 <section className="mb-10 sm:mb-12">
                     <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                         <div>
-                            <p className="section-kicker">{lang === "en" ? "Fast access" : "Acces rapide"}</p>
+                            <p className="section-kicker">{lang === "en" ? "Entry journeys" : "Parcours clairs"}</p>
                             <h2 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
-                                {lang === "en" ? "Find the right information in two clicks" : "Trouver la bonne info en deux clics"}
+                                {lang === "en" ? "Choose your starting point" : "Choisir son point de depart"}
                             </h2>
                         </div>
                         <p className="max-w-xl text-sm text-slate-600 sm:text-right sm:text-base">
                             {lang === "en"
-                                ? "The most useful actions for a short visit are grouped here."
-                                : "Les actions les plus utiles pour une visite ponctuelle sont regroupees ici."}
+                                ? "Tourists, day visitors and residents can start from the route that matches their need."
+                                : "Touristes, visiteurs du jour et habitants peuvent partir du parcours qui correspond a leur besoin."}
                         </p>
                     </div>
-                    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                        {quickActions.map((action) => (
-                            <ActionCard
-                                key={action.to}
-                                to={action.to}
-                                eyebrow={action.eyebrow}
-                                title={action.title}
-                                description={action.description}
+                    <div className="grid gap-5 xl:grid-cols-3">
+                        {journeyCards.map((journey) => (
+                            <JourneyCard
+                                key={journey.id}
+                                title={journey.title}
+                                description={journey.description}
+                                highlight={journey.highlight}
+                                links={journey.links}
+                                lang={lang}
                             />
+                        ))}
+                    </div>
+                </section>
+            ) : null}
+
+            {highlights.length > 0 ? (
+                <section className="mb-10 sm:mb-12">
+                    <div className="mb-4">
+                        <p className="section-kicker">{lang === "en" ? "Key practical cues" : "Reperes pratiques"}</p>
+                        <h2 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
+                            {lang === "en" ? "Keep these local habits in mind" : "Garder ces reperes locaux en tete"}
+                        </h2>
+                    </div>
+                    <div className="grid gap-4 md:grid-cols-3">
+                        {highlights.map((highlight) => (
+                            <article
+                                key={highlight.id}
+                                className="surface-card rounded-[1.6rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)]"
+                            >
+                                <p className="section-kicker">{highlight.tag}</p>
+                                <p className="mt-2 text-sm font-semibold uppercase tracking-[0.12em] text-[#8a6c22]">
+                                    {highlight.value}
+                                </p>
+                                <h3 className="mt-2 text-xl text-[#163c35]">{highlight.title}</h3>
+                                <p className="mt-3 text-sm text-slate-700 sm:text-base">{highlight.description}</p>
+                            </article>
                         ))}
                     </div>
                 </section>

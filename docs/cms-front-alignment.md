@@ -1,130 +1,111 @@
 # CMS / Front Alignment
 
 ## Scope
-- Sprint 1, chantier `P0.3`.
-- This note inventories the current CMS schema in `.pages.yml` against the actual frontend rendering.
-- React components and JSON content were intentionally left unchanged in this pass.
+- Updated after Sprint 2 integration.
+- Reflects the final public rendering actually present in `Home.jsx` and `Guide.jsx`.
+- Focuses on what municipal editors can now trust in `.pages.yml`.
 
 ## Executive Summary
-- The broken French labels in `.pages.yml` were corrected so municipal editors can work in a readable CMS again.
-- The schema still exposes several fields that do not have a visible and predictable public effect.
-- `rich-text` is currently misleading: the frontend sanitizes and renders it as plain text, which collapses formatting and removes the value of a rich editor.
+- Sprint 2 made the CMS more useful because the public site now renders more of `siteContent`.
+- The biggest previous mismatch, `rich-text` rendered as plain text, has been resolved by downgrading those fields to `text` in the CMS.
+- `hero` CTAs, `quickLinks.badge`, `highlights`, `guideSections`, and `contacts` are now public and should stay editable.
+- The remaining work is mostly cleanup and consistency, not major structural mismatch.
 
 ## Status Legend
-- `Aligned`: field is clearly edited in CMS and rendered on the public site.
-- `Partial`: field is loaded or sanitized but not rendered everywhere, or rendered in a reduced form.
-- `Unwired`: field exists in CMS but is not used in the public UI.
-- `Schema mismatch`: field type or structure suggests behavior the frontend does not actually support.
+- `Aligned`: edited in CMS and clearly rendered publicly.
+- `Partial`: rendered publicly, but only in some pages or in a simplified way.
+- `Technical only`: kept for data/model reasons but not meant as user-facing content.
 
 ## Inventory
 
 ### `homepageSections` -> `public/content/site/sections.json`
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
-| `guide`, `events`, `news`, `hikes`, `parkings`, `photos` | Aligned | `src/AppRoutes.jsx`, `src/components/Navbar.jsx`, `src/pages/Home.jsx`, `src/pages/Guide.jsx` | Visibility flags are used consistently to show/hide main sections. |
+| `guide`, `events`, `news`, `hikes`, `parkings`, `photos` | Aligned | `src/AppRoutes.jsx`, `src/components/Navbar.jsx`, `src/pages/Home.jsx`, `src/pages/Guide.jsx` | Visibility logic is coherent and useful. |
 
 ### `siteContent.hero`
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
-| `eyebrow`, `eyebrowEn`, `title`, `titleEn`, `description`, `descriptionEn` | Partial | `src/pages/Home.jsx`, `src/pages/Guide.jsx` | `Guide.jsx` only uses `hero.eyebrow`; title/description are replaced by hardcoded copy. |
-| `primaryCta.*` | Unwired | `src/data/loader.js` only | Sanitized in loader, never rendered on public pages. |
-| `secondaryCta.*` | Unwired | `src/data/loader.js` only | Same issue as `primaryCta`. |
+| `eyebrow`, `eyebrowEn`, `title`, `titleEn`, `description`, `descriptionEn` | Aligned | `src/pages/Home.jsx`, `src/pages/Guide.jsx` | Visible in both key entry pages. |
+| `primaryCta.*` | Aligned | `src/pages/Home.jsx`, `src/pages/Guide.jsx` | Rendered conditionally when the linked section is active. |
+| `secondaryCta.*` | Aligned | `src/pages/Home.jsx`, `src/pages/Guide.jsx` | Same behavior as primary CTA. |
 
 ### `siteContent.quickLinks`
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
-| `id`, `title`, `titleEn`, `description`, `descriptionEn`, `to` | Aligned | `src/pages/Home.jsx`, `src/pages/Guide.jsx` | Used for quick links and filtered by visible sections. |
-| `badge`, `badgeEn` | Unwired | `src/data/loader.js` only | Sanitized but never displayed. |
+| `id`, `title`, `titleEn`, `description`, `descriptionEn`, `to` | Aligned | `src/pages/Home.jsx`, `src/pages/Guide.jsx` | Used as public cards and shortcut links. |
+| `badge`, `badgeEn` | Aligned | `src/pages/Home.jsx` | Visible on action cards and now worth keeping in CMS. |
 
 ### `siteContent.highlights`
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
-| Entire collection | Unwired | `src/data/loader.js` only | Loaded and sanitized but not rendered anywhere. |
+| Entire collection | Aligned | `src/pages/Home.jsx` | Used in entry journeys and practical cue cards. |
 
 ### `siteContent.guideSections`
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
-| Entire collection | Unwired | `src/data/loader.js` only | Editorial structure exists in CMS, but `Guide.jsx` currently uses its own hardcoded steps. |
+| Entire collection | Aligned | `src/pages/Guide.jsx` | Guide is now genuinely CMS-driven for these sections. |
 
 ### `siteContent.contacts`
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
-| Entire collection | Unwired | `src/data/loader.js` only | Strong product value for municipality use, but completely absent from the UI. |
+| Entire collection | Aligned | `src/pages/Guide.jsx` | Public contact cards now exist and justify the schema. |
 
 ### `siteContent.visitorTips` and `siteContent.alerts`
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
-| `visitorTips`, `visitorTipsEn`, `alerts`, `alertsEn` | Aligned | `src/pages/Home.jsx`, `src/pages/Guide.jsx` | Useful and rendered in both key visitor pages. |
+| `visitorTips`, `visitorTipsEn`, `alerts`, `alertsEn` | Aligned | `src/pages/Home.jsx`, `src/pages/Guide.jsx` | Strong practical value for visitors and residents. |
 
 ### `news.items`
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
-| `id`, `title`, `titleEn`, `date`, `image` | Aligned | `src/pages/News.jsx`, `src/pages/NewsDetail.jsx` | Core fields are displayed. |
-| `excerpt`, `excerptEn` | Partial | `src/pages/News.jsx`, `src/pages/NewsDetail.jsx`, `src/pages/Home.jsx` | Optional and sometimes bypassed in favor of `content`. |
-| `content`, `contentEn` | Schema mismatch | `src/pages/News.jsx`, `src/pages/NewsDetail.jsx`, `src/pages/Home.jsx` | Declared as `rich-text`, but flattened into a string by `sanitizeText` in `src/data/loader.js`. |
+| `id`, `title`, `titleEn`, `date`, `excerpt`, `excerptEn`, `content`, `contentEn`, `image` | Aligned | `src/pages/News.jsx`, `src/pages/NewsDetail.jsx`, `src/pages/Home.jsx` | CMS type now matches actual plain-text rendering. |
 
 ### `events.items`
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
-| `id`, `title`, `titleEn`, `startDate`, `endDate`, `location`, `image` | Aligned | `src/pages/Events.jsx`, `src/pages/EventDetail.jsx`, `src/pages/Home.jsx`, `src/components/EventsCalendar.jsx` | Used in listings, details and calendar. |
-| `content`, `contentEn` | Schema mismatch | `src/pages/Events.jsx`, `src/pages/EventDetail.jsx`, `src/pages/Home.jsx` | Same `rich-text` problem as news. |
-| `recurrence.frequency`, `interval`, `until`, `weekdays` | Aligned | `src/data/loader.js`, `src/utils/events.js`, `src/components/EventsCalendar.jsx`, `src/pages/Events.jsx`, `src/pages/EventDetail.jsx` | Active and meaningful. |
+| `id`, `title`, `titleEn`, `startDate`, `endDate`, `location`, `content`, `contentEn`, `image` | Aligned | `src/pages/Events.jsx`, `src/pages/EventDetail.jsx`, `src/pages/Home.jsx` | Plain-text schema is now honest. |
+| `recurrence.frequency`, `interval`, `until`, `weekdays` | Aligned | `src/data/loader.js`, `src/utils/events.js`, `src/components/EventsCalendar.jsx`, `src/pages/Events.jsx`, `src/pages/EventDetail.jsx` | Still meaningful and correctly wired. |
 
 ### `hikes.items`
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
-| `id`, `name`, `distance`, `difficulty`, `difficultyEn`, `duration`, `lat`, `lng`, `startPoint`, `startPointEn`, `gpx` | Aligned | `src/pages/Hikes.jsx`, `src/pages/HikeDetail.jsx`, `src/components/HikesInteractiveMap.jsx`, `src/components/HikeTrackMap.jsx` | Used across listing, detail and maps. |
-| `description`, `descriptionEn` | Schema mismatch | `src/pages/Hikes.jsx`, `src/pages/HikeDetail.jsx` | Declared as `rich-text`, rendered as plain text. |
+| `id`, `name`, `distance`, `difficulty`, `difficultyEn`, `duration`, `lat`, `lng`, `startPoint`, `startPointEn`, `description`, `descriptionEn`, `gpx` | Aligned | `src/pages/Hikes.jsx`, `src/pages/HikeDetail.jsx`, `src/components/HikesInteractiveMap.jsx`, `src/components/HikeTrackMap.jsx` | Plain-text schema is now honest here too. |
 
 ### `parkings.items`
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
-| `id`, `name`, `lat`, `lng`, `address`, `cars`, `minivans`, `motorcycles`, `campers`, `hourlyRate`, `dailyRate`, `notes`, `notesEn` | Aligned | `src/pages/Parking.jsx`, `src/components/ParkingsMap.jsx`, `src/components/ParkingAddressActions.jsx`, `src/pages/Home.jsx` | Public rendering exists for all listed fields. |
+| `id`, `name`, `lat`, `lng`, `address`, `cars`, `minivans`, `motorcycles`, `campers`, `hourlyRate`, `dailyRate`, `notes`, `notesEn` | Aligned | `src/pages/Parking.jsx`, `src/components/ParkingsMap.jsx`, `src/components/ParkingAddressActions.jsx`, `src/pages/Home.jsx` | No major mismatch in the current pass. |
 
 ### `photos.items`
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
-| `title`, `titleEn`, `description`, `descriptionEn`, `photos[].image`, `photos[].alt`, `photos[].altEn`, `photos[].caption`, `photos[].captionEn` | Aligned | `src/pages/Photos.jsx`, `src/pages/Home.jsx` | Public gallery uses these fields correctly. |
-| `id`, `photos[].id` | Partial | Internal React keys and sanitized IDs | Utility fields, not user-visible. This is acceptable but should stay documented. |
+| `title`, `titleEn`, `description`, `descriptionEn`, `photos[].image`, `photos[].alt`, `photos[].altEn`, `photos[].caption`, `photos[].captionEn` | Aligned | `src/pages/Photos.jsx`, `src/pages/Home.jsx` | Gallery rendering matches the model. |
+| `id`, `photos[].id` | Technical only | Internal keys and sanitized IDs | Needed for stable content identity, not for public messaging. |
 
-## Priority Recommendations
+## Decisions Confirmed
+1. `news.content`, `news.contentEn`, `events.content`, `events.contentEn`, `hikes.description`, and `hikes.descriptionEn` stay as `text`, not `rich-text`.
+2. `hero.primaryCta`, `hero.secondaryCta`, `quickLinks.badge`, `highlights`, `guideSections`, and `contacts` stay exposed in the CMS because Sprint 2 now renders them publicly.
+3. Editor help text should remain explicit about:
+- technical IDs
+- internal route values
+- date formats
+- plain-text-only content
+- practical, short, reliable municipal copy
 
-### P0
-1. Remove or hide unused CMS fields until they are wired:
-   - `siteContent.hero.primaryCta`
-   - `siteContent.hero.secondaryCta`
-   - `siteContent.quickLinks.badge`
-   - `siteContent.quickLinks.badgeEn`
-   - all `siteContent.highlights`
-   - all `siteContent.guideSections`
-   - all `siteContent.contacts`
-2. Resolve the `rich-text` mismatch:
-   - either downgrade `news.content`, `events.content`, `hikes.description` to `text`
-   - or implement real rich-text rendering on the frontend before keeping the current schema.
+## Remaining Follow-up Work
 
-### P1
-1. Decide whether `Guide.jsx` should be CMS-driven.
-   - If yes, wire `siteContent.hero.title`, `siteContent.hero.description`, and `siteContent.guideSections`.
-   - If no, simplify the schema and remove those fields from the CMS.
-2. Decide whether the municipality wants public contact cards.
-   - If yes, render `siteContent.contacts` in a practical-information page or section.
-   - If no, remove the collection from `.pages.yml`.
+### P1 / P2 product follow-up
+- Decide whether `highlights` should also appear outside the home.
+- Decide whether a dedicated `Infos pratiques` page should eventually replace or extend `Guide`.
+- Consider adding validity dates or priority flags for alerts and practical information.
 
-### P2
-1. Review editor-facing labels and hints beyond encoding.
-   - Add clear help text for date formats and intended field usage.
-   - Explain internal IDs only where they are truly needed.
-2. Audit bilingual coverage.
-   - Some entities like `name` do not have `nameEn`, which is acceptable only if the product decision is to keep proper names untranslated.
+### Technical follow-up
+- `src/data/loader.js` still contains logic for fields that are now correctly rendered but could benefit from tighter typing and cleaner fallbacks.
+- If richer editorial formatting becomes necessary, implement a true rendering strategy before reintroducing any rich-text field type.
 
-## Files To Revisit In A Follow-up Implementation
-- `src/data/loader.js`
+## Files Reviewed Against This Alignment
+- `.pages.yml`
 - `src/pages/Home.jsx`
 - `src/pages/Guide.jsx`
-- `src/pages/News.jsx`
-- `src/pages/NewsDetail.jsx`
-- `src/pages/Events.jsx`
-- `src/pages/EventDetail.jsx`
-- `src/pages/Hikes.jsx`
-- `src/pages/HikeDetail.jsx`
-- `src/pages/Photos.jsx`
+- `src/data/loader.js`

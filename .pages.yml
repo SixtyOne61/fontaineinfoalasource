@@ -10,9 +10,9 @@ content:
     format: json
     fields:
       - { name: guide, label: Afficher la section Guide, type: boolean, default: true }
-      - { name: events, label: Afficher la section Événements, type: boolean, default: true }
-      - { name: news, label: Afficher la section Actualités, type: boolean, default: true }
-      - { name: hikes, label: Afficher la section Randonnées, type: boolean, default: true }
+      - { name: events, label: Afficher la section Evenements, type: boolean, default: true }
+      - { name: news, label: Afficher la section Actualites, type: boolean, default: true }
+      - { name: hikes, label: Afficher la section Randonnees, type: boolean, default: true }
       - { name: parkings, label: Afficher la section Parkings, type: boolean, default: true }
       - { name: photos, label: Afficher la section Fontaine en photo, type: boolean, default: true }
 
@@ -23,8 +23,9 @@ content:
     format: json
     fields:
       - name: hero
-        label: Hero
+        label: Bandeau d'accueil
         type: object
+        description: Champs visibles publiquement sur l'accueil et le guide.
         fields:
           - { name: eyebrow, label: Sur-titre FR, type: string, required: false }
           - { name: eyebrowEn, label: Sur-titre EN, type: string, required: false }
@@ -36,149 +37,162 @@ content:
             label: Bouton principal
             type: object
             required: false
+            description: Visible publiquement si le lien pointe vers une section active du site.
             fields:
-              - { name: id, label: ID, type: string, required: false }
-              - { name: label, label: Libellé FR, type: string }
-              - { name: labelEn, label: Libellé EN, type: string, required: false }
-              - { name: to, label: Lien interne, type: string }
+              - { name: id, label: ID interne, type: string, required: false, description: Identifiant technique optionnel. }
+              - { name: label, label: Libelle FR, type: string }
+              - { name: labelEn, label: Libelle EN, type: string, required: false }
+              - { name: to, label: Lien interne, type: string, description: Exemple: /guide, /parking, /news. }
           - name: secondaryCta
             label: Bouton secondaire
             type: object
             required: false
+            description: Visible publiquement si le lien pointe vers une section active du site.
             fields:
-              - { name: id, label: ID, type: string, required: false }
-              - { name: label, label: Libellé FR, type: string }
-              - { name: labelEn, label: Libellé EN, type: string, required: false }
-              - { name: to, label: Lien interne, type: string }
+              - { name: id, label: ID interne, type: string, required: false, description: Identifiant technique optionnel. }
+              - { name: label, label: Libelle FR, type: string }
+              - { name: labelEn, label: Libelle EN, type: string, required: false }
+              - { name: to, label: Lien interne, type: string, description: Exemple: /guide, /parking, /news. }
+
       - name: quickLinks
-        label: Accès rapides
+        label: Acces rapides
         type: object
         list: true
+        description: Cartes visibles sur l'accueil et dans le guide.
         fields:
-          - { name: id, label: ID, type: string }
+          - { name: id, label: ID interne, type: string, description: Identifiant technique stable. Ne pas modifier apres publication sauf besoin reel. }
           - { name: title, label: Titre FR, type: string }
           - { name: titleEn, label: Titre EN, type: string, required: false }
           - { name: description, label: Description FR, type: text }
           - { name: descriptionEn, label: Description EN, type: text, required: false }
-          - { name: badge, label: Badge FR, type: string, required: false }
-          - { name: badgeEn, label: Badge EN, type: string, required: false }
-          - { name: to, label: Lien interne, type: string }
+          - { name: badge, label: Badge FR, type: string, required: false, description: Court repere visible sur la carte. Exemple: Acces, Pratique, Nature. }
+          - { name: badgeEn, label: Badge EN, type: string, required: false, description: Court repere visible sur la carte. }
+          - { name: to, label: Lien interne, type: string, description: Exemple: /parking, /guide, /news, /events. }
+
       - name: highlights
-        label: Points clés
+        label: Reperes pratiques
         type: object
         list: true
+        description: Cartes courtes visibles sur l'accueil pour mettre en avant des habitudes locales utiles.
         fields:
-          - { name: id, label: ID, type: string }
+          - { name: id, label: ID interne, type: string, description: Identifiant technique stable. }
           - { name: title, label: Titre FR, type: string }
           - { name: titleEn, label: Titre EN, type: string, required: false }
-          - { name: value, label: Valeur FR, type: string, required: false }
+          - { name: value, label: Valeur FR, type: string, required: false, description: Court message mis en avant. }
           - { name: valueEn, label: Valeur EN, type: string, required: false }
-          - { name: tag, label: Tag FR, type: string, required: false }
+          - { name: tag, label: Tag FR, type: string, required: false, description: Exemple: Conseil, Acces, Nature. }
           - { name: tagEn, label: Tag EN, type: string, required: false }
           - { name: description, label: Description FR, type: text, required: false }
           - { name: descriptionEn, label: Description EN, type: text, required: false }
+
       - name: guideSections
         label: Sections du guide
         type: object
         list: true
+        description: Rubriques visibles publiquement sur la page guide / infos pratiques.
         fields:
-          - { name: id, label: ID, type: string }
+          - { name: id, label: ID interne, type: string, description: Identifiant technique stable. }
           - { name: title, label: Titre FR, type: string }
           - { name: titleEn, label: Titre EN, type: string, required: false }
-          - { name: summary, label: Résumé FR, type: text, required: false }
-          - { name: summaryEn, label: Résumé EN, type: text, required: false }
+          - { name: summary, label: Resume FR, type: text, required: false }
+          - { name: summaryEn, label: Resume EN, type: text, required: false }
           - name: items
-            label: Cartes internes
+            label: Etapes ou reperes
             type: object
             list: true
             required: false
             fields:
-              - { name: id, label: ID, type: string, required: false }
+              - { name: id, label: ID interne, type: string, required: false, description: Identifiant technique optionnel. }
               - { name: title, label: Titre FR, type: string }
               - { name: titleEn, label: Titre EN, type: string, required: false }
-              - { name: description, label: Description FR, type: text, required: false }
+              - { name: description, label: Description FR, type: text, required: false, description: Texte simple visible publiquement. }
               - { name: descriptionEn, label: Description EN, type: text, required: false }
           - name: links
-            label: Liens
+            label: Liens publics
             type: object
             list: true
             required: false
             fields:
-              - { name: id, label: ID, type: string, required: false }
-              - { name: label, label: Libellé FR, type: string }
-              - { name: labelEn, label: Libellé EN, type: string, required: false }
-              - { name: to, label: Lien interne, type: string }
+              - { name: id, label: ID interne, type: string, required: false, description: Identifiant technique optionnel. }
+              - { name: label, label: Libelle FR, type: string }
+              - { name: labelEn, label: Libelle EN, type: string, required: false }
+              - { name: to, label: Lien interne, type: string, description: Exemple: /parking, /news, /events, /hikes, /. }
+
       - name: contacts
-        label: Contacts
+        label: Contacts utiles
         type: object
         list: true
         required: false
+        description: Cartes visibles publiquement dans le guide / infos pratiques.
         fields:
-          - { name: id, label: ID, type: string }
-          - { name: name, label: Nom, type: string }
-          - { name: role, label: Rôle FR, type: string, required: false }
-          - { name: roleEn, label: Rôle EN, type: string, required: false }
+          - { name: id, label: ID interne, type: string, description: Identifiant technique stable. }
+          - { name: name, label: Nom FR, type: string }
+          - { name: nameEn, label: Nom EN, type: string, required: false }
+          - { name: role, label: Role FR, type: string, required: false }
+          - { name: roleEn, label: Role EN, type: string, required: false }
           - { name: description, label: Description FR, type: text, required: false }
           - { name: descriptionEn, label: Description EN, type: text, required: false }
-          - { name: phone, label: Téléphone, type: string, required: false }
+          - { name: phone, label: Telephone, type: string, required: false }
           - { name: email, label: Email, type: string, required: false }
           - { name: address, label: Adresse FR, type: string, required: false }
           - { name: addressEn, label: Adresse EN, type: string, required: false }
-          - { name: hours, label: Horaires FR, type: string, required: false }
-          - { name: hoursEn, label: Horaires EN, type: string, required: false }
-      - { name: visitorTips, label: Conseils visiteurs FR, type: string, list: true, required: false }
-      - { name: visitorTipsEn, label: Conseils visiteurs EN, type: string, list: true, required: false }
-      - { name: alerts, label: Alertes FR, type: string, list: true, required: false }
-      - { name: alertsEn, label: Alertes EN, type: string, list: true, required: false }
+          - { name: hours, label: Horaires FR, type: text, required: false }
+          - { name: hoursEn, label: Horaires EN, type: text, required: false }
+
+      - { name: visitorTips, label: Conseils visiteurs FR, type: string, list: true, required: false, description: Liste courte visible publiquement. Une ligne = un conseil. }
+      - { name: visitorTipsEn, label: Conseils visiteurs EN, type: string, list: true, required: false, description: Liste courte visible publiquement. Une ligne = un conseil. }
+      - { name: alerts, label: Alertes FR, type: string, list: true, required: false, description: Messages pratiques mis en avant. Preferer une information courte et datee si necessaire. }
+      - { name: alertsEn, label: Alertes EN, type: string, list: true, required: false, description: Messages pratiques mis en avant. Preferer une information courte et datee si necessaire. }
 
   - name: news
-    label: Actualités
+    label: Actualites
     path: public/content/news/news.json
     type: file
     format: json
     fields:
       - name: items
-        label: Actualités
+        label: Actualites
         type: object
         list: true
         fields:
-          - { name: id, label: ID, type: number }
+          - { name: id, label: ID interne, type: number, description: Identifiant technique stable. }
           - { name: title, label: Titre FR, type: string }
           - { name: titleEn, label: Titre EN, type: string, required: false }
-          - { name: date, label: Date, type: string }
-          - { name: excerpt, label: Résumé FR, type: string, required: false }
-          - { name: excerptEn, label: Résumé EN, type: string, required: false }
-          - { name: content, label: Contenu FR, type: rich-text }
-          - { name: contentEn, label: Contenu EN, type: rich-text, required: false }
+          - { name: date, label: Date (AAAA-MM-JJ), type: string, description: Format attendu 2026-05-02. }
+          - { name: excerpt, label: Resume FR, type: string, required: false }
+          - { name: excerptEn, label: Resume EN, type: string, required: false }
+          - { name: content, label: Contenu FR, type: text, description: Le site affiche un texte simple sans gras, liste ou lien riche. Garder des paragraphes courts. }
+          - { name: contentEn, label: Contenu EN, type: text, required: false, description: Le site affiche un texte simple sans mise en forme riche. }
           - { name: image, label: Image, type: image, required: false }
 
   - name: events
-    label: Événements
+    label: Evenements
     path: public/content/events/events.json
     type: file
     format: json
     fields:
       - name: items
-        label: Événements
+        label: Evenements
         type: object
         list: true
         fields:
-          - { name: id, label: ID, type: number }
+          - { name: id, label: ID interne, type: number, description: Identifiant technique stable. }
           - { name: title, label: Titre FR, type: string }
           - { name: titleEn, label: Titre EN, type: string, required: false }
-          - { name: startDate, label: Date de début (AAAA-MM-JJ), type: string }
-          - { name: endDate, label: Date de fin (AAAA-MM-JJ), type: string }
+          - { name: startDate, label: Date de debut (AAAA-MM-JJ), type: string, description: Format attendu 2026-05-02. }
+          - { name: endDate, label: Date de fin (AAAA-MM-JJ), type: string, description: Format attendu 2026-05-02. }
           - { name: location, label: Lieu, type: string }
-          - { name: content, label: Description FR, type: rich-text }
-          - { name: contentEn, label: Description EN, type: rich-text, required: false }
+          - { name: content, label: Description FR, type: text, description: Le site affiche un texte simple. Ne pas compter sur du gras, des listes ou des liens enrichis. }
+          - { name: contentEn, label: Description EN, type: text, required: false, description: Le site affiche un texte simple sans mise en forme riche. }
           - { name: image, label: Image, type: image, required: false }
           - name: recurrence
-            label: Récurrence de l'événement
+            label: Recurrence de l'evenement
             type: object
             required: false
+            description: A utiliser seulement si l'evenement se repete sur plusieurs dates.
             fields:
               - name: frequency
-                label: Type de répétition
+                label: Type de repetition
                 type: select
                 required: false
                 options:
@@ -187,10 +201,10 @@ content:
                     - { label: Chaque semaine, value: weekly }
                     - { label: Chaque mois, value: monthly }
                     - { label: Du lundi au vendredi, value: weekdays }
-              - { name: interval, label: Tous les X cycles (laisser 1 si chaque fois), type: number, required: false, default: 1 }
-              - { name: until, label: Date de fin de répétition (AAAA-MM-JJ), type: string, required: false }
+              - { name: interval, label: Tous les X cycles, type: number, required: false, default: 1, description: Laisser 1 pour chaque occurrence normale. }
+              - { name: until, label: Fin de repetition (AAAA-MM-JJ), type: string, required: false, description: Derniere date incluse dans la repetition. }
               - name: weekdays
-                label: Jours concernés
+                label: Jours concernes
                 type: select
                 required: false
                 options:
@@ -205,29 +219,29 @@ content:
                     - { label: Dimanche, value: sunday }
 
   - name: hikes
-    label: Randonnées
+    label: Randonnees
     path: public/content/hikes/hikes.json
     type: file
     format: json
     fields:
       - name: items
-        label: Randonnées
+        label: Randonnees
         type: object
         list: true
         fields:
-          - { name: id, label: ID, type: number }
+          - { name: id, label: ID interne, type: number, description: Identifiant technique stable. }
           - { name: name, label: Nom, type: string }
-          - { name: distance, label: Distance, type: number }
-          - { name: difficulty, label: Difficulté FR, type: string }
-          - { name: difficultyEn, label: Difficulté EN, type: string, required: false }
-          - { name: duration, label: Durée, type: string }
+          - { name: distance, label: Distance (km), type: number }
+          - { name: difficulty, label: Difficulte FR, type: string }
+          - { name: difficultyEn, label: Difficulte EN, type: string, required: false }
+          - { name: duration, label: Duree, type: string, description: Exemple: 1 h 30. }
           - { name: lat, label: Latitude, type: number }
           - { name: lng, label: Longitude, type: number }
-          - { name: startPoint, label: Point de départ FR, type: string }
-          - { name: startPointEn, label: Point de départ EN, type: string, required: false }
-          - { name: description, label: Description FR, type: rich-text }
-          - { name: descriptionEn, label: Description EN, type: rich-text, required: false }
-          - { name: gpx, label: Fichier GPX, type: string, required: false }
+          - { name: startPoint, label: Point de depart FR, type: string }
+          - { name: startPointEn, label: Point de depart EN, type: string, required: false }
+          - { name: description, label: Description FR, type: text, description: Le site affiche un texte simple sans mise en forme riche. }
+          - { name: descriptionEn, label: Description EN, type: text, required: false, description: Le site affiche un texte simple sans mise en forme riche. }
+          - { name: gpx, label: Fichier GPX, type: string, required: false, description: Laisser vide si aucun fichier GPX n'est disponible. }
 
   - name: parkings
     label: Parkings
@@ -240,19 +254,19 @@ content:
         type: object
         list: true
         fields:
-          - { name: id, label: ID, type: number }
+          - { name: id, label: ID interne, type: number, description: Identifiant technique stable. }
           - { name: name, label: Nom, type: string }
           - { name: lat, label: Latitude, type: number }
           - { name: lng, label: Longitude, type: number }
           - { name: address, label: Adresse, type: string }
-          - { name: cars, label: Voitures autorisées, type: boolean }
-          - { name: minivans, label: Mini-vans autorisés, type: boolean }
-          - { name: motorcycles, label: Motos autorisées, type: boolean }
-          - { name: campers, label: Camping-cars autorisés, type: boolean }
+          - { name: cars, label: Voitures autorisees, type: boolean }
+          - { name: minivans, label: Mini-vans autorises, type: boolean }
+          - { name: motorcycles, label: Motos autorisees, type: boolean }
+          - { name: campers, label: Camping-cars autorises, type: boolean }
           - { name: hourlyRate, label: Tarif horaire, type: string }
-          - { name: dailyRate, label: Tarif journée FR, type: string }
-          - { name: notes, label: Notes FR, type: string, required: false }
-          - { name: notesEn, label: Notes EN, type: string, required: false }
+          - { name: dailyRate, label: Tarif journee FR, type: string }
+          - { name: notes, label: Notes FR, type: string, required: false, description: Information pratique courte visible publiquement. }
+          - { name: notesEn, label: Notes EN, type: string, required: false, description: Information pratique courte visible publiquement. }
 
   - name: photos
     label: Fontaine en photo
@@ -265,7 +279,7 @@ content:
         type: object
         list: true
         fields:
-          - { name: id, label: ID, type: string }
+          - { name: id, label: ID interne, type: string, description: Identifiant technique utilise pour le site. }
           - { name: title, label: Titre FR, type: string }
           - { name: titleEn, label: Titre EN, type: string, required: false }
           - { name: description, label: Texte FR, type: text, required: false }
@@ -275,9 +289,9 @@ content:
             type: object
             list: true
             fields:
-              - { name: id, label: ID photo, type: string, required: false }
+              - { name: id, label: ID photo interne, type: string, required: false, description: Optionnel. Sert uniquement d'identifiant technique. }
               - { name: image, label: Image, type: image }
               - { name: alt, label: Texte alternatif FR, type: string, required: false }
               - { name: altEn, label: Texte alternatif EN, type: string, required: false }
-              - { name: caption, label: Légende FR, type: string, required: false }
-              - { name: captionEn, label: Légende EN, type: string, required: false }
+              - { name: caption, label: Legende FR, type: string, required: false }
+              - { name: captionEn, label: Legende EN, type: string, required: false }
