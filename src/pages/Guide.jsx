@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import { getSectionVisibility, getSiteContent } from "../data/loader";
 import { defaultSectionVisibility, sectionRoutes } from "../data/sections";
@@ -10,221 +10,262 @@ const EMPTY_CONTENT = {
     hero: {
         eyebrow: "Guide pratique",
         eyebrowEn: "Practical guide",
-        title: "Préparer une visite agréable à Fontaine-de-Vaucluse",
+        title: "Preparer une visite agreable a Fontaine-de-Vaucluse",
         titleEn: "Plan an enjoyable visit to Fontaine-de-Vaucluse",
-        description: "Retrouvez ici les repères utiles pour arriver plus sereinement et profiter du village sans vous compliquer la journée.",
-        descriptionEn: "Find the key information you need to arrive more easily and enjoy the village without overthinking your day.",
-        primaryCta: null,
-        secondaryCta: null
+        description:
+            "Retrouvez ici les reperes utiles pour arriver plus sereinement et profiter du village sans vous compliquer la journee.",
+        descriptionEn:
+            "Find the key information you need to arrive more easily and enjoy the village without overthinking your day."
     },
     quickLinks: [],
     highlights: [],
     guideSections: [],
-    contacts: [],
     visitorTips: [],
     visitorTipsEn: [],
     alerts: [],
     alertsEn: []
 };
 
-function GuideLink({ item, primary = false, lang }) {
-    if (!item?.to || !getLocalizedField(item, "label", lang)) {
-        return null;
-    }
-
+function StepCard({ number, title, body, to, cta, secondary }) {
     return (
-        <Link
-            to={item.to}
-            className={
-                primary
-                    ? "inline-flex items-center justify-center rounded-full bg-[#1f5e54] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#18463e]"
-                    : "inline-flex items-center justify-center rounded-full border border-[#a7cfc1] bg-white px-4 py-2.5 text-sm font-semibold text-[#1f5e54] transition hover:bg-[#eef7f3]"
-            }
-        >
-            {getLocalizedField(item, "label", lang)}
-        </Link>
+        <article className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">
+            <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1f5e54] text-sm font-semibold text-white">
+                    {number}
+                </div>
+                <div className="min-w-0">
+                    <h2 className="text-2xl text-[#163c35]">{title}</h2>
+                    <p className="mt-3 text-sm text-slate-600 sm:text-base">{body}</p>
+                    <div className="mt-4 flex flex-wrap gap-3">
+                        <Link
+                            to={to}
+                            className="inline-flex items-center justify-center rounded-full bg-[#1f5e54] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#18463e]"
+                        >
+                            {cta}
+                        </Link>
+                        {secondary}
+                    </div>
+                </div>
+            </div>
+        </article>
+    );
+}
+
+function InfoPill({ children }) {
+    return (
+        <div className="rounded-[1.25rem] border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+            {children}
+        </div>
     );
 }
 
 export default function Guide() {
-    const location = useLocation();
-    const { lang, t } = useLocale();
+    const { lang } = useLocale();
     const [content, setContent] = useState(EMPTY_CONTENT);
     const [sectionVisibility, setSectionVisibility] = useState(defaultSectionVisibility);
 
     useEffect(() => {
         getSectionVisibility().then(setSectionVisibility);
-        getSiteContent().then((data) => {
-            setContent(data);
-        });
+        getSiteContent().then(setContent);
     }, []);
 
-    function isRouteVisible(path) {
-        if (path === sectionRoutes.guide) return sectionVisibility.guide;
-        if (path === sectionRoutes.parkings) return sectionVisibility.parkings;
-        if (path === sectionRoutes.events) return sectionVisibility.events;
-        if (path === sectionRoutes.hikes) return sectionVisibility.hikes;
-        if (path === sectionRoutes.news) return sectionVisibility.news;
-        if (path === sectionRoutes.photos) return sectionVisibility.photos;
-        return true;
-    }
+    const alerts = getLocalizedList(content, "alerts", lang).slice(0, 2);
+    const visitorTips = getLocalizedList(content, "visitorTips", lang)
+        .filter((tip) => !tip.toLowerCase().includes("balade"))
+        .slice(0, 3);
+    const visibleQuickLinks = useMemo(
+        () =>
+            content.quickLinks.filter((item) => {
+                if (item.to === sectionRoutes.parkings) return sectionVisibility.parkings;
+                if (item.to === sectionRoutes.events) return sectionVisibility.events;
+                if (item.to === sectionRoutes.news) return sectionVisibility.news;
+                if (item.to === sectionRoutes.photos) return sectionVisibility.photos;
+                if (item.to === sectionRoutes.hikes) return sectionVisibility.hikes;
+                return false;
+            }),
+        [content.quickLinks, sectionVisibility]
+    );
 
-    const heroLinks = [content.hero.primaryCta, content.hero.secondaryCta].filter(
-        (item) => item?.to && item.to !== location.pathname && isRouteVisible(item.to)
-    );
-    const visibleQuickLinks = content.quickLinks.filter(
-        (item) => item.to !== location.pathname && isRouteVisible(item.to)
-    );
-    const alerts = getLocalizedList(content, "alerts", lang);
-    const visitorTips = getLocalizedList(content, "visitorTips", lang);
-    const visibleGuideSections = content.guideSections
-        .map((section) => ({
-            ...section,
-            links: section.links.filter((item) => item.to !== location.pathname && isRouteVisible(item.to))
-        }))
-        .filter((section) => section.items.length > 0 || section.links.length > 0);
+    const steps = useMemo(() => {
+        const items = [];
+
+        if (sectionVisibility.parkings) {
+            items.push({
+                key: "parkings",
+                title: lang === "en" ? "Choose your parking before entering" : "Choisir son parking avant d'entrer",
+                body:
+                    lang === "en"
+                        ? "This is usually the fastest way to avoid unnecessary turns and arrive more calmly."
+                        : "C'est souvent le moyen le plus simple d'eviter les detours inutiles et d'arriver plus calmement.",
+                to: sectionRoutes.parkings,
+                cta: lang === "en" ? "Open parking page" : "Ouvrir les parkings",
+                secondary: null
+            });
+        }
+
+        if (sectionVisibility.events || sectionVisibility.news) {
+            items.push({
+                key: "today",
+                title: lang === "en" ? "Check what matters today" : "Verifier ce qui compte aujourd'hui",
+                body:
+                    lang === "en"
+                        ? "A quick look at local updates or the agenda can save you time once you arrive."
+                        : "Un coup d'oeil aux infos utiles ou a l'agenda suffit souvent pour gagner du temps sur place.",
+                to: sectionVisibility.news ? sectionRoutes.news : sectionRoutes.events,
+                cta: sectionVisibility.news
+                    ? lang === "en"
+                        ? "See useful updates"
+                        : "Voir les infos utiles"
+                    : lang === "en"
+                      ? "See events"
+                      : "Voir l'agenda",
+                secondary: sectionVisibility.news && sectionVisibility.events ? (
+                    <Link
+                        to={sectionRoutes.events}
+                        className="inline-flex items-center justify-center rounded-full border border-[#a7cfc1] bg-white px-4 py-2.5 text-sm font-semibold text-[#1f5e54] transition hover:bg-[#eef7f3]"
+                    >
+                        {lang === "en" ? "See events" : "Voir l'agenda"}
+                    </Link>
+                ) : null
+            });
+        }
+
+        items.push({
+            key: "on-foot",
+            title: lang === "en" ? "Then continue on foot" : "Puis continuer la visite a pied",
+            body:
+                lang === "en"
+                    ? "Once parked, the village is easier and more pleasant to discover on foot."
+                    : "Une fois gare, le village se decouvre plus facilement et plus agreablement a pied.",
+            to: "/",
+            cta: lang === "en" ? "Back to home" : "Retour a l'accueil",
+            secondary: sectionVisibility.photos ? (
+                <Link
+                    to={sectionRoutes.photos}
+                    className="inline-flex items-center justify-center rounded-full border border-[#a7cfc1] bg-white px-4 py-2.5 text-sm font-semibold text-[#1f5e54] transition hover:bg-[#eef7f3]"
+                >
+                    {lang === "en" ? "See photos" : "Voir les photos"}
+                </Link>
+            ) : null
+        });
+
+        return items.slice(0, 3);
+    }, [lang, sectionVisibility]);
+
+    const heroTitle =
+        lang === "en"
+            ? "Visit Fontaine-de-Vaucluse in a few simple steps"
+            : "Visiter Fontaine-de-Vaucluse en quelques etapes simples";
+    const heroDescription =
+        lang === "en"
+            ? "This page brings together only the essentials for a short visit: arrive well, park easily and find the right information quickly."
+            : "Cette page rassemble seulement l'essentiel pour une visite ponctuelle : bien arriver, se garer facilement et trouver vite la bonne information.";
 
     return (
         <Layout>
-            <section className="mb-6 overflow-hidden rounded-[2rem] border border-white/20 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.16),_transparent_30%),linear-gradient(135deg,#18463e,#27685b_54%,#d3bc8d)] p-5 text-white shadow-[0_28px_90px_rgba(22,60,53,0.18)] sm:mb-8 sm:p-8 md:p-10">
-                <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+            <section className="mb-8 overflow-hidden rounded-[2rem] border border-white/20 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.16),_transparent_30%),linear-gradient(135deg,#18463e,#27685b_54%,#d3bc8d)] p-5 text-white shadow-[0_28px_90px_rgba(22,60,53,0.18)] sm:p-8 md:p-10">
+                <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
                     <div>
                         <div className="inline-flex rounded-full border border-white/15 bg-white/10 px-3 py-1 text-sm font-medium text-white/90">
                             {getLocalizedField(content.hero, "eyebrow", lang)}
                         </div>
-                        <h1 className="mt-4 text-3xl leading-tight text-white sm:text-5xl">
-                            {getLocalizedField(content.hero, "title", lang)}
-                        </h1>
-                        <p className="mt-4 max-w-2xl text-base text-[#eef7f3] sm:text-lg">
-                            {getLocalizedField(content.hero, "description", lang)}
-                        </p>
-
-                        {heroLinks.length > 0 && (
-                            <div className="mt-6 flex flex-wrap gap-3">
-                                {heroLinks.map((item, index) => (
-                                    <GuideLink key={item.id} item={item} primary={index === 0} lang={lang} />
-                                ))}
-                            </div>
-                        )}
+                        <h1 className="mt-4 text-3xl leading-tight text-white sm:text-5xl">{heroTitle}</h1>
+                        <p className="mt-4 max-w-2xl text-base text-[#eef7f3] sm:text-lg">{heroDescription}</p>
                     </div>
 
-                    <aside className="grid gap-3 rounded-[1.75rem] border border-white/15 bg-[#163c35]/40 p-4 backdrop-blur-md">
+                    <aside className="rounded-[1.75rem] border border-white/15 bg-[#163c35]/40 p-5 backdrop-blur-md">
                         <p className="section-kicker text-[#d7e8e1]">
-                            {lang === "en" ? "Quick overview" : "Repères rapides"}
+                            {lang === "en" ? "Keep in mind" : "A garder en tete"}
                         </p>
-                        {content.highlights.map((item) => (
-                            <div
-                                key={item.id}
-                                className="rounded-[1.35rem] border border-white/10 bg-white/5 px-4 py-3"
-                            >
-                                <p className="text-sm text-[#d7e8e1]">{getLocalizedField(item, "tag", lang) || getLocalizedField(item, "title", lang)}</p>
-                                <p className="mt-1 text-lg font-semibold text-white">
-                                    {getLocalizedField(item, "value", lang) || getLocalizedField(item, "title", lang)}
+                        <div className="mt-4 grid gap-3">
+                            <div className="rounded-[1.25rem] border border-white/10 bg-white/5 px-4 py-3">
+                                <p className="text-lg font-semibold text-white">
+                                    {lang === "en" ? "Check parking first" : "Regarder les parkings d'abord"}
                                 </p>
-                                <p className="mt-1 text-sm text-white/80">{getLocalizedField(item, "description", lang)}</p>
+                                <p className="mt-1 text-sm text-white/80">
+                                    {lang === "en"
+                                        ? "It usually makes the whole visit smoother."
+                                        : "C'est souvent ce qui fluidifie le plus toute la visite."}
+                                </p>
                             </div>
-                        ))}
+                            <div className="rounded-[1.25rem] border border-white/10 bg-white/5 px-4 py-3">
+                                <p className="text-lg font-semibold text-white">
+                                    {lang === "en" ? "The village is best on foot" : "Le village se decouvre surtout a pied"}
+                                </p>
+                                <p className="mt-1 text-sm text-white/80">
+                                    {lang === "en"
+                                        ? "Once parked, you usually need only a short walk."
+                                        : "Une fois gare, quelques minutes a pied suffisent souvent."}
+                                </p>
+                            </div>
+                        </div>
                     </aside>
                 </div>
             </section>
 
-            {alerts.length > 0 && (
-                <section className="mb-6 grid gap-3">
-                    {alerts.map((alert) => (
-                        <article
-                            key={alert}
-                            className="rounded-[1.5rem] border border-[#d8c08f]/60 bg-[#fff7e6] px-4 py-3 text-sm text-[#6f5627] shadow-[0_14px_40px_rgba(111,86,39,0.08)]"
-                        >
-                            {alert}
-                        </article>
+            <section className="mb-8">
+                <div className="mb-4">
+                    <p className="section-kicker">{lang === "en" ? "Visitor path" : "Parcours visiteur"}</p>
+                    <h2 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
+                        {lang === "en" ? "Three simple steps" : "Trois etapes simples"}
+                    </h2>
+                </div>
+                <div className="grid gap-5">
+                    {steps.map((step, index) => (
+                        <StepCard
+                            key={step.key}
+                            number={index + 1}
+                            title={step.title}
+                            body={step.body}
+                            to={step.to}
+                            cta={step.cta}
+                            secondary={step.secondary}
+                        />
                     ))}
+                </div>
+            </section>
+
+            {(alerts.length > 0 || visitorTips.length > 0) && (
+                <section className="mb-8 grid gap-5 lg:grid-cols-2">
+                    {alerts.length > 0 && (
+                        <article className="rounded-[1.75rem] border border-[#d8c08f]/60 bg-[#fff7e6] p-5 shadow-[0_14px_40px_rgba(111,86,39,0.08)] sm:p-6">
+                            <p className="section-kicker text-[#8a6c22]">
+                                {lang === "en" ? "Before you leave" : "Avant de partir"}
+                            </p>
+                            <div className="mt-4 grid gap-3">
+                                {alerts.map((alert) => (
+                                    <InfoPill key={alert}>{alert}</InfoPill>
+                                ))}
+                            </div>
+                        </article>
+                    )}
+
+                    {visitorTips.length > 0 && (
+                        <article className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">
+                            <p className="section-kicker">{lang === "en" ? "Useful reminders" : "Bons reflexes"}</p>
+                            <div className="mt-4 grid gap-3">
+                                {visitorTips.map((tip) => (
+                                    <InfoPill key={tip}>{tip}</InfoPill>
+                                ))}
+                            </div>
+                        </article>
+                    )}
                 </section>
             )}
 
             {visibleQuickLinks.length > 0 && (
-                <section className="mb-8">
-                    <div className="surface-card rounded-[1.75rem] border border-white/70 p-4 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-5">
-                        <p className="section-kicker">{lang === "en" ? "Useful shortcuts" : "Accès utiles"}</p>
-                        <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                            {visibleQuickLinks.map((item) => (
+                <section>
+                    <article className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">
+                        <p className="section-kicker">{lang === "en" ? "Need something else?" : "Besoin d'autre chose ?"}</p>
+                        <div className="mt-4 flex flex-wrap gap-3">
+                            {visibleQuickLinks.slice(0, 3).map((item) => (
                                 <Link
                                     key={item.id}
                                     to={item.to}
-                                    className="rounded-[1.35rem] border border-slate-200 bg-white px-4 py-4 transition hover:-translate-y-1 hover:border-[#a7cfc1]"
+                                    className="inline-flex items-center justify-center rounded-full border border-[#a7cfc1] bg-white px-4 py-2.5 text-sm font-semibold text-[#1f5e54] transition hover:bg-[#eef7f3]"
                                 >
-                                    <p className="section-kicker">{getLocalizedField(item, "badge", lang) || t("common.guide")}</p>
-                                    <h2 className="mt-2 text-xl text-[#163c35]">{getLocalizedField(item, "title", lang)}</h2>
-                                    <p className="mt-2 text-sm text-slate-600">{getLocalizedField(item, "description", lang)}</p>
+                                    {getLocalizedField(item, "title", lang)}
                                 </Link>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-            )}
-
-            {visibleGuideSections.length > 0 && (
-                <section className="grid gap-5 sm:gap-6">
-                    {visibleGuideSections.map((section) => (
-                        <article
-                            key={section.id}
-                            className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6"
-                        >
-                            <div className="grid gap-5 lg:grid-cols-[1fr_0.85fr]">
-                                <div>
-                                    <p className="section-kicker">{lang === "en" ? "Helpful guide" : "Guide pratique"}</p>
-                                    <h2 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
-                                        {getLocalizedField(section, "title", lang)}
-                                    </h2>
-                                    <p className="mt-3 text-sm text-slate-600 sm:text-base">
-                                        {getLocalizedField(section, "summary", lang)}
-                                    </p>
-
-                                    {section.links.length > 0 && (
-                                        <div className="mt-5 flex flex-wrap gap-3">
-                                            {section.links.map((item, index) => (
-                                                <GuideLink
-                                                    key={item.id}
-                                                    item={item}
-                                                    primary={index === 0}
-                                                    lang={lang}
-                                                />
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
-
-                                <div className="grid gap-3">
-                                    {section.items.map((item) => (
-                                        <div
-                                            key={item.id}
-                                            className="rounded-[1.35rem] border border-slate-200 bg-slate-50 px-4 py-4"
-                                        >
-                                            <h3 className="text-lg text-[#163c35]">{getLocalizedField(item, "title", lang)}</h3>
-                                            <p className="mt-2 text-sm text-slate-600">
-                                                {getLocalizedField(item, "description", lang)}
-                                            </p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </article>
-                    ))}
-                </section>
-            )}
-
-            {visitorTips.length > 0 && (
-                <section className="mt-8">
-                    <article className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">
-                        <p className="section-kicker">{lang === "en" ? "Visitor tips" : "Quelques conseils"}</p>
-                        <h2 className="mt-2 text-2xl text-[#163c35]">{lang === "en" ? "Before you set off" : "Avant de partir"}</h2>
-                        <div className="mt-4 grid gap-3">
-                            {visitorTips.map((tip) => (
-                                <div
-                                    key={tip}
-                                    className="rounded-[1.25rem] border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700"
-                                >
-                                    {tip}
-                                </div>
                             ))}
                         </div>
                     </article>
