@@ -8,7 +8,7 @@ export const translations = {
             home: "Accueil",
             guide: "Guide",
             parkings: "Parkings",
-            events: "Événements",
+            events: "Evenements",
             hikes: "Balades",
             news: "Infos",
             photos: "Fontaine en photo",
@@ -17,15 +17,15 @@ export const translations = {
             search: "Rechercher",
             skipToContent: "Aller au contenu principal",
             readMore: "Lire la suite ->",
-            viewDetails: "Voir le détail ->",
+            viewDetails: "Voir le detail ->",
             backToNews: "<- Retour aux infos",
-            backToEvents: "<- Retour aux événements",
+            backToEvents: "<- Retour aux evenements",
             backToHikes: "<- Retour aux balades",
             today: "Aujourd'hui",
             thisWeek: "Cette semaine",
             inProgress: "En ce moment",
-            upcoming: "À venir",
-            noResults: "Aucun résultat"
+            upcoming: "A venir",
+            noResults: "Aucun resultat"
         }
     },
     en: {

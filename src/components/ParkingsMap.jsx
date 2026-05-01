@@ -21,6 +21,12 @@ const vehicleTypes = {
     ],
 };
 
+function getLocalizedParkingText(parking, field, lang) {
+    const localizedKey = lang === "en" ? `${field}En` : field;
+
+    return parking[localizedKey] || parking[field] || "";
+}
+
 function FitBounds({ parkings }) {
     const map = useMap();
 
@@ -55,7 +61,48 @@ function VehiclePill({ label, allowed }) {
     );
 }
 
-export default function ParkingsMap({ parkings }) {
+function getWalkSummary(parking, lang) {
+    const minutes = Number(parking.walkMinutes);
+    const distance = getLocalizedParkingText(parking, "walkDistance", lang);
+
+    if (!minutes && !distance) {
+        return "";
+    }
+
+    if (minutes && distance) {
+        return lang === "en"
+            ? `About ${minutes} min on foot (${distance})`
+            : `Environ ${minutes} min a pied (${distance})`;
+    }
+
+    if (minutes) {
+        return lang === "en" ? `About ${minutes} min on foot` : `Environ ${minutes} min a pied`;
+    }
+
+    return lang === "en" ? `${distance} on foot` : `${distance} a pied`;
+}
+
+function createMarkerIcon(isFeatured) {
+    return L.divIcon({
+        className: "parking-marker-icon",
+        html: `<span style="
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            width:18px;
+            height:18px;
+            border-radius:999px;
+            background:${isFeatured ? "#1f5e54" : "#d8c08f"};
+            border:2px solid white;
+            box-shadow:0 8px 18px rgba(22,60,53,0.24);
+        "></span>`,
+        iconSize: [18, 18],
+        iconAnchor: [9, 9],
+        popupAnchor: [0, -8],
+    });
+}
+
+export default function ParkingsMap({ parkings, featuredParkingId = null }) {
     const { lang } = useLocale();
     const mappableParkings = parkings.filter(hasValidCoordinates);
 
@@ -75,10 +122,19 @@ export default function ParkingsMap({ parkings }) {
                 <FitBounds parkings={mappableParkings} />
 
                 {mappableParkings.map((parking) => (
-                    <Marker key={parking.id} position={[parking.lat, parking.lng]}>
+                    <Marker
+                        key={parking.id}
+                        position={[parking.lat, parking.lng]}
+                        icon={createMarkerIcon(parking.id === featuredParkingId)}
+                    >
                         <Popup>
                             <div className="min-w-[240px] text-sm">
                                 <h3 className="mb-2 text-base font-bold">{getLocalizedField(parking, "name", lang)}</h3>
+                                {getLocalizedParkingText(parking, "bestFor", lang) ? (
+                                    <p className="mb-2 text-sm font-medium text-[#1f5e54]">
+                                        {getLocalizedParkingText(parking, "bestFor", lang)}
+                                    </p>
+                                ) : null}
                                 <div>
                                     <strong>{lang === "en" ? "Address:" : "Adresse :"}</strong>
                                     <div className="mt-1">
@@ -94,11 +150,28 @@ export default function ParkingsMap({ parkings }) {
                                         />
                                     ))}
                                 </div>
+                                {getWalkSummary(parking, lang) ? (
+                                    <p className="mt-3">
+                                        <strong>{lang === "en" ? "Walk:" : "A pied :"}</strong> {getWalkSummary(parking, lang)}
+                                    </p>
+                                ) : null}
+                                {getLocalizedParkingText(parking, "access", lang) ? (
+                                    <p>
+                                        <strong>{lang === "en" ? "Access:" : "Acces :"}</strong> {getLocalizedParkingText(parking, "access", lang)}
+                                    </p>
+                                ) : null}
                                 <p className="mt-3"><strong>{lang === "en" ? "Hourly rate:" : "Tarif horaire :"}</strong> {getLocalizedField(parking, "hourlyRate", lang)}</p>
-                                <p><strong>{lang === "en" ? "Daily rate:" : "Tarif journée :"}</strong> {getLocalizedField(parking, "dailyRate", lang)}</p>
-                                {getLocalizedField(parking, "notes", lang) && (
-                                    <p className="mt-2 text-slate-600">{getLocalizedField(parking, "notes", lang)}</p>
-                                )}
+                                <p><strong>{lang === "en" ? "Daily rate:" : "Tarif journee :"}</strong> {getLocalizedField(parking, "dailyRate", lang)}</p>
+                                {getLocalizedParkingText(parking, "payment", lang) ? (
+                                    <p>
+                                        <strong>{lang === "en" ? "Payment:" : "Paiement :"}</strong> {getLocalizedParkingText(parking, "payment", lang)}
+                                    </p>
+                                ) : null}
+                                {(getLocalizedParkingText(parking, "goodToKnow", lang) || getLocalizedField(parking, "notes", lang)) ? (
+                                    <p className="mt-2 text-slate-600">
+                                        {getLocalizedParkingText(parking, "goodToKnow", lang) || getLocalizedField(parking, "notes", lang)}
+                                    </p>
+                                ) : null}
                             </div>
                         </Popup>
                     </Marker>

@@ -283,6 +283,12 @@ function sanitizeParkingItem(item) {
         campers: sanitizeBoolean(item?.campers),
         hourlyRate: sanitizeText(item?.hourlyRate, 60),
         dailyRate: sanitizeText(item?.dailyRate, 60),
+        walkMinutes: sanitizeNumber(item?.walkMinutes, { min: 0, max: 120 }),
+        ...sanitizeLocalizedTextFields(item, "walkDistance", 80),
+        ...sanitizeLocalizedTextFields(item, "payment", 160),
+        ...sanitizeLocalizedTextFields(item, "access", 220),
+        ...sanitizeLocalizedTextFields(item, "bestFor", 220),
+        ...sanitizeLocalizedTextFields(item, "goodToKnow", 320),
         ...sanitizeLocalizedTextFields(item, "notes", 400),
     };
 }

@@ -76,7 +76,7 @@ export default function EventsCalendar({ events }) {
                         }
                         className="rounded-xl border border-[#a7cfc1] bg-white px-4 py-2.5 text-sm text-[#1f5e54] transition hover:bg-[#d7e8e1] sm:text-base"
                     >
-                        {lang === "en" ? "← Previous" : "← Précédent"}
+                        {lang === "en" ? "< Previous" : "< Precedent"}
                     </button>
 
                     <button
@@ -88,7 +88,7 @@ export default function EventsCalendar({ events }) {
                         }
                         className="rounded-xl border border-[#a7cfc1] bg-white px-4 py-2.5 text-sm text-[#1f5e54] transition hover:bg-[#d7e8e1] sm:text-base"
                     >
-                        {lang === "en" ? "Next →" : "Suivant →"}
+                        {lang === "en" ? "Next >" : "Suivant >"}
                     </button>
                 </div>
             </div>
@@ -138,7 +138,7 @@ export default function EventsCalendar({ events }) {
                                                 className="line-clamp-2 rounded-lg bg-[#d7e8e1] px-2 py-1 text-xs text-[#163c35] transition hover:bg-[#a7cfc1]"
                                                 title={
                                                     event.recurrence
-                                                        ? `${event.titleEn && lang === "en" ? event.titleEn : event.title} • ${getRecurrenceLabel(event, lang)}`
+                                                        ? `${event.titleEn && lang === "en" ? event.titleEn : event.title} - ${getRecurrenceLabel(event, lang)}`
                                                         : event.titleEn && lang === "en"
                                                             ? event.titleEn
                                                             : event.title

@@ -2,46 +2,46 @@
   "items": [
     {
       "id": 1,
-      "title": "Marché des producteurs et artisans locaux",
+      "title": "Marche des producteurs et artisans locaux",
       "titleEn": "Local producers and crafts market",
-      "startDate": "2026-04-15",
-      "endDate": "2026-04-15",
+      "startDate": "2026-05-02",
+      "endDate": "2026-05-02",
       "location": "Place de la Colonne",
-      "content": "Retrouvez producteurs locaux, artisans, produits du terroir, petite restauration et un stand d'information touristique au coeur du village.",
-      "contentEn": "Meet local producers and craftspeople, enjoy regional products, grab light refreshments and stop by the tourist information stand in the village centre.",
+      "content": "Producteurs locaux, artisans et douceurs a emporter au coeur du village.\nIdeal pour une promenade de fin de matinee, quelques achats locaux et une pause simple pres des commerces.",
+      "contentEn": "Local producers, craftspeople and takeaway treats in the heart of the village.\nA good option for a late-morning stroll, a few local purchases and an easy stop near the shops.",
       "image": "/uploads/images.jpg"
     },
     {
       "id": 2,
-      "title": "Week-end nature et patrimoine",
-      "titleEn": "Nature and heritage weekend",
-      "startDate": "2026-04-18",
-      "endDate": "2026-04-19",
-      "location": "Centre du village et abords de la Sorgue",
-      "content": "Animations familiales, balades commentées et ateliers de découverte autour du patrimoine naturel, de la Sorgue et de l'histoire du village.",
-      "contentEn": "Family activities, guided walks and discovery workshops about local natural heritage, the Sorgue and the history of the village.",
+      "title": "Balade commentee au bord de la Sorgue",
+      "titleEn": "Guided walk along the Sorgue",
+      "startDate": "2026-05-04",
+      "endDate": "2026-05-04",
+      "location": "Depart devant l'office de tourisme",
+      "content": "Parcours accompagne pour comprendre le village, ses points de vue et la riviere.\nConvient bien pour une sortie calme en famille ou pour une premiere decouverte de Fontaine-de-Vaucluse.",
+      "contentEn": "A guided walk to understand the village, its viewpoints and the river.\nWell suited to a calm family outing or a first discovery of Fontaine-de-Vaucluse.",
       "image": "/uploads/fond-jaune-1-scaled.jpg"
     },
     {
       "id": 3,
-      "title": "Visite commentée du village",
-      "titleEn": "Guided village tour",
-      "startDate": "2026-04-21",
-      "endDate": "2026-04-21",
-      "location": "Départ devant l'office d'information",
-      "content": "Parcours pédestre commenté pour découvrir l'organisation du village, ses points de vue et ses repères patrimoniaux.",
-      "contentEn": "A guided walking tour to discover the village layout, its viewpoints and its heritage landmarks.",
-      "image": "/uploads/fond-jaune-1-scaled.jpg"
+      "title": "Soiree contes et lumieres",
+      "titleEn": "Stories and lantern evening",
+      "startDate": "2026-05-07",
+      "endDate": "2026-05-07",
+      "location": "Jardin public",
+      "content": "Lecture de contes et petite deambulation lumineuse dans le centre ancien.\nUne sortie conviviale a privilegier en debut de soiree, avec un depart a pied depuis le centre.",
+      "contentEn": "Storytelling and a short lantern walk through the old centre.\nA friendly early-evening outing with an easy meeting point in the village centre.",
+      "image": "/uploads/images.jpg"
     },
     {
       "id": 4,
-      "title": "Marché hebdomadaire",
+      "title": "Marche hebdomadaire",
       "titleEn": "Weekly market",
-      "startDate": "2026-04-22",
-      "endDate": "2026-04-22",
+      "startDate": "2026-05-06",
+      "endDate": "2026-05-06",
       "location": "Place de la Colonne",
-      "content": "Le rendez-vous hebdomadaire pour retrouver producteurs, artisans et quelques informations utiles pour votre visite.",
-      "contentEn": "The weekly gathering for local producers, craftspeople and a few practical tips for your visit.",
+      "content": "Le rendez-vous hebdomadaire pour retrouver produits locaux, artisanat et informations pratiques pour votre visite.\nPratique si vous cherchez une sortie simple le matin sans reserver.",
+      "contentEn": "The weekly gathering for local produce, crafts and practical tips for your visit.\nUseful if you want an easy morning outing with no booking needed.",
       "image": "/uploads/images.jpg",
       "recurrence": {
         "frequency": "weekly",
@@ -51,6 +51,17 @@
           "wednesday"
         ]
       }
+    },
+    {
+      "id": 5,
+      "title": "Week-end nature et patrimoine",
+      "titleEn": "Nature and heritage weekend",
+      "startDate": "2026-05-16",
+      "endDate": "2026-05-17",
+      "location": "Centre du village et abords de la Sorgue",
+      "content": "Animations familiales, ateliers nature et temps de decouverte autour du patrimoine local.\nA retenir si vous preparez un sejour ou une venue sur tout le week-end.",
+      "contentEn": "Family activities, nature workshops and discovery sessions around local heritage.\nWorth keeping in mind if you are planning a stay or a full weekend visit.",
+      "image": "/uploads/fond-jaune-1-scaled.jpg"
     }
   ]
 }
