@@ -36,7 +36,9 @@ function canShowAgain() {
 export default function InstallPrompt() {
     const { lang } = useLocale();
     const [deferredPrompt, setDeferredPrompt] = useState(null);
-    const [isVisible, setIsVisible] = useState(false);
+    const [isVisible, setIsVisible] = useState(
+        () => !isStandaloneMode() && canShowAgain() && isIosDevice()
+    );
     const [isInstalled, setIsInstalled] = useState(() => isStandaloneMode());
 
     useEffect(() => {
@@ -59,11 +61,6 @@ export default function InstallPrompt() {
 
         window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
         window.addEventListener("appinstalled", handleAppInstalled);
-
-        if (isIosDevice()) {
-            setIsVisible(true);
-        }
-
         return () => {
             window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
             window.removeEventListener("appinstalled", handleAppInstalled);

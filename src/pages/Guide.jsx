@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Layout from "../components/Layout";
-import { getSiteContent } from "../data/loader";
+import { getSectionVisibility, getSiteContent } from "../data/loader";
+import { defaultSectionVisibility, sectionRoutes } from "../data/sections";
 import { getLocalizedField, getLocalizedList } from "../locale";
 import { useLocale } from "../useLocale";
 
@@ -49,19 +50,39 @@ export default function Guide() {
     const location = useLocation();
     const { lang, t } = useLocale();
     const [content, setContent] = useState(EMPTY_CONTENT);
+    const [sectionVisibility, setSectionVisibility] = useState(defaultSectionVisibility);
 
     useEffect(() => {
+        getSectionVisibility().then(setSectionVisibility);
         getSiteContent().then((data) => {
             setContent(data);
         });
     }, []);
 
+    function isRouteVisible(path) {
+        if (path === sectionRoutes.guide) return sectionVisibility.guide;
+        if (path === sectionRoutes.parkings) return sectionVisibility.parkings;
+        if (path === sectionRoutes.events) return sectionVisibility.events;
+        if (path === sectionRoutes.hikes) return sectionVisibility.hikes;
+        if (path === sectionRoutes.news) return sectionVisibility.news;
+        if (path === sectionRoutes.photos) return sectionVisibility.photos;
+        return true;
+    }
+
     const heroLinks = [content.hero.primaryCta, content.hero.secondaryCta].filter(
-        (item) => item?.to && item.to !== location.pathname
+        (item) => item?.to && item.to !== location.pathname && isRouteVisible(item.to)
     );
-    const visibleQuickLinks = content.quickLinks.filter((item) => item.to !== location.pathname);
+    const visibleQuickLinks = content.quickLinks.filter(
+        (item) => item.to !== location.pathname && isRouteVisible(item.to)
+    );
     const alerts = getLocalizedList(content, "alerts", lang);
     const visitorTips = getLocalizedList(content, "visitorTips", lang);
+    const visibleGuideSections = content.guideSections
+        .map((section) => ({
+            ...section,
+            links: section.links.filter((item) => item.to !== location.pathname && isRouteVisible(item.to))
+        }))
+        .filter((section) => section.items.length > 0 || section.links.length > 0);
 
     return (
         <Layout>
@@ -141,9 +162,9 @@ export default function Guide() {
                 </section>
             )}
 
-            {content.guideSections.length > 0 && (
+            {visibleGuideSections.length > 0 && (
                 <section className="grid gap-5 sm:gap-6">
-                    {content.guideSections.map((section) => (
+                    {visibleGuideSections.map((section) => (
                         <article
                             key={section.id}
                             className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6"
@@ -158,18 +179,16 @@ export default function Guide() {
                                         {getLocalizedField(section, "summary", lang)}
                                     </p>
 
-                                    {section.links.some((item) => item.to !== location.pathname) && (
+                                    {section.links.length > 0 && (
                                         <div className="mt-5 flex flex-wrap gap-3">
-                                            {section.links
-                                                .filter((item) => item.to !== location.pathname)
-                                                .map((item, index) => (
-                                                    <GuideLink
-                                                        key={item.id}
-                                                        item={item}
-                                                        primary={index === 0}
-                                                        lang={lang}
-                                                    />
-                                                ))}
+                                            {section.links.map((item, index) => (
+                                                <GuideLink
+                                                    key={item.id}
+                                                    item={item}
+                                                    primary={index === 0}
+                                                    lang={lang}
+                                                />
+                                            ))}
                                         </div>
                                     )}
                                 </div>

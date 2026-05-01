@@ -150,39 +150,6 @@ export default function Navbar() {
                 </div>
             </div>
 
-            <div className="border-t border-white/10 bg-[#19493f] md:hidden">
-                <div className="mx-auto max-w-6xl overflow-x-auto px-4 py-2 sm:px-6">
-                    <nav className="flex min-w-max gap-2">
-                        <NavLink
-                            to="/"
-                            end
-                            className={({ isActive }) =>
-                                isActive
-                                    ? "rounded-full bg-white px-3 py-2 text-sm font-semibold text-[#163c35]"
-                                    : "rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm font-medium text-[#d7e8e1] transition hover:bg-white/10"
-                            }
-                        >
-                            {t("common.home")}
-                        </NavLink>
-                        {visibleNavItems.map((item) => (
-                            <NavLink
-                                key={`mobile-shortcut-${item.to}`}
-                                to={item.to}
-                                className={({ isActive }) =>
-                                    isActive
-                                        ? "rounded-full bg-white px-3 py-2 text-sm font-semibold text-[#163c35]"
-                                        : item.highlight
-                                            ? "rounded-full bg-[#e1d1ae] px-3 py-2 text-sm font-semibold text-[#163c35] transition hover:bg-[#f0e4c8]"
-                                            : "rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm font-medium text-[#d7e8e1] transition hover:bg-white/10"
-                                }
-                            >
-                                {item.label}
-                            </NavLink>
-                        ))}
-                    </nav>
-                </div>
-            </div>
-
             {isOpen && (
                 <div
                     id="mobile-navigation"
