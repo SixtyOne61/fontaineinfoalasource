@@ -1,79 +1,39 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { getSectionVisibility } from "../data/loader";
 import { defaultSectionVisibility, sectionRoutes } from "../data/sections";
 import { useLocale } from "../useLocale";
 
 export default function Navbar() {
-    const location = useLocation();
     const { lang, setLang, t } = useLocale();
-    const [isOpen, setIsOpen] = useState(false);
     const [sectionVisibility, setSectionVisibility] = useState(defaultSectionVisibility);
-    const isOpenRef = useRef(isOpen);
 
     const navItems = [
-        { key: "guide", to: sectionRoutes.guide, label: t("common.guide") },
-        { key: "parkings", to: sectionRoutes.parkings, label: t("common.parkings"), highlight: true },
-        { key: "events", to: sectionRoutes.events, label: t("common.events") },
-        { key: "hikes", to: sectionRoutes.hikes, label: t("common.hikes") },
-        { key: "photos", to: sectionRoutes.photos, label: t("common.photos") },
-        { key: "news", to: sectionRoutes.news, label: t("common.news") }
+        { key: "home", to: "/", label: t("common.home") },
+        { key: "guide", to: sectionRoutes.guide, label: t("common.guide"), shortLabel: lang === "en" ? "Visit" : "Visite" },
+        { key: "parkings", to: sectionRoutes.parkings, label: t("common.parkings"), shortLabel: lang === "en" ? "Parking" : "Parking", highlight: true },
+        { key: "events", to: sectionRoutes.events, label: t("common.events"), shortLabel: lang === "en" ? "Today" : "Aujourd'hui" },
+        { key: "hikes", to: sectionRoutes.hikes, label: t("common.hikes"), shortLabel: lang === "en" ? "Walks" : "Balades" },
+        { key: "photos", to: sectionRoutes.photos, label: t("common.photos"), shortLabel: t("common.photos") },
+        { key: "news", to: sectionRoutes.news, label: t("common.news"), shortLabel: lang === "en" ? "Info" : "Infos" }
     ];
 
     useEffect(() => {
         getSectionVisibility().then(setSectionVisibility);
     }, []);
 
-    useEffect(() => {
-        isOpenRef.current = isOpen;
-    }, [isOpen]);
-
-    useEffect(() => {
-        if (!isOpenRef.current) {
-            return undefined;
-        }
-
-        const closeMenu = window.setTimeout(() => {
-            setIsOpen(false);
-        }, 0);
-
-        return () => {
-            window.clearTimeout(closeMenu);
-        };
-    }, [location.pathname]);
-
-    useEffect(() => {
-        document.body.style.overflow = isOpen ? "hidden" : "";
-
-        return () => {
-            document.body.style.overflow = "";
-        };
-    }, [isOpen]);
-
-    const visibleNavItems = navItems.filter((item) => sectionVisibility[item.key]);
+    const visibleNavItems = navItems.filter((item) => item.key === "home" || sectionVisibility[item.key]);
 
     const linkClass = ({ isActive }, highlight = false) => {
         if (isActive) {
-            return "rounded-full bg-white px-3 py-2 font-semibold text-[#163c35]";
+            return "rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#163c35] shadow-[0_10px_24px_rgba(12,36,31,0.12)]";
         }
 
         if (highlight) {
-            return "rounded-full bg-[#e1d1ae] px-3 py-2 font-semibold text-[#163c35] transition hover:bg-[#f0e4c8]";
+            return "rounded-full bg-[#e1d1ae] px-4 py-2 text-sm font-semibold text-[#163c35] transition hover:bg-[#f0e4c8]";
         }
 
-        return "rounded-full px-3 py-2 text-[#d7e8e1] transition hover:bg-[#2d7467] hover:text-white";
-    };
-
-    const mobileLinkClass = ({ isActive }, highlight = false) => {
-        if (isActive) {
-            return "block rounded-xl bg-white px-4 py-3 font-semibold text-[#163c35]";
-        }
-
-        if (highlight) {
-            return "block rounded-xl bg-[#e1d1ae] px-4 py-3 font-semibold text-[#163c35]";
-        }
-
-        return "block rounded-xl px-4 py-3 text-[#d7e8e1] transition hover:bg-[#2d7467] hover:text-white";
+        return "rounded-full bg-white/8 px-4 py-2 text-sm font-medium text-[#e7f1ed] transition hover:bg-white/14 hover:text-white";
     };
 
     const languageSwitcher = (
@@ -117,66 +77,34 @@ export default function Navbar() {
                     </div>
                 </Link>
 
-                <div className="hidden items-center gap-3 md:flex">
-                    <nav className="flex items-center gap-2">
-                        <NavLink to="/" end className={(state) => linkClass(state)}>
-                            {t("common.home")}
-                        </NavLink>
-                        {visibleNavItems.map((item) => (
-                            <NavLink
-                                key={item.to}
-                                to={item.to}
-                                className={(state) => linkClass(state, item.highlight)}
-                            >
-                                {item.label}
-                            </NavLink>
-                        ))}
-                    </nav>
+                <div className="shrink-0">
                     {languageSwitcher}
-                </div>
-
-                <div className="flex items-center gap-2 md:hidden">
-                    {languageSwitcher}
-                    <button
-                        type="button"
-                        className="inline-flex shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-white transition hover:bg-white/[0.15]"
-                        onClick={() => setIsOpen(!isOpen)}
-                        aria-label={t("common.menu")}
-                        aria-expanded={isOpen}
-                        aria-controls="mobile-navigation"
-                    >
-                        <span className="text-sm font-medium">{isOpen ? t("common.close") : t("common.menu")}</span>
-                    </button>
                 </div>
             </div>
 
-            {isOpen && (
-                <div
-                    id="mobile-navigation"
-                    className="border-t border-white/10 bg-[#163c35] px-4 pb-4 pt-3 shadow-[0_18px_40px_rgba(0,0,0,0.18)] sm:px-6 md:hidden"
-                >
-                    <nav className="mx-auto grid max-w-6xl gap-2">
-                        <NavLink
-                            to="/"
-                            end
-                            className={(state) => mobileLinkClass(state)}
-                            onClick={() => setIsOpen(false)}
-                        >
-                            {t("common.home")}
-                        </NavLink>
-                        {visibleNavItems.map((item) => (
-                            <NavLink
-                                key={item.to}
-                                to={item.to}
-                                className={(state) => mobileLinkClass(state, item.highlight)}
-                                onClick={() => setIsOpen(false)}
-                            >
-                                {item.label}
-                            </NavLink>
-                        ))}
+            <div className="border-t border-white/10 bg-[#18463e]/80">
+                <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6">
+                    <nav
+                        aria-label={lang === "en" ? "Main navigation" : "Navigation principale"}
+                        className="overflow-x-auto"
+                    >
+                        <div className="flex min-w-max gap-2 pb-1">
+                            {visibleNavItems.map((item) => (
+                                <NavLink
+                                    key={item.to}
+                                    to={item.to}
+                                    end={item.to === "/"}
+                                    className={(state) => linkClass(state, item.highlight)}
+                                    aria-label={item.label}
+                                >
+                                    <span className="sm:hidden">{item.shortLabel || item.label}</span>
+                                    <span className="hidden sm:inline">{item.label}</span>
+                                </NavLink>
+                            ))}
+                        </div>
                     </nav>
                 </div>
-            )}
+            </div>
         </header>
     );
 }

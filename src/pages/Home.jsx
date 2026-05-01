@@ -329,6 +329,7 @@ export default function Home() {
         easyHikes,
         featuredNews
     });
+    const hasVisitorInfo = alerts.length > 0 || visitorTips.length > 0;
 
     return (
         <Layout>
@@ -444,7 +445,7 @@ export default function Home() {
                 </section>
             ) : null}
 
-            {(alerts.length > 0 || visitorTips.length > 0) ? (
+            {hasVisitorInfo ? (
                 <section className="mb-10 grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
                     {alerts.length > 0 ? (
                         <article className="rounded-[1.6rem] border border-[#d8c08f]/60 bg-[#fff8e8] p-5 shadow-[0_18px_60px_rgba(149,122,52,0.10)]">
