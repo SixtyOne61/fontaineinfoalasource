@@ -4,31 +4,25 @@
       "id": "village-ambiance",
       "title": "Ambiances du village",
       "titleEn": "Village atmosphere",
-      "description": "Quelques vues pour montrer l'atmosphère de Fontaine-de-Vaucluse entre pierre, eau et lumières de la journée.",
+      "description": "Quelques vues pour montrer l'atmosphere de Fontaine-de-Vaucluse entre pierre, eau et lumieres de la journee.",
       "descriptionEn": "A few views to capture the atmosphere of Fontaine-de-Vaucluse through stone, water and changing daylight.",
       "photos": [
         {
           "id": "village-1",
-          "image": "/uploads/images.jpg",
-          "alt": "Vue du village",
-          "altEn": "Village view",
-          "caption": "Une vue d'ensemble pour planter le décor.",
-          "captionEn": "A broad view to set the scene."
+          "image": "/uploads/images.jpg"
         },
         {
           "id": "village-2",
-          "image": "/uploads/fond-jaune-1-scaled.jpg",
-          "alt": "Façades et lumière",
-          "altEn": "Facades and light",
-          "caption": "Les contrastes de couleurs donnent tout de suite le ton.",
-          "captionEn": "The colour contrasts immediately set the tone."
+          "image": "/uploads/fond-jaune-1-scaled.jpg"
         }
       ]
     },
     {
       "id": "moments-a-decouvrir",
       "title": "Le village se fleurit",
-      "titleEn": "The village is blooming.",
+      "titleEn": "The village is blooming",
+      "description": "Une selection plus visuelle pour garder l'idee d'un village vivant, fleuri et agreable a parcourir.",
+      "descriptionEn": "A more visual selection to keep the feeling of a lively, blooming village that is pleasant to explore.",
       "photos": [
         {
           "id": "moment-1",

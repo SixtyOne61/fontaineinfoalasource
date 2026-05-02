@@ -23,8 +23,8 @@ export default function Photos() {
                     </h1>
                     <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
                         {lang === "en"
-                            ? "Browse themed photo groups with a short text to help highlight places, atmospheres and local moments."
-                            : "Retrouvez des groupes de photos accompagnés d'un texte pour mettre en valeur les lieux, les ambiances et les moments de Fontaine-de-Vaucluse."}
+                            ? "Browse simple themed photo groups, each with a title and a short description."
+                            : "Retrouvez des groupes de photos simples, avec seulement un titre et une courte description."}
                     </p>
                 </div>
             </section>
@@ -48,22 +48,17 @@ export default function Photos() {
 
                             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                                 {group.photos.map((photo) => (
-                                    <figure
+                                    <div
                                         key={photo.id}
                                         className="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-50"
                                     >
                                         <CoverImage
                                             src={photo.image}
-                                            alt={getLocalizedField(photo, "alt", lang) || getLocalizedField(group, "title", lang)}
+                                            alt={getLocalizedField(group, "title", lang)}
                                             className="h-64 w-full object-cover"
                                             fallbackText={lang === "en" ? "Image unavailable" : "Image indisponible"}
                                         />
-                                        {(getLocalizedField(photo, "caption", lang) || getLocalizedField(photo, "alt", lang)) && (
-                                            <figcaption className="px-4 py-3 text-sm text-slate-600">
-                                                {getLocalizedField(photo, "caption", lang) || getLocalizedField(photo, "alt", lang)}
-                                            </figcaption>
-                                        )}
-                                    </figure>
+                                    </div>
                                 ))}
                             </div>
                         </article>
@@ -74,7 +69,7 @@ export default function Photos() {
                     <div className="surface-card rounded-[1.75rem] border border-white/70 p-5 text-slate-600 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
                         {lang === "en"
                             ? "No photo group has been added yet."
-                            : "Aucun groupe photo n'a encore été ajouté."}
+                            : "Aucun groupe photo n'a encore ete ajoute."}
                     </div>
                 </section>
             )}

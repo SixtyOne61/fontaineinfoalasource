@@ -288,7 +288,7 @@ function sanitizeParkingItem(item) {
 }
 
 function sanitizePhotoItem(item) {
-    const id = sanitizeId(item?.id) || slugifyText(sanitizeText(item?.caption, 80)) || slugifyText(sanitizeText(item?.alt, 80));
+    const id = sanitizeId(item?.id) || slugifyText(sanitizeText(item?.image, 120));
     const image = sanitizePublicAssetPath(item?.image, {
         allowedPrefixes: ["/uploads/"],
         allowedExtensions: [".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"],
@@ -299,8 +299,6 @@ function sanitizePhotoItem(item) {
     return {
         id,
         image,
-        ...sanitizeLocalizedTextFields(item, "alt", 160),
-        ...sanitizeLocalizedTextFields(item, "caption", 220),
     };
 }
 
