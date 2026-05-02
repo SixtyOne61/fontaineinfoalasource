@@ -51,16 +51,6 @@
       "to": "/events"
     },
     {
-      "id": "hikes",
-      "title": "Balades",
-      "titleEn": "Walks",
-      "description": "Choisissez un parcours adapté à votre envie, votre temps et votre niveau.",
-      "descriptionEn": "Choose a route that matches your mood, your available time and your level.",
-      "badge": "Nature",
-      "badgeEn": "Nature",
-      "to": "/hikes"
-    },
-    {
       "id": "photos",
       "title": "Fontaine en photo",
       "titleEn": "Fontaine in photos",
