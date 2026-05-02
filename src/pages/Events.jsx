@@ -1,13 +1,14 @@
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "../components/Card";
-import EventsCalendar from "../components/EventsCalendar";
 import Layout from "../components/Layout";
 import SearchBar from "../components/SearchBar";
 import { getEvents } from "../data/loader";
 import { getLocalizedField } from "../locale";
 import { useLocale } from "../useLocale";
 import { compareEventsByStartDate, getEventEndDate, getEventStartDate, getRecurrenceLabel, parseLocalDate } from "../utils/events";
+
+const EventsCalendar = lazy(() => import("../components/EventsCalendar"));
 
 function getStartOfToday() {
     const today = new Date();
@@ -157,6 +158,14 @@ function EventCard({ event, lang, linkLabel }) {
     );
 }
 
+function CalendarLoadingPanel({ lang }) {
+    return (
+        <div className="surface-card rounded-[1.75rem] border border-dashed border-[#c7ddd5] px-4 py-10 text-center text-sm text-slate-600 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
+            {lang === "en" ? "Loading the event calendar..." : "Chargement du calendrier des evenements..."}
+        </div>
+    );
+}
+
 export default function Events() {
     const { lang, t } = useLocale();
     const [events, setEvents] = useState([]);
@@ -258,7 +267,9 @@ export default function Events() {
             )}
 
             <section className="mb-8">
-                <EventsCalendar events={events} />
+                <Suspense fallback={<CalendarLoadingPanel lang={lang} />}>
+                    <EventsCalendar events={events} />
+                </Suspense>
             </section>
 
             <div className="surface-card mb-6 rounded-[1.75rem] border border-white/70 p-4 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">

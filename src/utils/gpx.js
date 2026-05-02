@@ -1,4 +1,4 @@
-import { sanitizePublicAssetPath } from "./security";
+import { sanitizePublicAssetPath } from "./security.js";
 
 function haversineDistance(lat1, lon1, lat2, lon2) {
     const toRad = (value) => (value * Math.PI) / 180;

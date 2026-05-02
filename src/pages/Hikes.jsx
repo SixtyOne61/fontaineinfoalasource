@@ -1,11 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import HikesInteractiveMap from "../components/HikesInteractiveMap";
 import Layout from "../components/Layout";
 import SearchBar from "../components/SearchBar";
 import { getHikes } from "../data/loader";
 import { getLocalizedField } from "../locale";
 import { useLocale } from "../useLocale";
+
+const HikesInteractiveMap = lazy(() => import("../components/HikesInteractiveMap"));
 
 const difficultyFilters = {
     fr: [
@@ -159,6 +160,14 @@ function matchesIntent(signals, intentFilter) {
     if (intentFilter === "sport") return signals.isHard || (!signals.isEasy && signals.minutes >= 150);
 
     return true;
+}
+
+function MapLoadingPanel({ lang }) {
+    return (
+        <div className="surface-card rounded-[1.75rem] border border-dashed border-[#c7ddd5] px-4 py-10 text-center text-sm text-slate-600 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
+            {lang === "en" ? "Loading the hike map..." : "Chargement de la carte des parcours..."}
+        </div>
+    );
 }
 
 export default function Hikes() {
@@ -356,11 +365,13 @@ export default function Hikes() {
             </div>
 
             <section className="mb-8">
-                <HikesInteractiveMap
-                    hikes={filteredHikes}
-                    selectedHike={selectedHike}
-                    onMarkerClick={(hike) => setSelectedHikeId(hike.id)}
-                />
+                <Suspense fallback={<MapLoadingPanel lang={lang} />}>
+                    <HikesInteractiveMap
+                        hikes={filteredHikes}
+                        selectedHike={selectedHike}
+                        onMarkerClick={(hike) => setSelectedHikeId(hike.id)}
+                    />
+                </Suspense>
             </section>
 
             <section>

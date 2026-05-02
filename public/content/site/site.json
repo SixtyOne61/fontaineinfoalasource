@@ -2,9 +2,9 @@
   "hero": {
     "eyebrow": "Infos pratiques",
     "eyebrowEn": "Practical information",
-    "title": "Préparer sa venue et trouver les bons contacts",
+    "title": "Preparer sa venue et trouver les bons contacts",
     "titleEn": "Plan your visit and find the right contacts",
-    "description": "Cette page rassemble les repères utiles pour les visiteurs, les habitants et les proches de passage : accès, informations du jour, services utiles et contacts municipaux.",
+    "description": "Cette page rassemble les reperes utiles pour les visiteurs, les habitants et les proches de passage : acces, infos du jour, services utiles et contacts municipaux.",
     "descriptionEn": "This page brings together the essentials for visitors, residents and day guests: access, daily updates, useful services and municipal contacts.",
     "primaryCta": {
       "id": "parking",
@@ -24,9 +24,9 @@
       "id": "guide",
       "title": "Guide pratique",
       "titleEn": "Practical guide",
-      "description": "Les bons repères pour arriver plus sereinement et profiter du village sans perdre de temps.",
+      "description": "Les bons reperes pour arriver plus sereinement et profiter du village sans perdre de temps.",
       "descriptionEn": "Key guidance to arrive with ease and enjoy the village without wasting time.",
-      "badge": "À savoir",
+      "badge": "A savoir",
       "badgeEn": "Good to know",
       "to": "/guide"
     },
@@ -34,17 +34,17 @@
       "id": "parking",
       "title": "Parkings",
       "titleEn": "Parking",
-      "description": "Repérez rapidement où vous garer selon votre véhicule et votre façon de visiter.",
+      "description": "Reperez rapidement ou vous garer selon votre vehicule et votre facon de visiter.",
       "descriptionEn": "Quickly find where to park depending on your vehicle and the way you plan to visit.",
-      "badge": "Accès",
+      "badge": "Acces",
       "badgeEn": "Access",
       "to": "/parking"
     },
     {
       "id": "events",
-      "title": "Événements",
+      "title": "Evenements",
       "titleEn": "Events",
-      "description": "Retrouvez les rendez-vous du moment et les animations à ne pas manquer.",
+      "description": "Retrouvez les rendez-vous du moment et les animations a ne pas manquer.",
       "descriptionEn": "See what is on now and the local events you may not want to miss.",
       "badge": "Sorties",
       "badgeEn": "Outings",
@@ -54,7 +54,7 @@
       "id": "hikes",
       "title": "Balades",
       "titleEn": "Walks",
-      "description": "Choisissez un parcours adapté à votre envie, votre temps et votre niveau.",
+      "description": "Choisissez un parcours adapte a votre envie, votre temps et votre niveau.",
       "descriptionEn": "Choose a route that matches your mood, your available time and your level.",
       "badge": "Nature",
       "badgeEn": "Nature",
@@ -64,7 +64,7 @@
       "id": "photos",
       "title": "Fontaine en photo",
       "titleEn": "Fontaine in photos",
-      "description": "Retrouvez des séries de photos accompagnées d'un court texte pour découvrir le village autrement.",
+      "description": "Retrouvez des series de photos accompagnees d'un court texte pour decouvrir le village autrement.",
       "descriptionEn": "Browse themed photo sets with short texts to discover the village from another angle.",
       "badge": "Galerie",
       "badgeEn": "Gallery",
@@ -74,7 +74,7 @@
       "id": "news",
       "title": "Infos utiles",
       "titleEn": "Useful updates",
-      "description": "Gardez un œil sur les infos pratiques du moment pour visiter plus tranquillement.",
+      "description": "Gardez un oeil sur les infos pratiques du moment pour visiter plus tranquillement.",
       "descriptionEn": "Keep an eye on practical local updates for a smoother visit.",
       "badge": "Pratique",
       "badgeEn": "Practical",
@@ -84,24 +84,24 @@
   "highlights": [
     {
       "id": "mobilite",
-      "title": "Le village se découvre à pied",
+      "title": "Le village se decouvre a pied",
       "titleEn": "The village is best enjoyed on foot",
       "value": "Balade avant tout",
       "valueEn": "Best on foot",
       "tag": "Conseil",
       "tagEn": "Tip",
-      "description": "Une fois garé, quelques minutes à pied suffisent souvent pour rejoindre les lieux les plus appréciés.",
+      "description": "Une fois gare, quelques minutes a pied suffisent souvent pour rejoindre les lieux les plus apprecies.",
       "descriptionEn": "Once parked, a short walk is often all you need to reach the village's most popular spots."
     },
     {
       "id": "stationnement",
-      "title": "Stationnement conseillé",
+      "title": "Stationnement conseille",
       "titleEn": "Recommended parking",
-      "value": "Dès l'entrée du village",
+      "value": "Des l'entree du village",
       "valueEn": "Right at the village entrance",
-      "tag": "Accès",
+      "tag": "Acces",
       "tagEn": "Access",
-      "description": "Les parkings d'entrée de village permettent d'arriver plus calmement et d'éviter les détours inutiles.",
+      "description": "Les parkings d'entree de village permettent d'arriver plus calmement et d'eviter les detours inutiles.",
       "descriptionEn": "Entrance parking areas make arrival easier and help avoid unnecessary detours."
     },
     {
@@ -112,8 +112,67 @@
       "valueEn": "Short or more active",
       "tag": "Nature",
       "tagEn": "Nature",
-      "description": "Que vous ayez une heure ou une demi-journée, il y a de quoi profiter des alentours.",
+      "description": "Que vous ayez une heure ou une demi-journee, il y a de quoi profiter des alentours.",
       "descriptionEn": "Whether you have one hour or half a day, there is a route to enjoy nearby."
+    }
+  ],
+  "dailyInfo": [
+    {
+      "id": "daily-stationnement-weekend",
+      "title": "Stationnement plus vite rempli les week-ends ensoleilles",
+      "titleEn": "Parking fills faster on sunny weekends",
+      "summary": "Quand l'affluence monte, il vaut mieux viser les parkings d'entree de village et arriver en debut de matinee.",
+      "summaryEn": "When visitor numbers rise, it is best to use the entrance parking areas and arrive earlier in the morning.",
+      "status": "Attention",
+      "statusEn": "Attention",
+      "category": "Acces",
+      "categoryEn": "Access",
+      "audience": "Visiteurs du jour",
+      "audienceEn": "Day visitors",
+      "updatedAt": "2026-05-02",
+      "validUntil": "2026-09-30",
+      "published": true,
+      "ctaLabel": "Ouvrir la page parkings",
+      "ctaLabelEn": "Open parking page",
+      "ctaTo": "/parking"
+    },
+    {
+      "id": "daily-chaleur-balades",
+      "title": "Chaleur : prevoir de l'eau et raccourcir les balades si besoin",
+      "titleEn": "Heat: bring water and shorten walks if needed",
+      "summary": "En periode chaude, privilegier les heures plus douces et choisir un parcours adapte a votre forme du jour.",
+      "summaryEn": "During hot weather, favour cooler hours and choose a route that matches your energy level.",
+      "status": "Conseil",
+      "statusEn": "Advice",
+      "category": "Nature",
+      "categoryEn": "Nature",
+      "audience": "Visiteurs et habitants",
+      "audienceEn": "Visitors and residents",
+      "updatedAt": "2026-05-02",
+      "validUntil": "2026-09-30",
+      "published": true,
+      "ctaLabel": "Voir les balades",
+      "ctaLabelEn": "See walks",
+      "ctaTo": "/hikes"
+    },
+    {
+      "id": "daily-agenda-centre",
+      "title": "Jour d'animation : verifier l'agenda avant de venir au centre",
+      "titleEn": "Event day: check the agenda before coming into the centre",
+      "summary": "Les evenements peuvent modifier l'ambiance, la circulation a pied et le meilleur moment pour arriver.",
+      "summaryEn": "Events can affect the atmosphere, foot traffic and the best time to arrive.",
+      "status": "Info",
+      "statusEn": "Info",
+      "category": "Agenda",
+      "categoryEn": "Agenda",
+      "audience": "Visiteurs et habitants",
+      "audienceEn": "Visitors and residents",
+      "updatedAt": "2026-05-02",
+      "validUntil": "2026-12-31",
+      "published": true,
+      "ctaLabel": "Consulter l'agenda",
+      "ctaLabelEn": "Check events",
+      "ctaTo": "/events"
     }
   ],
   "guideSections": [
@@ -121,26 +180,26 @@
       "id": "arriver-stationner",
       "title": "Arriver et stationner",
       "titleEn": "Arrive and park",
-      "summary": "Avant d'entrer dans le cœur du village, mieux vaut repérer son accès et son stationnement. C'est souvent ce qui rend la visite la plus simple.",
+      "summary": "Avant d'entrer dans le coeur du village, mieux vaut reperer son acces et son stationnement. C'est souvent ce qui rend la visite la plus simple.",
       "summaryEn": "Before entering the village centre, it helps to check access and parking first. This is often what makes the visit easiest.",
       "items": [
         {
           "id": "arrive-1",
           "title": "Choisir son parking avant de descendre",
           "titleEn": "Choose your parking before heading in",
-          "description": "En période d'affluence, arriver avec un parking déjà repéré évite les détours et les demi-tours dans le village."
+          "description": "En periode d'affluence, arriver avec un parking deja repere evite les detours et les demi-tours dans le village."
         },
         {
           "id": "arrive-2",
-          "title": "Vérifier le type de véhicule accepté",
+          "title": "Verifier le type de vehicule accepte",
           "titleEn": "Check which vehicles are accepted",
-          "description": "Les fiches parking permettent de voir rapidement si l'emplacement convient à une voiture, une moto, un van ou un camping-car."
+          "description": "Les fiches parking permettent de voir rapidement si l'emplacement convient a une voiture, une moto, un van ou un camping-car."
         },
         {
           "id": "arrive-3",
-          "title": "Privilégier ensuite la marche",
+          "title": "Privilegier ensuite la marche",
           "titleEn": "Then continue on foot",
-          "description": "Une fois garé, les déplacements à pied sont souvent les plus simples pour profiter du centre, de la source et des commerces."
+          "description": "Une fois gare, les deplacements a pied sont souvent les plus simples pour profiter du centre, de la source et des commerces."
         }
       ],
       "links": [
@@ -154,28 +213,28 @@
     },
     {
       "id": "infos-du-jour",
-      "title": "Vérifier les infos du jour",
+      "title": "Verifier les infos du jour",
       "titleEn": "Check daily updates",
-      "summary": "Avant de partir ou en arrivant, quelques informations peuvent changer votre organisation du jour : affluence, consignes temporaires, actualités locales ou agenda.",
+      "summary": "Avant de partir ou en arrivant, quelques informations peuvent changer votre organisation du jour : affluence, consignes temporaires, actualites locales ou agenda.",
       "summaryEn": "Before leaving or once you arrive, a few updates can affect your day: busy periods, temporary instructions, local updates or events.",
       "items": [
         {
           "id": "day-1",
-          "title": "Consulter les infos utiles en priorité",
+          "title": "Consulter les infos utiles en priorite",
           "titleEn": "Check useful updates first",
-          "description": "Une information municipale ou une consigne temporaire peut vous aider à choisir le meilleur moment pour venir ou le bon accès."
+          "description": "Une information municipale ou une consigne temporaire peut vous aider a choisir le meilleur moment pour venir ou le bon acces."
         },
         {
           "id": "day-2",
           "title": "Regarder l'agenda si vous venez pour une sortie",
           "titleEn": "Check the events page if you are planning an outing",
-          "description": "Marché, animation, concert ou rendez-vous local peuvent modifier l'ambiance sur place et les conditions de circulation."
+          "description": "Marche, animation, concert ou rendez-vous local peuvent modifier l'ambiance sur place et les conditions de circulation."
         },
         {
           "id": "day-3",
-          "title": "Prévoir un peu plus de temps les jours très fréquentés",
+          "title": "Prevoir un peu plus de temps les jours tres frequentes",
           "titleEn": "Allow more time on busy days",
-          "description": "Lors des week-ends et journées ensoleillées, anticiper l'arrivée et le stationnement reste le meilleur réflexe."
+          "description": "Lors des week-ends et journees ensoleillees, anticiper l'arrivee et le stationnement reste le meilleur reflexe."
         }
       ],
       "links": [
@@ -197,26 +256,26 @@
       "id": "balades-conditions",
       "title": "Balades, nature et conditions de visite",
       "titleEn": "Walks, nature and visiting conditions",
-      "summary": "Le village et ses alentours se prêtent à la promenade, mais il vaut mieux choisir un parcours adapté à son temps et à sa forme du jour.",
+      "summary": "Le village et ses alentours se pretent a la promenade, mais il vaut mieux choisir un parcours adapte a son temps et a sa forme du jour.",
       "summaryEn": "The village and its surroundings are ideal for walking, but it helps to choose a route that fits your time and energy.",
       "items": [
         {
           "id": "walk-1",
-          "title": "Choisir une balade adaptée à votre durée",
+          "title": "Choisir une balade adaptee a votre duree",
           "titleEn": "Choose a walk that fits your schedule",
-          "description": "Une courte promenade peut suffire pour une découverte, tandis qu'une demi-journée permet d'aller plus loin dans les environs."
+          "description": "Une courte promenade peut suffire pour une decouverte, tandis qu'une demi-journee permet d'aller plus loin dans les environs."
         },
         {
           "id": "walk-2",
-          "title": "Prendre en compte la météo et la chaleur",
+          "title": "Prendre en compte la meteo et la chaleur",
           "titleEn": "Take weather and heat into account",
-          "description": "En période chaude, mieux vaut prévoir de l'eau, partir tôt et éviter de surestimer la durée ou l'effort souhaité."
+          "description": "En periode chaude, mieux vaut prevoir de l'eau, partir tot et eviter de surestimer la duree ou l'effort souhaite."
         },
         {
           "id": "walk-3",
-          "title": "Repérer le départ avant de partir",
+          "title": "Reperer le depart avant de partir",
           "titleEn": "Locate the starting point before setting off",
-          "description": "Chaque fiche balade permet de mieux comprendre le point de départ, la difficulté et l'intérêt du parcours."
+          "description": "Chaque fiche balade permet de mieux comprendre le point de depart, la difficulte et l'interet du parcours."
         }
       ],
       "links": [
@@ -239,29 +298,119 @@
           "id": "contact-1",
           "title": "Pour une question municipale, contacter la mairie",
           "titleEn": "For municipal questions, contact the town hall",
-          "description": "Horaires, démarches, informations pratiques ou orientation locale : la mairie reste l'entrée officielle pour les demandes courantes."
+          "description": "Horaires, demarches, informations pratiques ou orientation locale : la mairie reste l'entree officielle pour les demandes courantes."
         },
         {
           "id": "contact-2",
           "title": "Pour l'accueil des visiteurs, joindre l'office de tourisme",
           "titleEn": "For visitor guidance, contact the tourist office",
-          "description": "L'office peut aider pour une première orientation, les horaires d'ouverture, les conseils de visite et les informations de séjour."
+          "description": "L'office peut aider pour une premiere orientation, les horaires d'ouverture, les conseils de visite et les informations de sejour."
         },
         {
           "id": "contact-3",
           "title": "Pour mieux comprendre le site, s'appuyer sur le Grand Site",
           "titleEn": "For site information, rely on the Grand Site team",
-          "description": "Le Grand Site peut être utile pour les informations de découverte, de préservation et de compréhension du site naturel."
+          "description": "Le Grand Site peut etre utile pour les informations de decouverte, de preservation et de comprehension du site naturel."
         }
       ],
       "links": [
         {
           "id": "home-link",
-          "label": "Retour à l'accueil",
+          "label": "Retour a l'accueil",
           "labelEn": "Back to home",
           "to": "/"
         }
       ]
+    }
+  ],
+  "practicalServices": [
+    {
+      "id": "service-tourisme",
+      "name": "Office de tourisme",
+      "nameEn": "Tourist office",
+      "category": "Accueil visiteurs",
+      "categoryEn": "Visitor reception",
+      "audience": "Visiteurs du jour et touristes",
+      "audienceEn": "Day visitors and tourists",
+      "summary": "Point d'entree utile pour les horaires, les idees de visite et un premier conseil d'orientation.",
+      "summaryEn": "A useful first stop for opening hours, visit ideas and local orientation advice.",
+      "details": "A privilegier si vous avez besoin d'un conseil rapide sur le village, les environs ou l'organisation de la journee.",
+      "detailsEn": "Best used when you need quick advice about the village, nearby places or how to organise the day.",
+      "location": "4 route de Cavaillon, 84800 Fontaine-de-Vaucluse",
+      "locationEn": "4 route de Cavaillon, 84800 Fontaine-de-Vaucluse",
+      "hours": "Horaires variables selon la saison. Verifier avant de vous deplacer.",
+      "hoursEn": "Opening hours vary by season. Check before travelling.",
+      "phone": "04 90 38 04 78",
+      "email": "",
+      "website": "",
+      "updatedAt": "2026-05-02",
+      "published": true
+    },
+    {
+      "id": "service-toilettes",
+      "name": "Toilettes publiques",
+      "nameEn": "Public toilets",
+      "category": "Service sur place",
+      "categoryEn": "On-site service",
+      "audience": "Visiteurs et habitants",
+      "audienceEn": "Visitors and residents",
+      "summary": "Service utile a reperer des l'arrivee, surtout les jours de forte frequentation ou en famille.",
+      "summaryEn": "Useful to locate as soon as you arrive, especially on busy days or with family.",
+      "details": "Les emplacements exacts et conditions d'ouverture doivent rester verifiees par l'equipe municipale avant publication.",
+      "detailsEn": "Exact locations and opening conditions should be checked by the municipal team before publishing.",
+      "location": "A completer selon les points ouverts au public",
+      "locationEn": "To be completed according to the public facilities currently open",
+      "hours": "A completer selon la saison ou les contraintes du moment",
+      "hoursEn": "To be completed according to the season or temporary constraints",
+      "phone": "",
+      "email": "",
+      "website": "",
+      "updatedAt": "2026-05-02",
+      "published": false
+    },
+    {
+      "id": "service-eau",
+      "name": "Points d'eau et pauses utiles",
+      "nameEn": "Water points and useful breaks",
+      "category": "Confort de visite",
+      "categoryEn": "Visitor comfort",
+      "audience": "Visiteurs et habitants",
+      "audienceEn": "Visitors and residents",
+      "summary": "A renseigner pour aider les familles, les seniors et les visiteurs en periode chaude.",
+      "summaryEn": "Fill this in to help families, older visitors and people coming during hot weather.",
+      "details": "Preciser uniquement des informations verifiees sur les points d'eau, lieux de pause ou zones ombragees faciles d'acces.",
+      "detailsEn": "Only provide verified information about water points, resting areas or easy-to-reach shaded places.",
+      "location": "A completer si des points d'eau publics sont disponibles",
+      "locationEn": "Complete if public water points are available",
+      "hours": "A completer si l'acces varie selon la periode",
+      "hoursEn": "Complete if access changes depending on the period",
+      "phone": "",
+      "email": "",
+      "website": "",
+      "updatedAt": "2026-05-02",
+      "published": false
+    },
+    {
+      "id": "service-accessibilite",
+      "name": "Reperes accessibilite et mobilite apaisee",
+      "nameEn": "Accessibility and calmer mobility guidance",
+      "category": "Acces",
+      "categoryEn": "Access",
+      "audience": "Habitants, seniors et visiteurs avec besoin d'accompagnement",
+      "audienceEn": "Residents, older visitors and people needing support",
+      "summary": "Bloc utile pour signaler les acces plus simples, les limites connues et les points de vigilance.",
+      "summaryEn": "Useful section to highlight easier routes, known limits and key points of attention.",
+      "details": "Indiquer des informations concretes : pente, marche, longueur de trajet a pied, zone plus simple pour une personne a mobilite reduite.",
+      "detailsEn": "Give concrete details such as slope, steps, walking distance and the easiest area for reduced mobility.",
+      "location": "A completer selon les parcours les plus accessibles",
+      "locationEn": "To be completed according to the most accessible routes",
+      "hours": "Accessible toute l'annee sauf consigne temporaire a preciser",
+      "hoursEn": "Accessible all year unless a temporary restriction must be noted",
+      "phone": "",
+      "email": "mairie@fontainedevaucluse.fr",
+      "website": "",
+      "updatedAt": "2026-05-02",
+      "published": false
     }
   ],
   "contacts": [
@@ -271,13 +420,13 @@
       "nameEn": "Fontaine-de-Vaucluse Town Hall",
       "role": "Accueil municipal",
       "roleEn": "Municipal reception",
-      "description": "Contact officiel pour les démarches, les renseignements municipaux et les informations pratiques liées à la commune.",
+      "description": "Contact officiel pour les demarches, les renseignements municipaux et les informations pratiques liees a la commune.",
       "descriptionEn": "Official contact for municipal procedures, town information and practical local guidance.",
       "phone": "04 90 20 31 79",
       "email": "mairie@fontainedevaucluse.fr",
       "address": "1 place de la Colonne, 84800 Fontaine-de-Vaucluse",
       "addressEn": "1 place de la Colonne, 84800 Fontaine-de-Vaucluse",
-      "hours": "Accueil du public du lundi au vendredi de 9h à 12h. Accueil téléphonique du lundi au jeudi de 9h à 12h et de 14h à 16h45, le vendredi de 9h à 12h.",
+      "hours": "Accueil du public du lundi au vendredi de 9h a 12h. Accueil telephonique du lundi au jeudi de 9h a 12h et de 14h a 16h45, le vendredi de 9h a 12h.",
       "hoursEn": "Public reception Monday to Friday from 9am to 12pm. Phone reception Monday to Thursday from 9am to 12pm and 2pm to 4:45pm, Friday from 9am to 12pm."
     },
     {
@@ -286,13 +435,13 @@
       "nameEn": "Fontaine-de-Vaucluse Tourist Office",
       "role": "Accueil visiteurs",
       "roleEn": "Visitor reception",
-      "description": "Point d'information utile pour préparer une visite, obtenir un conseil d'orientation ou vérifier les horaires d'accueil touristique.",
+      "description": "Point d'information utile pour preparer une visite, obtenir un conseil d'orientation ou verifier les horaires d'accueil touristique.",
       "descriptionEn": "Useful information point to prepare a visit, get local orientation advice or check visitor opening hours.",
       "phone": "04 90 38 04 78",
       "email": "",
       "address": "4 route de Cavaillon, 84800 Fontaine-de-Vaucluse",
       "addressEn": "4 route de Cavaillon, 84800 Fontaine-de-Vaucluse",
-      "hours": "Horaires variables selon la saison. Vérifier l'ouverture du bureau avant de vous déplacer, surtout hors vacances et jours fériés.",
+      "hours": "Horaires variables selon la saison. Verifier l'ouverture du bureau avant de vous deplacer, surtout hors vacances et jours feries.",
       "hoursEn": "Opening hours vary by season. Check before travelling, especially outside holiday periods and public holidays."
     },
     {
@@ -301,21 +450,21 @@
       "nameEn": "Grand Site La Fontaine de Vaucluse",
       "role": "Informations sur le site",
       "roleEn": "Site information",
-      "description": "Contact utile pour mieux comprendre le site naturel, ses enjeux de préservation et certaines informations de découverte.",
+      "description": "Contact utile pour mieux comprendre le site naturel, ses enjeux de preservation et certaines informations de decouverte.",
       "descriptionEn": "Useful contact to better understand the natural site, preservation matters and some visitor information.",
       "phone": "04 90 21 43 11",
       "email": "",
       "address": "Fontaine-de-Vaucluse",
       "addressEn": "Fontaine-de-Vaucluse",
-      "hours": "Se renseigner avant déplacement selon la période et les animations en cours.",
+      "hours": "Se renseigner avant deplacement selon la periode et les animations en cours.",
       "hoursEn": "Check before travelling depending on the season and current activities."
     }
   ],
   "visitorTips": [
-    "Regardez les parkings avant d'entrer dans le village : cela simplifie souvent l'arrivée.",
-    "Une fois garé, le plus agréable est souvent de poursuivre la visite à pied.",
-    "Consultez les infos du jour en cas d'événement, de forte fréquentation ou de consigne temporaire.",
-    "Pour une balade, emportez de l'eau et choisissez un parcours adapté à votre temps et à votre niveau."
+    "Regardez les parkings avant d'entrer dans le village : cela simplifie souvent l'arrivee.",
+    "Une fois gare, le plus agreable est souvent de poursuivre la visite a pied.",
+    "Consultez les infos du jour en cas d'evenement, de forte frequentation ou de consigne temporaire.",
+    "Pour une balade, emportez de l'eau et choisissez un parcours adapte a votre temps et a votre niveau."
   ],
   "visitorTipsEn": [
     "Check parking before entering the village to make arrival easier.",
@@ -324,8 +473,8 @@
     "For a walk, bring water and choose a route that fits your time and ability."
   ],
   "alerts": [
-    "Lors des journées très fréquentées, suivez en priorité la signalétique de stationnement mise en place à l'entrée du village.",
-    "Avant de partir, vérifiez les infos utiles et l'agenda si vous souhaitez éviter une arrivée au moment le plus dense."
+    "Lors des journees tres frequentees, suivez en priorite la signaletique de stationnement mise en place a l'entree du village.",
+    "Avant de partir, verifiez les infos utiles et l'agenda si vous souhaitez eviter une arrivee au moment le plus dense."
   ],
   "alertsEn": [
     "On very busy days, follow the parking signs set up at the village entrance first.",

@@ -20,6 +20,8 @@ const EMPTY_CONTENT = {
     quickLinks: [],
     highlights: [],
     guideSections: [],
+    dailyInfo: [],
+    practicalServices: [],
     visitorTips: [],
     visitorTipsEn: [],
     alerts: [],
@@ -109,6 +111,113 @@ function ContactCard({ contact, lang }) {
     );
 }
 
+function DailyInfoCard({ item, lang, formatDate }) {
+    const severityStyles = {
+        critical: "border-[#d26a4d]/50 bg-[#fff3ee]",
+        warning: "border-[#d8c08f]/60 bg-[#fff8e8]",
+        info: "border-white/70 bg-white"
+    };
+
+    const severityLabel =
+        item.severity === "critical"
+            ? lang === "en"
+                ? "Priority update"
+                : "Info prioritaire"
+            : item.severity === "warning"
+              ? lang === "en"
+                ? "Watch today"
+                : "A verifier aujourd'hui"
+              : lang === "en"
+                ? "Daily information"
+                : "Info du jour";
+
+    const audienceLabel = getLocalizedField(item, "audience", lang);
+    const categoryLabel = getLocalizedField(item, "category", lang);
+    const statusLabel = getLocalizedField(item, "status", lang) || severityLabel;
+
+    return (
+        <article className={`rounded-[1.75rem] border p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6 ${severityStyles[item.severity] || severityStyles.info}`}>
+            <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#1f5e54]">
+                    {statusLabel}
+                </span>
+                {categoryLabel ? (
+                    <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-600">
+                        {categoryLabel}
+                    </span>
+                ) : null}
+                {audienceLabel ? (
+                    <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-600">
+                        {audienceLabel}
+                    </span>
+                ) : null}
+            </div>
+            <h3 className="mt-4 text-xl text-[#163c35]">{getLocalizedField(item, "title", lang)}</h3>
+            <p className="mt-3 text-sm text-slate-700 sm:text-base">{getLocalizedField(item, "message", lang)}</p>
+            {(item.updatedAt || item.validUntil) && (
+                <p className="mt-4 text-sm text-[#5b7d76]">
+                    {item.updatedAt
+                        ? `${lang === "en" ? "Updated" : "Mise a jour"}: ${formatDate(item.updatedAt)}`
+                        : null}
+                    {item.updatedAt && item.validUntil ? " - " : ""}
+                    {item.validUntil
+                        ? `${lang === "en" ? "Valid until" : "Valable jusqu'au"} ${formatDate(item.validUntil)}`
+                        : null}
+                </p>
+            )}
+        </article>
+    );
+}
+
+function PracticalServiceCard({ service, lang, formatDate }) {
+    const title = getLocalizedField(service, "title", lang);
+    const description = getLocalizedField(service, "description", lang);
+    const tag = getLocalizedField(service, "tag", lang);
+    const audience = getLocalizedField(service, "audience", lang);
+    const location = getLocalizedField(service, "location", lang);
+    const hours = getLocalizedField(service, "hours", lang);
+
+    return (
+        <article className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">
+            {tag ? <p className="section-kicker">{tag}</p> : null}
+            <h3 className="mt-2 text-xl text-[#163c35]">{title}</h3>
+            <p className="mt-3 text-sm text-slate-700 sm:text-base">{description}</p>
+            {audience ? <p className="mt-3 text-sm font-medium text-[#5b7d76]">{audience}</p> : null}
+            {(location || hours) && (
+                <div className="mt-4 grid gap-3 text-sm text-slate-700">
+                    {location ? <InfoPill>{location}</InfoPill> : null}
+                    {hours ? <InfoPill>{hours}</InfoPill> : null}
+                </div>
+            )}
+            {(service.phone || service.email) && (
+                <div className="mt-4 flex flex-wrap gap-3">
+                    {service.phone ? (
+                        <a
+                            href={`tel:${service.phone.replace(/\s+/g, "")}`}
+                            className="inline-flex items-center justify-center rounded-full bg-[#1f5e54] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#18463e]"
+                        >
+                            {lang === "en" ? "Call" : "Appeler"}
+                        </a>
+                    ) : null}
+                    {service.email ? (
+                        <a
+                            href={`mailto:${service.email}`}
+                            className="inline-flex items-center justify-center rounded-full border border-[#a7cfc1] bg-white px-4 py-2.5 text-sm font-semibold text-[#1f5e54] transition hover:bg-[#eef7f3]"
+                        >
+                            {lang === "en" ? "Write" : "Ecrire"}
+                        </a>
+                    ) : null}
+                </div>
+            )}
+            {service.updatedAt ? (
+                <p className="mt-4 text-sm text-[#5b7d76]">
+                    {lang === "en" ? "Updated" : "Mise a jour"}: {formatDate(service.updatedAt)}
+                </p>
+            ) : null}
+        </article>
+    );
+}
+
 export default function Guide() {
     const { lang } = useLocale();
     const [content, setContent] = useState(EMPTY_CONTENT);
@@ -119,9 +228,27 @@ export default function Guide() {
         getSiteContent().then(setContent);
     }, []);
 
+    const dateFormatter = useMemo(
+        () =>
+            new Intl.DateTimeFormat(lang === "en" ? "en-GB" : "fr-FR", {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }),
+        [lang]
+    );
+
+    function formatDate(value) {
+        if (!value) return "";
+        const date = new Date(`${value}T00:00:00`);
+        return Number.isFinite(date.getTime()) ? dateFormatter.format(date) : value;
+    }
+
     const alerts = getLocalizedList(content, "alerts", lang).slice(0, 2);
     const visitorTips = getLocalizedList(content, "visitorTips", lang).slice(0, 4);
     const contacts = Array.isArray(content.contacts) ? content.contacts.slice(0, 4) : [];
+    const dailyInfo = Array.isArray(content.dailyInfo) ? content.dailyInfo.slice(0, 6) : [];
+    const practicalServices = Array.isArray(content.practicalServices) ? content.practicalServices.slice(0, 8) : [];
     const routeVisibility = useMemo(
         () => ({
             [sectionRoutes.guide]: true,
@@ -230,6 +357,38 @@ export default function Guide() {
                     <div className="grid gap-3 sm:grid-cols-2">
                         {visitorTips.map((tip) => (
                             <InfoPill key={tip}>{tip}</InfoPill>
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            {dailyInfo.length > 0 && (
+                <section className="mb-8">
+                    <div className="mb-4">
+                        <p className="section-kicker">{lang === "en" ? "Daily updates" : "Infos du jour"}</p>
+                        <h2 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
+                            {lang === "en" ? "What to check before you move around" : "Ce qu'il faut verifier avant de se deplacer"}
+                        </h2>
+                    </div>
+                    <div className="grid gap-5 lg:grid-cols-2">
+                        {dailyInfo.map((item) => (
+                            <DailyInfoCard key={item.id} item={item} lang={lang} formatDate={formatDate} />
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            {practicalServices.length > 0 && (
+                <section className="mb-8">
+                    <div className="mb-4">
+                        <p className="section-kicker">{lang === "en" ? "Practical services" : "Services pratiques"}</p>
+                        <h2 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
+                            {lang === "en" ? "Useful village information at a glance" : "Les infos utiles du village en un coup d'oeil"}
+                        </h2>
+                    </div>
+                    <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                        {practicalServices.map((service) => (
+                            <PracticalServiceCard key={service.id} service={service} lang={lang} formatDate={formatDate} />
                         ))}
                     </div>
                 </section>

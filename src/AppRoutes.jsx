@@ -1,17 +1,27 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import AsyncStateCard from "./components/AsyncStateCard";
 import { getSectionVisibility } from "./data/loader";
-import Events from "./pages/Events";
-import EventDetail from "./pages/EventDetail";
-import Guide from "./pages/Guide";
-import HikeDetail from "./pages/HikeDetail";
-import Hikes from "./pages/Hikes";
-import Home from "./pages/Home";
-import News from "./pages/News";
-import NewsDetail from "./pages/NewsDetail";
-import Parking from "./pages/Parking";
-import Photos from "./pages/Photos";
+
+const Home = lazy(() => import("./pages/Home"));
+const Guide = lazy(() => import("./pages/Guide"));
+const News = lazy(() => import("./pages/News"));
+const NewsDetail = lazy(() => import("./pages/NewsDetail"));
+const Events = lazy(() => import("./pages/Events"));
+const EventDetail = lazy(() => import("./pages/EventDetail"));
+const Hikes = lazy(() => import("./pages/Hikes"));
+const HikeDetail = lazy(() => import("./pages/HikeDetail"));
+const Parking = lazy(() => import("./pages/Parking"));
+const Photos = lazy(() => import("./pages/Photos"));
+
+function RouteLoadingState() {
+    return (
+        <AsyncStateCard
+            title="Chargement"
+            description="La page demandee est en cours de preparation."
+        />
+    );
+}
 
 export default function AppRoutes() {
     const [sectionVisibility, setSectionVisibility] = useState(null);
@@ -63,45 +73,47 @@ export default function AppRoutes() {
     }
 
     return (
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route
-                path="/guide"
-                element={sectionVisibility.guide ? <Guide /> : <Navigate to="/" replace />}
-            />
-            <Route
-                path="/news"
-                element={sectionVisibility.news ? <News /> : <Navigate to="/" replace />}
-            />
-            <Route
-                path="/news/:id"
-                element={sectionVisibility.news ? <NewsDetail /> : <Navigate to="/" replace />}
-            />
-            <Route
-                path="/events"
-                element={sectionVisibility.events ? <Events /> : <Navigate to="/" replace />}
-            />
-            <Route
-                path="/events/:id"
-                element={sectionVisibility.events ? <EventDetail /> : <Navigate to="/" replace />}
-            />
-            <Route
-                path="/hikes"
-                element={sectionVisibility.hikes ? <Hikes /> : <Navigate to="/" replace />}
-            />
-            <Route
-                path="/hikes/:id"
-                element={sectionVisibility.hikes ? <HikeDetail /> : <Navigate to="/" replace />}
-            />
-            <Route
-                path="/parking"
-                element={sectionVisibility.parkings ? <Parking /> : <Navigate to="/" replace />}
-            />
-            <Route
-                path="/photos"
-                element={sectionVisibility.photos ? <Photos /> : <Navigate to="/" replace />}
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <Suspense fallback={<RouteLoadingState />}>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route
+                    path="/guide"
+                    element={sectionVisibility.guide ? <Guide /> : <Navigate to="/" replace />}
+                />
+                <Route
+                    path="/news"
+                    element={sectionVisibility.news ? <News /> : <Navigate to="/" replace />}
+                />
+                <Route
+                    path="/news/:id"
+                    element={sectionVisibility.news ? <NewsDetail /> : <Navigate to="/" replace />}
+                />
+                <Route
+                    path="/events"
+                    element={sectionVisibility.events ? <Events /> : <Navigate to="/" replace />}
+                />
+                <Route
+                    path="/events/:id"
+                    element={sectionVisibility.events ? <EventDetail /> : <Navigate to="/" replace />}
+                />
+                <Route
+                    path="/hikes"
+                    element={sectionVisibility.hikes ? <Hikes /> : <Navigate to="/" replace />}
+                />
+                <Route
+                    path="/hikes/:id"
+                    element={sectionVisibility.hikes ? <HikeDetail /> : <Navigate to="/" replace />}
+                />
+                <Route
+                    path="/parking"
+                    element={sectionVisibility.parkings ? <Parking /> : <Navigate to="/" replace />}
+                />
+                <Route
+                    path="/photos"
+                    element={sectionVisibility.photos ? <Photos /> : <Navigate to="/" replace />}
+                />
+                <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+        </Suspense>
     );
 }

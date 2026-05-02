@@ -146,6 +146,52 @@ function CompactInfoCard({ eyebrow, title, body, meta, to, cta }) {
     );
 }
 
+function DailyUpdateCard({ item, lang, formatDate }) {
+    const severityStyle =
+        item.severity === "critical"
+            ? "border-[#d26a4d]/50 bg-[#fff3ee]"
+            : item.severity === "warning"
+              ? "border-[#d8c08f]/60 bg-[#fff8e8]"
+              : "border-white/70 bg-white";
+
+    const audienceLabel = getLocalizedField(item, "audience", lang);
+    const categoryLabel = getLocalizedField(item, "category", lang);
+    const statusLabel = getLocalizedField(item, "status", lang);
+
+    return (
+        <article className={`rounded-[1.6rem] border p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] ${severityStyle}`}>
+            <div className="flex flex-wrap items-center gap-2">
+                <span className="section-kicker">
+                    {statusLabel || (lang === "en" ? "Daily update" : "Info du jour")}
+                </span>
+                {categoryLabel ? (
+                    <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-600">
+                        {categoryLabel}
+                    </span>
+                ) : null}
+                {audienceLabel ? (
+                    <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-600">
+                        {audienceLabel}
+                    </span>
+                ) : null}
+            </div>
+            <h3 className="mt-2 text-xl text-[#163c35]">{getLocalizedField(item, "title", lang)}</h3>
+            <p className="mt-3 text-sm text-slate-700 sm:text-base">{getLocalizedField(item, "message", lang)}</p>
+            {(item.updatedAt || item.validUntil) && (
+                <p className="mt-4 text-sm text-[#5b7d76]">
+                    {item.updatedAt
+                        ? `${lang === "en" ? "Updated" : "Mise a jour"}: ${formatDate(item.updatedAt)}`
+                        : null}
+                    {item.updatedAt && item.validUntil ? " - " : ""}
+                    {item.validUntil
+                        ? `${lang === "en" ? "Valid until" : "Valable jusqu'au"} ${formatDate(item.validUntil)}`
+                        : null}
+                </p>
+            )}
+        </article>
+    );
+}
+
 function buildKeyInfoCards({
     lang,
     sectionVisibility,
@@ -390,6 +436,8 @@ export default function Home() {
             })),
         [lang, siteContent]
     );
+    const dailyInfo = useMemo(() => (siteContent?.dailyInfo || []).slice(0, 3), [siteContent]);
+    const practicalServices = useMemo(() => (siteContent?.practicalServices || []).slice(0, 3), [siteContent]);
 
     const heroTitle = getLocalizedField(siteContent?.hero, "title", lang) || "Fontaine Info a la Source";
     const heroDescription =
@@ -533,15 +581,43 @@ export default function Home() {
                                 <div className="rounded-[1.25rem] border border-white/10 bg-white/5 px-4 py-3">
                                     <p className="text-sm text-[#d7e8e1]">{lang === "en" ? "Latest update" : "Info recente"}</p>
                                     <p className="mt-1 text-lg font-semibold text-white">
-                                        {getLocalizedField(featuredNews, "title", lang)}
+                                        {dailyInfo[0]
+                                            ? getLocalizedField(dailyInfo[0], "title", lang)
+                                            : getLocalizedField(featuredNews, "title", lang)}
                                     </p>
-                                    <p className="mt-1 text-sm text-white/80">{formatDate(featuredNews.date)}</p>
+                                    <p className="mt-1 text-sm text-white/80">
+                                        {dailyInfo[0]?.updatedAt ? formatDate(dailyInfo[0].updatedAt) : formatDate(featuredNews.date)}
+                                    </p>
                                 </div>
                             ) : null}
                         </div>
                     </aside>
                 </div>
             </section>
+
+            {dailyInfo.length > 0 ? (
+                <section className="mb-10 sm:mb-12">
+                    <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                        <div>
+                            <p className="section-kicker">{lang === "en" ? "Daily information" : "Infos du jour"}</p>
+                            <h2 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
+                                {lang === "en" ? "Check these before setting off" : "A verifier avant de partir"}
+                            </h2>
+                        </div>
+                        <Link
+                            to={sectionRoutes.guide}
+                            className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base"
+                        >
+                            {lang === "en" ? "Open practical guide" : "Ouvrir le guide pratique"}
+                        </Link>
+                    </div>
+                    <div className="grid gap-5 lg:grid-cols-3">
+                        {dailyInfo.map((item) => (
+                            <DailyUpdateCard key={item.id} item={item} lang={lang} formatDate={formatDate} />
+                        ))}
+                    </div>
+                </section>
+            ) : null}
 
             {journeyCards.length > 0 ? (
                 <section className="mb-10 sm:mb-12">
@@ -625,6 +701,36 @@ export default function Home() {
                             </div>
                         </article>
                     ) : null}
+                </section>
+            ) : null}
+
+            {practicalServices.length > 0 ? (
+                <section className="mb-10 sm:mb-12">
+                    <div className="mb-4">
+                        <p className="section-kicker">{lang === "en" ? "Village essentials" : "Essentiels sur place"}</p>
+                        <h2 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
+                            {lang === "en" ? "Keep these local cues in mind" : "Garder ces reperes sur place"}
+                        </h2>
+                    </div>
+                    <div className="grid gap-4 md:grid-cols-3">
+                        {practicalServices.map((service) => (
+                            <article
+                                key={service.id}
+                                className="surface-card rounded-[1.6rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)]"
+                            >
+                                <p className="section-kicker">{getLocalizedField(service, "tag", lang)}</p>
+                                <h3 className="mt-2 text-xl text-[#163c35]">{getLocalizedField(service, "title", lang)}</h3>
+                                <p className="mt-3 text-sm text-slate-700 sm:text-base">
+                                    {getLocalizedField(service, "description", lang)}
+                                </p>
+                                {service.updatedAt ? (
+                                    <p className="mt-4 text-sm text-[#5b7d76]">
+                                        {lang === "en" ? "Updated" : "Mise a jour"}: {formatDate(service.updatedAt)}
+                                    </p>
+                                ) : null}
+                            </article>
+                        ))}
+                    </div>
                 </section>
             ) : null}
 

@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import Layout from "../components/Layout";
 import ParkingAddressActions from "../components/ParkingAddressActions";
-import ParkingsMap from "../components/ParkingsMap";
 import { getParkings } from "../data/loader";
 import { getLocalizedField } from "../locale";
 import { useLocale } from "../useLocale";
+
+const ParkingsMap = lazy(() => import("../components/ParkingsMap"));
 
 const vehicleTypes = {
     fr: [
@@ -75,6 +76,14 @@ function ParkingQuickFact({ label, value }) {
         <div className="rounded-[1.1rem] bg-white/70 px-4 py-3">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">{label}</p>
             <p className="mt-1 text-sm text-slate-700">{value}</p>
+        </div>
+    );
+}
+
+function MapLoadingPanel({ lang }) {
+    return (
+        <div className="mt-5 rounded-[1.5rem] border border-dashed border-[#c7ddd5] bg-[#f6fbf8] px-4 py-10 text-center text-sm text-slate-600">
+            {lang === "en" ? "Loading the parking map..." : "Chargement de la carte des parkings..."}
         </div>
     );
 }
@@ -344,7 +353,16 @@ export default function Parking() {
                                     ? "Use the map for positioning, then compare walking distance and access details below."
                                     : "Utilisez la carte pour vous reperer, puis comparez la distance a pied et les details d'acces ci-dessous."}
                             </p>
-                            {showMap ? <div className="mt-5"><ParkingsMap parkings={filteredParkings} featuredParkingId={primaryParking?.id} /></div> : null}
+                            {showMap ? (
+                                <Suspense fallback={<MapLoadingPanel lang={lang} />}>
+                                    <div className="mt-5">
+                                        <ParkingsMap
+                                            parkings={filteredParkings}
+                                            featuredParkingId={primaryParking?.id}
+                                        />
+                                    </div>
+                                </Suspense>
+                            ) : null}
                         </article>
 
                         <article className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">

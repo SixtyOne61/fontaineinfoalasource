@@ -6,8 +6,8 @@ import {
     sanitizeNumber,
     sanitizePublicAssetPath,
     sanitizeText,
-} from "../utils/security";
-import { expandRecurringEvents } from "../utils/events";
+} from "../utils/security.js";
+import { expandRecurringEvents } from "../utils/events.js";
 
 async function fetchItems(path) {
     try {
@@ -168,6 +168,88 @@ function sanitizeContact(item) {
     };
 }
 
+function sanitizeDailyInfoItem(item) {
+    const id = sanitizeId(item?.id) || slugifyText(sanitizeText(item?.title, 120));
+    if (!id || item?.published === false) return null;
+
+    const validUntil = sanitizeDate(item?.validUntil);
+    if (validUntil) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const end = new Date(`${validUntil}T00:00:00`);
+
+        if (Number.isFinite(end.getTime()) && end < today) {
+            return null;
+        }
+    }
+
+    const status = sanitizeText(item?.status, 40);
+    const statusEn = sanitizeText(item?.statusEn, 40);
+    const category = sanitizeText(item?.category, 60);
+    const categoryEn = sanitizeText(item?.categoryEn, 60);
+    const audience = sanitizeText(item?.audience, 80);
+    const audienceEn = sanitizeText(item?.audienceEn, 80);
+    const severitySource = `${status} ${statusEn}`.toLowerCase();
+    const severity = severitySource.includes("attention")
+        ? "warning"
+        : severitySource.includes("urgent") || severitySource.includes("priority")
+          ? "critical"
+          : "info";
+
+    return {
+        id,
+        ...sanitizeLocalizedTextFields(item, "title", 120),
+        message: sanitizeText(item?.summary || item?.message, 320),
+        messageEn: sanitizeText(item?.summaryEn || item?.messageEn, 320),
+        status,
+        statusEn,
+        category,
+        categoryEn,
+        audience,
+        audienceEn,
+        severity,
+        updatedAt: sanitizeDate(item?.updatedAt),
+        validUntil,
+        cta: item?.ctaTo
+            ? {
+                  id: `${id}-cta`,
+                  label: sanitizeText(item?.ctaLabel, 80),
+                  labelEn: sanitizeText(item?.ctaLabelEn, 80),
+                  to: sanitizeInternalPath(item?.ctaTo),
+              }
+            : null,
+    };
+}
+
+function sanitizePracticalServiceItem(item) {
+    const id = sanitizeId(item?.id) || slugifyText(sanitizeText(item?.name || item?.title, 120));
+    if (!id || item?.published === false) return null;
+
+    return {
+        id,
+        title: sanitizeText(item?.name || item?.title, 120),
+        titleEn: sanitizeText(item?.nameEn || item?.titleEn, 120),
+        description: sanitizeText(
+            [item?.summary, item?.details].filter(Boolean).join(" "),
+            420
+        ),
+        descriptionEn: sanitizeText(
+            [item?.summaryEn, item?.detailsEn].filter(Boolean).join(" "),
+            420
+        ),
+        tag: sanitizeText(item?.category || item?.tag, 60),
+        tagEn: sanitizeText(item?.categoryEn || item?.tagEn, 60),
+        audience: sanitizeText(item?.audience, 80),
+        audienceEn: sanitizeText(item?.audienceEn, 80),
+        ...sanitizeLocalizedTextFields(item, "location", 180),
+        ...sanitizeLocalizedTextFields(item, "hours", 180),
+        phone: sanitizeText(item?.phone, 40),
+        email: sanitizeText(item?.email, 120),
+        website: sanitizeText(item?.website, 200),
+        updatedAt: sanitizeDate(item?.updatedAt),
+    };
+}
+
 function sanitizeSiteContent(data) {
     return {
         hero: sanitizeHeroContent(data?.hero || {}),
@@ -182,6 +264,12 @@ function sanitizeSiteContent(data) {
             : [],
         contacts: Array.isArray(data?.contacts)
             ? data.contacts.map(sanitizeContact).filter(Boolean)
+            : [],
+        dailyInfo: Array.isArray(data?.dailyInfo)
+            ? data.dailyInfo.map(sanitizeDailyInfoItem).filter(Boolean)
+            : [],
+        practicalServices: Array.isArray(data?.practicalServices)
+            ? data.practicalServices.map(sanitizePracticalServiceItem).filter(Boolean)
             : [],
         visitorTips: sanitizeTextList(data?.visitorTips, 220),
         visitorTipsEn: sanitizeTextList(data?.visitorTipsEn, 220),
@@ -387,6 +475,8 @@ export async function getSiteContent() {
         highlights: [],
         guideSections: [],
         contacts: [],
+        dailyInfo: [],
+        practicalServices: [],
         visitorTips: [],
         alerts: [],
     };
