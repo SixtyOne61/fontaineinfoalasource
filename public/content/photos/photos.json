@@ -27,18 +27,12 @@
     },
     {
       "id": "moments-a-decouvrir",
-      "title": "Moments à découvrir",
-      "titleEn": "Moments to discover",
-      "description": "Ce groupe peut servir à raconter un lieu, un moment ou un point de vue avec plusieurs photos et un texte associé.",
-      "descriptionEn": "This group can be used to present a place, a moment or a point of view with several photos and an accompanying text.",
+      "title": "Le village se fleurit",
+      "titleEn": "The village is blooming.",
       "photos": [
         {
           "id": "moment-1",
-          "image": "/uploads/Capture d'écran 2023-04-02 222213.png",
-          "alt": "Exemple de photo",
-          "altEn": "Example photo",
-          "caption": "Exemple de légende pour illustrer un groupe photo.",
-          "captionEn": "Example caption for a photo group."
+          "image": "/uploads/Capture d'écran 2023-04-02 222213.png"
         }
       ]
     }
