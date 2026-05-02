@@ -51,16 +51,6 @@
       "to": "/events"
     },
     {
-      "id": "photos",
-      "title": "Fontaine en photo",
-      "titleEn": "Fontaine in photos",
-      "description": "Retrouvez des séries de photos accompagnées d'un court texte pour découvrir le village autrement.",
-      "descriptionEn": "Browse themed photo sets with short texts to discover the village from another angle.",
-      "badge": "Galerie",
-      "badgeEn": "Gallery",
-      "to": "/photos"
-    },
-    {
       "id": "news",
       "title": "Infos utiles",
       "titleEn": "Useful updates",
