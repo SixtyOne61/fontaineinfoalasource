@@ -2,7 +2,7 @@
   "hero": {
     "eyebrow": "Bienvenue à Fontaine",
     "eyebrowEn": "Welcome to Fontaine",
-    "title": "Fontaine-de-Vaucluse, l'essentiel en un clin d'oeil",
+    "title": "Fontaine-de-Vaucluse, l'essentiel en un clin d'œil",
     "titleEn": "Fontaine-de-Vaucluse at a glance",
     "description": "Toutes les infos utiles pour profiter du village plus sereinement : stationnement, agenda et conseils pratiques.",
     "descriptionEn": "Everything you need for a smoother visit: parking, local events and practical tips.",
@@ -26,8 +26,6 @@
       "titleEn": "Practical guide",
       "description": "Les bons repères pour arriver plus sereinement et profiter du village sans perdre de temps.",
       "descriptionEn": "Key guidance to arrive with ease and enjoy the village without wasting time.",
-      "badge": "À savoir",
-      "badgeEn": "Good to know",
       "to": "/guide"
     },
     {
@@ -36,8 +34,6 @@
       "titleEn": "Parking",
       "description": "Repérez rapidement où vous garer selon votre véhicule et votre façon de visiter.",
       "descriptionEn": "Quickly find where to park depending on your vehicle and the way you plan to visit.",
-      "badge": "Accès",
-      "badgeEn": "Access",
       "to": "/parking"
     },
     {
@@ -46,18 +42,14 @@
       "titleEn": "Events",
       "description": "Retrouvez les rendez-vous du moment et les animations à ne pas manquer.",
       "descriptionEn": "See what is on now and the local events you may not want to miss.",
-      "badge": "Sorties",
-      "badgeEn": "Outings",
       "to": "/events"
     },
     {
       "id": "news",
       "title": "Infos utiles",
       "titleEn": "Useful updates",
-      "description": "Gardez un oeil sur les infos pratiques du moment pour visiter plus tranquillement.",
+      "description": "Gardez un œil sur les infos pratiques du moment pour visiter plus tranquillement.",
       "descriptionEn": "Keep an eye on practical local updates for a smoother visit.",
-      "badge": "Pratique",
-      "badgeEn": "Practical",
       "to": "/news"
     }
   ],
@@ -108,7 +100,7 @@
           "id": "park-1",
           "title": "Repérer son parking à l'avance",
           "titleEn": "Choose your parking in advance",
-          "description": "Un rapide coup d'oeil à la carte permet d'arriver plus sereinement et d'éviter les demi-tours.",
+          "description": "Un rapide coup d'œil à la carte permet d'arriver plus sereinement et d'éviter les demi-tours.",
           "descriptionEn": "A quick look at the map helps you arrive more calmly and avoid unnecessary turns."
         },
         {
@@ -158,7 +150,7 @@
         },
         {
           "id": "visit-3",
-          "title": "Jeter un oeil aux infos du jour",
+          "title": "Jeter un œil aux infos du jour",
           "titleEn": "Check today's updates",
           "description": "Avant de partir, quelques infos locales peuvent vous aider à choisir le meilleur moment pour venir.",
           "descriptionEn": "Before you leave, a few local updates can help you choose the best time to come."
@@ -242,7 +234,7 @@
           "id": "info-3",
           "title": "Préparer sa visite en amont",
           "titleEn": "Prepare before you arrive",
-          "description": "Un coup d'oeil aux parkings, à l'agenda et aux balades suffit souvent pour gagner du temps sur place.",
+          "description": "Un coup d'œil aux parkings, à l'agenda et aux balades suffit souvent pour gagner du temps sur place.",
           "descriptionEn": "A quick look at parking, events and walks often saves time once you arrive."
         }
       ],
@@ -270,7 +262,7 @@
   ],
   "alerts": [
     "Lors des journées les plus fréquentées, suivez en priorité la signalétique de stationnement mise en place à l'entrée du village.",
-    "Avant de partir, un rapide coup d'oeil aux infos utiles peut vous éviter quelques surprises sur place."
+    "Avant de partir, un rapide coup d'œil aux infos utiles peut vous éviter quelques surprises sur place."
   ],
   "alertsEn": [
     "On the busiest days, follow the parking signs set up at the village entrance first.",

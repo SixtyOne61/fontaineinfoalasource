@@ -34,7 +34,6 @@
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
 | `id`, `title`, `titleEn`, `description`, `descriptionEn`, `to` | Aligned | `src/pages/Home.jsx`, `src/pages/Guide.jsx` | Used for quick links and filtered by visible sections. |
-| `badge`, `badgeEn` | Unwired | `src/data/loader.js` only | Sanitized but never displayed. |
 
 ### `siteContent.highlights`
 | Field | Status | Front usage | Notes |
@@ -93,8 +92,6 @@
 1. Remove or hide unused CMS fields until they are wired:
    - `siteContent.hero.primaryCta`
    - `siteContent.hero.secondaryCta`
-   - `siteContent.quickLinks.badge`
-   - `siteContent.quickLinks.badgeEn`
    - all `siteContent.highlights`
    - all `siteContent.guideSections`
    - all `siteContent.contacts`

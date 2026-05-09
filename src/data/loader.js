@@ -114,7 +114,6 @@ function sanitizeQuickLink(item) {
     return {
         ...base,
         to,
-        ...sanitizeLocalizedTextFields(item, "badge", 40),
     };
 }
 

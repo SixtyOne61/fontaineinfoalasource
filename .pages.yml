@@ -65,8 +65,6 @@ content:
           - { name: titleEn, label: Titre EN, type: string, required: false }
           - { name: description, label: Description FR, type: text }
           - { name: descriptionEn, label: Description EN, type: text, required: false }
-          - { name: badge, label: Badge FR, type: string, required: false, description: Court repere visible sur la carte. Exemple: Acces, Pratique, Nature. }
-          - { name: badgeEn, label: Badge EN, type: string, required: false, description: Court repere visible sur la carte. }
           - { name: to, label: Lien interne, type: string, description: Exemple: /parking, /guide, /news, /events. }
 
       - name: highlights
