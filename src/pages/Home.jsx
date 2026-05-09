@@ -17,9 +17,9 @@ import { compareEventsByStartDate, getEventEndDate, getEventStartDate, parseLoca
 const fallbackQuickLinks = [
     {
         key: "guide",
-        titleFr: "Preparer ma visite",
+        titleFr: "Préparer ma visite",
         titleEn: "Plan my visit",
-        descriptionFr: "Les reperes utiles avant d'arriver.",
+        descriptionFr: "Les repères utiles avant d'arriver.",
         descriptionEn: "Helpful information before you arrive.",
         to: sectionRoutes.guide
     },
@@ -27,7 +27,7 @@ const fallbackQuickLinks = [
         key: "parkings",
         titleFr: "Trouver un parking",
         titleEn: "Find parking",
-        descriptionFr: "Choisir rapidement ou se garer selon votre vehicule.",
+        descriptionFr: "Choisir rapidement où se garer selon votre véhicule.",
         descriptionEn: "Quickly choose where to park based on your vehicle.",
         to: sectionRoutes.parkings
     },
@@ -149,7 +149,7 @@ export default function Home() {
             .map((link, index) => ({
                 key: link.key,
                 to: link.to,
-                eyebrow: lang === "en" ? `Step ${index + 1}` : `Etape ${index + 1}`,
+                eyebrow: lang === "en" ? `Step ${index + 1}` : `Étape ${index + 1}`,
                 title: getLocalizedField(link, "title", lang) || link.title,
                 description: getLocalizedField(link, "description", lang) || link.description
             }));
@@ -159,7 +159,7 @@ export default function Home() {
     const visitorTips = getLocalizedList(siteContent, "visitorTips", lang).slice(0, 3);
     const alerts = getLocalizedList(siteContent, "alerts", lang).slice(0, 2);
 
-    const heroTitle = getLocalizedField(siteContent?.hero, "title", lang) || "Fontaine Info a la Source";
+    const heroTitle = getLocalizedField(siteContent?.hero, "title", lang) || "Fontaine Info à la Source";
     const heroDescription =
         getLocalizedField(siteContent?.hero, "description", lang) ||
         (lang === "en"
@@ -195,7 +195,7 @@ export default function Home() {
                                     to={sectionRoutes.guide}
                                     className="rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/[0.16]"
                                 >
-                                    {lang === "en" ? "Plan my visit" : "Preparer ma visite"}
+                                    {lang === "en" ? "Plan my visit" : "Préparer ma visite"}
                                 </Link>
                             ) : null}
                             {sectionVisibility.events ? (
@@ -219,7 +219,7 @@ export default function Home() {
                                     <p className="text-sm text-[#d7e8e1]">{lang === "en" ? "Parking" : "Stationnement"}</p>
                                     <p className="mt-1 text-lg font-semibold text-white">
                                         {parkings.length > 0
-                                            ? `${parkings.length} ${lang === "en" ? "options listed" : "options reperees"}`
+                                            ? `${parkings.length} ${lang === "en" ? "options listed" : "options repérées"}`
                                             : lang === "en"
                                               ? "Check the parking page"
                                               : "Consulter la page parkings"}
@@ -234,7 +234,7 @@ export default function Home() {
                                             ? getLocalizedField(nextEvent, "title", lang)
                                             : lang === "en"
                                               ? "Nothing scheduled yet"
-                                              : "Rien de prevu pour l'instant"}
+                                              : "Rien de prévu pour l'instant"}
                                     </p>
                                     {nextEvent ? (
                                         <p className="mt-1 text-sm text-white/80">{formatEventDate(nextEvent)}</p>
@@ -243,7 +243,7 @@ export default function Home() {
                             ) : null}
                             {sectionVisibility.news && featuredNews ? (
                                 <div className="rounded-[1.25rem] border border-white/10 bg-white/5 px-4 py-3">
-                                    <p className="text-sm text-[#d7e8e1]">{lang === "en" ? "Latest update" : "Info recente"}</p>
+                                    <p className="text-sm text-[#d7e8e1]">{lang === "en" ? "Latest update" : "Info récente"}</p>
                                     <p className="mt-1 text-lg font-semibold text-white">
                                         {getLocalizedField(featuredNews, "title", lang)}
                                     </p>
@@ -259,7 +259,7 @@ export default function Home() {
                 <section className="mb-10 sm:mb-12">
                     <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                         <div>
-                            <p className="section-kicker">{lang === "en" ? "Fast access" : "Acces rapide"}</p>
+                            <p className="section-kicker">{lang === "en" ? "Fast access" : "Accès rapide"}</p>
                             <h2 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
                                 {lang === "en" ? "Find the right information in two clicks" : "Trouver la bonne info en deux clics"}
                             </h2>
@@ -267,7 +267,7 @@ export default function Home() {
                         <p className="max-w-xl text-sm text-slate-600 sm:text-right sm:text-base">
                             {lang === "en"
                                 ? "The most useful actions for a short visit are grouped here."
-                                : "Les actions les plus utiles pour une visite ponctuelle sont regroupees ici."}
+                                : "Les actions les plus utiles pour une visite ponctuelle sont regroupées ici."}
                         </p>
                     </div>
                     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -300,7 +300,7 @@ export default function Home() {
                     ) : null}
                     {visitorTips.length > 0 ? (
                         <article className="surface-card rounded-[1.6rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-                            <p className="section-kicker">{lang === "en" ? "Simple tips" : "Bons reflexes"}</p>
+                            <p className="section-kicker">{lang === "en" ? "Simple tips" : "Bons réflexes"}</p>
                             <div className="mt-3 grid gap-3">
                                 {visitorTips.map((tip) => (
                                     <p key={tip} className="text-sm text-slate-700 sm:text-base">
@@ -322,7 +322,7 @@ export default function Home() {
                     <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
                         {lang === "en"
                             ? "The photo galleries remain available if you want a more visual discovery of the village."
-                            : "Les galeries photo restent disponibles si vous souhaitez une decouverte plus visuelle du village."}
+                            : "Les galeries photo restent disponibles si vous souhaitez une découverte plus visuelle du village."}
                     </p>
                     <Link
                         to={sectionRoutes.photos}

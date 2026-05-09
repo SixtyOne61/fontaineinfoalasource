@@ -10,10 +10,10 @@ const EMPTY_CONTENT = {
     hero: {
         eyebrow: "Guide pratique",
         eyebrowEn: "Practical guide",
-        title: "Preparer une visite agreable a Fontaine-de-Vaucluse",
+        title: "Préparer une visite agréable à Fontaine-de-Vaucluse",
         titleEn: "Plan an enjoyable visit to Fontaine-de-Vaucluse",
         description:
-            "Retrouvez ici les reperes utiles pour arriver plus sereinement et profiter du village sans vous compliquer la journee.",
+            "Retrouvez ici les repères utiles pour arriver plus sereinement et profiter du village sans vous compliquer la journée.",
         descriptionEn:
             "Find the key information you need to arrive more easily and enjoy the village without overthinking your day."
     },
@@ -96,7 +96,7 @@ export default function Guide() {
                 body:
                     lang === "en"
                         ? "This is usually the fastest way to avoid unnecessary turns and arrive more calmly."
-                        : "C'est souvent le moyen le plus simple d'eviter les detours inutiles et d'arriver plus calmement.",
+                        : "C'est souvent le moyen le plus simple d'éviter les détours inutiles et d'arriver plus calmement.",
                 to: sectionRoutes.parkings,
                 cta: lang === "en" ? "Open parking page" : "Ouvrir les parkings",
                 secondary: null
@@ -106,11 +106,11 @@ export default function Guide() {
         if (sectionVisibility.events || sectionVisibility.news) {
             items.push({
                 key: "today",
-                title: lang === "en" ? "Check what matters today" : "Verifier ce qui compte aujourd'hui",
+                title: lang === "en" ? "Check what matters today" : "Vérifier ce qui compte aujourd'hui",
                 body:
                     lang === "en"
                         ? "A quick look at local updates or the agenda can save you time once you arrive."
-                        : "Un coup d'oeil aux infos utiles ou a l'agenda suffit souvent pour gagner du temps sur place.",
+                        : "Un coup d'œil aux infos utiles ou à l'agenda suffit souvent pour gagner du temps sur place.",
                 to: sectionVisibility.news ? sectionRoutes.news : sectionRoutes.events,
                 cta: sectionVisibility.news
                     ? lang === "en"
@@ -132,13 +132,13 @@ export default function Guide() {
 
         items.push({
             key: "on-foot",
-            title: lang === "en" ? "Then continue on foot" : "Puis continuer la visite a pied",
+            title: lang === "en" ? "Then continue on foot" : "Puis continuer la visite à pied",
             body:
                 lang === "en"
                     ? "Once parked, the village is easier and more pleasant to discover on foot."
-                    : "Une fois gare, le village se decouvre plus facilement et plus agreablement a pied.",
+                    : "Une fois garé, le village se découvre plus facilement et plus agréablement à pied.",
             to: "/",
-            cta: lang === "en" ? "Back to home" : "Retour a l'accueil",
+            cta: lang === "en" ? "Back to home" : "Retour à l'accueil",
             secondary: sectionVisibility.photos ? (
                 <Link
                     to={sectionRoutes.photos}
@@ -155,7 +155,7 @@ export default function Guide() {
     const heroTitle =
         lang === "en"
             ? "Visit Fontaine-de-Vaucluse in a few simple steps"
-            : "Visiter Fontaine-de-Vaucluse en quelques etapes simples";
+            : "Visiter Fontaine-de-Vaucluse en quelques étapes simples";
     const heroDescription =
         lang === "en"
             ? "This page brings together only the essentials for a short visit: arrive well, park easily and find the right information quickly."
@@ -175,7 +175,7 @@ export default function Guide() {
 
                     <aside className="rounded-[1.75rem] border border-white/15 bg-[#163c35]/40 p-5 backdrop-blur-md">
                         <p className="section-kicker text-[#d7e8e1]">
-                            {lang === "en" ? "Keep in mind" : "A garder en tete"}
+                            {lang === "en" ? "Keep in mind" : "À garder en tête"}
                         </p>
                         <div className="mt-4 grid gap-3">
                             <div className="rounded-[1.25rem] border border-white/10 bg-white/5 px-4 py-3">
@@ -190,12 +190,12 @@ export default function Guide() {
                             </div>
                             <div className="rounded-[1.25rem] border border-white/10 bg-white/5 px-4 py-3">
                                 <p className="text-lg font-semibold text-white">
-                                    {lang === "en" ? "The village is best on foot" : "Le village se decouvre surtout a pied"}
+                                    {lang === "en" ? "The village is best on foot" : "Le village se découvre surtout à pied"}
                                 </p>
                                 <p className="mt-1 text-sm text-white/80">
                                     {lang === "en"
                                         ? "Once parked, you usually need only a short walk."
-                                        : "Une fois gare, quelques minutes a pied suffisent souvent."}
+                                        : "Une fois garé, quelques minutes à pied suffisent souvent."}
                                 </p>
                             </div>
                         </div>
@@ -207,7 +207,7 @@ export default function Guide() {
                 <div className="mb-4">
                     <p className="section-kicker">{lang === "en" ? "Visitor path" : "Parcours visiteur"}</p>
                     <h2 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
-                        {lang === "en" ? "Three simple steps" : "Trois etapes simples"}
+                        {lang === "en" ? "Three simple steps" : "Trois étapes simples"}
                     </h2>
                 </div>
                 <div className="grid gap-5">
@@ -242,7 +242,7 @@ export default function Guide() {
 
                     {visitorTips.length > 0 && (
                         <article className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">
-                            <p className="section-kicker">{lang === "en" ? "Useful reminders" : "Bons reflexes"}</p>
+                            <p className="section-kicker">{lang === "en" ? "Useful reminders" : "Bons réflexes"}</p>
                             <div className="mt-4 grid gap-3">
                                 {visitorTips.map((tip) => (
                                     <InfoPill key={tip}>{tip}</InfoPill>
