@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import {
     getEvents,
-    getHikes,
     getNews,
     getParkings,
     getPhotoGroups,
@@ -13,12 +12,7 @@ import {
 import { defaultSectionVisibility, sectionRoutes } from "../data/sections";
 import { getLocalizedField, getLocalizedList } from "../locale";
 import { useLocale } from "../useLocale";
-import {
-    compareEventsByStartDate,
-    getEventEndDate,
-    getEventStartDate,
-    parseLocalDate
-} from "../utils/events";
+import { compareEventsByStartDate, getEventEndDate, getEventStartDate, parseLocalDate } from "../utils/events";
 
 const fallbackQuickLinks = [
     {
@@ -70,151 +64,10 @@ function ActionCard({ to, eyebrow, title, description }) {
     );
 }
 
-function CompactInfoCard({ eyebrow, title, body, meta, to, cta }) {
-    return (
-        <article className="surface-card rounded-[1.6rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
-            <p className="section-kicker">{eyebrow}</p>
-            <h2 className="mt-2 text-xl text-[#163c35]">{title}</h2>
-            <p className="mt-3 text-sm text-slate-700">{body}</p>
-            {meta ? <p className="mt-3 text-sm font-medium text-[#5b7d76]">{meta}</p> : null}
-            <Link to={to} className="mt-4 inline-block font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline">
-                {cta}
-            </Link>
-        </article>
-    );
-}
-
-function buildKeyInfoCards({
-    lang,
-    sectionVisibility,
-    nextEvent,
-    featuredHike,
-    easyHikes,
-    featuredNews
-}) {
-    const cards = [];
-
-    if (sectionVisibility.parkings) {
-        cards.push({
-            key: "parkings",
-            type: "parking"
-        });
-    }
-
-    if (sectionVisibility.events) {
-        cards.push({
-            key: "events",
-            eyebrow: lang === "en" ? "Today" : "Aujourd'hui",
-            title: nextEvent
-                ? getLocalizedField(nextEvent, "title", lang)
-                : lang === "en"
-                  ? "See what is happening"
-                  : "Voir ce qu'il se passe",
-            body: nextEvent
-                ? getLocalizedField(nextEvent, "location", lang)
-                : lang === "en"
-                  ? "The agenda brings together the next outings and local events."
-                  : "L'agenda rassemble les prochains rendez-vous et animations du village.",
-            meta: nextEvent ? null : null,
-            to: sectionRoutes.events,
-            cta: lang === "en" ? "Open events ->" : "Ouvrir l'agenda ->"
-        });
-    }
-
-    if (sectionVisibility.hikes) {
-        cards.push({
-            key: "hikes",
-            eyebrow: lang === "en" ? "Nature" : "Nature",
-            title: featuredHike
-                ? getLocalizedField(featuredHike, "name", lang)
-                : lang === "en"
-                  ? "Choose a walk"
-                  : "Choisir une balade",
-            body: featuredHike
-                ? getLocalizedField(featuredHike, "description", lang)
-                : lang === "en"
-                  ? "From a short walk to a longer outing, pick the route that fits your time."
-                  : "De la balade courte a la sortie plus longue, choisissez un parcours adapte a votre temps.",
-            meta: featuredHike
-                ? `${getLocalizedField(featuredHike, "difficulty", lang)} - ${getLocalizedField(featuredHike, "duration", lang)}`
-                : easyHikes > 0
-                  ? lang === "en"
-                        ? `${easyHikes} easy walks available`
-                        : `${easyHikes} balades faciles disponibles`
-                  : null,
-            to: sectionRoutes.hikes,
-            cta: lang === "en" ? "Open walks ->" : "Ouvrir les balades ->"
-        });
-    }
-
-    if (sectionVisibility.news && featuredNews) {
-        cards.push({
-            key: "news",
-            eyebrow: lang === "en" ? "Practical" : "Pratique",
-            title: getLocalizedField(featuredNews, "title", lang),
-            body:
-                getLocalizedField(featuredNews, "excerpt", lang) ||
-                getLocalizedField(featuredNews, "content", lang),
-            meta: null,
-            to: sectionRoutes.news,
-            cta: lang === "en" ? "Open updates ->" : "Ouvrir les infos ->"
-        });
-    }
-
-    return cards.slice(0, 3).map((card) => {
-        if (card.type === "parking") {
-            return card;
-        }
-
-        return {
-            ...card,
-            meta:
-                card.key === "events" && nextEvent
-                    ? null
-                    : card.meta
-        };
-    });
-}
-
-function VehicleSummary({ parkings, lang }) {
-    const counts = {
-        cars: parkings.filter((parking) => parking.cars).length,
-        minivans: parkings.filter((parking) => parking.minivans).length,
-        campers: parkings.filter((parking) => parking.campers).length
-    };
-
-    const labels =
-        lang === "en"
-            ? [
-                  `${counts.cars} car options`,
-                  `${counts.minivans} minivan options`,
-                  `${counts.campers} motorhome options`
-              ]
-            : [
-                  `${counts.cars} options voiture`,
-                  `${counts.minivans} options mini-van`,
-                  `${counts.campers} options camping-car`
-              ];
-
-    return (
-        <div className="mt-4 flex flex-wrap gap-2">
-            {labels.map((label) => (
-                <span
-                    key={label}
-                    className="rounded-full bg-[#eef7f3] px-3 py-1 text-xs font-semibold text-[#1f5e54]"
-                >
-                    {label}
-                </span>
-            ))}
-        </div>
-    );
-}
-
 export default function Home() {
     const { lang, locale } = useLocale();
     const [featuredNews, setFeaturedNews] = useState(null);
     const [events, setEvents] = useState([]);
-    const [hikes, setHikes] = useState([]);
     const [parkings, setParkings] = useState([]);
     const [photoGroups, setPhotoGroups] = useState([]);
     const [sectionVisibility, setSectionVisibility] = useState(defaultSectionVisibility);
@@ -268,10 +121,6 @@ export default function Home() {
             setEvents(upcoming.slice(0, 3));
         });
 
-        getHikes().then((data) => {
-            setHikes(data.slice(0, 3));
-        });
-
         getParkings().then(setParkings);
         getPhotoGroups().then(setPhotoGroups);
     }, []);
@@ -307,8 +156,6 @@ export default function Home() {
     }, [lang, sectionVisibility, siteContent]);
 
     const nextEvent = events[0] || null;
-    const featuredHike = hikes[0] || null;
-    const easyHikes = hikes.filter((hike) => getLocalizedField(hike, "difficulty", "fr") === "Facile").length;
     const visitorTips = getLocalizedList(siteContent, "visitorTips", lang).slice(0, 3);
     const alerts = getLocalizedList(siteContent, "alerts", lang).slice(0, 2);
 
@@ -321,14 +168,6 @@ export default function Home() {
     const heroEyebrow =
         getLocalizedField(siteContent?.hero, "eyebrow", lang) ||
         (lang === "en" ? "Visitor guide" : "Guide visiteur");
-    const keyInfoCards = buildKeyInfoCards({
-        lang,
-        sectionVisibility,
-        nextEvent,
-        featuredHike,
-        easyHikes,
-        featuredNews
-    });
     const hasVisitorInfo = alerts.length > 0 || visitorTips.length > 0;
 
     return (
@@ -471,86 +310,6 @@ export default function Home() {
                             </div>
                         </article>
                     ) : null}
-                </section>
-            ) : null}
-
-            <section className="mb-10 sm:mb-12">
-                <div className="mb-4">
-                    <p className="section-kicker">{lang === "en" ? "Key information" : "Infos essentielles"}</p>
-                    <h2 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
-                        {lang === "en" ? "Three quick entry points depending on your need" : "Trois entrees rapides selon votre besoin"}
-                    </h2>
-                </div>
-                <div className="grid gap-5 lg:grid-cols-3">
-                    {keyInfoCards.map((card) =>
-                        card.type === "parking" ? (
-                        <div
-                            key={card.key}
-                            className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)]"
-                        >
-                            <p className="section-kicker">{lang === "en" ? "Access" : "Acces"}</p>
-                            <h3 className="mt-2 text-2xl text-[#163c35]">
-                                {lang === "en" ? "Parking made simple" : "Se garer sans hesiter"}
-                            </h3>
-                            <p className="mt-3 text-sm text-slate-700">
-                                {lang === "en"
-                                    ? "Compare available parking areas before entering the village."
-                                    : "Comparez rapidement les parkings disponibles avant d'entrer dans le village."}
-                            </p>
-                            <VehicleSummary parkings={parkings} lang={lang} />
-                            <Link
-                                to={sectionRoutes.parkings}
-                                className="mt-4 inline-block font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline"
-                            >
-                                {lang === "en" ? "Open parking page ->" : "Ouvrir les parkings ->"}
-                            </Link>
-                        </div>
-                        ) : (
-                            <CompactInfoCard
-                                key={card.key}
-                                eyebrow={card.eyebrow}
-                                title={card.title}
-                                body={card.body}
-                                meta={card.key === "events" && nextEvent ? formatEventDate(nextEvent) : card.meta}
-                                to={card.to}
-                                cta={card.cta}
-                            />
-                        )
-                    )}
-                </div>
-            </section>
-
-            {sectionVisibility.news && featuredNews ? (
-                <section className="mb-10 sm:mb-12">
-                    <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <div>
-                            <p className="section-kicker">{lang === "en" ? "Useful update" : "Info utile"}</p>
-                            <h2 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
-                                {lang === "en" ? "Check this before heading out" : "A verifier avant de partir"}
-                            </h2>
-                        </div>
-                        <Link
-                            to={sectionRoutes.news}
-                            className="text-sm font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline sm:text-base"
-                        >
-                            {lang === "en" ? "See all updates" : "Voir toutes les infos"}
-                        </Link>
-                    </div>
-                    <article className="surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] sm:p-6">
-                        <p className="text-sm text-[#5b7d76]">{formatDate(featuredNews.date)}</p>
-                        <h3 className="mt-2 text-2xl text-[#163c35] sm:text-3xl">
-                            {getLocalizedField(featuredNews, "title", lang)}
-                        </h3>
-                        <p className="mt-3 max-w-3xl text-sm text-slate-700 sm:text-base">
-                            {getLocalizedField(featuredNews, "excerpt", lang) || getLocalizedField(featuredNews, "content", lang)}
-                        </p>
-                        <Link
-                            to={`/news/${featuredNews.id}`}
-                            className="mt-4 inline-block font-medium text-[#1f5e54] hover:text-[#3f977b] hover:underline"
-                        >
-                            {lang === "en" ? "Read the update ->" : "Lire l'info ->"}
-                        </Link>
-                    </article>
                 </section>
             ) : null}
 
