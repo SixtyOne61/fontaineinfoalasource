@@ -1,13 +1,38 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { getSectionVisibility } from "../data/loader";
 import { defaultSectionVisibility, sectionRoutes } from "../data/sections";
 import { useLocale } from "../useLocale";
 
+const NAV_SCROLL_STORAGE_KEY = "navbar-scroll-left";
 let savedNavScrollLeft = 0;
+
+function readSavedNavScrollLeft() {
+    if (typeof window === "undefined") {
+        return savedNavScrollLeft;
+    }
+
+    const storedValue = window.sessionStorage.getItem(NAV_SCROLL_STORAGE_KEY);
+    const parsedValue = Number(storedValue);
+
+    if (!Number.isNaN(parsedValue) && parsedValue >= 0) {
+        savedNavScrollLeft = parsedValue;
+    }
+
+    return savedNavScrollLeft;
+}
+
+function persistNavScrollLeft(value) {
+    savedNavScrollLeft = value;
+
+    if (typeof window !== "undefined") {
+        window.sessionStorage.setItem(NAV_SCROLL_STORAGE_KEY, String(value));
+    }
+}
 
 export default function Navbar() {
     const { lang, setLang, t } = useLocale();
+    const location = useLocation();
     const [sectionVisibility, setSectionVisibility] = useState(defaultSectionVisibility);
     const navScrollRef = useRef(null);
 
@@ -31,13 +56,12 @@ export default function Navbar() {
         if (!navNode) return undefined;
 
         const handleScroll = () => {
-            savedNavScrollLeft = navNode.scrollLeft;
+            persistNavScrollLeft(navNode.scrollLeft);
         };
 
         navNode.addEventListener("scroll", handleScroll, { passive: true });
 
         return () => {
-            savedNavScrollLeft = navNode.scrollLeft;
             navNode.removeEventListener("scroll", handleScroll);
         };
     }, []);
@@ -49,8 +73,16 @@ export default function Navbar() {
 
         if (!navNode) return;
 
-        navNode.scrollLeft = savedNavScrollLeft;
-    }, [lang, visibleNavItems.length]);
+        navNode.scrollLeft = readSavedNavScrollLeft();
+    }, [lang, location.pathname, visibleNavItems.length]);
+
+    const saveCurrentNavScroll = () => {
+        const navNode = navScrollRef.current;
+
+        if (!navNode) return;
+
+        persistNavScrollLeft(navNode.scrollLeft);
+    };
 
     const linkClass = ({ isActive }, highlight = false) => {
         if (isActive) {
@@ -89,7 +121,7 @@ export default function Navbar() {
     return (
         <header className="sticky top-0 z-[1000] border-b border-white/10 bg-[#1f5e54]/95 text-white shadow-[0_14px_40px_rgba(22,60,53,0.18)] backdrop-blur-xl supports-[backdrop-filter]:bg-[#1f5e54]/90">
             <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
-                <Link to="/" className="flex min-w-0 items-center gap-3">
+                <Link to="/" className="flex min-w-0 items-center gap-3" onClick={saveCurrentNavScroll}>
                     <img
                         src="/logo-fontaine.png"
                         alt="Logo Fontaine-de-Vaucluse"
@@ -125,6 +157,9 @@ export default function Navbar() {
                                     end={item.to === "/"}
                                     className={(state) => linkClass(state, item.highlight)}
                                     aria-label={item.label}
+                                    onMouseDown={saveCurrentNavScroll}
+                                    onTouchStart={saveCurrentNavScroll}
+                                    onClick={saveCurrentNavScroll}
                                 >
                                     <span className="sm:hidden">{item.shortLabel || item.label}</span>
                                     <span className="hidden sm:inline">{item.label}</span>
