@@ -92,7 +92,7 @@ export default function Guide() {
         if (sectionVisibility.parkings) {
             items.push({
                 key: "parkings",
-                title: lang === "en" ? "Choose your parking before entering" : "Choisir son parking avant d'entrer",
+                title: lang === "en" ? "Choose your parking before arriving" : "Choisir son parking avant d'arriver",
                 body:
                     lang === "en"
                         ? "This is usually the fastest way to avoid unnecessary turns and arrive more calmly."
