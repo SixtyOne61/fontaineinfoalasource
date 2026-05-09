@@ -56,6 +56,14 @@ function slugifyText(value) {
     return normalized || null;
 }
 
+function buildGeneratedId(...values) {
+    return slugifyText(
+        values
+            .filter((value) => typeof value === "string" && value.trim().length > 0)
+            .join(" ")
+    );
+}
+
 function sanitizeTextList(values, maxLength = 220) {
     if (!Array.isArray(values)) return [];
 
@@ -190,7 +198,7 @@ function sanitizeSiteContent(data) {
 }
 
 function sanitizeNewsItem(item) {
-    const id = sanitizeId(item?.id);
+    const id = sanitizeId(item?.id) || buildGeneratedId(item?.title, item?.date);
     if (!id) return null;
 
     return {
@@ -207,7 +215,7 @@ function sanitizeNewsItem(item) {
 }
 
 function sanitizeEventItem(item) {
-    const id = sanitizeId(item?.id);
+    const id = sanitizeId(item?.id) || buildGeneratedId(item?.title, item?.startDate, item?.location);
     if (!id) return null;
 
     const recurrenceFrequency = sanitizeText(item?.recurrence?.frequency, 24).toLowerCase();
@@ -244,7 +252,7 @@ function sanitizeEventItem(item) {
 }
 
 function sanitizeHikeItem(item) {
-    const id = sanitizeId(item?.id);
+    const id = sanitizeId(item?.id) || buildGeneratedId(item?.name, item?.startPoint);
     if (!id) return null;
 
     return {
@@ -265,7 +273,7 @@ function sanitizeHikeItem(item) {
 }
 
 function sanitizeParkingItem(item) {
-    const id = sanitizeId(item?.id);
+    const id = sanitizeId(item?.id) || buildGeneratedId(item?.name, item?.address);
     if (!id) return null;
 
     return {

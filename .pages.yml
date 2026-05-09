@@ -39,7 +39,6 @@ content:
             required: false
             description: Visible publiquement si le lien pointe vers une section active du site.
             fields:
-              - { name: id, label: ID interne, type: string, required: false, description: Identifiant technique optionnel. }
               - { name: label, label: Libelle FR, type: string }
               - { name: labelEn, label: Libelle EN, type: string, required: false }
               - { name: to, label: Lien interne, type: string, description: Exemple: /guide, /parking, /news. }
@@ -49,7 +48,6 @@ content:
             required: false
             description: Visible publiquement si le lien pointe vers une section active du site.
             fields:
-              - { name: id, label: ID interne, type: string, required: false, description: Identifiant technique optionnel. }
               - { name: label, label: Libelle FR, type: string }
               - { name: labelEn, label: Libelle EN, type: string, required: false }
               - { name: to, label: Lien interne, type: string, description: Exemple: /guide, /parking, /news. }
@@ -60,7 +58,6 @@ content:
         list: true
         description: Cartes visibles sur l'accueil et dans le guide.
         fields:
-          - { name: id, label: ID interne, type: string, description: Identifiant technique stable. Ne pas modifier apres publication sauf besoin reel. }
           - { name: title, label: Titre FR, type: string }
           - { name: titleEn, label: Titre EN, type: string, required: false }
           - { name: description, label: Description FR, type: text }
@@ -73,7 +70,6 @@ content:
         list: true
         description: Cartes courtes visibles sur l'accueil pour mettre en avant des habitudes locales utiles.
         fields:
-          - { name: id, label: ID interne, type: string, description: Identifiant technique stable. }
           - { name: title, label: Titre FR, type: string }
           - { name: titleEn, label: Titre EN, type: string, required: false }
           - { name: value, label: Valeur FR, type: string, required: false, description: Court message mis en avant. }
@@ -90,7 +86,6 @@ content:
         required: false
         description: Bloc prevu pour les informations courtes et prioritaires. Chaque entree doit pouvoir etre affichee seule, avec une date de mise a jour claire.
         fields:
-          - { name: id, label: ID interne, type: string, description: Identifiant technique stable. Ne pas modifier apres publication. }
           - { name: title, label: Titre FR, type: string, description: Message principal court. Viser une phrase utile en lecture mobile. }
           - { name: titleEn, label: Titre EN, type: string, required: false }
           - { name: summary, label: Resume FR, type: text, required: false, description: Preciser l'impact concret pour l'usager. Eviter le ton administratif. }
@@ -114,7 +109,6 @@ content:
         list: true
         description: Rubriques visibles publiquement sur la page guide / infos pratiques.
         fields:
-          - { name: id, label: ID interne, type: string, description: Identifiant technique stable. }
           - { name: title, label: Titre FR, type: string }
           - { name: titleEn, label: Titre EN, type: string, required: false }
           - { name: summary, label: Resume FR, type: text, required: false }
@@ -125,7 +119,6 @@ content:
             list: true
             required: false
             fields:
-              - { name: id, label: ID interne, type: string, required: false, description: Identifiant technique optionnel. }
               - { name: title, label: Titre FR, type: string }
               - { name: titleEn, label: Titre EN, type: string, required: false }
               - { name: description, label: Description FR, type: text, required: false, description: Texte simple visible publiquement. }
@@ -136,7 +129,6 @@ content:
             list: true
             required: false
             fields:
-              - { name: id, label: ID interne, type: string, required: false, description: Identifiant technique optionnel. }
               - { name: label, label: Libelle FR, type: string }
               - { name: labelEn, label: Libelle EN, type: string, required: false }
               - { name: to, label: Lien interne, type: string, description: Exemple: /parking, /news, /events, /hikes, /. }
@@ -148,7 +140,6 @@ content:
         required: false
         description: Cartes de service pour les besoins concrets du terrain. Utiliser ce bloc pour les toilettes, l'eau, l'accessibilite, l'accueil visiteurs ou d'autres reperes fiables.
         fields:
-          - { name: id, label: ID interne, type: string, description: Identifiant technique stable. }
           - { name: name, label: Nom FR, type: string }
           - { name: nameEn, label: Nom EN, type: string, required: false }
           - { name: category, label: Categorie FR, type: string, required: false, description: Exemple: Service sur place, Acces, Accueil visiteurs. }
@@ -176,7 +167,6 @@ content:
         required: false
         description: Cartes visibles publiquement dans le guide / infos pratiques. Garder seulement des contacts officiellement relies a la commune ou utiles en premier niveau.
         fields:
-          - { name: id, label: ID interne, type: string, description: Identifiant technique stable. }
           - { name: name, label: Nom FR, type: string }
           - { name: nameEn, label: Nom EN, type: string, required: false }
           - { name: role, label: Role FR, type: string, required: false }
@@ -206,7 +196,6 @@ content:
         type: object
         list: true
         fields:
-          - { name: id, label: ID interne, type: number, description: Identifiant technique stable. }
           - { name: title, label: Titre FR, type: string }
           - { name: titleEn, label: Titre EN, type: string, required: false }
           - { name: date, label: Date (AAAA-MM-JJ), type: string, description: Format attendu 2026-05-02. }
@@ -227,7 +216,6 @@ content:
         type: object
         list: true
         fields:
-          - { name: id, label: ID interne, type: number, description: Identifiant technique stable. }
           - { name: title, label: Titre FR, type: string }
           - { name: titleEn, label: Titre EN, type: string, required: false }
           - { name: startDate, label: Date de debut (AAAA-MM-JJ), type: string, description: Format attendu 2026-05-02. Champ principal de date. }
@@ -280,7 +268,6 @@ content:
         type: object
         list: true
         fields:
-          - { name: id, label: ID interne, type: number, description: Identifiant technique stable. }
           - { name: name, label: Nom, type: string }
           - { name: distance, label: Distance (km), type: number }
           - { name: difficulty, label: Difficulte FR, type: string }
@@ -305,7 +292,6 @@ content:
         type: object
         list: true
         fields:
-          - { name: id, label: ID interne, type: number, description: Identifiant technique stable. }
           - { name: name, label: Nom, type: string }
           - { name: lat, label: Latitude, type: number }
           - { name: lng, label: Longitude, type: number }
@@ -341,7 +327,6 @@ content:
         type: object
         list: true
         fields:
-          - { name: id, label: ID, type: string }
           - { name: title, label: Titre FR, type: string }
           - { name: titleEn, label: Titre EN, type: string, required: false }
           - { name: description, label: Description FR, type: text, required: false }
@@ -351,5 +336,4 @@ content:
             type: object
             list: true
             fields:
-              - { name: id, label: ID photo, type: string, required: false }
               - { name: image, label: Image, type: image }
