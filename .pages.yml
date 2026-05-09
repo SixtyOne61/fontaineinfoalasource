@@ -230,8 +230,8 @@ content:
           - { name: id, label: ID interne, type: number, description: Identifiant technique stable. }
           - { name: title, label: Titre FR, type: string }
           - { name: titleEn, label: Titre EN, type: string, required: false }
-          - { name: startDate, label: Date de debut (AAAA-MM-JJ), type: string, description: Format attendu 2026-05-02. }
-          - { name: endDate, label: Date de fin (AAAA-MM-JJ), type: string, description: Format attendu 2026-05-02. }
+          - { name: startDate, label: Date de debut (AAAA-MM-JJ), type: string, description: Format attendu 2026-05-02. Champ principal de date. }
+          - { name: endDate, label: Date de fin (AAAA-MM-JJ), type: string, required: false, description: Laisser vide si l'evenement a lieu sur une seule journee. }
           - { name: location, label: Lieu, type: string }
           - { name: content, label: Description FR, type: text, description: Le site affiche un texte simple. Ne pas compter sur du gras, des listes ou des liens enrichis. }
           - { name: contentEn, label: Description EN, type: text, required: false, description: Le site affiche un texte simple sans mise en forme riche. }

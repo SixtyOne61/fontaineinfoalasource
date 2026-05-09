@@ -224,7 +224,6 @@ function sanitizeEventItem(item) {
               frequency: recurrenceFrequency,
               interval: sanitizeNumber(item?.recurrence?.interval, { min: 1, max: 31 }) || 1,
               until: sanitizeDate(item?.recurrence?.until),
-              endDate: sanitizeDate(item?.recurrence?.endDate),
               weekdays: recurrenceWeekdays,
           }
         : null;
@@ -234,7 +233,6 @@ function sanitizeEventItem(item) {
         ...sanitizeLocalizedTextFields(item, "title", 160),
         startDate: sanitizeDate(item?.startDate),
         endDate: sanitizeDate(item?.endDate),
-        date: sanitizeDate(item?.date),
         location: sanitizeText(item?.location, 200),
         ...sanitizeLocalizedTextFields(item, "content", 5000),
         recurrence,

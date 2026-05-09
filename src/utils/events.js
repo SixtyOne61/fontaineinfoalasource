@@ -123,7 +123,7 @@ function formatRecurrenceUntil(value, lang) {
 }
 
 function getRecurrenceSuffix(recurrence, lang) {
-    const until = formatRecurrenceUntil(recurrence?.until || recurrence?.endDate, lang);
+    const until = formatRecurrenceUntil(recurrence?.until, lang);
     return until ? (lang === "en" ? ` until ${until}` : ` jusqu'au ${until}`) : "";
 }
 
@@ -187,13 +187,12 @@ function buildOccurrence(baseEvent, occurrenceStart, durationDays, occurrenceInd
         occurrenceIndex,
         startDate,
         endDate,
-        date: startDate,
         isRecurringInstance: true,
     };
 }
 
 function getExpansionEndDate(startDate, recurrence) {
-    const explicitEnd = parseLocalDate(recurrence?.until || recurrence?.endDate);
+    const explicitEnd = parseLocalDate(recurrence?.until);
     if (explicitEnd) {
         return explicitEnd;
     }
@@ -202,8 +201,8 @@ function getExpansionEndDate(startDate, recurrence) {
 }
 
 function expandRecurringEvent(event) {
-    const startDate = parseLocalDate(event.startDate || event.date);
-    const endDate = parseLocalDate(event.endDate || event.startDate || event.date);
+    const startDate = parseLocalDate(event.startDate);
+    const endDate = parseLocalDate(event.endDate || event.startDate);
     const recurrence = event.recurrence;
 
     if (!startDate || !endDate || !recurrence?.frequency) {
@@ -233,11 +232,11 @@ export function expandRecurringEvents(events) {
 }
 
 export function getEventStartDate(event) {
-    return event?.startDate || event?.date || "";
+    return event?.startDate || "";
 }
 
 export function getEventEndDate(event) {
-    return event?.endDate || event?.startDate || event?.date || "";
+    return event?.endDate || event?.startDate || "";
 }
 
 export function compareEventsByStartDate(a, b) {

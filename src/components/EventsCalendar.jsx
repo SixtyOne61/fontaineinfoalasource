@@ -35,8 +35,8 @@ export default function EventsCalendar({ events }) {
         const map = {};
 
         events.forEach((event) => {
-            const start = event.startDate || event.date;
-            const end = event.endDate || event.startDate || event.date;
+            const start = event.startDate;
+            const end = event.endDate || event.startDate;
 
             if (!start || !end) return;
 
