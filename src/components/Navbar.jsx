@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { getSectionVisibility } from "../data/loader";
 import { defaultSectionVisibility, sectionRoutes } from "../data/sections";
 import { useLocale } from "../useLocale";
 
+let savedNavScrollLeft = 0;
+
 export default function Navbar() {
     const { lang, setLang, t } = useLocale();
     const [sectionVisibility, setSectionVisibility] = useState(defaultSectionVisibility);
+    const navScrollRef = useRef(null);
 
     const navItems = [
         { key: "home", to: "/", label: t("common.home") },
@@ -22,7 +25,32 @@ export default function Navbar() {
         getSectionVisibility().then(setSectionVisibility);
     }, []);
 
+    useEffect(() => {
+        const navNode = navScrollRef.current;
+
+        if (!navNode) return undefined;
+
+        const handleScroll = () => {
+            savedNavScrollLeft = navNode.scrollLeft;
+        };
+
+        navNode.addEventListener("scroll", handleScroll, { passive: true });
+
+        return () => {
+            savedNavScrollLeft = navNode.scrollLeft;
+            navNode.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     const visibleNavItems = navItems.filter((item) => item.key === "home" || sectionVisibility[item.key]);
+
+    useLayoutEffect(() => {
+        const navNode = navScrollRef.current;
+
+        if (!navNode) return;
+
+        navNode.scrollLeft = savedNavScrollLeft;
+    }, [lang, visibleNavItems.length]);
 
     const linkClass = ({ isActive }, highlight = false) => {
         if (isActive) {
@@ -87,6 +115,7 @@ export default function Navbar() {
                     <nav
                         aria-label={lang === "en" ? "Main navigation" : "Navigation principale"}
                         className="overflow-x-auto"
+                        ref={navScrollRef}
                     >
                         <div className="flex min-w-max gap-2 pb-1">
                             {visibleNavItems.map((item) => (
