@@ -2,55 +2,505 @@
   "items": [
     {
       "id": 1,
-      "title": "Marché des producteurs et artisans locaux",
-      "titleEn": "Local producers and crafts market",
-      "startDate": "2026-04-15",
-      "endDate": "2026-04-15",
-      "location": "Place de la Colonne",
-      "content": "Retrouvez producteurs locaux, artisans, produits du terroir, petite restauration et un stand d'information touristique au coeur du village.",
-      "contentEn": "Meet local producers and craftspeople, enjoy regional products, grab light refreshments and stop by the tourist information stand in the village centre.",
-      "image": "/uploads/images.jpg"
+      "title": "Exposition « Mémoires des feuilles »",
+      "titleEn": "Exposition « Mémoires des feuilles »",
+      "startDate": "2026-04-02",
+      "endDate": "2026-09-28",
+      "location": "Musée Pétrarque",
+      "content": "Exposition de Marine Guillemot présentée au musée Pétrarque du 2 avril au 28 septembre 2026.",
+      "contentEn": "Exposition de Marine Guillemot présentée au musée Pétrarque du 2 avril au 28 septembre 2026."
     },
     {
       "id": 2,
-      "title": "Week-end nature et patrimoine",
-      "titleEn": "Nature and heritage weekend",
-      "startDate": "2026-04-18",
-      "endDate": "2026-04-19",
-      "location": "Centre du village et abords de la Sorgue",
-      "content": "Animations familiales, balades commentées et ateliers de découverte autour du patrimoine naturel, de la Sorgue et de l'histoire du village.",
-      "contentEn": "Family activities, guided walks and discovery workshops about local natural heritage, the Sorgue and the history of the village.",
-      "image": "/uploads/fond-jaune-1-scaled.jpg"
-    },
-    {
-      "id": 3,
-      "title": "Visite commentée du village",
-      "titleEn": "Guided village tour",
-      "startDate": "2026-04-21",
-      "endDate": "2026-04-21",
-      "location": "Départ devant l'office d'information",
-      "content": "Parcours pédestre commenté pour découvrir l'organisation du village, ses points de vue et ses repères patrimoniaux.",
-      "contentEn": "A guided walking tour to discover the village layout, its viewpoints and its heritage landmarks.",
-      "image": "/uploads/fond-jaune-1-scaled.jpg"
-    },
-    {
-      "id": 4,
-      "title": "Marché hebdomadaire",
-      "titleEn": "Weekly market",
-      "startDate": "2026-04-22",
-      "endDate": "2026-04-22",
+      "title": "Place aux artisans",
+      "titleEn": "Place aux artisans",
+      "startDate": "2026-05-01",
+      "endDate": "2026-05-01",
       "location": "Place de la Colonne",
-      "content": "Le rendez-vous hebdomadaire pour retrouver producteurs, artisans et quelques informations utiles pour votre visite.",
-      "contentEn": "The weekly gathering for local producers, craftspeople and a few practical tips for your visit.",
-      "image": "/uploads/images.jpg",
+      "content": "Marché d'artisans et de créateurs chaque vendredi de mai, de 8h à 13h30, au cœur du village.",
+      "contentEn": "Marché d'artisans et de créateurs chaque vendredi de mai, de 8h à 13h30, au cœur du village.",
       "recurrence": {
         "frequency": "weekly",
         "interval": 1,
-        "until": "2026-10-28",
+        "until": "2026-05-29",
         "weekdays": [
-          "wednesday"
+          "friday"
         ]
       }
+    },
+    {
+      "id": 3,
+      "title": "Apéritif du 1er mai",
+      "titleEn": "Apéritif du 1er mai",
+      "startDate": "2026-05-01",
+      "endDate": "2026-05-01",
+      "location": "Foyer de l'Oustau",
+      "content": "Rendez-vous convivial du 1er mai à 18h au Foyer de l'Oustau.",
+      "contentEn": "Rendez-vous convivial du 1er mai à 18h au Foyer de l'Oustau."
+    },
+    {
+      "id": 4,
+      "title": "Festival artistique",
+      "titleEn": "Festival artistique",
+      "startDate": "2026-05-01",
+      "endDate": "2026-05-03",
+      "location": "Dans Fontaine-de-Vaucluse",
+      "content": "Festival artistique organisé par Les Gens de la Fontaine du 1er au 3 mai.",
+      "contentEn": "Festival artistique organisé par Les Gens de la Fontaine du 1er au 3 mai."
+    },
+    {
+      "id": 5,
+      "title": "Mise en ligne de l'application « Explore Fontaine »",
+      "titleEn": "Mise en ligne de l'application « Explore Fontaine »",
+      "startDate": "2026-05-03",
+      "endDate": "2026-05-03",
+      "location": "En ligne",
+      "content": "L'Office de tourisme met en ligne l'application Explore Fontaine. Un QR code est disponible dans le village.",
+      "contentEn": "L'Office de tourisme met en ligne l'application Explore Fontaine. Un QR code est disponible dans le village."
+    },
+    {
+      "id": 6,
+      "title": "Festival de la Sorgue",
+      "titleEn": "Festival de la Sorgue",
+      "startDate": "2026-05-03",
+      "endDate": "2026-05-03",
+      "location": "Devant la mairie",
+      "content": "Rendez-vous du Festival de la Sorgue à 9h30 devant la mairie.",
+      "contentEn": "Rendez-vous du Festival de la Sorgue à 9h30 devant la mairie."
+    },
+    {
+      "id": 7,
+      "title": "Exposition Florence Trottoli",
+      "titleEn": "Exposition Florence Trottoli",
+      "startDate": "2026-05-04",
+      "endDate": "2026-05-15",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Exposition de Florence Trottoli du 4 au 15 mai.",
+      "contentEn": "Exposition de Florence Trottoli du 4 au 15 mai."
+    },
+    {
+      "id": 8,
+      "title": "Commémoration du 8 mai 1945",
+      "titleEn": "Commémoration du 8 mai 1945",
+      "startDate": "2026-05-08",
+      "endDate": "2026-05-08",
+      "location": "Cimetière",
+      "content": "Cérémonie commémorative à 10h au cimetière en mémoire de la fin de la Seconde Guerre mondiale en Europe.",
+      "contentEn": "Cérémonie commémorative à 10h au cimetière en mémoire de la fin de la Seconde Guerre mondiale en Europe."
+    },
+    {
+      "id": 9,
+      "title": "Dîner-concert duo guitare-voix",
+      "titleEn": "Dîner-concert duo guitare-voix",
+      "startDate": "2026-05-15",
+      "endDate": "2026-05-15",
+      "location": "Restaurant Le Parc",
+      "content": "Dîner-concert à 20h avec un duo guitare-voix au restaurant Le Parc.",
+      "contentEn": "Dîner-concert à 20h avec un duo guitare-voix au restaurant Le Parc."
+    },
+    {
+      "id": 10,
+      "title": "Exposition Les peintres de Villeneuve",
+      "titleEn": "Exposition Les peintres de Villeneuve",
+      "startDate": "2026-05-16",
+      "endDate": "2026-05-31",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Exposition des Peintres de Villeneuve du 16 au 31 mai.",
+      "contentEn": "Exposition des Peintres de Villeneuve du 16 au 31 mai."
+    },
+    {
+      "id": 11,
+      "title": "Week-end René Char",
+      "titleEn": "Week-end René Char",
+      "startDate": "2026-05-16",
+      "endDate": "2026-05-17",
+      "location": "Musée Pétrarque et sites liés à René Char",
+      "content": "Week-end autour de René Char avec visite guidée du musée, projection-débat, découverte de trois sites liés à René Char et randonnée d'environ 2h30. Réservation conseillée.",
+      "contentEn": "Week-end autour de René Char avec visite guidée du musée, projection-débat, découverte de trois sites liés à René Char et randonnée d'environ 2h30. Réservation conseillée."
+    },
+    {
+      "id": 12,
+      "title": "Randonnée « Le vallon de l'Aigue Brun »",
+      "titleEn": "Randonnée « Le vallon de l'Aigue Brun »",
+      "startDate": "2026-05-17",
+      "endDate": "2026-05-17",
+      "location": "Départ Oustau, sortie à Buoux",
+      "content": "Randonnée de 12 km avec 380 m de dénivelé. Renseignements au 06 85 31 81 76.",
+      "contentEn": "Randonnée de 12 km avec 380 m de dénivelé. Renseignements au 06 85 31 81 76."
+    },
+    {
+      "id": 13,
+      "title": "Rencontre avec Martine Platarets",
+      "titleEn": "Rencontre avec Martine Platarets",
+      "startDate": "2026-05-18",
+      "endDate": "2026-05-18",
+      "location": "Foyer de l'Oustau",
+      "content": "Rencontre à 14h30 autour de son livre « Au cœur de la BAC ».",
+      "contentEn": "Rencontre à 14h30 autour de son livre « Au cœur de la BAC »."
+    },
+    {
+      "id": 14,
+      "title": "Rencontre avec l'artiste Marine Guillemot",
+      "titleEn": "Rencontre avec l'artiste Marine Guillemot",
+      "startDate": "2026-05-20",
+      "endDate": "2026-05-20",
+      "location": "Musée Pétrarque",
+      "content": "Rencontre de 14h à 15h avec Marine Guillemot autour de l'exposition « Mémoires des feuilles ».",
+      "contentEn": "Rencontre de 14h à 15h avec Marine Guillemot autour de l'exposition « Mémoires des feuilles »."
+    },
+    {
+      "id": 15,
+      "title": "Balade contée autour de la nature",
+      "titleEn": "Balade contée autour de la nature",
+      "startDate": "2026-05-23",
+      "endDate": "2026-05-23",
+      "location": "Musée Pétrarque",
+      "content": "Balade contée de 18h à 22h pour la Nuit européenne des musées, proposée avec le Théâtre Rural d'Animation Culturelle (TRAC).",
+      "contentEn": "Balade contée de 18h à 22h pour la Nuit européenne des musées, proposée avec le Théâtre Rural d'Animation Culturelle (TRAC)."
+    },
+    {
+      "id": 16,
+      "title": "Spectacle « Une partie d'échecs »",
+      "titleEn": "Spectacle « Une partie d'échecs »",
+      "startDate": "2026-05-23",
+      "endDate": "2026-05-23",
+      "location": "Musée d'Histoire Jean Garcin",
+      "content": "Spectacle de 18h à 22h sur réservation, proposé par la Compagnie l'Écho du Soleil.",
+      "contentEn": "Spectacle de 18h à 22h sur réservation, proposé par la Compagnie l'Écho du Soleil."
+    },
+    {
+      "id": 17,
+      "title": "Réunion du CCAS",
+      "titleEn": "Réunion du CCAS",
+      "startDate": "2026-05-26",
+      "endDate": "2026-05-26",
+      "location": "Mairie",
+      "content": "Réunion du CCAS à 18h30 en mairie.",
+      "contentEn": "Réunion du CCAS à 18h30 en mairie."
+    },
+    {
+      "id": 18,
+      "title": "Dîner-concert duo piano-voix",
+      "titleEn": "Dîner-concert duo piano-voix",
+      "startDate": "2026-05-29",
+      "endDate": "2026-05-29",
+      "location": "Restaurant Le Parc",
+      "content": "Dîner-concert de 20h à 22h avec un duo piano-voix au restaurant Le Parc.",
+      "contentEn": "Dîner-concert de 20h à 22h avec un duo piano-voix au restaurant Le Parc."
+    },
+    {
+      "id": 19,
+      "title": "Conférence « Astronomie et légendes du ciel »",
+      "titleEn": "Conférence « Astronomie et légendes du ciel »",
+      "startDate": "2026-05-30",
+      "endDate": "2026-05-30",
+      "location": "Salle Clément Coursant",
+      "content": "Conférence à 14h30 par Guy Livernais de l'association Pesco Luno, avec l'Oustau.",
+      "contentEn": "Conférence à 14h30 par Guy Livernais de l'association Pesco Luno, avec l'Oustau."
+    },
+    {
+      "id": 20,
+      "title": "Nettoyage de la Sorgue",
+      "titleEn": "Nettoyage de la Sorgue",
+      "startDate": "2026-05-30",
+      "endDate": "2026-05-30",
+      "location": "Sorgue",
+      "content": "Opération de nettoyage de la Sorgue à 9h avec les Chevaliers de l'Onde.",
+      "contentEn": "Opération de nettoyage de la Sorgue à 9h avec les Chevaliers de l'Onde."
+    },
+    {
+      "id": 21,
+      "title": "Exposition « Les créations de la Vallée Close »",
+      "titleEn": "Exposition « Les créations de la Vallée Close »",
+      "startDate": "2026-06-01",
+      "endDate": "2026-06-15",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Exposition présentée du 1er au 15 juin.",
+      "contentEn": "Exposition présentée du 1er au 15 juin."
+    },
+    {
+      "id": 22,
+      "title": "Marché des commerçants",
+      "titleEn": "Marché des commerçants",
+      "startDate": "2026-06-05",
+      "endDate": "2026-06-05",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Rendez-vous des commerçants chaque vendredi du 5 juin au 28 août.",
+      "contentEn": "Rendez-vous des commerçants chaque vendredi du 5 juin au 28 août.",
+      "recurrence": {
+        "frequency": "weekly",
+        "interval": 1,
+        "until": "2026-08-28",
+        "weekdays": [
+          "friday"
+        ]
+      }
+    },
+    {
+      "id": 23,
+      "title": "Photographie nature et rendez-vous biodiversité",
+      "titleEn": "Photographie nature et rendez-vous biodiversité",
+      "startDate": "2026-06-06",
+      "endDate": "2026-06-06",
+      "location": "Grotte du Musée Pétrarque",
+      "content": "Après-midi autour de la photographie nature avec David Tatin : conférence de 14h30 à 16h30 et rendez-vous biodiversité pour les enfants de 6 à 11 ans accompagnés, de 14h30 à 17h.",
+      "contentEn": "Après-midi autour de la photographie nature avec David Tatin : conférence de 14h30 à 16h30 et rendez-vous biodiversité pour les enfants de 6 à 11 ans accompagnés, de 14h30 à 17h."
+    },
+    {
+      "id": 24,
+      "title": "Dîner-concert duo guitare-voix",
+      "titleEn": "Dîner-concert duo guitare-voix",
+      "startDate": "2026-06-12",
+      "endDate": "2026-06-12",
+      "location": "Restaurant Le Parc",
+      "content": "Dîner-concert à 20h avec un duo guitare-voix au restaurant Le Parc.",
+      "contentEn": "Dîner-concert à 20h avec un duo guitare-voix au restaurant Le Parc."
+    },
+    {
+      "id": 25,
+      "title": "Concert des chorales La Cascaïado et A Cappella'gnes",
+      "titleEn": "Concert des chorales La Cascaïado et A Cappella'gnes",
+      "startDate": "2026-06-12",
+      "endDate": "2026-06-12",
+      "location": "Église de Fontaine-de-Vaucluse",
+      "content": "Concert à 20h30 des chorales La Cascaïado et A Cappella'gnes.",
+      "contentEn": "Concert à 20h30 des chorales La Cascaïado et A Cappella'gnes."
+    },
+    {
+      "id": 26,
+      "title": "Promenades littéraires sur les traces de Pétrarque",
+      "titleEn": "Promenades littéraires sur les traces de Pétrarque",
+      "startDate": "2026-06-13",
+      "endDate": "2026-06-13",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Promenades littéraires de 14h à 18h. Inscription obligatoire auprès de Francine Figuière au 06 75 57 66 04 ou par mail à parcourslitterairesenprovence@gmail.com.",
+      "contentEn": "Promenades littéraires de 14h à 18h. Inscription obligatoire auprès de Francine Figuière au 06 75 57 66 04 ou par mail à parcourslitterairesenprovence@gmail.com."
+    },
+    {
+      "id": 27,
+      "title": "Feu de la Saint-Jean",
+      "titleEn": "Feu de la Saint-Jean",
+      "startDate": "2026-06-27",
+      "endDate": "2026-06-27",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Soirée du feu de la Saint-Jean le samedi 27 juin.",
+      "contentEn": "Soirée du feu de la Saint-Jean le samedi 27 juin."
+    },
+    {
+      "id": 28,
+      "title": "Rencontre avec l'artiste Marine Guillemot",
+      "titleEn": "Rencontre avec l'artiste Marine Guillemot",
+      "startDate": "2026-06-27",
+      "endDate": "2026-06-27",
+      "location": "Musée Pétrarque",
+      "content": "Rencontre de 14h à 15h avec Marine Guillemot autour de l'exposition « Mémoires des feuilles ».",
+      "contentEn": "Rencontre de 14h à 15h avec Marine Guillemot autour de l'exposition « Mémoires des feuilles »."
+    },
+    {
+      "id": 29,
+      "title": "Fête votive de Fontaine-de-Vaucluse",
+      "titleEn": "Fête votive de Fontaine-de-Vaucluse",
+      "startDate": "2026-07-03",
+      "endDate": "2026-07-08",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Fête votive avec concours de boules, restauration, soirées musicales, courses de garçons de café et animations du 3 au 8 juillet.",
+      "contentEn": "Fête votive avec concours de boules, restauration, soirées musicales, courses de garçons de café et animations du 3 au 8 juillet."
+    },
+    {
+      "id": 30,
+      "title": "Dîner-concert duo guitare-voix",
+      "titleEn": "Dîner-concert duo guitare-voix",
+      "startDate": "2026-07-03",
+      "endDate": "2026-07-03",
+      "location": "Restaurant Le Parc",
+      "content": "Dîner-concert à 20h avec un duo guitare-voix au restaurant Le Parc.",
+      "contentEn": "Dîner-concert à 20h avec un duo guitare-voix au restaurant Le Parc."
+    },
+    {
+      "id": 31,
+      "title": "Place à l'apéro",
+      "titleEn": "Place à l'apéro",
+      "startDate": "2026-07-07",
+      "endDate": "2026-07-07",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Rendez-vous estival du mardi en fin de journée avec animations musicales. Artistes annoncés selon les dates : Hé Larcenist, Rivers, Papago, Les Mélomanes et El Conquistador. La plupart des rendez-vous sont à 18h, sauf la soirée bodéga du 11 août à 18h30.",
+      "contentEn": "Rendez-vous estival du mardi en fin de journée avec animations musicales. Artistes annoncés selon les dates : Hé Larcenist, Rivers, Papago, Les Mélomanes et El Conquistador. La plupart des rendez-vous sont à 18h, sauf la soirée bodéga du 11 août à 18h30.",
+      "recurrence": {
+        "frequency": "weekly",
+        "interval": 1,
+        "until": "2026-08-25",
+        "weekdays": [
+          "tuesday"
+        ]
+      }
+    },
+    {
+      "id": 32,
+      "title": "Balade et découverte naturaliste",
+      "titleEn": "Balade et découverte naturaliste",
+      "startDate": "2026-07-10",
+      "endDate": "2026-07-10",
+      "location": "Musée Pétrarque",
+      "content": "Balade de 9h à 11h30 autour des libellules et demoiselles, animée par la Ligue de Protection des Oiseaux. À partir de 8 ans.",
+      "contentEn": "Balade de 9h à 11h30 autour des libellules et demoiselles, animée par la Ligue de Protection des Oiseaux. À partir de 8 ans."
+    },
+    {
+      "id": 33,
+      "title": "Concert Kamel-Blues",
+      "titleEn": "Concert Kamel-Blues",
+      "startDate": "2026-07-11",
+      "endDate": "2026-07-11",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Concert à 21h.",
+      "contentEn": "Concert à 21h."
+    },
+    {
+      "id": 34,
+      "title": "Dîner-concert duo piano-voix",
+      "titleEn": "Dîner-concert duo piano-voix",
+      "startDate": "2026-07-17",
+      "endDate": "2026-07-17",
+      "location": "Restaurant Le Parc",
+      "content": "Dîner-concert de 20h à 22h avec un duo piano-voix au restaurant Le Parc.",
+      "contentEn": "Dîner-concert de 20h à 22h avec un duo piano-voix au restaurant Le Parc."
+    },
+    {
+      "id": 35,
+      "title": "Rock et latino - danse",
+      "titleEn": "Rock et latino - danse",
+      "startDate": "2026-07-17",
+      "endDate": "2026-07-17",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Soirée rock et latino à 21h.",
+      "contentEn": "Soirée rock et latino à 21h."
+    },
+    {
+      "id": 36,
+      "title": "Concert Les Baladins",
+      "titleEn": "Concert Les Baladins",
+      "startDate": "2026-07-18",
+      "endDate": "2026-07-18",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Concert à 21h30.",
+      "contentEn": "Concert à 21h30."
+    },
+    {
+      "id": 37,
+      "title": "Visite guidée flash de l'exposition",
+      "titleEn": "Visite guidée flash de l'exposition",
+      "startDate": "2026-07-25",
+      "endDate": "2026-07-25",
+      "location": "Musée Pétrarque",
+      "content": "Visite guidée flash de l'exposition « Mémoires des feuilles » de 11h30 à 12h, chaque samedi du 25 juillet au 22 août.",
+      "contentEn": "Visite guidée flash de l'exposition « Mémoires des feuilles » de 11h30 à 12h, chaque samedi du 25 juillet au 22 août.",
+      "recurrence": {
+        "frequency": "weekly",
+        "interval": 1,
+        "until": "2026-08-22",
+        "weekdays": [
+          "saturday"
+        ]
+      }
+    },
+    {
+      "id": 38,
+      "title": "Dîner-concert duo guitare-voix",
+      "titleEn": "Dîner-concert duo guitare-voix",
+      "startDate": "2026-08-07",
+      "endDate": "2026-08-07",
+      "location": "Restaurant Le Parc",
+      "content": "Dîner-concert à 20h avec un duo guitare-voix au restaurant Le Parc.",
+      "contentEn": "Dîner-concert à 20h avec un duo guitare-voix au restaurant Le Parc."
+    },
+    {
+      "id": 39,
+      "title": "Les Baladins à l'Oustau",
+      "titleEn": "Les Baladins à l'Oustau",
+      "startDate": "2026-08-14",
+      "endDate": "2026-08-14",
+      "location": "L'Oustau",
+      "content": "Concert des Baladins à 18h à l'Oustau.",
+      "contentEn": "Concert des Baladins à 18h à l'Oustau."
+    },
+    {
+      "id": 40,
+      "title": "BRASERO - Show Elvis Rick Levis",
+      "titleEn": "BRASERO - Show Elvis Rick Levis",
+      "startDate": "2026-08-15",
+      "endDate": "2026-08-15",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Soirée BRASERO à 18h30 avec le show Elvis de Rick Levis.",
+      "contentEn": "Soirée BRASERO à 18h30 avec le show Elvis de Rick Levis."
+    },
+    {
+      "id": 41,
+      "title": "Rock et latino - danse",
+      "titleEn": "Rock et latino - danse",
+      "startDate": "2026-08-21",
+      "endDate": "2026-08-21",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Soirée rock et latino à 21h.",
+      "contentEn": "Soirée rock et latino à 21h."
+    },
+    {
+      "id": 42,
+      "title": "Dîner-concert duo piano-voix",
+      "titleEn": "Dîner-concert duo piano-voix",
+      "startDate": "2026-08-28",
+      "endDate": "2026-08-28",
+      "location": "Restaurant Le Parc",
+      "content": "Dîner-concert de 20h à 22h avec un duo piano-voix au restaurant Le Parc.",
+      "contentEn": "Dîner-concert de 20h à 22h avec un duo piano-voix au restaurant Le Parc."
+    },
+    {
+      "id": 43,
+      "title": "Bodega - DJ en attente de réponse",
+      "titleEn": "Bodega - DJ en attente de réponse",
+      "startDate": "2026-08-29",
+      "endDate": "2026-08-29",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Soirée bodega à 21h.",
+      "contentEn": "Soirée bodega à 21h."
+    },
+    {
+      "id": 44,
+      "title": "Exposition Union des Arts",
+      "titleEn": "Exposition Union des Arts",
+      "startDate": "2026-09-01",
+      "endDate": "2026-09-15",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Exposition annoncée du 1er au 15 septembre.",
+      "contentEn": "Exposition annoncée du 1er au 15 septembre."
+    },
+    {
+      "id": 45,
+      "title": "Dîner-concert duo piano-voix",
+      "titleEn": "Dîner-concert duo piano-voix",
+      "startDate": "2026-09-11",
+      "endDate": "2026-09-11",
+      "location": "Restaurant Le Parc",
+      "content": "Dîner-concert de 20h à 22h avec un duo piano-voix au restaurant Le Parc.",
+      "contentEn": "Dîner-concert de 20h à 22h avec un duo piano-voix au restaurant Le Parc."
+    },
+    {
+      "id": 46,
+      "title": "Exposition Créartist",
+      "titleEn": "Exposition Créartist",
+      "startDate": "2026-09-16",
+      "endDate": "2026-09-30",
+      "location": "Fontaine-de-Vaucluse",
+      "content": "Exposition annoncée du 16 au 30 septembre.",
+      "contentEn": "Exposition annoncée du 16 au 30 septembre."
+    },
+    {
+      "id": 47,
+      "title": "Rencontre avec l'artiste Marine Guillemot",
+      "titleEn": "Rencontre avec l'artiste Marine Guillemot",
+      "startDate": "2026-09-18",
+      "endDate": "2026-09-18",
+      "location": "Musée Pétrarque",
+      "content": "Rencontre de 14h à 15h avec Marine Guillemot autour de l'exposition « Mémoires des feuilles ».",
+      "contentEn": "Rencontre de 14h à 15h avec Marine Guillemot autour de l'exposition « Mémoires des feuilles »."
     }
   ]
 }

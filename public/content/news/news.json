@@ -10,28 +10,6 @@
       "content": "Afin de fluidifier le trafic à Fontaine-de-Vaucluse, un sens unique est mis en place dans le village.",
       "contentEn": "To ease traffic congestion in Fontaine-de-Vaucluse, a one-way system has been implemented in the village.",
       "image": "/uploads/SensUnique.png"
-    },
-    {
-      "id": 2,
-      "title": "Stationnement : privilégier les parkings signalés à l'entrée du village",
-      "titleEn": "Parking reminder: use the signed areas at the village entrance",
-      "date": "2026-04-08",
-      "excerpt": "Pour limiter la congestion dans le centre ancien, il est conseillé de se garer dès l'arrivée sur les parkings indiqués.",
-      "excerptEn": "To reduce congestion in the historic centre, visitors are encouraged to park in the signed areas as soon as they arrive.",
-      "content": "La commune rappelle que le stationnement est à privilégier sur les parkings signalés à l'entrée du village. Cette organisation limite la circulation dans le centre ancien, sécurise les déplacements piétons et facilite l'accès aux commerces, au site de la source et aux sentiers de découverte.",
-      "contentEn": "The municipality reminds visitors that parking is best used in the signed parking areas at the village entrance. This helps reduce traffic in the historic centre, improves pedestrian safety and makes it easier to reach shops, the spring site and walking trails.",
-      "image": "/uploads/images.jpg"
-    },
-    {
-      "id": 3,
-      "title": "Cheminements piétons conseillés entre les parkings et le coeur du village",
-      "titleEn": "Recommended walking routes between parking areas and the village centre",
-      "date": "2026-04-05",
-      "excerpt": "Des itinéraires piétons balisés permettent de rejoindre rapidement les principaux points d'intérêt.",
-      "excerptEn": "Marked walking routes make it easier to reach the main points of interest quickly.",
-      "content": "Depuis les parkings communaux, des cheminements piétons balisés permettent de rejoindre à pied les principaux points d'intérêt du village. La commune invite les visiteurs à suivre ces itinéraires pour limiter les conflits d'usage, sécuriser les traversées et améliorer le confort de visite en période d'affluence.",
-      "contentEn": "From the municipal parking areas, marked walking routes allow visitors to reach the village's main points of interest on foot. The municipality encourages visitors to follow these routes to reduce conflicts of use, improve crossing safety and make visits more comfortable during busy periods.",
-      "image": "/uploads/fond-jaune-1-scaled.jpg"
     }
   ]
 }
