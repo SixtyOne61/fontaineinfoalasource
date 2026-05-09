@@ -2,14 +2,14 @@
   "items": [
     {
       "id": 1,
-      "title": "Accueil renforcé les week-ends de forte fréquentation",
-      "titleEn": "Enhanced visitor support on busy weekends",
-      "date": "2026-04-12",
-      "excerpt": "La commune met en place une signalétique temporaire et des points d'information pour mieux orienter les visiteurs.",
-      "excerptEn": "The municipality is setting up temporary signage and information points to guide visitors more smoothly.",
-      "content": "Afin de fluidifier l'arrivée des visiteurs à Fontaine-de-Vaucluse, la commune renforce son dispositif d'accueil les week-ends de forte fréquentation. Une signalétique temporaire est déployée des principaux axes d'accès jusqu'aux zones de stationnement. Des points d'information orientent ensuite les visiteurs vers les parkings disponibles, les cheminements piétons et les principaux lieux à découvrir.",
-      "contentEn": "To make arrivals smoother in Fontaine-de-Vaucluse, the municipality is strengthening its visitor support on busy weekends. Temporary signage is deployed from the main access roads to the parking areas. Information points then direct visitors to available parking, walking routes and the main places to discover.",
-      "image": "/uploads/fond-jaune-1-scaled.jpg"
+      "title": "Sens unique week end et jour ferié d'été",
+      "titleEn": "One-way system on weekends and summer holidays",
+      "date": "2026-05-01",
+      "excerpt": "La commune met en place une signalétique temporaire.",
+      "excerptEn": "The municipality is setting up temporary signage.",
+      "content": "Afin de fluidifier le trafic à Fontaine-de-Vaucluse, un sens unique est mis en place dans le village.",
+      "contentEn": "To ease traffic congestion in Fontaine-de-Vaucluse, a one-way system has been implemented in the village.",
+      "image": "/uploads/SensUnique.png"
     },
     {
       "id": 2,

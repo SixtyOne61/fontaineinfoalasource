@@ -23,8 +23,8 @@ export default function Photos() {
                     </h1>
                     <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
                         {lang === "en"
-                            ? "Browse simple themed photo groups, each with a title and a short description."
-                            : "Retrouvez des groupes de photos simples, avec seulement un titre et une courte description."}
+                            ? "Our beautiful city is revealed."
+                            : "Notre belle ville se dévoile."}
                     </p>
                 </div>
             </section>
