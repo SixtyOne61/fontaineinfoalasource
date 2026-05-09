@@ -15,7 +15,7 @@ export default function Navbar() {
         { key: "home", to: "/", label: t("common.home") },
         { key: "guide", to: sectionRoutes.guide, label: t("common.guide"), shortLabel: lang === "en" ? "Visit" : "Visite" },
         { key: "parkings", to: sectionRoutes.parkings, label: t("common.parkings"), shortLabel: lang === "en" ? "Parking" : "Parking", highlight: true },
-        { key: "events", to: sectionRoutes.events, label: t("common.events"), shortLabel: lang === "en" ? "Today" : "Aujourd'hui" },
+        { key: "events", to: sectionRoutes.events, label: t("common.events"), shortLabel: lang === "en" ? "Events" : "Événements" },
         { key: "hikes", to: sectionRoutes.hikes, label: t("common.hikes"), shortLabel: lang === "en" ? "Walks" : "Balades" },
         { key: "photos", to: sectionRoutes.photos, label: t("common.photos"), shortLabel: t("common.photos") },
         { key: "news", to: sectionRoutes.news, label: t("common.news"), shortLabel: lang === "en" ? "Info" : "Infos" }
