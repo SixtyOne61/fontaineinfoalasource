@@ -84,7 +84,7 @@ export default function HikeDetail() {
         return (
             <AsyncStateCard
                 title={lang === "en" ? "Loading walk" : "Chargement de la balade"}
-                description={lang === "en" ? "The route details are being prepared." : "Les details du parcours sont en cours de chargement."}
+                description={lang === "en" ? "The route details are being prepared." : "Les détails du parcours sont en cours de chargement."}
                 linkTo="/hikes"
                 linkLabel={lang === "en" ? "Back to walks" : "Retour aux balades"}
             />
@@ -95,7 +95,7 @@ export default function HikeDetail() {
         return (
             <AsyncStateCard
                 title={lang === "en" ? "Unable to load walk" : "Chargement impossible"}
-                description={lang === "en" ? "The route details cannot be displayed right now." : "Les details du parcours ne peuvent pas etre affiches pour le moment."}
+                description={lang === "en" ? "The route details cannot be displayed right now." : "Les détails du parcours ne peuvent pas être affichés pour le moment."}
                 linkTo="/hikes"
                 linkLabel={lang === "en" ? "Back to walks" : "Retour aux balades"}
             />
@@ -106,7 +106,7 @@ export default function HikeDetail() {
         return (
             <AsyncStateCard
                 title={lang === "en" ? "Walk not found" : "Balade introuvable"}
-                description={lang === "en" ? "This route is no longer available." : "Ce parcours n est plus disponible."}
+                description={lang === "en" ? "This route is no longer available." : "Ce parcours n'est plus disponible."}
                 linkTo="/hikes"
                 linkLabel={lang === "en" ? "Back to walks" : "Retour aux balades"}
             />
@@ -142,17 +142,17 @@ export default function HikeDetail() {
                             </div>
 
                             <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                                <p className="text-sm text-slate-500">{lang === "en" ? "Difficulty" : "Difficulte"}</p>
+                                <p className="text-sm text-slate-500">{lang === "en" ? "Difficulty" : "Difficulté"}</p>
                                 <p className="font-medium text-slate-900">{getLocalizedField(hike, "difficulty", lang)}</p>
                             </div>
 
                             <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                                <p className="text-sm text-slate-500">{lang === "en" ? "Duration" : "Duree"}</p>
+                                <p className="text-sm text-slate-500">{lang === "en" ? "Duration" : "Durée"}</p>
                                 <p className="font-medium text-slate-900">{getLocalizedField(hike, "duration", lang)}</p>
                             </div>
 
                             <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
-                                <p className="text-sm text-slate-500">{lang === "en" ? "Start point" : "Depart"}</p>
+                                <p className="text-sm text-slate-500">{lang === "en" ? "Start point" : "Départ"}</p>
                                 <p className="font-medium text-slate-900">{getLocalizedField(hike, "startPoint", lang)}</p>
                             </div>
                         </div>
@@ -187,7 +187,7 @@ export default function HikeDetail() {
                                     rel="noreferrer"
                                     className="text-[#1f5e54] hover:text-[#3f977b] hover:underline"
                                 >
-                                    {lang === "en" ? "Download GPX file" : "Telecharger le fichier GPX"}
+                                    {lang === "en" ? "Download GPX file" : "Télécharger le fichier GPX"}
                                 </a>
                             )}
                         </div>

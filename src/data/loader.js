@@ -10,36 +10,24 @@ import {
 import { expandRecurringEvents } from "../utils/events";
 
 async function fetchItems(path) {
-    try {
-        const res = await fetch(path, { credentials: "same-origin" });
+    const res = await fetch(path, { credentials: "same-origin" });
 
-        if (!res.ok) {
-            console.error(`Impossible de charger ${path}:`, res.status);
-            return [];
-        }
-
-        const data = await res.json();
-        return Array.isArray(data?.items) ? data.items : [];
-    } catch (error) {
-        console.error(`Erreur lors du chargement de ${path}:`, error);
-        return [];
+    if (!res.ok) {
+        throw new Error(`Impossible de charger ${path} (${res.status})`);
     }
+
+    const data = await res.json();
+    return Array.isArray(data?.items) ? data.items : [];
 }
 
-async function fetchContent(path, fallback) {
-    try {
-        const res = await fetch(path, { credentials: "same-origin" });
+async function fetchContent(path) {
+    const res = await fetch(path, { credentials: "same-origin" });
 
-        if (!res.ok) {
-            console.error(`Impossible de charger ${path}:`, res.status);
-            return fallback;
-        }
-
-        return await res.json();
-    } catch (error) {
-        console.error(`Erreur lors du chargement de ${path}:`, error);
-        return fallback;
+    if (!res.ok) {
+        throw new Error(`Impossible de charger ${path} (${res.status})`);
     }
+
+    return await res.json();
 }
 
 function slugifyText(value) {
@@ -125,17 +113,6 @@ function sanitizeQuickLink(item) {
     };
 }
 
-function sanitizeHighlight(item) {
-    const base = sanitizeCmsContentItem(item);
-    if (!base) return null;
-
-    return {
-        ...base,
-        ...sanitizeLocalizedTextFields(item, "value", 60),
-        ...sanitizeLocalizedTextFields(item, "tag", 60),
-    };
-}
-
 function sanitizeGuideSection(section) {
     const id = sanitizeId(section?.id) || slugifyText(sanitizeText(section?.title, 120));
     if (!id) return null;
@@ -180,9 +157,6 @@ function sanitizeSiteContent(data) {
         hero: sanitizeHeroContent(data?.hero || {}),
         quickLinks: Array.isArray(data?.quickLinks)
             ? data.quickLinks.map(sanitizeQuickLink).filter(Boolean)
-            : [],
-        highlights: Array.isArray(data?.highlights)
-            ? data.highlights.map(sanitizeHighlight).filter(Boolean)
             : [],
         guideSections: Array.isArray(data?.guideSections)
             ? data.guideSections.map(sanitizeGuideSection).filter(Boolean)
@@ -288,6 +262,12 @@ function sanitizeParkingItem(item) {
         campers: sanitizeBoolean(item?.campers),
         hourlyRate: sanitizeText(item?.hourlyRate, 60),
         dailyRate: sanitizeText(item?.dailyRate, 60),
+        walkMinutes: sanitizeNumber(item?.walkMinutes, { min: 0, max: 240 }),
+        ...sanitizeLocalizedTextFields(item, "walkDistance", 80),
+        ...sanitizeLocalizedTextFields(item, "payment", 140),
+        ...sanitizeLocalizedTextFields(item, "access", 220),
+        ...sanitizeLocalizedTextFields(item, "bestFor", 120),
+        ...sanitizeLocalizedTextFields(item, "goodToKnow", 220),
         ...sanitizeLocalizedTextFields(item, "notes", 400),
     };
 }
@@ -359,7 +339,7 @@ export async function getSectionVisibility() {
         parkings: true,
         photos: true,
     };
-    const data = await fetchContent("/content/site/sections.json", defaults);
+    const data = await fetchContent("/content/site/sections.json");
 
     return {
         guide: data?.guide !== false,
@@ -372,22 +352,7 @@ export async function getSectionVisibility() {
 }
 
 export async function getSiteContent() {
-    const fallback = {
-        hero: {
-            eyebrow: "",
-            title: "",
-            description: "",
-            primaryCta: null,
-            secondaryCta: null,
-        },
-        quickLinks: [],
-        highlights: [],
-        guideSections: [],
-        contacts: [],
-        visitorTips: [],
-        alerts: [],
-    };
-    const data = await fetchContent("/content/site/site.json", fallback);
+    const data = await fetchContent("/content/site/site.json");
 
     return sanitizeSiteContent(data);
 }

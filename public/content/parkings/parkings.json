@@ -1,7 +1,6 @@
 {
   "items": [
     {
-      "id": 1,
       "name": "Parking des Vergnes",
       "lat": 43.919943,
       "lng": 5.119065,
@@ -12,11 +11,21 @@
       "campers": false,
       "hourlyRate": "30 min offertes, puis paiement sur borne ou via EasyPark",
       "dailyRate": "Tarif communal selon la saison, à consulter sur place",
-      "notes": "Un parking pratique dès l'entrée du village, idéal pour se garer rapidement avant de poursuivre la visite à pied. Les autocars n'y sont plus autorisés. Le point sur la carte reste indicatif.",
-      "notesEn": "A convenient car park right at the village entrance, ideal if you want to park quickly and continue your visit on foot. Coaches are no longer allowed here. The map marker is approximate."
+      "walkMinutes": 8,
+      "walkDistance": "Environ 600 m, 8 min à pied",
+      "walkDistanceEn": "Around 600 m, 8 minutes on foot",
+      "payment": "Horodateur ou EasyPark",
+      "paymentEn": "Pay station or EasyPark",
+      "access": "Accès simple dès l'entrée du village.",
+      "accessEn": "Straightforward access right at the village entrance.",
+      "bestFor": "Visite classique, arrivée simple, voiture ou moto",
+      "bestForEn": "Standard visit, easy arrival, car or motorbike",
+      "goodToKnow": "Les autocars n'y sont plus autorisés. Le point sur la carte reste indicatif.",
+      "goodToKnowEn": "Coaches are no longer allowed. The map marker remains approximate.",
+      "notes": "Un parking pratique dès l'entrée du village, idéal pour se garer rapidement avant de poursuivre la visite à pied.",
+      "notesEn": "A convenient car park right at the village entrance, ideal if you want to park quickly and continue your visit on foot."
     },
     {
-      "id": 2,
       "name": "Parking P1-P2",
       "lat": 43.92292,
       "lng": 5.12533,
@@ -27,11 +36,21 @@
       "campers": false,
       "hourlyRate": "30 min offertes, puis paiement sur borne ou via EasyPark",
       "dailyRate": "Tarif communal selon la saison, à consulter sur place",
-      "notes": "Une bonne option pour laisser la voiture avant de rejoindre le centre du village. Les parkings P1 et P2 font partie des principales zones de stationnement indiquées par la commune. Le point affiché est approximatif.",
-      "notesEn": "A good option if you want to leave your car before heading into the village centre. P1 and P2 are among the main parking areas listed by the municipality. The marker shown is approximate."
+      "walkMinutes": 6,
+      "walkDistance": "Environ 450 m, 6 min à pied",
+      "walkDistanceEn": "Around 450 m, 6 minutes on foot",
+      "payment": "Horodateur ou EasyPark",
+      "paymentEn": "Pay station or EasyPark",
+      "access": "Bon compromis pour laisser la voiture avant de rejoindre le centre.",
+      "accessEn": "A good compromise before heading to the village center.",
+      "bestFor": "Voiture, mini-van, visite de quelques heures",
+      "bestForEn": "Car, minivan, a few hours in the village",
+      "goodToKnow": "Le point affiché sur la carte est approximatif.",
+      "goodToKnowEn": "The marker shown on the map is approximate.",
+      "notes": "Les parkings P1 et P2 font partie des principales zones de stationnement indiquées par la commune.",
+      "notesEn": "P1 and P2 are among the main parking areas listed by the municipality."
     },
     {
-      "id": 3,
       "name": "Parking P3",
       "lat": 43.923471,
       "lng": 5.126021,
@@ -42,11 +61,21 @@
       "campers": false,
       "hourlyRate": "30 min offertes, puis paiement sur borne ou via EasyPark",
       "dailyRate": "Tarif communal selon la saison, à consulter sur place",
-      "notes": "Ce parking permet de se rapprocher du village tout en gardant un accès simple. C'est aussi le point de passage vers les stationnements deux-roues gratuits du chemin du Prieuré.",
-      "notesEn": "This parking area lets you get closer to the village while keeping access simple. It is also the access point to the free two-wheel parking on Chemin du Prieuré."
+      "walkMinutes": 5,
+      "walkDistance": "Environ 350 m, 5 min à pied",
+      "walkDistanceEn": "Around 350 m, 5 minutes on foot",
+      "payment": "Horodateur ou EasyPark",
+      "paymentEn": "Pay station or EasyPark",
+      "access": "Permet de se rapprocher du village tout en gardant un accès simple.",
+      "accessEn": "Gets you closer to the village while keeping access simple.",
+      "bestFor": "Voiture, accès plus proche du centre",
+      "bestForEn": "Car, closer access to the center",
+      "goodToKnow": "Point de passage vers le stationnement deux-roues gratuit du chemin du Prieuré.",
+      "goodToKnowEn": "Access point to the free two-wheel parking on Chemin du Prieuré.",
+      "notes": "C'est aussi le point de passage vers les stationnements deux-roues gratuits du chemin du Prieuré.",
+      "notesEn": "It is also the access point to the free two-wheel parking on Chemin du Prieuré."
     },
     {
-      "id": 4,
       "name": "Parking deux-roues du Prieuré",
       "lat": 43.923471,
       "lng": 5.126021,
@@ -57,11 +86,21 @@
       "campers": false,
       "hourlyRate": "Gratuit",
       "dailyRate": "Gratuit",
-      "notes": "Un stationnement gratuit pensé pour les motos et scooters, pratique pour accéder au village sans chercher longtemps. Les emplacements sont signalés le long du chemin du Prieuré. Le point sur la carte reste indicatif.",
-      "notesEn": "Free parking for motorcycles and scooters, handy if you want easy access to the village without searching for long. Spaces are signposted along Chemin du Prieuré. The map marker is approximate."
+      "walkMinutes": 5,
+      "walkDistance": "Environ 350 m, 5 min à pied",
+      "walkDistanceEn": "Around 350 m, 5 minutes on foot",
+      "payment": "Aucun paiement",
+      "paymentEn": "No payment",
+      "access": "Stationnement pensé pour les motos et scooters.",
+      "accessEn": "Parking designed for motorcycles and scooters.",
+      "bestFor": "Moto, scooter, visite courte",
+      "bestForEn": "Motorbike, scooter, short visit",
+      "goodToKnow": "Les emplacements sont signalés le long du chemin du Prieuré. Le point sur la carte reste indicatif.",
+      "goodToKnowEn": "Spaces are signposted along Chemin du Prieuré. The map marker remains approximate.",
+      "notes": "Un stationnement gratuit pratique pour accéder au village sans chercher longtemps.",
+      "notesEn": "Free parking that makes it easier to reach the village without searching for long."
     },
     {
-      "id": 5,
       "name": "Aire Camping-Car Park",
       "lat": 43.92022,
       "lng": 5.12473,
@@ -72,8 +111,19 @@
       "campers": true,
       "hourlyRate": "Forfait 5 h avec services : 6,00 EUR",
       "dailyRate": "24 h : 15,62 EUR + taxe de séjour",
-      "notes": "Une aire dédiée aux camping-cars, à environ 500 m du centre, pour profiter du village plus sereinement. Elle propose 21 emplacements et les services utiles pour une halte confortable.",
-      "notesEn": "A dedicated motorhome area about 500 m from the centre, making it easier to enjoy the village at your own pace. It offers 21 pitches and useful services for a comfortable stop."
+      "walkMinutes": 10,
+      "walkDistance": "Environ 500 m, 10 min à pied",
+      "walkDistanceEn": "Around 500 m, 10 minutes on foot",
+      "payment": "Forfait sur aire dédiée",
+      "paymentEn": "Dedicated motorhome area fee",
+      "access": "Aire dédiée aux camping-cars et véhicules plus volumineux.",
+      "accessEn": "Dedicated area for motorhomes and larger vehicles.",
+      "bestFor": "Camping-car, halte plus longue, besoin de services",
+      "bestForEn": "Motorhome, longer stop, on-site services",
+      "goodToKnow": "21 emplacements et les services utiles pour une halte confortable.",
+      "goodToKnowEn": "21 pitches and useful services for a comfortable stop.",
+      "notes": "Une aire dédiée aux camping-cars, à environ 500 m du centre, pour profiter du village plus sereinement.",
+      "notesEn": "A dedicated motorhome area about 500 m from the center, making it easier to enjoy the village at your own pace."
     }
   ]
 }

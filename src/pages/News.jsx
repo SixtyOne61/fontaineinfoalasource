@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import AsyncStateCard from "../components/AsyncStateCard";
 import Card from "../components/Card";
 import Layout from "../components/Layout";
 import SearchBar from "../components/SearchBar";
@@ -9,14 +10,37 @@ import { useLocale } from "../useLocale";
 
 export default function News() {
     const { lang, t } = useLocale();
+    const [status, setStatus] = useState("loading");
     const [news, setNews] = useState([]);
     const [search, setSearch] = useState("");
 
     useEffect(() => {
-        getNews().then((data) => {
-            const sorted = [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
-            setNews(sorted);
-        });
+        let isMounted = true;
+
+        async function syncNews() {
+            try {
+                setStatus("loading");
+                const data = await getNews();
+                const sorted = [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                if (!isMounted) return;
+
+                setNews(sorted);
+                setStatus("ready");
+            } catch (error) {
+                console.error("Unable to load news:", error);
+
+                if (isMounted) {
+                    setStatus("error");
+                }
+            }
+        }
+
+        syncNews();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const filteredNews = useMemo(() => {
@@ -30,6 +54,32 @@ export default function News() {
             );
         });
     }, [lang, news, search]);
+
+    if (status === "loading") {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Loading updates" : "Chargement des infos"}
+                description={
+                    lang === "en"
+                        ? "The local updates are being prepared."
+                        : "Les informations locales sont en cours de chargement."
+                }
+            />
+        );
+    }
+
+    if (status === "error") {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Unable to load updates" : "Chargement impossible"}
+                description={
+                    lang === "en"
+                        ? "The local updates cannot be displayed right now."
+                        : "Les informations locales ne peuvent pas être affichées pour le moment."
+                }
+            />
+        );
+    }
 
     return (
         <Layout>

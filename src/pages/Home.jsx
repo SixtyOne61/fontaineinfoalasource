@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import AsyncStateCard from "../components/AsyncStateCard";
 import Layout from "../components/Layout";
 import {
     getEvents,
@@ -7,7 +8,7 @@ import {
     getParkings,
     getPhotoGroups,
     getSectionVisibility,
-    getSiteContent
+    getSiteContent,
 } from "../data/loader";
 import { defaultSectionVisibility, sectionRoutes } from "../data/sections";
 import { getLocalizedField, getLocalizedList } from "../locale";
@@ -21,7 +22,7 @@ const fallbackQuickLinks = [
         titleEn: "Plan my visit",
         descriptionFr: "Les repères utiles avant d'arriver.",
         descriptionEn: "Helpful information before you arrive.",
-        to: sectionRoutes.guide
+        to: sectionRoutes.guide,
     },
     {
         key: "parkings",
@@ -29,7 +30,7 @@ const fallbackQuickLinks = [
         titleEn: "Find parking",
         descriptionFr: "Choisir rapidement où se garer selon votre véhicule.",
         descriptionEn: "Quickly choose where to park based on your vehicle.",
-        to: sectionRoutes.parkings
+        to: sectionRoutes.parkings,
     },
     {
         key: "events",
@@ -37,7 +38,7 @@ const fallbackQuickLinks = [
         titleEn: "What to do today",
         descriptionFr: "Voir les sorties et animations du moment.",
         descriptionEn: "See what is happening today.",
-        to: sectionRoutes.events
+        to: sectionRoutes.events,
     },
     {
         key: "hikes",
@@ -45,11 +46,21 @@ const fallbackQuickLinks = [
         titleEn: "Choose a walk",
         descriptionFr: "Trouver un parcours selon votre temps.",
         descriptionEn: "Pick a route based on your time.",
-        to: sectionRoutes.hikes
-    }
+        to: sectionRoutes.hikes,
+    },
 ];
 
 const sectionPriority = ["guide", "parkings", "events", "hikes", "news", "photos"];
+
+function getSectionKeyFromRoute(route) {
+    if (route === sectionRoutes.parkings) return "parkings";
+    if (route === sectionRoutes.guide) return "guide";
+    if (route === sectionRoutes.events) return "events";
+    if (route === sectionRoutes.hikes) return "hikes";
+    if (route === sectionRoutes.news) return "news";
+    if (route === sectionRoutes.photos) return "photos";
+    return null;
+}
 
 function ActionCard({ to, eyebrow, title, description }) {
     return (
@@ -66,6 +77,7 @@ function ActionCard({ to, eyebrow, title, description }) {
 
 export default function Home() {
     const { lang, locale } = useLocale();
+    const [status, setStatus] = useState("loading");
     const [featuredNews, setFeaturedNews] = useState(null);
     const [events, setEvents] = useState([]);
     const [parkings, setParkings] = useState([]);
@@ -77,10 +89,62 @@ export default function Home() {
         () =>
             new Intl.DateTimeFormat(locale, {
                 day: "numeric",
-                month: "long"
+                month: "long",
             }),
         [locale]
     );
+
+    useEffect(() => {
+        let isMounted = true;
+
+        async function syncHome() {
+            try {
+                setStatus("loading");
+
+                const [visibility, content, newsItems, eventItems, parkingItems, photoItems] = await Promise.all([
+                    getSectionVisibility(),
+                    getSiteContent(),
+                    getNews(),
+                    getEvents(),
+                    getParkings(),
+                    getPhotoGroups(),
+                ]);
+
+                if (!isMounted) return;
+
+                const sortedNews = [...newsItems].sort((a, b) => new Date(b.date) - new Date(a.date));
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const upcomingEvents = eventItems
+                    .filter((event) => {
+                        const end = parseLocalDate(getEventEndDate(event));
+                        return end && end >= today;
+                    })
+                    .sort(compareEventsByStartDate)
+                    .slice(0, 3);
+
+                setSectionVisibility(visibility);
+                setSiteContent(content);
+                setFeaturedNews(sortedNews[0] || null);
+                setEvents(upcomingEvents);
+                setParkings(parkingItems);
+                setPhotoGroups(photoItems);
+                setStatus("ready");
+            } catch (error) {
+                console.error("Unable to load home:", error);
+
+                if (isMounted) {
+                    setStatus("error");
+                }
+            }
+        }
+
+        syncHome();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     function formatDate(value) {
         const date = parseLocalDate(value);
@@ -99,47 +163,21 @@ export default function Home() {
             : `Du ${formatDate(start)} au ${formatDate(end)}`;
     }
 
-    useEffect(() => {
-        getSectionVisibility().then(setSectionVisibility);
-        getSiteContent().then(setSiteContent);
-
-        getNews().then((data) => {
-            const sorted = [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
-            setFeaturedNews(sorted[0] || null);
-        });
-
-        getEvents().then((data) => {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const upcoming = data
-                .filter((event) => {
-                    const end = parseLocalDate(getEventEndDate(event));
-                    return end && end >= today;
-                })
-                .sort(compareEventsByStartDate);
-
-            setEvents(upcoming.slice(0, 3));
-        });
-
-        getParkings().then(setParkings);
-        getPhotoGroups().then(setPhotoGroups);
-    }, []);
+    function isRouteVisible(route) {
+        const key = getSectionKeyFromRoute(route);
+        return key ? sectionVisibility[key] : false;
+    }
 
     const quickActions = useMemo(() => {
         const configuredLinks = siteContent?.quickLinks?.length
             ? siteContent.quickLinks.map((link) => ({
                   ...link,
-                  key:
-                      link.to === sectionRoutes.parkings
-                          ? "parkings"
-                          : link.to === sectionRoutes.photos
-                            ? "photos"
-                            : link.id
+                  key: getSectionKeyFromRoute(link.to) || link.id,
               }))
             : fallbackQuickLinks.map((link) => ({
                   ...link,
                   title: lang === "en" ? link.titleEn : link.titleFr,
-                  description: lang === "en" ? link.descriptionEn : link.descriptionFr
+                  description: lang === "en" ? link.descriptionEn : link.descriptionFr,
               }));
 
         return configuredLinks
@@ -151,22 +189,79 @@ export default function Home() {
                 to: link.to,
                 eyebrow: lang === "en" ? `Step ${index + 1}` : `Étape ${index + 1}`,
                 title: getLocalizedField(link, "title", lang) || link.title,
-                description: getLocalizedField(link, "description", lang) || link.description
+                description: getLocalizedField(link, "description", lang) || link.description,
             }));
     }, [lang, sectionVisibility, siteContent]);
+
+    const heroActions = useMemo(() => {
+        const actions = [siteContent?.hero?.primaryCta, siteContent?.hero?.secondaryCta]
+            .filter(Boolean)
+            .filter((cta) => isRouteVisible(cta.to));
+
+        if (actions.length > 0) {
+            return actions.map((cta, index) => ({
+                ...cta,
+                primary: index === 0,
+                label: getLocalizedField(cta, "label", lang),
+            }));
+        }
+
+        return [
+            sectionVisibility.parkings
+                ? {
+                      to: sectionRoutes.parkings,
+                      label: lang === "en" ? "See parking" : "Voir les parkings",
+                      primary: true,
+                  }
+                : null,
+            sectionVisibility.guide
+                ? {
+                      to: sectionRoutes.guide,
+                      label: lang === "en" ? "Plan my visit" : "Préparer ma visite",
+                      primary: false,
+                  }
+                : null,
+        ].filter(Boolean);
+    }, [lang, sectionVisibility, siteContent]);
+
+    if (status === "loading") {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Loading home page" : "Chargement de l'accueil"}
+                description={
+                    lang === "en"
+                        ? "The practical information for the village is being prepared."
+                        : "Les informations pratiques du village sont en cours de chargement."
+                }
+            />
+        );
+    }
+
+    if (status === "error" || !siteContent) {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Unable to load home page" : "Chargement impossible"}
+                description={
+                    lang === "en"
+                        ? "The home page cannot be displayed right now."
+                        : "La page d'accueil ne peut pas être affichée pour le moment."
+                }
+            />
+        );
+    }
 
     const nextEvent = events[0] || null;
     const visitorTips = getLocalizedList(siteContent, "visitorTips", lang).slice(0, 3);
     const alerts = getLocalizedList(siteContent, "alerts", lang).slice(0, 2);
 
-    const heroTitle = getLocalizedField(siteContent?.hero, "title", lang) || "Fontaine Info à la Source";
+    const heroTitle = getLocalizedField(siteContent.hero, "title", lang) || "Fontaine Info à la Source";
     const heroDescription =
-        getLocalizedField(siteContent?.hero, "description", lang) ||
+        getLocalizedField(siteContent.hero, "description", lang) ||
         (lang === "en"
             ? "Useful information to visit Fontaine-de-Vaucluse quickly and calmly."
             : "Les infos utiles pour visiter Fontaine-de-Vaucluse rapidement et sereinement.");
     const heroEyebrow =
-        getLocalizedField(siteContent?.hero, "eyebrow", lang) ||
+        getLocalizedField(siteContent.hero, "eyebrow", lang) ||
         (lang === "en" ? "Visitor guide" : "Guide visiteur");
     const hasVisitorInfo = alerts.length > 0 || visitorTips.length > 0;
 
@@ -181,32 +276,23 @@ export default function Home() {
                         <h1 className="mt-4 max-w-3xl text-3xl leading-tight text-white sm:text-5xl">{heroTitle}</h1>
                         <p className="mt-4 max-w-2xl text-base text-[#eef7f3] sm:text-lg">{heroDescription}</p>
 
-                        <div className="mt-6 flex flex-wrap gap-3">
-                            {sectionVisibility.parkings ? (
-                                <Link
-                                    to={sectionRoutes.parkings}
-                                    className="rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-[#163c35] transition hover:bg-[#f6f3ea]"
-                                >
-                                    {lang === "en" ? "See parking" : "Voir les parkings"}
-                                </Link>
-                            ) : null}
-                            {sectionVisibility.guide ? (
-                                <Link
-                                    to={sectionRoutes.guide}
-                                    className="rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/[0.16]"
-                                >
-                                    {lang === "en" ? "Plan my visit" : "Préparer ma visite"}
-                                </Link>
-                            ) : null}
-                            {sectionVisibility.events ? (
-                                <Link
-                                    to={sectionRoutes.events}
-                                    className="rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/[0.16]"
-                                >
-                                    {lang === "en" ? "What to do today" : "Que faire aujourd'hui"}
-                                </Link>
-                            ) : null}
-                        </div>
+                        {heroActions.length > 0 ? (
+                            <div className="mt-6 flex flex-wrap gap-3">
+                                {heroActions.map((action) => (
+                                    <Link
+                                        key={action.to}
+                                        to={action.to}
+                                        className={
+                                            action.primary
+                                                ? "rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-[#163c35] transition hover:bg-[#f6f3ea]"
+                                                : "rounded-full border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/[0.16]"
+                                        }
+                                    >
+                                        {action.label}
+                                    </Link>
+                                ))}
+                            </div>
+                        ) : null}
                     </div>
 
                     <aside className="rounded-[1.75rem] border border-white/15 bg-[#163c35]/40 p-5 backdrop-blur-md">
@@ -236,18 +322,20 @@ export default function Home() {
                                               ? "Nothing scheduled yet"
                                               : "Rien de prévu pour l'instant"}
                                     </p>
-                                    {nextEvent ? (
-                                        <p className="mt-1 text-sm text-white/80">{formatEventDate(nextEvent)}</p>
-                                    ) : null}
+                                    {nextEvent ? <p className="mt-1 text-sm text-white/80">{formatEventDate(nextEvent)}</p> : null}
                                 </div>
                             ) : null}
-                            {sectionVisibility.news && featuredNews ? (
+                            {sectionVisibility.news ? (
                                 <div className="rounded-[1.25rem] border border-white/10 bg-white/5 px-4 py-3">
                                     <p className="text-sm text-[#d7e8e1]">{lang === "en" ? "Latest update" : "Info récente"}</p>
                                     <p className="mt-1 text-lg font-semibold text-white">
-                                        {getLocalizedField(featuredNews, "title", lang)}
+                                        {featuredNews
+                                            ? getLocalizedField(featuredNews, "title", lang)
+                                            : lang === "en"
+                                              ? "No update available yet"
+                                              : "Aucune information disponible pour le moment"}
                                     </p>
-                                    <p className="mt-1 text-sm text-white/80">{formatDate(featuredNews.date)}</p>
+                                    {featuredNews ? <p className="mt-1 text-sm text-white/80">{formatDate(featuredNews.date)}</p> : null}
                                 </div>
                             ) : null}
                         </div>

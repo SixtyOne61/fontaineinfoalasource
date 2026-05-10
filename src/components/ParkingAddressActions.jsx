@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { getLocalizedField } from "../locale";
 
-function buildParkingQuery(parking, lang) {
-    const name = getLocalizedField(parking, "name", lang);
-    const address = getLocalizedField(parking, "address", lang);
+function buildParkingQuery(parking) {
+    const name = parking?.name;
+    const address = parking?.address;
 
     if (Number.isFinite(parking?.lat) && Number.isFinite(parking?.lng)) {
         return `${parking.lat},${parking.lng} (${name})`;
@@ -14,8 +13,8 @@ function buildParkingQuery(parking, lang) {
 
 export default function ParkingAddressActions({ parking, lang, compact = false }) {
     const [copyState, setCopyState] = useState("idle");
-    const address = getLocalizedField(parking, "address", lang);
-    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(buildParkingQuery(parking, lang))}`;
+    const address = parking?.address || "";
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(buildParkingQuery(parking))}`;
 
     useEffect(() => {
         if (copyState === "idle") return undefined;

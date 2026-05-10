@@ -25,8 +25,8 @@ export const translations = {
             thisWeek: "Cette semaine",
             inProgress: "En ce moment",
             upcoming: "À venir",
-            noResults: "Aucun résultat"
-        }
+            noResults: "Aucun résultat",
+        },
     },
     en: {
         common: {
@@ -50,9 +50,9 @@ export const translations = {
             thisWeek: "This week",
             inProgress: "Happening now",
             upcoming: "Coming up",
-            noResults: "No results"
-        }
-    }
+            noResults: "No results",
+        },
+    },
 };
 
 export function getBrowserDefault() {

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import AsyncStateCard from "../components/AsyncStateCard";
 import Card from "../components/Card";
 import EventsCalendar from "../components/EventsCalendar";
 import Layout from "../components/Layout";
@@ -16,14 +17,37 @@ function getEventSnippet(content) {
 
 export default function Events() {
     const { lang, t } = useLocale();
+    const [status, setStatus] = useState("loading");
     const [events, setEvents] = useState([]);
     const [search, setSearch] = useState("");
     const [filterType, setFilterType] = useState("upcoming");
 
     useEffect(() => {
-        getEvents().then((data) => {
-            setEvents(data);
-        });
+        let isMounted = true;
+
+        async function syncEvents() {
+            try {
+                setStatus("loading");
+                const data = await getEvents();
+
+                if (!isMounted) return;
+
+                setEvents(data);
+                setStatus("ready");
+            } catch (error) {
+                console.error("Unable to load events:", error);
+
+                if (isMounted) {
+                    setStatus("error");
+                }
+            }
+        }
+
+        syncEvents();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     function getEventStatus(event) {
@@ -54,7 +78,6 @@ export default function Events() {
                 const end = parseLocalDate(getEventEndDate(event));
 
                 if (!end) return false;
-
                 if (filterType === "upcoming" && end < today) return false;
                 if (filterType === "past" && end >= today) return false;
 
@@ -75,6 +98,32 @@ export default function Events() {
         if (!end || start === end) return start;
 
         return lang === "en" ? `From ${start} to ${end}` : `Du ${start} au ${end}`;
+    }
+
+    if (status === "loading") {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Loading events" : "Chargement des événements"}
+                description={
+                    lang === "en"
+                        ? "The local agenda is being prepared."
+                        : "L'agenda local est en cours de chargement."
+                }
+            />
+        );
+    }
+
+    if (status === "error") {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Unable to load events" : "Chargement impossible"}
+                description={
+                    lang === "en"
+                        ? "The local agenda cannot be displayed right now."
+                        : "L'agenda local ne peut pas être affiché pour le moment."
+                }
+            />
+        );
     }
 
     return (
@@ -123,12 +172,12 @@ export default function Events() {
                                 <div className="mb-3 inline-flex rounded-full bg-[#eef7f3] px-3 py-1 text-xs font-semibold text-[#1f5e54]">
                                     {getEventStatus(event)}
                                 </div>
-                                <p className="text-sm font-medium text-slate-700 sm:text-base">{getLocalizedField(event, "location", lang)}</p>
-                                {event.recurrence && (
+                                <p className="text-sm font-medium text-slate-700 sm:text-base">{event.location}</p>
+                                {event.recurrence ? (
                                     <p className="mt-2 text-xs font-medium uppercase tracking-[0.08em] text-[#5b7d76]">
                                         {getRecurrenceLabel(event, lang)}
                                     </p>
-                                )}
+                                ) : null}
                                 <p className="mt-2 text-sm text-slate-600">{getEventSnippet(getLocalizedField(event, "content", lang))}</p>
                                 <Link to={`/events/${event.id}`} className="mt-3 inline-block text-[#1f5e54] hover:text-[#3f977b] hover:underline">
                                     {t("common.viewDetails")}

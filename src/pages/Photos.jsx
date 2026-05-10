@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AsyncStateCard from "../components/AsyncStateCard";
 import CoverImage from "../components/CoverImage";
 import Layout from "../components/Layout";
 import { getPhotoGroups } from "../data/loader";
@@ -7,11 +8,62 @@ import { useLocale } from "../useLocale";
 
 export default function Photos() {
     const { lang } = useLocale();
+    const [status, setStatus] = useState("loading");
     const [groups, setGroups] = useState([]);
 
     useEffect(() => {
-        getPhotoGroups().then(setGroups);
+        let isMounted = true;
+
+        async function syncPhotos() {
+            try {
+                setStatus("loading");
+                const data = await getPhotoGroups();
+
+                if (!isMounted) return;
+
+                setGroups(data);
+                setStatus("ready");
+            } catch (error) {
+                console.error("Unable to load photos:", error);
+
+                if (isMounted) {
+                    setStatus("error");
+                }
+            }
+        }
+
+        syncPhotos();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
+
+    if (status === "loading") {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Loading photos" : "Chargement des photos"}
+                description={
+                    lang === "en"
+                        ? "The photo galleries are being prepared."
+                        : "Les galeries photo sont en cours de chargement."
+                }
+            />
+        );
+    }
+
+    if (status === "error") {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Unable to load photos" : "Chargement impossible"}
+                description={
+                    lang === "en"
+                        ? "The photo galleries cannot be displayed right now."
+                        : "Les galeries photo ne peuvent pas être affichées pour le moment."
+                }
+            />
+        );
+    }
 
     return (
         <Layout>
@@ -23,8 +75,8 @@ export default function Photos() {
                     </h1>
                     <p className="mt-3 max-w-2xl text-sm text-slate-600 sm:text-base">
                         {lang === "en"
-                            ? "Our beautiful city is revealed."
-                            : "Notre belle ville se dévoile."}
+                            ? "Browse the village through a more visual selection."
+                            : "Parcourez le village à travers une sélection plus visuelle."}
                     </p>
                 </div>
             </section>
@@ -69,7 +121,7 @@ export default function Photos() {
                     <div className="surface-card rounded-[1.75rem] border border-white/70 p-5 text-slate-600 shadow-[0_18px_60px_rgba(22,60,53,0.08)]">
                         {lang === "en"
                             ? "No photo group has been added yet."
-                            : "Aucun groupe photo n'a encore ete ajoute."}
+                            : "Aucun groupe photo n'a encore été ajouté."}
                     </div>
                 </section>
             )}

@@ -46,8 +46,8 @@ export default function NewsDetail() {
     if (status === "loading") {
         return (
             <AsyncStateCard
-                title={lang === "en" ? "Loading update" : "Chargement de l info"}
-                description={lang === "en" ? "The update is being prepared." : "Le contenu de l info est en cours de chargement."}
+                title={lang === "en" ? "Loading update" : "Chargement de l'info"}
+                description={lang === "en" ? "The update is being prepared." : "Le contenu de l'info est en cours de chargement."}
                 linkTo="/news"
                 linkLabel={lang === "en" ? "Back to updates" : "Retour aux infos"}
             />
@@ -58,7 +58,7 @@ export default function NewsDetail() {
         return (
             <AsyncStateCard
                 title={lang === "en" ? "Unable to load update" : "Chargement impossible"}
-                description={lang === "en" ? "The update cannot be displayed right now." : "Cette information ne peut pas etre affichee pour le moment."}
+                description={lang === "en" ? "The update cannot be displayed right now." : "Cette information ne peut pas être affichée pour le moment."}
                 linkTo="/news"
                 linkLabel={lang === "en" ? "Back to updates" : "Retour aux infos"}
             />
@@ -69,7 +69,7 @@ export default function NewsDetail() {
         return (
             <AsyncStateCard
                 title={lang === "en" ? "Update not found" : "Info introuvable"}
-                description={lang === "en" ? "This update is no longer available." : "Cette information n est plus disponible."}
+                description={lang === "en" ? "This update is no longer available." : "Cette information n'est plus disponible."}
                 linkTo="/news"
                 linkLabel={lang === "en" ? "Back to updates" : "Retour aux infos"}
             />

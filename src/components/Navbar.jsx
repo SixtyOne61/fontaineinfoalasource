@@ -39,15 +39,17 @@ export default function Navbar() {
     const navItems = [
         { key: "home", to: "/", label: t("common.home") },
         { key: "guide", to: sectionRoutes.guide, label: t("common.guide"), shortLabel: lang === "en" ? "Visit" : "Visite" },
-        { key: "parkings", to: sectionRoutes.parkings, label: t("common.parkings"), shortLabel: lang === "en" ? "Parking" : "Parking", highlight: true },
+        { key: "parkings", to: sectionRoutes.parkings, label: t("common.parkings"), shortLabel: "Parking", highlight: true },
         { key: "events", to: sectionRoutes.events, label: t("common.events"), shortLabel: lang === "en" ? "Events" : "Événements" },
         { key: "hikes", to: sectionRoutes.hikes, label: t("common.hikes"), shortLabel: lang === "en" ? "Walks" : "Balades" },
         { key: "photos", to: sectionRoutes.photos, label: t("common.photos"), shortLabel: t("common.photos") },
-        { key: "news", to: sectionRoutes.news, label: t("common.news"), shortLabel: lang === "en" ? "Info" : "Infos" }
+        { key: "news", to: sectionRoutes.news, label: t("common.news"), shortLabel: lang === "en" ? "Info" : "Infos" },
     ];
 
     useEffect(() => {
-        getSectionVisibility().then(setSectionVisibility);
+        getSectionVisibility().then(setSectionVisibility).catch((error) => {
+            console.error("Unable to load navigation visibility:", error);
+        });
     }, []);
 
     useEffect(() => {
@@ -96,28 +98,6 @@ export default function Navbar() {
         return "rounded-full bg-white/8 px-4 py-2 text-sm font-medium text-[#e7f1ed] transition hover:bg-white/14 hover:text-white";
     };
 
-    const languageSwitcher = (
-        <div className="flex items-center gap-1 rounded-full border border-white/15 bg-white/10 p-1">
-            {["fr", "en"].map((nextLang) => {
-                const isActive = lang === nextLang;
-
-                return (
-                    <button
-                        key={nextLang}
-                        type="button"
-                        onClick={() => setLang(nextLang)}
-                        className={`rounded-full px-2.5 py-1 text-xs font-semibold transition ${
-                            isActive ? "bg-white text-[#163c35]" : "text-white/85 hover:bg-white/10"
-                        }`}
-                        aria-pressed={isActive}
-                    >
-                        {nextLang.toUpperCase()}
-                    </button>
-                );
-            })}
-        </div>
-    );
-
     return (
         <header className="sticky top-0 z-[1000] border-b border-white/10 bg-[#1f5e54]/95 text-white shadow-[0_14px_40px_rgba(22,60,53,0.18)] backdrop-blur-xl supports-[backdrop-filter]:bg-[#1f5e54]/90">
             <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
@@ -137,8 +117,24 @@ export default function Navbar() {
                     </div>
                 </Link>
 
-                <div className="shrink-0">
-                    {languageSwitcher}
+                <div className="flex items-center gap-1 rounded-full border border-white/15 bg-white/10 p-1">
+                    {["fr", "en"].map((nextLang) => {
+                        const isActive = lang === nextLang;
+
+                        return (
+                            <button
+                                key={nextLang}
+                                type="button"
+                                onClick={() => setLang(nextLang)}
+                                className={`rounded-full px-2.5 py-1 text-xs font-semibold transition ${
+                                    isActive ? "bg-white text-[#163c35]" : "text-white/85 hover:bg-white/10"
+                                }`}
+                                aria-pressed={isActive}
+                            >
+                                {nextLang.toUpperCase()}
+                            </button>
+                        );
+                    })}
                 </div>
             </div>
 

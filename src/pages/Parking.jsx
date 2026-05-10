@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import AsyncStateCard from "../components/AsyncStateCard";
 import Layout from "../components/Layout";
 import ParkingAddressActions from "../components/ParkingAddressActions";
 import ParkingsMap from "../components/ParkingsMap";
@@ -12,15 +13,15 @@ const vehicleTypes = {
         { key: "motorcycles", label: "Moto" },
         { key: "minivans", label: "Mini-van" },
         { key: "campers", label: "Camping-car" },
-        { key: "all", label: "Tous" }
+        { key: "all", label: "Tous" },
     ],
     en: [
         { key: "cars", label: "Car" },
         { key: "motorcycles", label: "Motorbike" },
         { key: "minivans", label: "Minivan" },
         { key: "campers", label: "Motorhome" },
-        { key: "all", label: "All" }
-    ]
+        { key: "all", label: "All" },
+    ],
 };
 
 function VehicleBadge({ label }) {
@@ -31,7 +32,24 @@ function VehicleBadge({ label }) {
     );
 }
 
+function ParkingFact({ label, value }) {
+    if (!value && value !== 0) return null;
+
+    return (
+        <p>
+            <strong>{label}</strong> {value}
+        </p>
+    );
+}
+
 function ParkingCard({ parking, lang, vehicleLabels, recommendation, featured = false }) {
+    const walkDistance = getLocalizedField(parking, "walkDistance", lang);
+    const payment = getLocalizedField(parking, "payment", lang);
+    const access = getLocalizedField(parking, "access", lang);
+    const bestFor = getLocalizedField(parking, "bestFor", lang);
+    const goodToKnow = getLocalizedField(parking, "goodToKnow", lang);
+    const notes = getLocalizedField(parking, "notes", lang);
+
     return (
         <article
             className={`surface-card rounded-[1.75rem] border border-white/70 p-5 shadow-[0_18px_60px_rgba(22,60,53,0.08)] ${
@@ -43,14 +61,14 @@ function ParkingCard({ parking, lang, vehicleLabels, recommendation, featured = 
                     <div className="mb-2 inline-flex rounded-full bg-[#eef7f3] px-3 py-1 text-xs font-semibold text-[#1f5e54]">
                         {recommendation}
                     </div>
-                    <h2 className="text-2xl text-slate-900">{getLocalizedField(parking, "name", lang)}</h2>
+                    <h2 className="text-2xl text-slate-900">{parking.name}</h2>
                     <div className="mt-2 text-slate-700">
                         <ParkingAddressActions parking={parking} lang={lang} />
                     </div>
                 </div>
                 <div className="rounded-[1.2rem] bg-[#163c35] px-3 py-2 text-right text-white">
                     <p className="text-xs uppercase tracking-[0.12em] text-white/75">{lang === "en" ? "Day" : "Journée"}</p>
-                    <p className="text-sm font-semibold">{getLocalizedField(parking, "dailyRate", lang)}</p>
+                    <p className="text-sm font-semibold">{parking.dailyRate}</p>
                 </div>
             </div>
 
@@ -66,20 +84,29 @@ function ParkingCard({ parking, lang, vehicleLabels, recommendation, featured = 
             </div>
 
             <div className="mt-4 grid gap-3 rounded-[1.35rem] bg-slate-50 p-4 text-sm text-slate-600">
-                <p>
-                    <strong>{lang === "en" ? "Short stay:" : "Tarif court séjour :"}</strong>{" "}
-                    {getLocalizedField(parking, "hourlyRate", lang)}
-                </p>
-                <p>
-                    <strong>{lang === "en" ? "Day rate:" : "Tarif journée :"}</strong>{" "}
-                    {getLocalizedField(parking, "dailyRate", lang)}
-                </p>
-                {getLocalizedField(parking, "notes", lang) ? (
-                    <p>
-                        <strong>{lang === "en" ? "Good to know:" : "Bon à savoir :"}</strong>{" "}
-                        {getLocalizedField(parking, "notes", lang)}
-                    </p>
-                ) : null}
+                <ParkingFact
+                    label={lang === "en" ? "Short stay:" : "Tarif court séjour :"}
+                    value={parking.hourlyRate}
+                />
+                <ParkingFact
+                    label={lang === "en" ? "Day rate:" : "Tarif journée :"}
+                    value={parking.dailyRate}
+                />
+                <ParkingFact
+                    label={lang === "en" ? "Walk:" : "À pied :"}
+                    value={
+                        walkDistance ||
+                        (Number.isFinite(parking.walkMinutes)
+                            ? lang === "en"
+                                ? `about ${parking.walkMinutes} min`
+                                : `environ ${parking.walkMinutes} min`
+                            : "")
+                    }
+                />
+                <ParkingFact label={lang === "en" ? "Payment:" : "Paiement :"} value={payment} />
+                <ParkingFact label={lang === "en" ? "Access:" : "Accès :"} value={access} />
+                <ParkingFact label={lang === "en" ? "Best for:" : "Bon choix pour :"} value={bestFor} />
+                <ParkingFact label={lang === "en" ? "Good to know:" : "Bon à savoir :"} value={goodToKnow || notes} />
             </div>
         </article>
     );
@@ -87,12 +114,37 @@ function ParkingCard({ parking, lang, vehicleLabels, recommendation, featured = 
 
 export default function Parking() {
     const { lang } = useLocale();
+    const [status, setStatus] = useState("loading");
     const [parkings, setParkings] = useState([]);
     const [vehicleFilter, setVehicleFilter] = useState("cars");
     const [showMap, setShowMap] = useState(false);
 
     useEffect(() => {
-        getParkings().then(setParkings);
+        let isMounted = true;
+
+        async function syncParkings() {
+            try {
+                setStatus("loading");
+                const data = await getParkings();
+
+                if (!isMounted) return;
+
+                setParkings(data);
+                setStatus("ready");
+            } catch (error) {
+                console.error("Unable to load parkings:", error);
+
+                if (isMounted) {
+                    setStatus("error");
+                }
+            }
+        }
+
+        syncParkings();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     function getParkingRecommendation(parking) {
@@ -102,27 +154,21 @@ export default function Parking() {
         return lang === "en" ? "Quick option" : "Option rapide";
     }
 
-    const sortedParkings = useMemo(
-        () => {
-            function getParkingScore(parking) {
-                const selectedVehicleBoost =
-                    vehicleFilter !== "all" && parking[vehicleFilter]
-                        ? 8
-                        : 0;
+    const sortedParkings = useMemo(() => {
+        function getParkingScore(parking) {
+            const selectedVehicleBoost = vehicleFilter !== "all" && parking[vehicleFilter] ? 8 : 0;
 
-                return (
-                    selectedVehicleBoost +
-                    Number(parking.campers) * 4 +
-                    Number(parking.minivans) * 3 +
-                    Number(parking.cars) * 2 +
-                    Number(parking.motorcycles)
-                );
-            }
+            return (
+                selectedVehicleBoost +
+                Number(parking.campers) * 4 +
+                Number(parking.minivans) * 3 +
+                Number(parking.cars) * 2 +
+                Number(parking.motorcycles)
+            );
+        }
 
-            return [...parkings].sort((a, b) => getParkingScore(b) - getParkingScore(a));
-        },
-        [parkings, vehicleFilter]
-    );
+        return [...parkings].sort((a, b) => getParkingScore(b) - getParkingScore(a));
+    }, [parkings, vehicleFilter]);
 
     const filteredParkings = useMemo(() => {
         if (vehicleFilter === "all") {
@@ -131,6 +177,32 @@ export default function Parking() {
 
         return sortedParkings.filter((parking) => parking[vehicleFilter]);
     }, [sortedParkings, vehicleFilter]);
+
+    if (status === "loading") {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Loading parking" : "Chargement des parkings"}
+                description={
+                    lang === "en"
+                        ? "The parking information is being prepared."
+                        : "Les informations de stationnement sont en cours de chargement."
+                }
+            />
+        );
+    }
+
+    if (status === "error") {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Unable to load parking" : "Chargement impossible"}
+                description={
+                    lang === "en"
+                        ? "The parking information cannot be displayed right now."
+                        : "Les informations de stationnement ne peuvent pas être affichées pour le moment."
+                }
+            />
+        );
+    }
 
     const topParkings = filteredParkings.slice(0, 3);
     const remainingParkings = filteredParkings.slice(3);
@@ -149,8 +221,8 @@ export default function Parking() {
                         </h1>
                         <p className="mt-4 max-w-2xl text-base text-[#eef7f3] sm:text-lg">
                             {lang === "en"
-                                ? "Choose your vehicle first, then look at the best parking options before entering the village."
-                                : "Choisissez d'abord votre véhicule, puis regardez les options les plus utiles avant d'entrer dans le village."}
+                                ? "Choose your vehicle first, then compare the most practical parking options before entering the village."
+                                : "Choisissez d'abord votre véhicule, puis comparez les options de stationnement les plus pratiques avant d'entrer dans le village."}
                         </p>
                     </div>
 
@@ -275,7 +347,11 @@ export default function Parking() {
                                       : "Afficher la carte"}
                             </button>
                         </div>
-                        {showMap ? <div className="mt-5"><ParkingsMap parkings={filteredParkings} /></div> : null}
+                        {showMap ? (
+                            <div className="mt-5">
+                                <ParkingsMap parkings={filteredParkings} />
+                            </div>
+                        ) : null}
                     </article>
                 </section>
             ) : null}

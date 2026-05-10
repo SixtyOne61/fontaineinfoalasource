@@ -47,10 +47,10 @@ export default function EventDetail() {
     if (status === "loading") {
         return (
             <AsyncStateCard
-                title={lang === "en" ? "Loading event" : "Chargement de l evenement"}
-                description={lang === "en" ? "The event details are being prepared." : "Les details de l evenement sont en cours de chargement."}
+                title={lang === "en" ? "Loading event" : "Chargement de l'événement"}
+                description={lang === "en" ? "The event details are being prepared." : "Les détails de l'événement sont en cours de chargement."}
                 linkTo="/events"
-                linkLabel={lang === "en" ? "Back to events" : "Retour aux evenements"}
+                linkLabel={lang === "en" ? "Back to events" : "Retour aux événements"}
             />
         );
     }
@@ -59,9 +59,9 @@ export default function EventDetail() {
         return (
             <AsyncStateCard
                 title={lang === "en" ? "Unable to load event" : "Chargement impossible"}
-                description={lang === "en" ? "The event details cannot be displayed right now." : "Les details de l evenement ne peuvent pas etre affiches pour le moment."}
+                description={lang === "en" ? "The event details cannot be displayed right now." : "Les détails de l'événement ne peuvent pas être affichés pour le moment."}
                 linkTo="/events"
-                linkLabel={lang === "en" ? "Back to events" : "Retour aux evenements"}
+                linkLabel={lang === "en" ? "Back to events" : "Retour aux événements"}
             />
         );
     }
@@ -69,10 +69,10 @@ export default function EventDetail() {
     if (status === "notFound" || !event) {
         return (
             <AsyncStateCard
-                title={lang === "en" ? "Event not found" : "Evenement introuvable"}
-                description={lang === "en" ? "This event is no longer available." : "Cet evenement n est plus disponible."}
+                title={lang === "en" ? "Event not found" : "Événement introuvable"}
+                description={lang === "en" ? "This event is no longer available." : "Cet événement n'est plus disponible."}
                 linkTo="/events"
-                linkLabel={lang === "en" ? "Back to events" : "Retour aux evenements"}
+                linkLabel={lang === "en" ? "Back to events" : "Retour aux événements"}
             />
         );
     }
@@ -107,13 +107,13 @@ export default function EventDetail() {
 
                         <div className="rounded-[1.35rem] border border-slate-200 bg-slate-50 p-4">
                             <p className="text-sm text-slate-500">{lang === "en" ? "Type" : "Type"}</p>
-                            <p className="font-medium text-slate-900">{lang === "en" ? "Local event" : "Evenement local"}</p>
+                            <p className="font-medium text-slate-900">{lang === "en" ? "Local event" : "Événement local"}</p>
                         </div>
                     </div>
 
                     {event.recurrence && (
                         <div className="mb-6 rounded-[1.35rem] border border-[#d7e8e1] bg-[#f5fbf8] p-4">
-                            <p className="text-sm text-slate-500">{lang === "en" ? "Frequency" : "Frequence"}</p>
+                            <p className="text-sm text-slate-500">{lang === "en" ? "Frequency" : "Fréquence"}</p>
                             <p className="font-medium text-slate-900">{getRecurrenceLabel(event, lang)}</p>
                         </div>
                     )}

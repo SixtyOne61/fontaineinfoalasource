@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import AsyncStateCard from "../components/AsyncStateCard";
 import HikesInteractiveMap from "../components/HikesInteractiveMap";
 import Layout from "../components/Layout";
 import SearchBar from "../components/SearchBar";
@@ -10,12 +11,12 @@ import { useLocale } from "../useLocale";
 const durationFilters = {
     fr: [
         { key: "all", label: "Toutes" },
-        { key: "short", label: "Moins de 3 h" }
+        { key: "short", label: "Moins de 3 h" },
     ],
     en: [
         { key: "all", label: "All" },
-        { key: "short", label: "Under 3 h" }
-    ]
+        { key: "short", label: "Under 3 h" },
+    ],
 };
 
 function matchesDuration(hike, durationFilter) {
@@ -27,6 +28,7 @@ function matchesDuration(hike, durationFilter) {
 
 export default function Hikes() {
     const { lang, t } = useLocale();
+    const [status, setStatus] = useState("loading");
     const [hikes, setHikes] = useState([]);
     const [search, setSearch] = useState("");
     const [difficulty, setDifficulty] = useState("all");
@@ -34,11 +36,33 @@ export default function Hikes() {
     const [selectedHikeId, setSelectedHikeId] = useState(null);
 
     useEffect(() => {
-        getHikes().then((data) => {
-            const sorted = [...data].sort((a, b) => a.distance - b.distance);
-            setHikes(sorted);
-            setSelectedHikeId(sorted[0]?.id ?? null);
-        });
+        let isMounted = true;
+
+        async function syncHikes() {
+            try {
+                setStatus("loading");
+                const data = await getHikes();
+                const sorted = [...data].sort((a, b) => a.distance - b.distance);
+
+                if (!isMounted) return;
+
+                setHikes(sorted);
+                setSelectedHikeId(sorted[0]?.id ?? null);
+                setStatus("ready");
+            } catch (error) {
+                console.error("Unable to load hikes:", error);
+
+                if (isMounted) {
+                    setStatus("error");
+                }
+            }
+        }
+
+        syncHikes();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const filteredHikes = useMemo(() => {
@@ -47,7 +71,7 @@ export default function Hikes() {
         return hikes.filter((hike) => {
             const matchesDifficulty = difficulty === "all" || getLocalizedField(hike, "difficulty", lang) === difficulty;
             const matchesSearch =
-                getLocalizedField(hike, "name", lang).toLowerCase().includes(term) ||
+                hike.name.toLowerCase().includes(term) ||
                 getLocalizedField(hike, "description", lang).toLowerCase().includes(term) ||
                 getLocalizedField(hike, "startPoint", lang).toLowerCase().includes(term);
 
@@ -62,6 +86,32 @@ export default function Hikes() {
 
         return filteredHikes.find((hike) => hike.id === selectedHikeId) || filteredHikes[0];
     }, [filteredHikes, selectedHikeId]);
+
+    if (status === "loading") {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Loading walks" : "Chargement des balades"}
+                description={
+                    lang === "en"
+                        ? "The routes around the village are being prepared."
+                        : "Les parcours autour du village sont en cours de chargement."
+                }
+            />
+        );
+    }
+
+    if (status === "error") {
+        return (
+            <AsyncStateCard
+                title={lang === "en" ? "Unable to load walks" : "Chargement impossible"}
+                description={
+                    lang === "en"
+                        ? "The routes cannot be displayed right now."
+                        : "Les parcours ne peuvent pas être affichés pour le moment."
+                }
+            />
+        );
+    }
 
     return (
         <Layout>
@@ -89,7 +139,7 @@ export default function Hikes() {
                         { fr: "Toutes", en: "All", value: "all" },
                         { fr: "Facile", en: "Easy", value: lang === "en" ? "Easy" : "Facile" },
                         { fr: "Moyen", en: "Moderate", value: lang === "en" ? "Moderate" : "Moyen" },
-                        { fr: "Difficile", en: "Hard", value: lang === "en" ? "Hard" : "Difficile" }
+                        { fr: "Difficile", en: "Hard", value: lang === "en" ? "Hard" : "Difficile" },
                     ].map((level) => {
                         const isActive = difficulty === level.value;
 
@@ -162,14 +212,14 @@ export default function Hikes() {
                                             {getLocalizedField(hike, "difficulty", lang)}
                                         </span>
                                         <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
-                                            {getLocalizedField(hike, "duration", lang)}
+                                            {hike.duration}
                                         </span>
                                         <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
                                             {hike.distance} km
                                         </span>
                                     </div>
 
-                                    <h3 className="text-2xl text-slate-900">{getLocalizedField(hike, "name", lang)}</h3>
+                                    <h3 className="text-2xl text-slate-900">{hike.name}</h3>
 
                                     <p className="mt-2 text-sm text-slate-700 sm:text-base">
                                         {getLocalizedField(hike, "description", lang)}
@@ -178,14 +228,14 @@ export default function Hikes() {
                                     <div className="mt-4 rounded-[1.35rem] bg-slate-50 p-4 text-sm text-slate-600">
                                         <p><strong>{lang === "en" ? "Start point:" : "Départ :"}</strong> {getLocalizedField(hike, "startPoint", lang)}</p>
                                         <p className="mt-2">
-                                            <strong>{lang === "en" ? "Perfect for:" : "Idéal pour :"}</strong>{" "}
+                                            <strong>{lang === "en" ? "Ideal for:" : "Idéal pour :"}</strong>{" "}
                                             {lang === "en"
                                                 ? getLocalizedField(hike, "difficulty", lang) === "Easy"
                                                     ? "a short walk or a family outing"
                                                     : "walkers already comfortable on marked trails"
                                                 : getLocalizedField(hike, "difficulty", lang) === "Facile"
-                                                    ? "une sortie découverte ou familiale"
-                                                    : "des marcheurs déjà à l'aise sur les sentiers"}
+                                                  ? "une sortie découverte ou familiale"
+                                                  : "des marcheurs déjà à l'aise sur les sentiers"}
                                         </p>
                                     </div>
 

@@ -140,8 +140,8 @@ export default function EventsCalendar({ events }) {
                                                     event.recurrence
                                                         ? `${event.titleEn && lang === "en" ? event.titleEn : event.title} • ${getRecurrenceLabel(event, lang)}`
                                                         : event.titleEn && lang === "en"
-                                                            ? event.titleEn
-                                                            : event.title
+                                                          ? event.titleEn
+                                                          : event.title
                                                 }
                                             >
                                                 {event.titleEn && lang === "en" ? event.titleEn : event.title}
