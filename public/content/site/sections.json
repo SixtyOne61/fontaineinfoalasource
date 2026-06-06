@@ -4,5 +4,6 @@
   "news": true,
   "hikes": false,
   "parkings": true,
+  "toilets": true,
   "photos": true
 }

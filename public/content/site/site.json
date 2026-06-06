@@ -33,6 +33,13 @@
       "to": "/parking"
     },
     {
+      "title": "Toilettes publiques",
+      "titleEn": "Public toilets",
+      "description": "Reperez les toilettes publiques les plus proches avant de poursuivre la visite.",
+      "descriptionEn": "Find the nearest public toilets before continuing your visit.",
+      "to": "/toilettes"
+    },
+    {
       "title": "Événements",
       "titleEn": "Events",
       "description": "Retrouvez les rendez-vous du moment et les animations à ne pas manquer.",

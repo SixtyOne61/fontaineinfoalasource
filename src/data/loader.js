@@ -272,6 +272,26 @@ function sanitizeParkingItem(item) {
     };
 }
 
+function sanitizeToiletItem(item) {
+    const id = sanitizeId(item?.id) || buildGeneratedId(item?.name, item?.address);
+    if (!id) return null;
+
+    return {
+        id,
+        name: sanitizeText(item?.name, 160),
+        ...sanitizeLocalizedTextFields(item, "name", 160),
+        lat: sanitizeNumber(item?.lat, { min: -90, max: 90 }),
+        lng: sanitizeNumber(item?.lng, { min: -180, max: 180 }),
+        address: sanitizeText(item?.address, 220),
+        ...sanitizeLocalizedTextFields(item, "area", 120),
+        ...sanitizeLocalizedTextFields(item, "hours", 160),
+        ...sanitizeLocalizedTextFields(item, "access", 220),
+        ...sanitizeLocalizedTextFields(item, "notes", 400),
+        wheelchair: sanitizeBoolean(item?.wheelchair),
+        free: sanitizeBoolean(item?.free),
+    };
+}
+
 function sanitizePhotoItem(item) {
     const id = sanitizeId(item?.id) || slugifyText(sanitizeText(item?.image, 120));
     const image = sanitizePublicAssetPath(item?.image, {
@@ -325,20 +345,17 @@ export async function getParkings() {
     return items.map(sanitizeParkingItem).filter(Boolean);
 }
 
+export async function getToilets() {
+    const items = await fetchItems("/content/toilets/toilets.json");
+    return items.map(sanitizeToiletItem).filter(Boolean);
+}
+
 export async function getPhotoGroups() {
     const items = await fetchItems("/content/photos/photos.json");
     return items.map(sanitizePhotoGroup).filter(Boolean);
 }
 
 export async function getSectionVisibility() {
-    const defaults = {
-        guide: true,
-        events: true,
-        news: true,
-        hikes: true,
-        parkings: true,
-        photos: true,
-    };
     const data = await fetchContent("/content/site/sections.json");
 
     return {
@@ -347,6 +364,7 @@ export async function getSectionVisibility() {
         news: data?.news !== false,
         hikes: data?.hikes !== false,
         parkings: data?.parkings !== false,
+        toilets: data?.toilets !== false,
         photos: data?.photos !== false,
     };
 }

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import AsyncStateCard from "../components/AsyncStateCard";
 import Layout from "../components/Layout";
@@ -29,6 +29,7 @@ const EMPTY_CONTENT = {
 
 function getSectionKeyFromRoute(route) {
     if (route === sectionRoutes.parkings) return "parkings";
+    if (route === sectionRoutes.toilets) return "toilets";
     if (route === sectionRoutes.guide) return "guide";
     if (route === sectionRoutes.events) return "events";
     if (route === sectionRoutes.hikes) return "hikes";
@@ -149,10 +150,10 @@ export default function Guide() {
         };
     }, []);
 
-    function isRouteVisible(route) {
+    const isRouteVisible = useCallback((route) => {
         const key = getSectionKeyFromRoute(route);
         return key ? sectionVisibility[key] : false;
-    }
+    }, [sectionVisibility]);
 
     const alerts = getLocalizedList(content, "alerts", lang).slice(0, 2);
     const visitorTips = getLocalizedList(content, "visitorTips", lang).slice(0, 3);
@@ -163,7 +164,7 @@ export default function Guide() {
 
     const visibleQuickLinks = useMemo(
         () => content.quickLinks.filter((item) => isRouteVisible(item.to)),
-        [content.quickLinks, sectionVisibility]
+        [content.quickLinks, isRouteVisible]
     );
 
     const visibleGuideSections = useMemo(
@@ -180,7 +181,7 @@ export default function Guide() {
                         section.items.length > 0 ||
                         section.links.length > 0
                 ),
-        [content.guideSections, lang, sectionVisibility]
+        [content.guideSections, isRouteVisible, lang]
     );
 
     if (status === "loading") {

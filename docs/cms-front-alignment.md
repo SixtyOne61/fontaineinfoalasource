@@ -21,7 +21,7 @@
 ### `homepageSections` -> `public/content/site/sections.json`
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
-| `guide`, `events`, `news`, `hikes`, `parkings`, `photos` | Aligned | `src/AppRoutes.jsx`, `src/components/Navbar.jsx`, `src/pages/Home.jsx`, `src/pages/Guide.jsx` | Visibility flags are used consistently to show/hide main sections. |
+| `guide`, `events`, `news`, `hikes`, `parkings`, `toilets`, `photos` | Aligned | `src/AppRoutes.jsx`, `src/components/Navbar.jsx`, `src/pages/Home.jsx`, `src/pages/Guide.jsx`, `src/pages/Toilets.jsx` | Visibility flags are used consistently to show/hide main sections. |
 
 ### `siteContent.hero`
 | Field | Status | Front usage | Notes |
@@ -79,6 +79,11 @@
 | Field | Status | Front usage | Notes |
 | --- | --- | --- | --- |
 | `id`, `name`, `lat`, `lng`, `address`, `cars`, `minivans`, `motorcycles`, `campers`, `hourlyRate`, `dailyRate`, `notes`, `notesEn` | Aligned | `src/pages/Parking.jsx`, `src/components/ParkingsMap.jsx`, `src/components/ParkingAddressActions.jsx`, `src/pages/Home.jsx` | Public rendering exists for all listed fields. |
+
+### `toilets.items`
+| Field | Status | Front usage | Notes |
+| --- | --- | --- | --- |
+| `id`, `name`, `nameEn`, `lat`, `lng`, `address`, `area`, `areaEn`, `hours`, `hoursEn`, `access`, `accessEn`, `wheelchair`, `free`, `notes`, `notesEn` | Aligned | `src/pages/Toilets.jsx`, `src/components/ToiletsMap.jsx`, `src/components/ToiletAddressActions.jsx` | Public rendering exists for all listed fields. Coordinates remain editorial data and should be confirmed locally. |
 
 ### `photos.items`
 | Field | Status | Front usage | Notes |

@@ -14,6 +14,7 @@ content:
       - { name: news, label: Afficher la section Actualites, type: boolean, default: true }
       - { name: hikes, label: Afficher la section Randonnees, type: boolean, default: true }
       - { name: parkings, label: Afficher la section Parkings, type: boolean, default: true }
+      - { name: toilets, label: Afficher la section Toilettes publiques, type: boolean, default: true }
       - { name: photos, label: Afficher la section Fontaine en photo, type: boolean, default: true }
 
   - name: siteContent
@@ -247,6 +248,33 @@ content:
           - { name: bestForEn, label: Bon choix pour EN, type: string, required: false }
           - { name: goodToKnow, label: Bon a savoir FR, type: string, required: false, description: Court repere concret pour aider a choisir vite. }
           - { name: goodToKnowEn, label: Bon a savoir EN, type: string, required: false }
+          - { name: notes, label: Notes FR, type: string, required: false, description: Information pratique courte visible publiquement. }
+          - { name: notesEn, label: Notes EN, type: string, required: false, description: Information pratique courte visible publiquement. }
+
+  - name: toilets
+    label: Toilettes publiques
+    path: public/content/toilets/toilets.json
+    type: file
+    format: json
+    fields:
+      - name: items
+        label: Toilettes publiques
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Nom FR, type: string }
+          - { name: nameEn, label: Nom EN, type: string, required: false }
+          - { name: lat, label: Latitude, type: number }
+          - { name: lng, label: Longitude, type: number }
+          - { name: address, label: Adresse, type: string }
+          - { name: area, label: Secteur FR, type: string, required: false, description: Exemple: centre du village, acces source, parking. }
+          - { name: areaEn, label: Secteur EN, type: string, required: false }
+          - { name: hours, label: Horaires FR, type: string, required: false, description: Laisser vide si les horaires ne sont pas confirmes. }
+          - { name: hoursEn, label: Horaires EN, type: string, required: false }
+          - { name: access, label: Acces FR, type: string, required: false, description: Preciser le cheminement ou un repere visible sur place. }
+          - { name: accessEn, label: Acces EN, type: string, required: false }
+          - { name: wheelchair, label: Accessible PMR, type: boolean, required: false, default: false }
+          - { name: free, label: Gratuit, type: boolean, required: false, default: true }
           - { name: notes, label: Notes FR, type: string, required: false, description: Information pratique courte visible publiquement. }
           - { name: notesEn, label: Notes EN, type: string, required: false, description: Information pratique courte visible publiquement. }
 

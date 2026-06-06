@@ -12,6 +12,7 @@ import News from "./pages/News";
 import NewsDetail from "./pages/NewsDetail";
 import Parking from "./pages/Parking";
 import Photos from "./pages/Photos";
+import Toilets from "./pages/Toilets";
 
 export default function AppRoutes() {
     const [sectionVisibility, setSectionVisibility] = useState(null);
@@ -96,6 +97,10 @@ export default function AppRoutes() {
             <Route
                 path="/parking"
                 element={sectionVisibility.parkings ? <Parking /> : <Navigate to="/" replace />}
+            />
+            <Route
+                path="/toilettes"
+                element={sectionVisibility.toilets ? <Toilets /> : <Navigate to="/" replace />}
             />
             <Route
                 path="/photos"

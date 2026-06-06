@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import AsyncStateCard from "../components/AsyncStateCard";
 import Layout from "../components/Layout";
@@ -33,6 +33,14 @@ const fallbackQuickLinks = [
         to: sectionRoutes.parkings,
     },
     {
+        key: "toilets",
+        titleFr: "Trouver des toilettes",
+        titleEn: "Find toilets",
+        descriptionFr: "Localiser les toilettes publiques avant de poursuivre la visite.",
+        descriptionEn: "Locate public toilets before continuing your visit.",
+        to: sectionRoutes.toilets,
+    },
+    {
         key: "events",
         titleFr: "Que faire aujourd'hui",
         titleEn: "What to do today",
@@ -50,10 +58,11 @@ const fallbackQuickLinks = [
     },
 ];
 
-const sectionPriority = ["guide", "parkings", "events", "hikes", "news", "photos"];
+const sectionPriority = ["guide", "parkings", "toilets", "events", "hikes", "news", "photos"];
 
 function getSectionKeyFromRoute(route) {
     if (route === sectionRoutes.parkings) return "parkings";
+    if (route === sectionRoutes.toilets) return "toilets";
     if (route === sectionRoutes.guide) return "guide";
     if (route === sectionRoutes.events) return "events";
     if (route === sectionRoutes.hikes) return "hikes";
@@ -163,10 +172,10 @@ export default function Home() {
             : `Du ${formatDate(start)} au ${formatDate(end)}`;
     }
 
-    function isRouteVisible(route) {
+    const isRouteVisible = useCallback((route) => {
         const key = getSectionKeyFromRoute(route);
         return key ? sectionVisibility[key] : false;
-    }
+    }, [sectionVisibility]);
 
     const quickActions = useMemo(() => {
         const configuredLinks = siteContent?.quickLinks?.length
@@ -222,7 +231,7 @@ export default function Home() {
                   }
                 : null,
         ].filter(Boolean);
-    }, [lang, sectionVisibility, siteContent]);
+    }, [isRouteVisible, lang, sectionVisibility, siteContent]);
 
     if (status === "loading") {
         return (

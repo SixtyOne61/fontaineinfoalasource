@@ -23,6 +23,7 @@ Le site est pense pour informer rapidement les visiteurs et habitants, en partic
 - `public/content/events/events.json` : evenements
 - `public/content/hikes/hikes.json` : randonnees
 - `public/content/parkings/parkings.json` : parkings
+- `public/content/toilets/toilets.json` : toilettes publiques
 - `public/content/photos/photos.json` : groupes photo
 - `public/content/site/site.json` : contenus transverses
 - `public/content/site/sections.json` : visibilite des sections
